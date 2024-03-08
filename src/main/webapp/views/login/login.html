@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+
+    <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- --------------------------------------- -->
+
+    <style>
+        /* div { border: 1px solid red; } */
+
+        /* 레이아웃 관련 스타일 */
+        /* .wrap, .wrap * {border: 1px solid red;} */
+
+        hr {
+            border: 0;
+            width: 100%;
+            height: 1px;
+            background: black;
+        }
+
+        .wrap,
+        .wrap * {
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            margin: auto;
+            width: 100%;
+            max-width: 1300px;
+            text-align: center;
+        }
+
+        .main_content {
+            min-height: 500px;
+        }
+
+        /* Section 관련 스타일*/
+        .main_content {
+            border: 1px solid lightgray;
+            width: 80%;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            min-height: 500px;
+            padding: 50px;
+            border-radius: 20px;
+        }
+
+        .login_content{
+            height: 600px; 
+            display: flex;
+            flex-direction: column;
+        }
+        .login_header{
+            height: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+        .login_title{ 
+            height: 70%;
+            display: flex;
+            /* margin: auto;
+            width: 100%;
+            margin-bottom: 10%; */
+        }
+        .login_title_left, .login_title_right{ width: 10%; }
+        .login_title_center { width: 80%; }
+
+        .login_select{
+            height: 30%;
+            display: flex;
+        }
+        .login_select_user, .login_select_trainer { 
+            width: 50%;
+        }
+
+        .login_body{
+            height: 70%;
+            
+            margin: auto;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5%;
+        }
+
+        .login_input{
+            border: 1px solid red;
+
+            height: 85%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login_input_id, .login_input_pwd { height: 35%; border: 1px solid green; }
+        .login_input_btn { height: 30%; border: 1px solid green; }
+
+
+        .login_input_id > input{
+            height: 50px;
+            width: 100%;
+        }
+
+        .login_input_pwd > input{
+            height: 50px;;
+        }
+
+        .login_input > button{
+            width: 100%;
+        }
+
+        .login_search{
+            height: 15%;
+            display: flex;
+        }
+        .login_search_id, .login_search_pwd { 
+            width: 50%;
+            margin:auto;
+        }
+
+        .login_footer{
+            /* border: 1px solid green; */
+            height: 10%;
+        
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="wrap">
+
+        <!-- section start -->
+        <section class="main_content">
+
+            <div class="login_content">
+                
+                <!-- 로그인 헤더 -->
+                <div class="login_header">
+
+                    <div class="login_title">
+
+                        <div class="login_title_left">
+                            <button>뒤로가기</button>
+                        </div>
+
+                        <div class="login_title_center">
+                            <h2 style="text-align: center;">로그인</h2>
+                        </div>
+
+                        <div class="login_title_right"></div>
+                    </div>
+
+                    <div class="login_select">
+
+                        <div class="login_select_user">
+                          <h5>회원 로그인</h5>
+                        </div>
+
+                        <div class="login_select_trainer">
+                          <h5>트레이너 로그인</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- 로그인 헤더 끝-->
+
+
+                <!-- 로그인 바디-->
+                <div class="login_body">
+                    <div class="login_input">
+                    
+                   
+                            <form action="" method="">
+                               
+                                <div class="login_input_id">
+                                    <!-- <input type="text" class="form-control" placeholder="아이디를 입력해주세요" name="userId"> -->
+                                </div>
+
+                                <div class="login_input_pwd">
+                                    <!-- <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="userPwd"> -->
+                                </div>
+
+                                <div class="login_input_btn">
+                                    <!-- <button type="submit" class="btn btn-outline-primary">로그인</button> -->
+                                </div>
+                                
+                            </form>
+
+                    </div>
+
+                    <div class="login_search">
+                        
+                        <div class="login_search_id">
+                            <button>ㅁ</button>
+                            <a href="">아이디 찾기</a>
+                        </div>
+                        <div class="login_search_pwd">
+                            <button>ㅁ</button>
+                            <a href="">비밀번호 찾기</a>
+                        </div>
+                    </div>
+                    <hr>
+
+                </div> 
+
+                <!-- 로그인 바디 끝-->
+
+                <!-- 로그인 풋터 -->
+                <div class="login_footer">
+                    아직 MZym회원이 아니시라면, 지금 가입해 이용해 보세요!
+                    <br><br>
+                    <button class="btn btn-outline-primary">회원가입</button>
+                </div>
+                <!-- 로그인 풋터 끝-->
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
