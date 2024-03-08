@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            border: 1px black solid;
+            min-height: 50px;
+            min-width: 100px;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .section1{
+            width: 20%;
+            text-align: center;
+        }
+        .section3{
+            width: 10%;
+        }
+        thead{
+            height: 20%;
+        }
+        tbody{
+            height: 80%;
+        }
+        #logo{
+            display: flex;            
+            justify-content: center;
+        }
+        .boardNav{
+            display: none;
+        }
+        #board:hover > * {
+            display :block;
+        }
+        #btnContent{
+            display: flex;
+        }
+
+    </style>
+</head>
+<body>
+   <table>
+        <thead>
+            <td class="section1" id="back"><img src="" alt=""></td>
+            <td class="section2" id="logo"><img src="" alt=""></td>
+            <td class="section3">빈공간</td>
+        </thead>
+
+        <tbody>
+            <td class="section1" id="menu">
+                <div id="board"> 회원별 조회</div>
+                <div id="counseling">회원 등록</div>
+            </td>
+
+            <td class="section2" id="content" colspan="2">캘린더</td>
+        </tbody>
+
+   </table>
+
+
+</body>
+</html>
