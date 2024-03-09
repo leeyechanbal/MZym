@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT헬스장후기게시글작성</title>
+    <link rel="icon" href="images/favicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/MZYE.css">
+    <script src="js/MZYE.js"></script>
+
+    <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column;
+        }
+        .header{height:250px;}
+        .main_content{min-height:500px;}
+        .footer{height:250px;}
+
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        /* Section 관련 스타일 */
+        .main_content>div{
+            border:1px solid #1abc9c;
+            width:80%;
+            margin:auto;
+            margin-top:50px; 
+            margin-bottom:50px;
+            min-height:500px;
+            padding:50px;
+            border-radius:10px;
+        }
+
+        hr{
+            width: 200px;
+            text-align: center;
+        }
+
+        h2 { 
+            text-align: center; 
+        }
+
+        .btn1{
+            border: 1px solid #eee;
+            color: #000;
+        }
+        .btn2{
+            border: 1px solid #eee;
+            color: #000;
+            float: right;
+            overflow: hidden;
+        }
+        .btn3{
+            border: 1px solid #eee;
+            color: #000;
+            float: right;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        
+        .title_img{
+            width:450px;
+            height:300px;
+        }
+        .content_img{
+            width:180px;
+            height:100px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="wrap">
+      <!--sidebar start-->
+    <div class="sidebar" id="quickmenu">
+      <nav class="col-sm-7 sidenav">
+        
+          <ul class="nav nav-pills nav-justified">
+            <li><a><img src="images\8666582_chevrons_up_icon.png" style="width: 50px; height: 50px;" onclick="scrollToTop();"></a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">공지사항</a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">자유게시판</a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">질문게시판</a></li>
+            <li><a href="https://www.facebook.com" target="_blank"><img src="images\facebook.png" style="width: 50px; height: 50px"></a></li>
+            <li><a href="https://www.instagram.com" target="_blank"><img src="images\instagram.png" style="width: 50px; height: 50px"></a></li>
+            <li><a><img src="images\8666577_chevrons_down_icon.png" style="width: 50px; height: 50px;" onclick="scrollToBottom();"></a></li>
+          </ul>
+        </nav>
+        
+      </div>
+    </div>
+
+    <!--header start-->   
+    <header class="header-top-section">
+        <div>
+            <div>
+                <div class="headr_roop">
+                    <div class="section">
+                        <table class="Login_section">
+                            <tr>
+                                <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
+                                <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
+                                <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="Search_section">
+                        <div class="Search_area">
+                            <img src="images\검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
+                            <input type="search" placeholder="검색어를 입력하세요">
+                            
+                        </div>
+                    </div>
+                    <div class="Search_section">
+                        
+                        <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
+                        <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+                
+        <nav class="header_nav">
+           
+            <div class="menu_logo" id="homelogo">
+                <a href=""><img src="images\캡처-removebg-preview.jpg" style="width: 100px;"></a>
+              </div>
+
+            <div class="menu_item">
+            <a href="" class="community" onclick="showSubMenu();">커뮤니티</a>
+            </div>
+            <div class="menu_item" id="sub_menu" style="display: none;">
+              <a>서브 메뉴 1</a>
+              <a>서브 메뉴 2</a>
+              <a>서브 메뉴 3</a>
+            </div>
+          
+            <div class="menu_item">
+              <a href="" >상품구매</a>
+            </div>
+            <div class="menu_item">
+              <a href="" >헬스장 안내</a>
+            </div>
+            <div class="menu_item">
+              <a href="" >추천운동영상</a>
+            </div>
+            <div class="menu_item">
+              <a href="" >고객센터</a>
+            </div>
+            <div class="menu_item">
+              <a href="" >상담예약</a>
+            </div>     
+        </nav>
+        <table id="hiddenTable" style="display: none;">
+            <tr>
+                <td>테이블 내용</td>
+            </tr>
+        </table>
+    </header>
+
+    <!--header end-->
+
+    <!-- Section start -->
+    <section class="main_content">
+
+        <div class="board_content">
+            <h2>후기글 작성</h2>
+            <hr>
+            <br><br>
+
+            
+            <form action="" method="">
+                <table class="table">
+                    <tr>
+                        <th>제목</th>
+                        <td colspan="3"><input type="text" class="form-control" required></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td colspan="3"><textarea cols="30" rows="10" class="form-control" style="resize:none;" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="120">대표이미지</th>
+                        <td>
+                            <img class="img_preview title_img" onclick="chooseFile(0);">
+                        </td>
+                        <th width="120">상세이미지</th>
+                        <td>
+                            <img class="img_preview content_img" onclick="chooseFile(1);">
+                            <img class="img_preview content_img" onclick="chooseFile(2);">
+                            <img class="img_preview content_img" onclick="chooseFile(3);">
+                        </td>
+                    </tr>
+                </table>
+                <button type="button" class="btn1 btn-outline-secondary btn-sm" onclick="history.back();">목록</button>
+                <button type="reset" class="btn2 btn-outline-danger btn-sm">취소</button>
+                <button type="submit" class="btn3 btn-outline-secondary btn-sm">등록</button>  
+
+                <div style="display:none;">
+                    <!-- 대표이미지 -->
+                    <input type="file" name="upfile1" onchange="loadImg(0);" required>
+                    <!-- 상세이미지 -->
+                    <input type="file" name="upfile2" onchange="loadImg(1);">
+                    <input type="file" name="upfile3" onchange="loadImg(2);">
+                    <input type="file" name="upfile4" onchange="loadImg(3);">
+                </div>
+
+                <script>
+                    function chooseFile(idx){
+                        $(":file").eq(idx).click();
+                    }
+
+                    function loadImg(idx){
+                        const inputFile = window.event.target;
+
+                        if(inputFile.files.length == 1){ 
+                            const reader = new FileReader();
+                            reader.readAsDataURL(inputFile.files[0]); 
+
+                            reader.onload = function(e){
+                                $(".img_preview").eq(idx).attr("src", e.target.result);
+                            }
+
+                        }else{
+                            $(".img_preview").eq(idx).attr("src", null);
+                        }
+
+                    }
+                </script>
+
+            </form>
+
+        </div>
+
+    </section>
+    <!-- Section end -->
+
+    <!--footer start-->    
+    
+        <div class="footer_company">
+            <ul>
+                <li>상호명 : MZYM</li>
+                <li>전화 : 02) 2696-8000</li>
+                <li>서울특별시 금천구 가산디지털2로 95 3층</li>
+            </ul>
+        </div>
+
+        <ul class="footer_copyright">
+            Copyright ⓒ <span style="color: #1ABC9C;">M</span>ZYM. All rights reserved.
+        </ul>
+    </footer>
+    <!--footer end-->
+      
+    </div>
+    
+</body>
+</html>
