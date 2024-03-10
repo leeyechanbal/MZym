@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신고 페이지</title>
+    <title>상담예약 페이지</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -256,8 +256,8 @@
    
 
 
-        /* 신고 추가 스타일 */
-        .board-out>#accusation{
+        /* 상담예약 추가 스타일 */
+        .board-out>#counseling{
             background-color: rgba(26, 188, 156, 0.2);
         }
         .boardNav{
@@ -332,25 +332,25 @@
 
             <td class="section2">
                 <div>
-                    <h3>처리완료</h3>
-                    <h3>처리대기</h3>
+                    <h3>상담완료</h3>
+                    <h3>상담대기</h3>
                 </div>
 
                 <div class="section2-table">
                     <div>
                         <table id="boardcontent" class="table">
                             <tr id="theader" style="background-color: rgb(224, 224, 224);">
-                                <th class="table-number">신고번호</th>
-                                <th class="table-name">게시글: 작성자, 댓글: 회원이름</th>
-                                <th class="table-date">신고 종류: 게시글, 댓글</th>
+                                <th class="table-number">번호</th>
+                                <th class="table-name">이름</th>
+                                <th class="table-date">날짜</th>
                             </tr>
 
                         <form action="" method="">
                             <!--반복문 !! -->
                             <tr class="tr-title" data-toggle="collapse" data-target="#complete1"> 
                                 <td class="table-number" name="">1</td>
-                                <td class="table-name" name="">user010</td>
-                                <td class="table-date" name="">게시글</td>
+                                <td class="table-name" name="">임영뭉</td>
+                                <td class="table-date" name="">2024-05-06</td>
                             </tr>
 
                             <tr id="complete1" class="collapse">
@@ -358,17 +358,17 @@
                                     <fieldset>
                                         <legend>세부사항</legend>
                                         <div>번호:</div>
-                                        <div>신고분류: 신고카테고리</div>
-                                        <div>신고 날짜: </div>
-                                        <div>신고자: </div>
+                                        <div>분류:</div>
+                                        <div>신청 날짜:</div>
+                                        <div>작성자:세션정보에서 가져오기</div>
                                     </fieldset>
                                     <br>
                                     <fieldset>
-                                        <legend>신고물의 내용</legend>
-                                        <pre style="text-align: left;" class="rounded">야이 시발년들아 똑바로 봉들어</pre>
-                                        <input type="file">
+                                        <legend>신청내용</legend>
+                                        <pre style="text-align: left;" class="rounded">안녕하세요 인포 여성분 마음에 들어서 그런데 번호 좀 주세요.</pre>
+                                        <h4>답변: </h4>
+                                        <textarea name="" cols="57" rows="5"  style="resize: none;"></textarea>
                                     </fieldset>
-                                    <br>
                                     <input type="checkbox"> 완료여부
                                     <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
                                 </td>
@@ -376,7 +376,7 @@
                             <!--반복문 !! -->
 
                             <!-- 샘플 데이터 -->
-                            <tr class="tr-title" data-toggle="collapse" data-target="#book2"> 
+                            <tr class="tr-title" data-toggle="collapse" data-target="#complete2"> 
                                 <td class="table-number" name="">2</td>
                                 <td class="table-name" name="">임영뭉</td>
                                 <td class="table-date" name="">2024-05-06</td>
@@ -463,6 +463,7 @@
                                         <div>번호:</div>
                                         <div>분류:</div>
                                         <div>신청 날짜:</div>
+                                        <div>작성자: 세션정보에서 가져오기</div>
                                     </fieldset>
                                     <br>
                                     <fieldset>
