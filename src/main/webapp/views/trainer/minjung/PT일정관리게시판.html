@@ -34,12 +34,24 @@
     }
     .header_nav{
     height: 20%; display: flex;
-    background-color: #e0e0e0;
+    background-color:rgba(26, 188, 156, 0.78);
     padding-top: 10px; 
     padding-bottom: 10px; 
     position: relative;
+    justify-content: space-between;
     } 
 
+    .main_back{
+       flex:1;
+       text-align: left;
+       margin-left: 30px;
+    }
+
+    .main_item{
+        flex: 1;
+        text-align: right;
+        margin-right: 30px;
+    }
 
 
     .header_nav::before { /*상단 선 스타일*/
@@ -57,9 +69,8 @@
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
-    flex-grow: 1; 
+
     display: flex;
-    justify-content: center;
     align-items: center;
     min-height: 100px;  
 
@@ -69,17 +80,19 @@
     .header_nav div a{
     color: black;
     }
-    .menu_item {
-    margin-right: 60px; 
-    }
-
 
     .headr_roop {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 
     }
+
+    .main_back, .main_item{
+       flex-grow: 0;
+    }
+
+    
 
     .Search_section {
     flex: 1;
@@ -130,25 +143,8 @@
     height: 2px; /* 선의 두께 설정 */
     background-color: #e0e0e0; 
     }
-    .menu_logo{
-    margin-right: 50px;
-    }
-    .menu_item {
-    display: inline-block; 
-    margin-right: 20px; 
-    }
 
-    .menu_item a {
-    text-decoration: none; 
-    display: inline-block; 
-    }
-
-    .menu_item:hover a {
-    font-weight: bold;
-    color: #1ABC9C; 
-    }
-
-    /*section 스타일*/
+ction 스타일*/
     
     .carousel-item img {
     width: 100%;
@@ -176,19 +172,35 @@
     list-style-type: none;
     }
 
+    /* main_content */
+
+    .main_content{
+        display: flex;
+    }
+
+
     /*side메뉴*/
     .side_menu{
         float: left;
         flex-direction: column;
         background-color: #e0e0e0; 
-        margin-top: 15px;    
         height: 1500px
+    }
+
+    .cal_content{
+        border: 2px solid #1ABC9C;
+        width: 80%;
+        height: 1500px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
     }
 
     .user_search div{
         width: 140px;
         margin-top: 40px;
-        margin-left: 15px;
+        margin-left: 45px;
+        
     }
 
     .user_search:hover div {
@@ -196,9 +208,7 @@
     background: #1ABC9C; 
     color: white;
     }
-    .cal_content{
-        max-resolution: auto;
-    }
+
 
     /*모달 style*/
     #btn{
@@ -245,67 +255,23 @@
 
     <!--headr start-->   
     <header class="header-top-section">
-        <div>
-            <div>
-                <div class="headr_roop">
-                    <div class="section">
-                        <table class="Login_section">
-                            <tr>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="Search_section">
-                        <div class="Search_area">
-                            <img src="images\검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
-                            <input type="search" placeholder="검색어를 입력하세요" style="width: 300px;">
-                            
-                        </div>
-                    </div>
-                    <div class="Search_section">
-                        
-                        <div class="Search_area2"><span style="font-size: 12px; color: gray; font-weight: bold;">인기 검색어</span>
-                        <span style="font-size: 15px;">오운완 | 운동 루틴 | 헬스 후기</span>
-                        </div>
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
+        
            
                 
         <nav class="header_nav">
+
+            <div class="main_back" >
+                <a href=""><img src="/minjung/img/뒤로가기.png" style="width: 50px; "></a>
+                </div>
            
-            <div class="menu_logo">
-                <a href=""><img src="images\캡처-removebg-preview.jpg" style="width: 100px;"></a>
+            <div class="main_logo" >
+                <a href=""><img src="/minjung/img/MZYM_logo.png" style="width: 170px;"></a>
               </div>
 
-            <div class="menu_item">
-            <a href="" class="community">커뮤니티</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >상품구매</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >헬스장 안내</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >추천운동영상</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >고객센터</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >상담예약</a>
-          </div>     
-        </nav>
-        <table id="hiddenTable" style="display: none;">
-            <tr>
-                <td>테이블 내용</td>
-            </tr>
-        </table>
+            <div class="main_item">
+            <a href="" class=""></a>
+            </div>
+
     </header>
 
     <!--headr end-->
@@ -313,125 +279,126 @@
     <!--section start-->    
     <section class="main_content">
 
-        <!--side menu start-->
-        <div class="side_menu">
+        <!-- side menu start -->
+        <div class="side_menu" >
             <div>
-            <h3 style="height: 40px; padding: 30px" align="center">loginpage</h3>
+                <h3 style="height: 40px; padding: 30px" align="center">로그인 페이지</h3>
             </div>
             <div class="user_search">
-                <div class="btn btn-light" data-toggle="modal" data-target="#myModal" style="font-weight: bold;">회원별조회</div>
+                <div class="btn btn-light" data-toggle="modal" data-target="#myModal" style="font-weight: bold;">회원별 조회</div>
             </div>
             <div class="user_search">
-                <div class="btn btn-light" data-toggle="modal" data-target="#myModal2" style="font-weight: bold;">회원등록</d>
+                <div class="btn btn-light" data-toggle="modal" data-target="#myModal2" style="font-weight: bold;">회원 등록</div>
             </div>
-
         </div>
+        <!-- side menu end -->
 
-        <!-- 회원별 조회 모달  start-->
-        <div class="modal" id="myModal">
-        <div class="modal-dialog">
-        <div class="modal-content">
-    
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title"><b>조회메뉴</b></h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- content start -->
+        <div class="cal_content" >
+            캘린더
         </div>
-  
-            <!-- Modal body -->
-        <div class="modal-body">
+        <!-- content end -->
+
+
+
+            <!-- 회원별 조회 모달  start-->
+            <div class="modal" id="myModal">
+            <div class="modal-dialog">
+            <div class="modal-content">
         
-            <ul>
-                <li>
-                    <label >조회할 회원 핸드폰 번호</label> <br>
-                    <input type="text" name="phone" style="width: 325px;" required> 
-                </li><br>
-                <li>
-                    <label>조회할 회원 이름</label> <br>
-                    <input type="text" name="userName" style="width: 325px;" required>
-                </li><br>
-                <li>
-                    <label>조회할 기간</label> <br>
-                    <input type="text" name="period" style="width: 325px;">
-                </li>
-            </ul>
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title"><b>조회메뉴</b></h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+                <!-- Modal body -->
+            <div class="modal-body">
+            
+                <ul>
+                    <li>
+                        <label >조회할 회원 핸드폰 번호</label> <br>
+                        <input type="text" name="phone" style="width: 325px;" required> 
+                    </li><br>
+                    <li>
+                        <label>조회할 회원 이름</label> <br>
+                        <input type="text" name="userName" style="width: 325px;" required>
+                    </li><br>
+                    <li>
+                        <label>조회할 기간</label> <br>
+                        <input type="text" name="period" style="width: 325px;">
+                    </li>
+                </ul>
 
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" id= "modal-footer-btn"class="btn btn-danger" data-dismiss="modal">조회</button>
-        </div>
-  
-             </div>
-        </div>
-    </div>  
-    <!-- 회원별 조회 모달 end -->
+            </div>
+    
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" id= "modal-footer-btn"class="btn btn-danger" data-dismiss="modal">조회</button>
+            </div>
+    
+                </div>
+            </div>
+            </div>  
+            <!-- 회원별 조회 모달 end -->
 
-    <!-- 회원등록 모달  start-->
-        <!-- The Modal -->
-<div class="modal" id="myModal2">
-    <div class="modal-dialog">
-      <div class="modal-content modal-userInsert">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title"><b>PT 일정</b></h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">
+            <!-- 회원등록 모달  start-->
+                <!-- The Modal -->
+            <div class="modal" id="myModal2">
+                <div class="modal-dialog">
+                <div class="modal-content modal-userInsert">
+        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title"><b>PT 일정</b></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <!-- Modal body -->
+                <div class="modal-body">
 
-            <table>
-                <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                    <td><label style="width: 100px;">회원이름</label></td>
-                    <td><input type="text"></td>
-                    <td colspan="2"><input type="color" style="margin-bottom: 15px; margin-top: 15px;"></td> 
-                </tr >
-                <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                    <td><label>시작일</label></td>
-                    <td><input type="text"></td>
-                    <td ><label style="width: 70px;">종료일</label></td>
-                    <td><input type="text" style="margin-bottom: 15px; margin-top: 15px;"></td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                    <td><label>핸드폰번호</label></td>
-                    <td colspan="3"><input type="text" style="margin-bottom: 15px; margin-top: 15px;"></td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                    <td ><label>제목</label></td>
-                    <td colspan="3"><input type="text" style="margin-bottom: 15px; margin-top: 15px; width: 530px;"></td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                    <td><label>내용</label></td>
-                    <td colspan="3"><textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8"></textarea></td>
-                </tr>
-            </table>
+                    <table>
+                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                            <td><label style="width: 100px;">회원이름</label></td>
+                            <td><input type="text"></td>
+                            <td colspan="2"><input type="color" style="margin-bottom: 15px; margin-top: 15px;"></td> 
+                        </tr >
+                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                            <td><label>시작일</label></td>
+                            <td><input type="text"></td>
+                            <td ><label style="width: 70px;">종료일</label></td>
+                            <td><input type="text" style="margin-bottom: 15px; margin-top: 15px;"></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                            <td><label>핸드폰번호</label></td>
+                            <td colspan="3"><input type="text" style="margin-bottom: 15px; margin-top: 15px;"></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                            <td ><label>제목</label></td>
+                            <td colspan="3"><input type="text" style="margin-bottom: 15px; margin-top: 15px; width: 530px;"></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                            <td><label>내용</label></td>
+                            <td colspan="3"><textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8"></textarea></td>
+                        </tr>
+                    </table>
 
 
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" id= "modal-footer-btn"class="btn btn-danger" data-dismiss="modal">수정</button>
-          </div>
-  
-      </div>
-    </div>
-  </div>
-    <!-- 회원별 조회 모달 end -->
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" id= "modal-footer-btn"class="btn btn-danger" data-dismiss="modal">수정</button>
+                </div>
+        
+                    </div>
+                </div>
+            </div>
+            <!-- 회원별 조회 모달 end -->
 
         <!--side menu end-->
 
-        <!-- content-->
-        <div class="cal_content">
-        
 
-        
-
-        </div>
-        <!-- content-->
        
 
     </section>
