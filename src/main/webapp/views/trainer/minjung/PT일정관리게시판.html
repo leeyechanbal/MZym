@@ -41,17 +41,19 @@
     justify-content: space-between;
     } 
 
+    /* header 여백 설정 */
     .main_back{
        flex:1;
        text-align: left;
-       margin-left: 30px;
+       margin-left: 25px;
     }
 
     .main_item{
         flex: 1;
         text-align: right;
-        margin-right: 30px;
+        margin-right: 60px;
     }
+    /* ------------------- */
 
 
     .header_nav::before { /*상단 선 스타일*/
@@ -196,10 +198,12 @@ ction 스타일*/
         border-radius: 10px;
     }
 
+    /* submanu버튼 */
     .user_search div{
-        width: 140px;
+        width: 160px;
+        height: 50p;
         margin-top: 40px;
-        margin-left: 45px;
+        margin-left: 40px;
         
     }
 
@@ -220,33 +224,40 @@ ction 스타일*/
         height: 35px;
     }
    
-        /* 회원별조회 모달 스타일 */
-        .modal-content{
-            border: 2px solid rgba(26, 188, 156, 0.78);
-            border-radius: 10px;
-            padding: 10px;
-            width : 400px;
-            
-         }
-         .modal-userInsert{
-            width: 700px;
-         }
-         .modal-header h4 {
-            font-size: 24px; 
-        }
-         .modal-body>ul{
-            list-style: none;
-            padding-left: 1px ;
-            
-         }
-         #userbtn{
-            background-color: rgb(224, 224, 224);
-            border: none;
-         }
-         #modal-footer-btn{ 
-            background-color: rgba(26, 188, 156, 0.78);
-            border: none;
-        }
+    /* 회원별조회 모달 스타일 */
+    .modal-content{
+        border: 2px solid rgba(26, 188, 156, 0.78);
+        border-radius: 10px;
+        padding: 10px;
+        width : 400px;        
+     }
+    .modal-userInsert{
+        width: 700px;
+    }
+    .modal-header h4 {
+        font-size: 24px; 
+    }
+    .modal-body ul{
+        list-style: none;
+        padding-left: 1px ;       
+    }
+    #modal-footer-btn{ 
+        background-color: rgba(26, 188, 156, 0.78);
+        border: none;
+    }
+    /* 회원등록 버튼 */
+    #btn1{
+        border: none;
+        background: #1ABC9C;
+        color: white;
+        font-weight: bold;
+    }
+    #btn2{
+        border: none;
+        background:#e0e0e0;
+        color: black;
+        font-weight: bold;
+    }
 
     </style>
 </head>
@@ -261,11 +272,11 @@ ction 스타일*/
         <nav class="header_nav">
 
             <div class="main_back" >
-                <a href=""><img src="/minjung/img/뒤로가기.png" style="width: 50px; "></a>
+                <a href=""><img src="../../../resources/img/common/뒤로가기.png" style="width: 50px; "></a>
                 </div>
            
             <div class="main_logo" >
-                <a href=""><img src="/minjung/img/MZYM_logo.png" style="width: 170px;"></a>
+                <a href=""><img src="../../../resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
               </div>
 
             <div class="main_item">
@@ -300,7 +311,7 @@ ction 스타일*/
         <!-- content end -->
 
 
-
+        <!-- -------------------------------------section modal start-------------------------------------- -->
             <!-- 회원별 조회 모달  start-->
             <div class="modal" id="myModal">
             <div class="modal-dialog">
@@ -314,22 +325,22 @@ ction 스타일*/
     
                 <!-- Modal body -->
             <div class="modal-body">
-            
-                <ul>
-                    <li>
-                        <label >조회할 회원 핸드폰 번호</label> <br>
-                        <input type="text" name="phone" style="width: 325px;" required> 
-                    </li><br>
-                    <li>
-                        <label>조회할 회원 이름</label> <br>
-                        <input type="text" name="userName" style="width: 325px;" required>
-                    </li><br>
-                    <li>
-                        <label>조회할 기간</label> <br>
-                        <input type="text" name="period" style="width: 325px;">
-                    </li>
-                </ul>
-
+                <form action="" name="">
+                    <ul>
+                        <li>
+                            <label >조회할 회원 핸드폰 번호</label> <br>
+                            <input type="text" name="phone" style="width: 325px;" required> 
+                        </li><br>
+                        <li>
+                            <label>조회할 회원 이름</label> <br>
+                            <input type="text" name="userName" style="width: 325px;" required>
+                        </li><br>
+                        <li>
+                            <label>조회할 기간</label> <br>
+                            <input type="text" name="period" style="width: 325px;">
+                        </li>
+                    </ul>
+                </form>
             </div>
     
             <!-- Modal footer -->
@@ -351,50 +362,86 @@ ction 스타일*/
                 <!-- Modal Header -->
                 <div class="modal-header">
                 <h4 class="modal-title"><b>PT 일정</b></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="submit" class="close" data-dismiss="modal">&times;</button>
                 </div>
         
                 <!-- Modal body -->
                 <div class="modal-body">
+                    <form action="" name="">
+                        <table>
+                            <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                                <td>
+                                    <label style="width: 100px;">회원이름</label>
+                                </td>
+                                <td>
+                                    <input type="text">
+                                </td>
+                                <td colspan="2">
+                                    <input type="color" style="margin-bottom: 15px; margin-top: 15px;">
+                                </td> 
+                            </tr >
 
-                    <table>
-                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                            <td><label style="width: 100px;">회원이름</label></td>
-                            <td><input type="text"></td>
-                            <td colspan="2"><input type="color" style="margin-bottom: 15px; margin-top: 15px;"></td> 
-                        </tr >
-                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                            <td><label>시작일</label></td>
-                            <td><input type="text"></td>
-                            <td ><label style="width: 70px;">종료일</label></td>
-                            <td><input type="text" style="margin-bottom: 15px; margin-top: 15px;"></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                            <td><label>핸드폰번호</label></td>
-                            <td colspan="3"><input type="text" style="margin-bottom: 15px; margin-top: 15px;"></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                            <td ><label>제목</label></td>
-                            <td colspan="3"><input type="text" style="margin-bottom: 15px; margin-top: 15px; width: 530px;"></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
-                            <td><label>내용</label></td>
-                            <td colspan="3"><textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8"></textarea></td>
-                        </tr>
-                    </table>
+                            <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                                <td>
+                                    <label>시작일</label>
+                                </td>
+                                <td>
+                                    <input type="text">
+                                </td>
+                                <td >
+                                    <label style="width: 70px;">종료일</label>
+                                </td>
+                                <td>
+                                    <input type="text" style="margin-bottom: 15px; margin-top: 15px;">
+                                </td>
+                            </tr>
 
+                            <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                                <td>
+                                    <label>핸드폰번호</label>
+                                </td>
+                                <td colspan="3">
+                                    <input type="text" style="margin-bottom: 15px; margin-top: 15px;">
+                                </td>
+                            </tr>
+
+                            <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                                <td >
+                                    <label>제목</label>
+                                </td>
+                                <td colspan="3">
+                                    <input type="text" style="margin-bottom: 15px; margin-top: 15px; width: 530px;">
+                                </td>
+                            </tr>
+
+                            <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
+                                <td>
+                                    <label>내용</label>
+                                </td>
+                                <td colspan="3">
+                                    <textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8">
+                                    </textarea></td>
+                            </tr>
+
+                        </table>
+                    </form>
 
                 </div>
-        
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" id= "modal-footer-btn"class="btn btn-danger" data-dismiss="modal">수정</button>
-                </div>
-        
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" id= "btn1"class="btn btn-danger" data-dismiss="modal">추가</button>
+                            <button type="submit" id= "btn2"class="btn btn-danger" data-dismiss="modal">수정</button>
+                        </div>
+                
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- 회원별 조회 모달 end -->
+                    <!-- 회원별 조회 모달 end -->
+
+        <!-- -------------------------------------section modal end-------------------------------------- -->
+                
+
 
         <!--side menu end-->
 
