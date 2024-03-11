@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신고 페이지</title>
+    <title>신고 댓글 페이지</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -61,7 +62,8 @@
         /* 메뉴 관련 스타일 */
         
         /* 메뉴 정렬 및 각 메뉴 박스의 배경색상 변경 */
-        .boardNav{
+        .boardNav, 
+        .suteOption{
             display: none;
             background-color: white;
         }
@@ -82,12 +84,14 @@
             background-color: white;
         }
         /* 매뉴 요소들 호버시 배경색 과 마우스 커서 모양 변경 */
+        /* 전 메뮤 변경 */
         #board:hover,
         #counseling:hover,
         #customer:hover,
         #accusation:hover,
         #calory:hover,
-        .boardNav>div:hover{
+        .boardNav>div:hover,
+        .suteOption>div:hover{
             background-color: rgba(26, 188, 156, 0.2);
             cursor: pointer;
         }
@@ -100,7 +104,9 @@
             width: 100%;
         }
          /* 게시판 안의 게시판 종류 글시크기 및 밑줄 삭제 */
-        .boardNav a{
+         /* 전부 변경 */
+        .boardNav a,
+        .suteOption a{
             color: black;
             font-size: 13px;
         }
@@ -256,12 +262,15 @@
    
 
 
-        /* 신고 추가 스타일 */
+        /* 신고 댓글 추가 스타일 */
         .board-out>#accusation{
             background-color: rgba(26, 188, 156, 0.2);
         }
-        .boardNav{
-            display: none;
+        .suteOption{
+            display: block;
+        }
+        .suteOption>.suteRrepeat{
+            background-color: rgba(26, 188, 156, 0.2);
         }
 
         /* 테이블 변경 및 추가 사항 */
@@ -277,12 +286,15 @@
             display: flex;
             justify-content: space-around;
         }
+        tfoot{
+            height: 100px;
+        }
     </style>
 
     <script>
     // 게시판 메뉴가 눌렸을때 발생하는 배경색 변경
         function unfold(e){
-            const a = document.querySelectorAll('.boardNav')
+            const a = document.querySelectorAll(".boardNav");
             
             for(let i=0; i<a.length; i++ ){
                 if(a[i].style.display == 'block'){
@@ -295,14 +307,32 @@
                 }
             } 
         }
+
+        function sUnfold(e){
+            const a = document.querySelectorAll(".suteOption");
+            console.log(e)
+            
+            for(let i=0; i<a.length; i++ ){
+                if(a[i].style.display == 'none'){
+                    a[i].style.display='block';
+                    e.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
+                    
+                } else {
+                    a[i].style.display='none';
+                    e.style.backgroundColor = null;
+                }
+            } 
+        }
+
+
    </script>
 </head>
 <body>
    <table id="outTable">
         
         <thead class="">
-            <td class="section1" id="back"><img src="/weMap/resource/image/back-igon.png" alt="뒤로가기"></td>
-            <td class="section2" id="logo"><img src="/weMap/resource/image/logo-sm.png" alt="로고"></td>
+            <td class="section1" id="back"><img src="resource/image/back-igon.png" alt="뒤로가기"></td>
+            <td class="section2" id="logo"><img src="resource/image/logo-sm.png" alt="로고"></td>
             <td class="section3"></td>
         </thead>
         
@@ -315,17 +345,21 @@
                     <div id="board" onclick="unfold(this);">게시판</div>
 
                     <div class="boardNav" style="margin-top: 0px;">
-                        <div class="boardNotice"><a href="">공지사항</a></div>
-                        <div class="boardFree"><a href="">자유게시판</a></div>
-                        <div class="boardQuestion"><a href="">질문게시판</a></div>
-                        <div class="boardReview"><a href="">PT 및 헬스장 후기</a></div>
-                        <div class="boardClass"><a href="">운동 모임</a></div>
+                        <div><a href="">공지사항</a></div>
+                        <div><a href="">자유게시판</a></div>
+                        <div><a href="">질문게시판</a></div>
+                        <div><a href="">PT 및 헬스장 후기</a></div>
+                        <div><a href="">운동 모임</a></div>
                     </div>
 
                     <div id="counseling"><a href="">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
-                    <div id="accusation"><a href="">신고</a></div>
-                    <div id="calory"><a href="">칼로리</a></div>
+                    <div id="accusation" onclick="sUnfold(this);">신고</div>
+                    <div class="suteOption" style="margin-top: 0;">
+                        <div class="suteBoard"><a href="">게시글</a></div>
+                        <div class="suteRrepeat"><a href="">답글</a></div>
+                    </div>
+                    <div id="calory"><a href="">인바디</a></div>
 
                 </div>
             </td>
@@ -341,8 +375,8 @@
                         <table id="boardcontent" class="table">
                             <tr id="theader" style="background-color: rgb(224, 224, 224);">
                                 <th class="table-number">신고번호</th>
-                                <th class="table-name">게시글: 작성자, 댓글: 회원이름</th>
-                                <th class="table-date">신고 종류: 게시글, 댓글</th>
+                                <th class="table-name">댓글 작성자: </th>
+                                <th class="table-date">신고자</th>
                             </tr>
 
                         <form action="" method="">
@@ -350,25 +384,28 @@
                             <tr class="tr-title" data-toggle="collapse" data-target="#complete1"> 
                                 <td class="table-number" name="">1</td>
                                 <td class="table-name" name="">user010</td>
-                                <td class="table-date" name="">게시글</td>
+                                <td class="table-date" name="">adim01</td>
                             </tr>
 
                             <tr id="complete1" class="collapse">
                                 <td colspan="3" align="left" class="border" style="font-size: 15px;">
                                     <fieldset>
                                         <legend>세부사항</legend>
-                                        <div>번호:</div>
-                                        <div>신고분류: 신고카테고리</div>
-                                        <div>신고 날짜: </div>
-                                        <div>신고자: </div>
+                                        <ul>
+                                            <li>번호: 123(게시글 번호)</li>
+                                            <li>신고분류: 욕설</li>
+                                            <li>신고 날짜: 2024-03-11</li>
+                                            <li>담당자 : 트레이너이름 세션에서 가져오기</li>
+                                        </ul>
+                                
                                     </fieldset>
                                     <br>
                                     <fieldset>
-                                        <legend>신고물의 내용</legend>
+                                        <legend>신고 댓글</legend>
                                         <pre style="text-align: left;" class="rounded">야이 시발년들아 똑바로 봉들어</pre>
-                                        <input type="file">
+                                        <h4>처리 보고서</h4>
+                                        <textarea name="" cols="57" rows="5"  style="resize: none;"></textarea>
                                     </fieldset>
-                                    <br>
                                     <input type="checkbox"> 완료여부
                                     <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
                                 </td>
@@ -445,7 +482,7 @@
                             <tr id="theader" style="background-color: rgb(224, 224, 224);">
                                 <th class="table-number">번호</th>
                                 <th class="table-name">이름</th>
-                                <th class="table-date">날짜</th>
+                                <th class="table-date">신고자</th>
                             </tr>
 
                         <form action="" method="">
@@ -460,15 +497,19 @@
                                 <td colspan="3" align="left" class="border" style="font-size: 15px;">
                                     <fieldset>
                                         <legend>세부사항</legend>
-                                        <div>번호:</div>
-                                        <div>분류:</div>
-                                        <div>신청 날짜:</div>
+                                        <ul>
+                                            <li>번호: 123(게시글 번호)</li>
+                                            <li>신고분류: 욕설</li>
+                                            <li>신고 날짜: 2024-03-11</li>
+                                            <li>담당자 : 트레이너이름 세션에서 가져오기</li>
+                                        </ul>
+                                
                                     </fieldset>
                                     <br>
                                     <fieldset>
-                                        <legend>신청내용</legend>
+                                        <legend>신고 댓글</legend>
                                         <pre style="text-align: left;">안녕하세요 인포 여성분 마음에 들어서 그런데 번호 좀 주세요.</pre>
-                                        <h4>답변: </h4>
+                                        <h4>처리 보고서</h4>
                                         <textarea name="" cols="57" rows="5"  style="resize: none;"></textarea>
                                     </fieldset>
                                     <input type="checkbox"> 완료여부

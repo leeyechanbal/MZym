@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 페이지</title>
+    <title>신고 게시판 페이지</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -255,20 +255,31 @@
         }
 
 
-        /* 공지사항 추가 스타일 */
-        .board-out>#board{
+        /* 신고 게시판 추가 스타일 */
+        .board-out>#accusation{
             background-color: rgba(26, 188, 156, 0.2);
         }
-        .boardNav{
+        .suteOption{
             display: block;
         }
-        .boardNav>.boardNotice{
+        .suteOption>.suteRrepeat{
             background-color: rgba(26, 188, 156, 0.2);
         }
-        /* 공지사항 첨부파일 정렬 */
-        .formOut{
-            display: flex; 
-            justify-content: space-between;
+        .collapseitem{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .collapseitem li{
+            padding: 5px;
+            font-size: 15px;
+        }
+        .collapseitem p{
+            font-size: 15px;
+            width: 100%;
+        }
+        .collapseitem input{
+            margin: 5px;
         }
         tfoot{
             height: 100px;
@@ -302,6 +313,22 @@
             }
         }
 
+        function sUnfold(e){
+            const a = document.querySelectorAll(".suteOption");
+            console.log(e)
+            
+            for(let i=0; i<a.length; i++ ){
+                if(a[i].style.display == 'none'){
+                    a[i].style.display='block';
+                    e.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
+                    
+                } else {
+                    a[i].style.display='none';
+                    e.style.backgroundColor = null;
+                }
+            } 
+        }
+
    </script>
 </head>
 <body>
@@ -331,7 +358,11 @@
 
                     <div id="counseling"><a href="">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
-                    <div id="accusation"><a href="">신고</a></div>
+                    <div id="accusation" onclick="sUnfold(this);">신고</div>
+                    <div class="suteOption" style="margin-top: 0;">
+                        <div class="suteBoard"><a href="">게시글</a></div>
+                        <div class="suteRrepeat"><a href="">답글</a></div>
+                    </div>
                     <div id="inbody"><a href="">인바디</a></div>
 
                 </div>
@@ -343,32 +374,36 @@
                         <tr id="theader" style="background-color: rgb(224, 224, 224);">
                             <th class="table-number">번호</th>
                             <th class="table-title">제목</th>
-                            <th>조회수</th>
-                            <th>작성자</th>
+                            <th>신고자</th>
                         </tr>
 
 
                     <form action="" method="">
                         <tr class="tr-title" data-toggle="collapse" data-target="#context1"> <!--반복문 !! -->
                             <td class="table-number" name="">1</td>
-                            <td class="table-title" name="">샤워기 호수 관련 공지글</td>
-                            <td name="">임명웅</td>
-                            <td>1561</td>
+                            <td class="table-title" name="">여기서 똥싸도 되요.</td>
+                            <td name="">user0001</td>
                         </tr>
 
                         <tr id="context1" class="collapse">
                             <td colspan="5">
-                                <div>
+                                <div class="collapseitem">
+                                    <fieldset>
+                                        <legend>세부사항</legend>
+                                        <ul>
+                                            <li>글번호: </li>
+                                            <li>카테고리: </li>
+                                            <li>작성자: </li>
+                                            <li>신고일: </li>
+                                        </ul>
+                                    </fieldset>
                                     <p style="min-height:150px; text-align: left; white-space: pre;" class="border">
-                                    샤워기 호수의 노즐이 오래된 관계로 교체를 하게 되었습니다.
-                                    일시 17:00 ~ 20:00
-                                    날짜 03 / 15일 입니다.
-                                    헬스장 이용시 고려해 주시기 바랍니다.
+                                    저희 집 안마당에서 강아지 똥 치워주 실 멍청이 구합니다.
                                     </p>
-                                    <div><img src="" alt="첨부파일 미리보기"></div>
-                                    <div class="formOut">
+                                    <img src="" alt="첨부파일 미리보기">
+                                    <div>
                                         <input type="file" name="">
-                                        <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
+                                        <button type="submit" style="margin-left: 650px;" class="btn btn-outline-warning btn-sm">수정</button>
                                     </div>
                                 </div>
                             </td>
@@ -382,55 +417,46 @@
                             <td class="table-number">2</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">3</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">4</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">5</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">6</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">7</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">8</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">9</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <tr>
                             <td class="table-number">10</td>
                             <td class="table-title">노래하지마세요</td>
                             <td>머멍이</td>
-                            <td>134</td>
                         </tr>
                         <!-- 샘플데이터 -->
 
@@ -455,7 +481,6 @@
             </td>
             
             <td class="section3 ">
-                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">작성</button>
                 <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
             </td>
         </tfoot>
@@ -485,46 +510,6 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
             <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    $("tbody>tr").click(function(){
-        console.log(this);
-    })
-  </script>
-  
-<!-- 작성용 모달 -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-create">
-            <form action="">
-                <!-- Modal Header -->
-                <div class="modal-header-create">
-                <h3 class="modal-title text-center" id="creat-modal-header">공지사항</h3>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <br>
-                <!-- Modal body -->
-                <div class="modal-body-create">
-                <div class="hair-careate"><input type="text" placeholder="제목 입력"></div>
-                <hr>
-                <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
-                <!-- 큰모달창 일 경우 cols="55" -->
-                <hr>
-                <div class="file-create"><input type="file"></div>
-                <br>
-                </div>
-        
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">작성</button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-                </div>
-            </form>
         </div>
       </div>
     </div>

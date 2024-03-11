@@ -87,7 +87,8 @@
         #customer:hover,
         #accusation:hover,
         #calory:hover,
-        .boardNav>div:hover{
+        .boardNav>div:hover,
+        .suteOption>div:hover{
             background-color: rgba(26, 188, 156, 0.2);
             cursor: pointer;
         }
@@ -100,7 +101,8 @@
             width: 100%;
         }
          /* 게시판 안의 게시판 종류 글시크기 및 밑줄 삭제 */
-        .boardNav a{
+        .boardNav a,
+        .suteOption a{
             color: black;
             font-size: 13px;
         }
@@ -113,7 +115,7 @@
         #counseling>a,
         #customer>a, 
         #accusation>a, 
-        #calory>a{
+        #inbody>a{
             color: black;
         }
 
@@ -277,6 +279,9 @@
             display: flex;
             justify-content: space-around;
         }
+        tfoot{
+            height: 100px;
+        }
     </style>
 
     <script>
@@ -325,7 +330,7 @@
                     <div id="counseling"><a href="">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
                     <div id="accusation"><a href="">신고</a></div>
-                    <div id="calory"><a href="">칼로리</a></div>
+                    <div id="inbody"><a href="">칼로리</a></div>
 
                 </div>
             </td>
@@ -360,13 +365,13 @@
                                         <div>번호:</div>
                                         <div>분류:</div>
                                         <div>신청 날짜:</div>
-                                        <div>작성자:세션정보에서 가져오기</div>
+                                        <div>담당자:세션정보에서 가져오기</div>
                                     </fieldset>
                                     <br>
                                     <fieldset>
                                         <legend>신청내용</legend>
                                         <pre style="text-align: left;" class="rounded">안녕하세요 인포 여성분 마음에 들어서 그런데 번호 좀 주세요.</pre>
-                                        <h4>답변: </h4>
+                                        <h4>보고서</h4>
                                         <textarea name="" cols="57" rows="5"  style="resize: none;"></textarea>
                                     </fieldset>
                                     <input type="checkbox"> 완료여부
@@ -463,13 +468,13 @@
                                         <div>번호:</div>
                                         <div>분류:</div>
                                         <div>신청 날짜:</div>
-                                        <div>작성자: 세션정보에서 가져오기</div>
+                                        <div>담당자: 세션정보에서 가져오기</div>
                                     </fieldset>
                                     <br>
                                     <fieldset>
                                         <legend>신청내용</legend>
                                         <pre style="text-align: left;">안녕하세요 인포 여성분 마음에 들어서 그런데 번호 좀 주세요.</pre>
-                                        <h4>답변: </h4>
+                                        <h4>보고서</h4>
                                         <textarea name="" cols="57" rows="5"  style="resize: none;"></textarea>
                                     </fieldset>
                                     <input type="checkbox"> 완료여부

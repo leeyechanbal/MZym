@@ -82,7 +82,8 @@
         #customer:hover,
         #accusation:hover,
         #calory:hover,
-        .boardNav>div:hover{
+        .boardNav>div:hover,
+        .suteOption>div:hover{
             background-color: rgba(26, 188, 156, 0.2);
             cursor: pointer;
         }
@@ -95,7 +96,8 @@
             width: 100%;
         }
          /* 게시판 안의 게시판 종류 글시크기 및 밑줄 삭제 */
-         .boardNav  a{
+         .boardNav a,
+        .suteOption a{
             color: black;
             font-size: 13px;
         }
@@ -108,7 +110,7 @@
         #counseling>a,
         #customer>a, 
         #accusation>a, 
-        #calory>a{
+        #inbody>a{
             color: black;
         }
 
@@ -247,6 +249,9 @@
         p{
             font-size: 13px;
         }
+        tfoot{
+            height: 100px;
+        }
         
 
     </style>
@@ -259,11 +264,11 @@
             for(let i=0; i<a.length; i++ ){
                 if(a[i].style.display == 'block'){
                     a[i].style.display='none';
-                    // e.style.backgroundColor = null;
+                    e.style.backgroundColor = "white";
 
                 } else {
                     a[i].style.display='block';
-                    // e.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
+                    e.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
                 }
             } 
         }
@@ -298,7 +303,7 @@
                     <div id="counseling"><a href="">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
                     <div id="accusation"><a href="">신고</a></div>
-                    <div id="calory"><a href="">칼로리</a></div>
+                    <div id="inbody"><a href="">칼로리</a></div>
 
                 </div>
             </td>
