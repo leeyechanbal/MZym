@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/MZYE.css">
     <link rel="preload" href="js/MZYE.js" as="script">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <style>
     .wrap{
@@ -225,6 +226,11 @@
     margin-left: 230px;
     }
 
+    .mypage_info i{
+       font-size: 100px;
+       margin-left: 60px;
+    }
+
     .mypage_content input[type=radio]{margin: 20px;}
     .mypage_content input[type=text]{margin: 5px; border: none;}
     .modal-body input[type=text]{border: 1px solid lightgray;}
@@ -237,23 +243,42 @@
         border-color: rgb(224, 224, 224);
     }
 
+    .btn:hover{
+        background: rgba(224, 224, 224, 0.842);
+    }
+
     #btn_resign{
         margin-left: 986px;
         background: #1ABC9C;
         color: white;
+        border: #1ABC9C;
     }
 
     #btn_resign:hover{
-        background: #19b192;;
+        background:#1abc9ce0;
         color: white;
     }
 
 
 
     /*모달 style*/
-    #btn{
+    #btn1{
         background: #1ABC9C;
         color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        border: none;
+        width: 90px;
+        height: 38px;
+    }
+
+    #btn1:hover{
+        background: #1ABC9C;
+    }
+
+    #btn2{
+        background:#e0e0e0;
+        color: black;
         font-weight: bold;
         border-radius: 5px;
         border: none;
@@ -338,6 +363,8 @@
 
     <!--headr end-->
     
+    <span class="main_text">MZYE</span>
+
     <!--section start-->    
     <section class="main_content">
 
@@ -365,8 +392,7 @@
                         <div class="mypage_info">
                             <table style="width: 800px;">
                                 <tr>
-                                    <th rowspan="5"><img src="images\mypage1.PNG " style="height: 200px; margin-bottom:15px ;"></th>
-                                    <td></td>
+                                    <th rowspan="5"><i class="far fa-address-card"></i></th>
                                 </tr>
                                 <tr id="info">
                                     <th>아이디</th>
@@ -395,8 +421,7 @@
 
                             <table style="width: 800px;">
                                 <tr>
-                                    <th rowspan="5"><img src="images\mypage2.PNG" style="height: 200px;"></th>
-                                    <td></td>
+                                    <th rowspan="5"><i class="far fa-edit"></i></th>
                                 </tr>
                                 <tr id="info">
                                     <th>이메일</th>
@@ -413,7 +438,7 @@
                              </table>
 
                              <div>
-                                <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#changeInfoModal">수정</a>
+                                <a href="" class="btn" data-toggle="modal" data-target="#changeInfoModal">수정</a>
                              </div>
 
                         </div>
@@ -422,8 +447,7 @@
                         <div class="mypage_info">
                             <table style="width: 800px;">
                                 <tr>
-                                    <th rowspan="5"><img src="images\mypage2.PNG" style="height: 200px;"></th>
-                                    <td></td>
+                                    <th rowspan="5"><i class="fas fa-wallet"></i></th>
                                 </tr>
                                 <tr id="info">
                                     <th>헬스장 이용권</th>
@@ -440,7 +464,7 @@
                         
                     <tr>
                     <th><a href="" class="btn" id="btn_resign">회원탈퇴</a></th>
-                    <th><a href="" class="btn btn-secondary" data-toggle="modal" data-target="#changePwdModal">비밀번호변경</a></th>
+                    <th><a href="" class="btn" data-toggle="modal" data-target="#changePwdModal">비밀번호변경</a></th>
                     </tr>  
 
                 </table>
@@ -472,7 +496,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: center; padding-top: 10px;">
-                                    <button type="submit" id="btn">수정</button>
+                                    <button type="submit" id="btn1">수정</button>
                                 </td>
                             </tr>
                         </table>
@@ -506,7 +530,8 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: center; padding-top: 10px;">
-                                    <button type="submit" id="btn">변경</button>
+                                    <button type="button" data-dismiss="modal" id="btn2">취소</button>
+                                    <button type="submit" id="btn1">변경</button>
                                 </td>
                             </tr>
                         </table>
