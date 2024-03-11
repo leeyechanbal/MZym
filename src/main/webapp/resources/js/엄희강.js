@@ -35,23 +35,23 @@
     }
 
     //메인 메뉴 호버 스크립트 
-    /*function showTable() {
-        var table = document.getElementById("communityTable");
-        table.style.display = "table"; 
+    function showTable() {
+        var mune = document.getElementById("menu1");
+        mune.style.display = "table"; 
       }
     
       function hideTable() {
-        var table = document.getElementById("communityTable");
-        table.style.display = "none"; 
+        var mune = document.getElementById("menu1");
+        mune.style.display = "none"; 
       }
-      *function showTable() {
-        var table = document.getElementById("communityTable1");
-        table.style.display = "table"; 
+      function showTable1() {
+        var mune = document.getElementById("menu2");
+        mune.style.display = "table"; 
       }
     
-      function hideTable() {
-        var table = document.getElementById("communityTable1");
-        table.style.display = "none"; 
+      function hideTable1() {
+        var mune = document.getElementById("menu2");
+        mune.style.display = "none"; 
       }
-*/
+
     
