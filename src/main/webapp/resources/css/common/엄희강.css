@@ -1,0 +1,224 @@
+.wrap, .wrap * {box-sizing: border-box;}
+
+.wrap{
+   
+    margin: auto;
+   	width: 100%;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: column; 
+	position: relative;
+    
+}
+
+.section .Login_section td a {/*로그인 버튼*/
+    width: 90px;
+    height: 30px;
+}
+.header{height: 250px;}
+
+.header_nav{
+    height: 20%; display: flex;
+    background-color: #e0e0e0;
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+    position: relative;
+} 
+
+
+
+.header_nav::before { /*상단 선 스타일*/
+        content: "";
+        position: absolute;
+        top: -10px; /* 선의 위치 조정 */
+        left: 0; 
+        width: 100%; 
+        height: 2px; /* 선의 두께 설정 */
+        background-color: #e0e0e0; 
+}
+    
+.header_nav div{/*메뉴 바 */
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;  
+    
+}
+
+
+.header_nav div a{
+    color: black;
+}
+.menu_item {
+    margin-right: 60px; 
+}
+
+.Search_section {/*검색 영역*/
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.Search_section input{
+    width: 500px;
+    height: 40px;
+}
+.header_roop {
+    display: flex;
+    margin-bottom: 20px; 
+    
+}
+
+.section {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.Login_section {
+    width: 100%;
+    margin-left: 100px;
+}
+.header-top-section { /* 홈페이지 최상단 여백*/ 
+    margin-top: 50px; 
+    margin-bottom: 20px;
+    position: relative;
+    
+}
+.header-top-section::after { /*하단 선 스타일*/
+    content: "";
+    position: absolute;
+    bottom: -10px; /* 선의 위치 조정 */
+    width: 100%; 
+    height: 2px; /* 선의 두께 설정 */
+    background-color: #e0e0e0; 
+}
+.menu_logo{
+    margin-right: 50px;
+}
+.menu_item {
+    display: inline-block; 
+    margin-right: 20px; 
+}
+
+.menu_item a {
+    text-decoration: none; 
+    display: inline-block; 
+}
+
+.menu_item:hover a {
+    font-weight: bold;
+    color: #1ABC9C; 
+}
+
+/*section 스타일*/
+
+.carousel-item img { /*배너 이미지 스타일*/
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 400px;
+}
+.main_text{ /*메인 글자 스타일*/
+    text-align: center;
+    font-size: 40px;
+    min-height: 50px;
+   border-bottom: 3px solid #e0e0e0;
+   margin-bottom: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.main_content {
+    margin: auto;
+}
+.homePage_content{ /*메인 영역*/
+    border: 2px solid #1ABC9C;
+    width: 80%;
+    height: 100%;
+    margin: 50px auto;
+    min-height: 1200px;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.footer{
+    max-height: 200px;
+}
+.footer_company {
+    height: 15%;
+    padding-top: 20px; 
+    list-style-type: none;
+  
+}
+.footer_company li{ /*푸터 글자 스타일*/
+    list-style-type: none;
+}
+.sidebarEnd{
+    margin-top: 40px;
+    border-top: 4px solid #e0e0e0;
+    height: 20px;
+}
+
+/*사이드바*/
+.sidebar {
+	position: absolute;
+    
+    right: -170px; 
+    transform: translateY(-50%); 
+    transition: top 0.7s ease-out;
+    width: 50px; 
+    height: 100%;
+
+ }
+
+ .sidebar-item {
+    display:block;
+	padding: 10px;
+	text-decoration: none;
+	color: #333;
+    
+ }
+ 
+ .horizontal-btn {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: auto; 
+    white-space: nowrap; 
+
+}
+
+.sidebar .nav-justified li {
+    display: inline-block; 
+    margin-bottom: 20px;
+    
+}
+
+.sidebar .nav-justified li:last-child {
+    margin-right: 0; 
+}
+.sidebar .nav-justified li a {
+    width: 80px; 
+    height: 30px; 
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    
+}
+.sidebar .nav-justified li:nth-child(4){
+    margin-bottom: 30px;
+}
+.sidebar .nav-justified li:nth-child(5),
+.sidebar .nav-justified li:nth-child(6) {
+   margin-bottom: 35px;
+}
