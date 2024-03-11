@@ -1,5 +1,7 @@
 .wrap, .wrap * {box-sizing: border-box;}
-
+div{
+    border: 1px solid red;
+}
 .wrap{
    
     margin: auto;
@@ -23,6 +25,8 @@
     padding-top: 10px; 
     padding-bottom: 10px; 
     position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
 } 
 
 
@@ -36,27 +40,11 @@
         height: 2px; /* 선의 두께 설정 */
         background-color: #e0e0e0; 
 }
-    
-.header_nav div{/*메뉴 바 */
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    flex-grow: 1; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100px;  
-    
-}
-
 
 .header_nav div a{
     color: black;
 }
-.menu_item {
-    margin-right: 60px; 
-}
+
 
 .Search_section {/*검색 영역*/
     flex: 1;
@@ -104,8 +92,20 @@
     margin-right: 50px;
 }
 .menu_item {
-    display: inline-block; 
-    margin-right: 20px; 
+    display: flex; 
+    margin-left: 20px; 
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;  
 }
 
 .menu_item a {
@@ -117,6 +117,51 @@
     font-weight: bold;
     color: #1ABC9C; 
 }
+
+/*서브 메뉴 스타일*/
+.sub_menu {
+    display: flex;
+}
+
+#menu1 {
+    display: flex;
+    background-color: rgba(224, 224, 224, 0.4);
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    position: absolute;
+    top: 100%; 
+}
+#menu2 {
+    display: flex;
+    background-color: rgba(224, 224, 224, 0.4);
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    position: absolute;
+    top: 100%; 
+}
+
+.community_menu ul {
+    list-style-type: none;
+    text-align: center; 
+}
+
+.community_menu li {
+    border-bottom: 1px solid;
+    margin: 10px; 
+}
+
+.community_menu li:hover {
+    background-color: #1abc9c;
+    border-radius: 10px;
+    color: white;
+    padding: 3px; 
+}
+
+
 
 /*section 스타일*/
 

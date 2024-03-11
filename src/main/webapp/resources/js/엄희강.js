@@ -34,4 +34,24 @@
 
     }
 
+    //메인 메뉴 호버 스크립트 
+    /*function showTable() {
+        var table = document.getElementById("communityTable");
+        table.style.display = "table"; 
+      }
+    
+      function hideTable() {
+        var table = document.getElementById("communityTable");
+        table.style.display = "none"; 
+      }
+      *function showTable() {
+        var table = document.getElementById("communityTable1");
+        table.style.display = "table"; 
+      }
+    
+      function hideTable() {
+        var table = document.getElementById("communityTable1");
+        table.style.display = "none"; 
+      }
+*/
     
