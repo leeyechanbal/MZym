@@ -1,7 +1,5 @@
 .wrap, .wrap * {box-sizing: border-box;}
-/*div{
-    border: 1px solid red;
-}*/
+
 .wrap{
    
     margin: auto;
@@ -13,7 +11,7 @@
     
 }
 
-.section .Login_section td a {/*로그인 버튼*/
+.section .Login_section a {/*로그인 버튼*/
     width: 90px;
     height: 30px;
 }
@@ -120,16 +118,11 @@
 }
 
 /*서브 메뉴 스타일*/
-.sub_menu {
-    display: flex;
-}
-
 #menu1 {
     display: flex;
     background-color: rgba(224, 224, 224, 0.4);
-    width: 150px;
+    width: 200px;
     border-radius: 10px;
-    padding: 10px;
     justify-content: center;
     position: absolute;
     top: 100%; 
@@ -140,9 +133,8 @@
 #menu2 {
     display: flex;
     background-color: rgba(224, 224, 224, 0.4);
-    width: 150px;
+    width: 200px;
     border-radius: 10px;
-    padding: 10px;
     justify-content: center;
     position: absolute;
     top: 100%; 
@@ -150,18 +142,38 @@
     display: none;
     transition: opacity 1s ease;
 }
+.sub_menu{
 
-.community_menu ul {
-    list-style-type: none;
-    text-align: center; 
+   margin:auto;
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column; 
 }
 
-.community_menu li {
+
+.sub{
+    flex-grow: 1;
+    margin-right:30px;
+    white-space: nowrap;
+}
+.sub_menu>.sub{
+    list-style: none;
+   
+}
+
+.sub_menu>.sub li {
     border-bottom: 1px solid;
-    margin: 10px; 
+    margin-bottom: 20px;
+    
+    
+}
+.sub_menu>.sub li>a{
+    text-decoration: none;
 }
 
-.community_menu li:hover {
+.sub_menu li:hover {
     background-color: #1abc9c;
     border-radius: 10px;
     color: white;
