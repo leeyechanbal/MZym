@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품게시판목록</title>
+    <title>질문게시판목록</title>
     <link rel="icon" href="images/favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/MZYE.css">
-    <script src="js/MZYE.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/common/MYZM.css">
+    <script src="../../../resources/js/MYZM.js"></script> 
 
     <style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -30,7 +30,7 @@
 
         /* Section 관련 스타일 */
         .main_content>div{
-            border:1px solid 1abc9c;
+            border:1px solid #1abc9c;
             width:80%;
             margin:auto;
             margin-top:50px; 
@@ -40,48 +40,30 @@
             border-radius:10px;
         }
 
-        h4 { 
+        .search {
+            position: relative;
+            width: 300px;
+            float: left;
+        }
+
+        input {
+             width: 100%;
+             border: 1px solid #bbb;
+             border-radius: 8px;
+             padding: 10px 12px;
+             font-size: 14px;
+        }
+
+        img {
+             position : absolute;
+             width: 17px;
+             top: 10px;
+             right: 12px;
+            margin: 0;
+        }
+
+        h2 { 
             text-align: center; 
-            color: #1abc9c;
-        }
-
-        hr{
-            width: 200px;
-            text-align: center;
-        }
-
-        .board_list{
-            display:flex;
-            flex-wrap:wrap;
-        }
-        .thumbnail{
-            width:200px;
-            margin:25px;
-            border:1px solid lightgray;
-            padding:5px;
-            cursor:pointer;
-            position:relative;
-        }
-        .thumbnail:hover>img{
-            opacity:0.9;
-        }
-        .thumbnail_img{
-            width:190px;
-            height:200px;
-        }
-        .thumbnail_title{
-            width:190px;
-            height:30px;
-            background:rgb(109, 108, 108);
-            color:white;
-            text-align:center;
-            position:absolute;
-            top:175px;
-            z-index:10;
-        }
-        .thumbnail_etc{
-            display:flex;
-            justify-content: space-between;
         }
 
         .my.pagination > .active > a, 
@@ -107,26 +89,9 @@
             border-color: #ccc;
         }
 
-        .search {
-            position: relative;
-            width: 300px;
-            margin: 0 auto;
-        }
-
-        input {
-            width: 100%;
-            border: 1px solid #bbb;
-            border-radius: 8px;
-            padding: 10px 12px;
-            font-size: 14px;
-        }
-
-        .searchimg {
-            position : absolute;
-            width: 17px;
-            top: 10px;
-            right: 12px;
-            margin: 0;
+        hr{
+            width: 200px;
+            text-align: center;
         }
 
     </style>
@@ -233,137 +198,89 @@
        <section class="main_content">
 
         <div class="board_content">
-
-            <h4>추천 상품</h4>
+            <h2>질문게시판</h2>
             <hr>
-            <br>
-
-            <div class="board_list">
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-            </div>
-            
-            <br>
-            <h4>전체 상품</h4>
-            <hr>
-            <br>
-
-            <div class="board_list">
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-                <div class="thumbnail">
-                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-                    <div class="thumbnail_title">PT후기</div>
-                    <div class="thumbnail_etc">
-                        <div>별점</div>
-                        <div>조회수</div>
-                    </div>
-                </div>
-
-            </div>
             <br><br>
+
+            <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 
             <div class="search">
                 <input type="text" placeholder="검색어를 입력하세요">
-                <img class="searchimg" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
-            <br>
 
+            <div align="right">
+                <button type="button" class="btn btn-secondary">글쓰기</button>
+                <br><br>
+            </div>
+
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="100px">글번호</th>
+                        <th width="100px">카테고리</th>
+                        <th width="400px">글제목</th>
+                        <th width="120px">작성자</th>
+                        <th>조회수</th>
+                        <th>작성일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- case1. 조회된 게시글이 없을 경우 -->
+                    <!--
+                    <tr>
+                        <td colspan="6" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+                    </tr>
+                    -->
+
+                    <!-- case2. 조회된 게시글이 있을 경우 -->
+                    <tr>
+                        <td>3</td>
+                        <td>게임</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>200</td>
+                        <td>2024-01-12</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>게임</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>200</td>
+                        <td>2024-01-12</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>게임</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>200</td>
+                        <td>2024-01-12</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>게임</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>200</td>
+                        <td>2024-01-12</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>게임</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>200</td>
+                        <td>2024-01-12</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <br>
+            
             <ul class="pagination my justify-content-center">
                 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -373,7 +290,7 @@
                 <li class="page-item"><a class="page-link" href="#">5</a></li>
                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
-            
+
         </div>
 
     </section>

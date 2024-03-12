@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT헬스장후기게시판상세페이지</title>
+    <title>PT헬스장후기게시글작성</title>
     <link rel="icon" href="images/favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/MZYE.css">
-    <script src="js/MZYE.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/common/MYZM.css">
+    <script src="../../../resources/js/MYZM.js"></script> 
 
     <style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -49,32 +49,31 @@
             text-align: center; 
         }
 
-        .btn-secondary{
-            text-align: bottom;
-        }
-
         .btn1{
-            border: 1px solid #1abc9c;
+            border: 1px solid #eee;
             color: #000;
-            text-align: center;
         }
         .btn2{
-            border: 1px solid #1abc9c;
+            border: 1px solid #eee;
             color: #000;
+            float: right;
+            overflow: hidden;
         }
         .btn3{
-            border: 1px solid #1abc9c;
-            color: #000;    
+            border: 1px solid #eee;
+            color: #000;
+            float: right;
+            overflow: hidden;
+            margin-right: 10px;
         }
-
-        #img_content{
-            width:500px;
+        
+        .title_img{
+            width:450px;
             height:300px;
-            margin:auto;
         }
-        .carousel-item img{
-            width:500px;
-            height:300px;
+        .content_img{
+            width:180px;
+            height:100px;
         }
 
     </style>
@@ -178,83 +177,71 @@
     <section class="main_content">
 
         <div class="board_content">
-            <h2>PT 헬스장 후기</h2>
+            <h2>후기글 작성</h2>
             <hr>
             <br><br>
 
             
-            <div id="img_content" class="carousel slide" data-ride="carousel">
+            <form action="" method="">
+                <table class="table">
+                    <tr>
+                        <th>제목</th>
+                        <td colspan="3"><input type="text" class="form-control" required></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td colspan="3"><textarea cols="30" rows="10" class="form-control" style="resize:none;" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="120">대표이미지</th>
+                        <td>
+                            <img class="img_preview title_img" onclick="chooseFile(0);">
+                        </td>
+                        <th width="120">상세이미지</th>
+                        <td>
+                            <img class="img_preview content_img" onclick="chooseFile(1);">
+                            <img class="img_preview content_img" onclick="chooseFile(2);">
+                            <img class="img_preview content_img" onclick="chooseFile(3);">
+                        </td>
+                    </tr>
+                </table>
+                <button type="button" class="btn1 btn-outline-secondary btn-sm" onclick="history.back();">목록</button>
+                <button type="reset" class="btn2 btn-outline-danger btn-sm">취소</button>
+                <button type="submit" class="btn3 btn-outline-secondary btn-sm">등록</button>  
 
-                <!-- Indicators -->
-                <ul class="carousel-indicators">
-                  <!-- li 요소는 이미지의 갯수만큼 -->
-                  <li data-target="#img_content" data-slide-to="0" class="active"></li>
-                  <li data-target="#img_content" data-slide-to="1"></li>
-                  <li data-target="#img_content" data-slide-to="2"></li>
-                  <li data-target="#img_content" data-slide-to="3"></li>
-                </ul>
-              
-                <!-- The slideshow -->
-                <div class="carousel-inner">
-
-                  <!-- 이미지 갯수만큼 .carousel-item -->
-                  <div class="carousel-item active">
-                    <img src="../../resources/images/1.jpg" alt="1번이미지">
-                  </div>
-
-                  <div class="carousel-item">
-                    <img src="../../resources/images/2.jpg" alt="2번이미지">
-                  </div>
-
-                  <div class="carousel-item">
-                    <img src="../../resources/images/3.jpg" alt="3번이미지">
-                  </div>
-
-                  <div class="carousel-item">
-                    <img src="../../resources/images/4.jpg" alt="4번이미지">
-                  </div>
-
+                <div style="display:none;">
+                    <!-- 대표이미지 -->
+                    <input type="file" name="upfile1" onchange="loadImg(0);" required>
+                    <!-- 상세이미지 -->
+                    <input type="file" name="upfile2" onchange="loadImg(1);">
+                    <input type="file" name="upfile3" onchange="loadImg(2);">
+                    <input type="file" name="upfile4" onchange="loadImg(3);">
                 </div>
-              
-                <!-- Left and right controls -->
-                <a class="carousel-control-prev" href="#img_content" data-slide="prev">
-                  <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#img_content" data-slide="next">
-                  <span class="carousel-control-next-icon"></span>
-                </a>
-              
-            </div>
 
-            <br><br>
-            
-            
-            <table class="table">
-                <tr>
-                    <th>제목</th>
-                    <td colspan="3">후기글 제목</td>
-                </tr>
-                <tr>
-                    <th width="100">작성자</th>
-                    <td width="400">user01</td>
-                    <th width="100">작성일</th>
-                    <td>2024-03-09</td>
-                </tr>
-                <tr>
-                    <th>내용</th>
-                    <td colspan="3"><p style="min-height:200px;">후기글 내용</p></td>
-                </tr>
-                <tr>
-                    <td colspan="4" align="center">
-                        <button type="button" class="btn1 btn-outline-secondary btn-sm">목록</button>
-                        <!-- 현재 로그인한 사용자가 해당 게시글 작성자일 경우 보여지는 버튼 요소 -->
-                        <button type="button" class="btn2 btn-outline-secondary btn-sm">수정</button>
-                        <button type="button" class="btn3 btn-outline-danger btn-sm">삭제</button>
-                    </td>
-                </tr>
-            </table>
+                <script>
+                    function chooseFile(idx){
+                        $(":file").eq(idx).click();
+                    }
 
-            <br><br>
+                    function loadImg(idx){
+                        const inputFile = window.event.target;
+
+                        if(inputFile.files.length == 1){ 
+                            const reader = new FileReader();
+                            reader.readAsDataURL(inputFile.files[0]); 
+
+                            reader.onload = function(e){
+                                $(".img_preview").eq(idx).attr("src", e.target.result);
+                            }
+
+                        }else{
+                            $(".img_preview").eq(idx).attr("src", null);
+                        }
+
+                    }
+                </script>
+
+            </form>
 
         </div>
 

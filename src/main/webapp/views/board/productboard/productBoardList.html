@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>운동모임게시판목록</title>
+    <title>상품게시판목록</title>
     <link rel="icon" href="images/favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/MZYE.css">
-    <script src="js/MZYE.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/common/MYZM.css">
+    <script src="../../../resources/js/MYZM.js"></script> 
 
     <style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -30,7 +30,7 @@
 
         /* Section 관련 스타일 */
         .main_content>div{
-            border:1px solid #1abc9c;
+            border:1px solid 1abc9c;
             width:80%;
             margin:auto;
             margin-top:50px; 
@@ -40,30 +40,42 @@
             border-radius:10px;
         }
 
-        .search {
-            position: relative;
-            width: 300px;
-            float: left;
-        }
-
-        input {
-             width: 100%;
-             border: 1px solid #bbb;
-             border-radius: 8px;
-             padding: 10px 12px;
-             font-size: 14px;
-        }
-
-        img {
-             position : absolute;
-             width: 17px;
-             top: 10px;
-             right: 12px;
-            margin: 0;
-        }
-
-        h2 { 
+        h4 { 
             text-align: center; 
+            color: #1abc9c;
+        }
+
+        hr{
+            width: 200px;
+            text-align: center;
+        }
+
+        .board_list{
+            display:flex;
+            flex-wrap:wrap;
+        }
+        .thumbnail{
+            width:200px;
+            margin:25px;
+            border:1px solid lightgray;
+            padding:5px;
+            cursor:pointer;
+            position:relative;
+        }
+        .thumbnail:hover>img{
+            opacity:0.9;
+        }
+        .thumbnail_img{
+            width:190px;
+            height:200px;
+        }
+        .thumbnail_title{
+            width:190px;
+            height:30px;
+            text-align:center;
+            position:absolute;
+            top:175px;
+            z-index:10;
         }
 
         .my.pagination > .active > a, 
@@ -89,9 +101,36 @@
             border-color: #ccc;
         }
 
-        hr{
-            width: 200px;
-            text-align: center;
+        .search {
+            position: relative;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+        .searchimg {
+            position : absolute;
+            width: 17px;
+            top: 10px;
+            right: 12px;
+            margin: 0;
+        }
+
+        .price{
+            margin: 10px;
+            font-size: 15px;
+        }
+
+        .product_detail{
+            margin: 10px;
+            font-size: 12px;
         }
 
     </style>
@@ -198,89 +237,137 @@
        <section class="main_content">
 
         <div class="board_content">
-            <h2>운동모임</h2>
-            <hr>
-            <br><br>
 
-            <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
+            <h4>추천 상품</h4>
+            <hr>
+            <br>
+
+            <div class="board_list">
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../../resources/img/common/MZYMProduct.png">
+                    <div class="thumbnail_title">MZYM PT 10회권</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">500,000원</div>
+                        <div class="product_detail">프리미엄P.T 10회 + 헬스장 2개월 이용권</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+            <h4>전체 상품</h4>
+            <hr>
+            <br>
+
+            <div class="board_list">
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+                <div class="thumbnail">
+                    <img class="thumbnail_img" src="../../resources/images/.jpg">
+                    <div class="thumbnail_title">상품이름</div>
+                    <div class="thumbnail_etc">
+                        <div class="price">가격</div>
+                        <div class="product_detail">설명</div>
+                    </div>
+                </div>
+
+            </div>
+            <br><br>
 
             <div class="search">
                 <input type="text" placeholder="검색어를 입력하세요">
-                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <img class="searchimg" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
-
-            <div align="right">
-                <button type="button" class="btn btn-secondary">글쓰기</button>
-                <br><br>
-            </div>
-
             <br>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th width="100px">글번호</th>
-                        <th width="100px">카테고리</th>
-                        <th width="400px">글제목</th>
-                        <th width="120px">작성자</th>
-                        <th>조회수</th>
-                        <th>작성일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- case1. 조회된 게시글이 없을 경우 -->
-                    <!--
-                    <tr>
-                        <td colspan="6" style="text-align: center;">존재하는 게시글이 없습니다.</td>
-                    </tr>
-                    -->
 
-                    <!-- case2. 조회된 게시글이 있을 경우 -->
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <br>
-            
             <ul class="pagination my justify-content-center">
                 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -290,7 +377,7 @@
                 <li class="page-item"><a class="page-link" href="#">5</a></li>
                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
-
+            
         </div>
 
     </section>
