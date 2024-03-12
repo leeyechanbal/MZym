@@ -22,12 +22,7 @@
             display:flex;
             flex-direction:column;
         }
-        .header{height:250px;}
-        .main_content{min-height:500px;}
-        .footer{height:250px;}
-
-        .center{display:flex; justify-content: center; align-items: center;}
-
+        
         /* Section 관련 스타일 */
         .main_content>div{
             border:1px solid #1abc9c;
@@ -97,78 +92,114 @@
       </div>
     </div>
 
-    <!--header start-->   
-    <header class="header-top-section">
-        <div>
-            <div>
-                <div class="headr_roop">
-                    <div class="section">
-                        <table class="Login_section">
-                            <tr>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
+       <!--sidebar start-->
+       <div class="sidebar" id="quickmenu">
+        <nav class="col-sm-7 sidenav">
+          
+            <ul class="nav nav-pills nav-justified">
+              <li><a><img src="/src/main/webapp/resources/img/common/스크롤 업.png" style="width: 50px; height: 50px;" onclick="scrollToTop();"></a></li>
+              <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">공지사항</a></li>
+              <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">자유게시판</a></li>
+              <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">질문게시판</a></li>
+              <li><a href="https://www.facebook.com" target="_blank"><img src="../../../resources/img/common/facebook.png" style="width: 50px; height: 50px"></a></li>
+              <li><a href="https://www.instagram.com" target="_blank"><img src="/src/main/webapp/resources/img/common/instagram.png" style="width: 50px; height: 50px"></a></li>
+              <li><a><img src="/src/main/webapp/resources/img/common/스크롤 다운.png" style="width: 50px; height: 50px;" onclick="scrollToBottom();"></a></li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+      <!--sidebar end-->
+  
+      <!--header start-->   
+      <header class="header-top-section">
+          <div>
+              <div>
+                  <div class="header_roop">
+                      <div class="etc_Section">
+                          <table class="Login_section">
+                            <!-- 로그인 전 보여질 화면 
+                              <tr>
+                                  <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
+                                  <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
+                                  <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                              </tr>
+                            -->
+                              <tr>
+                                <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
+                                <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                             </tr>
-                        </table>
-                    </div>
-                    <div class="Search_section">
-                        <div class="Search_area">
-                            <img src="images\검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
-                            <input type="search" placeholder="검색어를 입력하세요">
-                            
-                        </div>
-                    </div>
-                    <div class="Search_section">
-                        
-                        <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
-                        <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
-                        </div>
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
-           
-                
-        <nav class="header_nav">
-           
-            <div class="menu_logo" id="homelogo">
-                <a href=""><img src="images\캡처-removebg-preview.jpg" style="width: 100px;"></a>
+                          </table>
+                      </div>
+                      <div class="Search_section">
+                          <div class="Search_area">
+                              <img src="/src/main/webapp/resources/img/common/검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
+                              <input type="search" placeholder="검색어를 입력하세요">
+                              
+                          </div>
+                      </div>
+                      <div class="SearchText_section">
+                          
+                          <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
+                          <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
+                          </div>
+                      
+                      </div>
+                  </div>
               </div>
-
-            <div class="menu_item">
-            <a href="" class="community" onclick="showSubMenu();">커뮤니티</a>
-            </div>
-            <div class="menu_item" id="sub_menu" style="display: none;">
-              <a>서브 메뉴 1</a>
-              <a>서브 메뉴 2</a>
-              <a>서브 메뉴 3</a>
-            </div>
-          
-            <div class="menu_item">
-              <a href="" >상품구매</a>
-            </div>
-            <div class="menu_item">
-              <a href="" >헬스장 안내</a>
-            </div>
-            <div class="menu_item">
-              <a href="" >추천운동영상</a>
-            </div>
-            <div class="menu_item">
-              <a href="" >고객센터</a>
-            </div>
-            <div class="menu_item">
-              <a href="" >상담예약</a>
-            </div>     
-        </nav>
-        <table id="hiddenTable" style="display: none;">
-            <tr>
-                <td>테이블 내용</td>
-            </tr>
-        </table>
-    </header>
-
-    <!--header end-->
+          </div>
+             
+                  
+          <nav class="header_nav">
+             
+              <div class="menu_logo" id="homelogo">
+                  <a href=""><img src="/src/main/webapp/resources/img/common/캡처.jpg" style="width: 100px;"></a>
+                  
+                </div>
+                
+              <div class="menu_item" onmouseover="showTable();" onmouseout="hideTable();">
+              <a href="" class="community" >커뮤니티</a>
+                  
+                    <div class="sub_menu" id="menu1">
+                      <ul class="sub">
+                        <li><a>공지사항</a></li>
+                        <li><a>자유게시판</a></li>
+                        <li><a>질문게시판</a></li>
+                        <li><a>헬스장후기</a></li>
+                        <li><a>운동모임</a></li>
+                      </ul>
+                    </div>
+                  
+              </div> 
+     
+              <div class="menu_item">
+                <a href="" class="community">상품구매</a>
+              </div>
+              <div class="menu_item" onmouseover="showTable1();" onmouseout="hideTable1();">
+                <a href="" class="community">헬스장 안내</a>
+                
+                  <div class="sub_menu" id="menu2">
+                    <ul class="sub">
+                      <li><a>헬스장위치</a></li>
+                      <li><a>시설 안내</a></li>
+                    </ul>   
+                  </div>   
+                
+              </div>
+              <div class="menu_item">
+                <a href="" class="community">추천운동영상</a>
+              </div>
+              <div class="menu_item">
+                <a href="" class="community">고객센터</a>
+              </div>
+              <div class="menu_item">
+                <a href="" class="community">상담예약</a>
+              </div>     
+          </nav>
+      </header>
+  
+      <!--headr end-->
 
     <!-- Section start -->
     <section class="main_content">
@@ -242,8 +273,9 @@
     </section>
     <!-- Section end -->
 
-    <!--footer start-->    
-    
+     <!--footer start--> 
+     <footer>
+        <div class="sidebarEnd"></div>
         <div class="footer_company">
             <ul>
                 <li>상호명 : MZYM</li>
