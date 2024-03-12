@@ -23,6 +23,7 @@
 
     .homePage_content{ /*메인 영역*/
         border: 3px solid #1ABC9C;
+        padding: 20px;
     }
     .main_content>div{ /*메인 영역*/
         min-height: 500px;
@@ -42,28 +43,23 @@
         height: 60px;
     }
 
-    .info_btn {
-        background-color: #1ABC9C;
-        border: solid #1ABC9C;
-        position: absolute;
-        top: 30%;
-        right: 3%; /* 원하는 위치로 조정 가능 */
-        margin: auto;
-        color : white;
-    }
-
-    .info_btn:hover{
-        background: #19b192;;
-        border: solid #19b192;
-        color: white;
-    }
-    
-    .signup_btn {
+    .findId_btn {
         background: #1ABC9C;
         border: solid #1ABC9C;
         color: white;
         border-radius: 7px;
     }
+    .findId_btn:hover{
+        background: #19b192;;
+        border: solid #19b192;
+        color: white;
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0px 50px;
+    }
+
 
     </style>
 </head>
@@ -203,7 +199,7 @@
 
       <!--section start-->    
       <div class="main_header">
-        <h1>회원가입</h1>
+        <h1>아이디 찾기</h1>
         <hr>
         <h5>회원정보 입력</h5>
       </div>
@@ -213,45 +209,18 @@
                 <form action="" method="" style="width: 100%;">
                     <table class="table table-borderless">
                         <tr>
-                            <td>
-                                <input type="text" class="form-control" placeholder="아이디" required>
-                                <button type="button" class="info_btn btn-sm">중복확인</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="password" class="form-control" placeholder="비밀번호" required></td>
-                        </tr>
-                        <tr>
-                            <td><input type="password" class="form-control" placeholder="비밀번호 확인" required></td>
-                        </tr>
-                        <tr>
                             <td><input type="text" class="form-control" placeholder="이름" required></td>
                         </tr>
                         <tr>
                             <td><input type="text" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="주민번호(-포함해서 입력해주세요)"></td>
-                        </tr>
-                        <tr>
                             <td><input type="email" class="form-control" placeholder="이메일"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" class="form-control" placeholder="주소"></td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="font-size: larger;">
-                                <label style="display: flex; align-items: center; justify-content: center; text-align: center;">
-                                <input type="checkbox" name="" id="" style="margin-right: 7px; width: 20px;">
-                                [필수]개인정보 수집, 이용 동의
-                                </label>
-                            </td>
                         </tr>
 
                         <tr>
                             <th style="text-align: center; padding-top: 20px;">
-                                <button type="submit" class="signup_btn" style="width: 200px; height: 50px; font-size: larger;">회원가입</button>
+                                <button type="submit" class="findId_btn" style="width: 200px; height: 50px; font-size: larger;">아이디찾기</button>
                             </th>
                         </tr>
                     </table>
