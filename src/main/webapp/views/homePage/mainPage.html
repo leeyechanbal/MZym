@@ -17,8 +17,19 @@
     
   </head>
   <style>
+    .homePage_content{ /*메인 영역*/
+    border: 2px solid #1ABC9C;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    margin-top: 50px;
+    min-height: 1200px;
+    padding: 50px;
+    border-radius: 10px;
+    display: flex;
+  }
     .trainerInfo{
-      border: 1px solid red;
+    
     width: 50%;
     height: 100%;
     margin: 50px auto;
@@ -50,7 +61,7 @@
      
     }
     .trainerArea{
-      border: 2px solid #1ABC9C;
+      border: 1px solid #1ABC9C;
       width: 90%;
       height: 100%;
       margin: auto;
@@ -61,27 +72,8 @@
     }
   </style>
 <body>
+     
     <div class="wrap">
-
-    <!--sidebar start-->
-    <div class="sidebar" id="quickmenu">
-      <nav class="col-sm-7 sidenav">
-        
-          <ul class="nav nav-pills nav-justified">
-            <li><a><img src="/src/main/webapp/resources/img/common/스크롤 업.png" style="width: 50px; height: 50px;" onclick="scrollToTop();"></a></li>
-            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">공지사항</a></li>
-            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">자유게시판</a></li>
-            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">질문게시판</a></li>
-            <li><a href="https://www.facebook.com" target="_blank"><img src="/src/main/webapp/resources/img/common/facebook.png" style="width: 50px; height: 50px"></a></li>
-            <li><a href="https://www.instagram.com" target="_blank"><img src="/src/main/webapp/resources/img/common/instagram.png" style="width: 50px; height: 50px"></a></li>
-            <li><a><img src="/src/main/webapp/resources/img/common/스크롤 다운.png" style="width: 50px; height: 50px;" onclick="scrollToBottom();"></a></li>
-          </ul>
-        </nav>
-        
-      </div>
-    </div>
-    <!--sidebar end-->
-
     <!--header start-->   
     <header class="header-top-section">
         <div>
@@ -89,18 +81,19 @@
                 <div class="header_roop">
                     <div class="etc_Section">
                         <table class="Login_section">
-                          <!-- 로그인 전 보여질 화면 
+                         
                             <tr>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                             </tr>
-                          -->
+                          <!--
                             <tr>
                               <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
                               <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
                               <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                           </tr>
+                        -->
                         </table>
                     </div>
                     <div class="Search_section">
@@ -212,12 +205,28 @@
 
       <!--section start-->    
       <section class="main_content">
+      <!--sidebar start-->
+     <div class="sidebar" id="quickmenu">
+      <nav class="col-sm-7 sidenav">
+        
+          <ul class="nav nav-pills nav-justified">
+            <li><a><img src="/src/main/webapp/resources/img/common/스크롤 업.png" style="width: 50px; height: 50px;" onclick="scrollToTop();"></a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">공지사항</a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">자유게시판</a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">질문게시판</a></li>
+            <li><a href="https://www.facebook.com" target="_blank"><img src="/src/main/webapp/resources/img/common/facebook.png" style="width: 50px; height: 50px"></a></li>
+            <li><a href="https://www.instagram.com" target="_blank"><img src="/src/main/webapp/resources/img/common/instagram.png" style="width: 50px; height: 50px"></a></li>
+            <li><a><img src="/src/main/webapp/resources/img/common/스크롤 다운.png" style="width: 50px; height: 50px;" onclick="scrollToBottom();"></a></li>
+          </ul>
+        </nav>
+     </div>
+    <!--sidebar end-->
       <!--메인 컨텐츠 내용 -->  
         <div class="homePage_content">
             <div class="trainerInfo">
-              <div style="text-align: center;"><span><h3>퍼스널 트레이너 소개</h3></span></div>
+             
               <div class="trainerArea">
-
+                <div style="text-align: center;"><span><h3>퍼스널 트레이너 소개</h3></span></div>
 
 
 
@@ -258,7 +267,7 @@
         </ul>
     </footer>
     <!--footer end-->
-      
+  
     </div>
     
 </body>
