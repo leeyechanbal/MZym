@@ -5,15 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
     <link rel="icon" href="images/favicon.png">
+     <!--부트 스트랩 및 제이쿼리-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/src/main/webapp/resources/css/common/엄희강.css">
-    <script src="/src/main/webapp/resources/js/엄희강.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!--이미지 스크립트 링크-->
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/common/MYZM.css">
+    <script src="/src/main/webapp/resources/js/MYZM.js"></script>
     
   </head>
+  <style>
+    .trainerInfo{
+      border: 1px solid red;
+    width: 50%;
+    height: 100%;
+    margin: 50px auto;
+    min-height: 1200px;
+    padding: 50px;
+    }
+    .boardInfo{
+    width: 50%;
+    height: 100%;
+    margin: 50px auto;
+    min-height: 1200px;
+    padding: 50px;
+    }
+    .noticeArea{
+      border: 1px solid red;
+      width: 80%;
+      height: 100%;
+      margin: 50px auto;
+      min-height: 500px;
+     
+    }
 
+    .boardArea{
+      border: 1px solid red;
+      width: 80%;
+      height: 100%;
+      margin: 50px auto;
+      min-height: 500px;
+     
+    }
+    .trainerArea{
+      border: 2px solid #1ABC9C;
+      width: 90%;
+      height: 100%;
+      margin: auto;
+      min-height: 1200px;
+      padding: 50px;
+      border-radius: 10px;
+      display: flex;
+    }
+  </style>
 <body>
     <div class="wrap">
 
@@ -41,13 +87,20 @@
         <div>
             <div>
                 <div class="header_roop">
-                    <div class="section">
+                    <div class="etc_Section">
                         <table class="Login_section">
+                          <!-- 로그인 전 보여질 화면 
                             <tr>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                             </tr>
+                          -->
+                            <tr>
+                              <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
+                              <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
+                              <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                          </tr>
                         </table>
                     </div>
                     <div class="Search_section">
@@ -57,7 +110,7 @@
                             
                         </div>
                     </div>
-                    <div class="Search_section">
+                    <div class="SearchText_section">
                         
                         <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
                         <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
@@ -161,9 +214,31 @@
       <section class="main_content">
       <!--메인 컨텐츠 내용 -->  
         <div class="homePage_content">
+            <div class="trainerInfo">
+              <div style="text-align: center;"><span><h3>퍼스널 트레이너 소개</h3></span></div>
+              <div class="trainerArea">
+
+
+
+
+
+              </div>
+            </div>
+            <div class="boardInfo">
+                <div class="noticeArea">
+                  <div style="text-align: center;"><span><h3>공지사항</h3></span></div>
+                 
+                  공지사항 incloude
+                </div>
+                
+                <div class="boardArea">
+                  <div style="text-align: center;"><span><h3>자유게시판</h3></span></div>
+                  자유게시판 incloude
+                </div>
+            
+              </div>
 
         </div>
-
       </section>
       <!--section end-->
 
