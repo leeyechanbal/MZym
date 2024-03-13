@@ -3,302 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인페이지</title>
+    <title>마이페이지</title>
+    
     <link rel="icon" href="images/favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../03_JavaScript/resources/js/sample.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/MZYE.css">
-    <link rel="preload" href="js/MZYE.js" as="script">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!--이미지 스크립트 링크-->
     <link rel="stylesheet" href="/src/main/webapp/resources/css/common/MYZM.css">
     <script src="/src/main/webapp/resources/js/MYZM.js"></script> 
+    
     <style>
-    .wrap, .wrap * {box-sizing: border-box;}
+
+.wrap, .wrap * {box-sizing: border-box;}
 
 
-    .wrap{
-    
-        margin: auto;
-        width: 100%;
-        max-width: 1300px;
-        display: flex;
-        flex-direction: column; 
-        position: relative;
-        
-    }
-
-    /*헤더 영역 스타일*/
-    .header{height: 250px;}
-
-    .afterLogin{
-        display: flex;
-        flex-direction: row;
-        white-space: nowrap;
-        margin-right: 20px
-    }
-
-    .header_nav{
-        height: 40%; 
-        display: flex;
-        background-color: #e0e0e0;
-        padding-top: 10px; 
-        padding-bottom: 10px; 
-        position: relative;
-        padding-left: 20px;
-        padding-right: 20px;
-    } 
-
-    .header_nav::before { /*상단 선 스타일*/
-            content: "";
-            position: absolute;
-            top: -10px; /* 선의 위치 조정 */
-            left: 0; 
-            width: 100%; 
-            height: 4px; /* 선의 두께 설정 */
-            background-color: #e0e0e0; 
-    }
-
-    .header_nav div a{color: black;}
-
-    .header_roop {
-        display: flex;
-        margin-bottom: 20px; 
-        max-height: 100px;
-        width: 100%;
-        
-    }
-    .Login_section a {/*로그인 버튼*/
-        width: 90px;
-        height: 30px;
-        margin-right: 20px;
-    }
-    .Search_section {/*검색 영역*/
-        flex: 1;
-        width: 40%;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-
-    }
-    .Search_section input{
-        width: 500px;
-        height: 40px;
-        
-    }
-    .SearchText_section{
-        width: 20%;
-    }
-    .etc_Section{
-        width: 20%;
-        display: flex;
-        
-    }
-
-    .Login_section {
-    
-    margin-left: 200px;
-    margin-right: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    
-    }
-    .header-top-section { /* 홈페이지 최상단 여백*/ 
-        margin-top: 50px; 
-        margin-bottom: 20px;
-        position: relative;
-        width: 100%;
-        
-    }
-
-    .main_text{margin-top: 20px;}
-    .menu_logo{margin: 50px;}
-    
-    .menu_item {
-        display: flex; 
-        margin-left: 20px; 
-        position: relative;
-        color: black;
-        font-size: 25px;
-        font-weight: bold;
-        text-decoration: none;
-        flex-grow: 1; 
-        display: flex;
-        justify-content: center;
-        line-height: 40px;
-        align-items: center;
-    }
-
-    .menu_item a {
-        text-decoration: none; 
-        display: inline-block; 
-    }
-
-    .menu_item:hover .community {
-        font-weight: bold;
-        color: #1ABC9C; 
-    }
-
-    /*서브 메뉴 스타일*/
-    #menu1 {
-        display: flex;
-        background-color: rgba(224, 224, 224, 0.4);
-        width: 200px;
-        border-radius: 10px;
-        justify-content: center;
-        position: absolute;
-        top: 100%; 
-        z-index: 999;
-        display: none;
-        transition: opacity 1s ease;
-    }
-    #menu2 {
-        display: flex;
-        background-color: rgba(224, 224, 224, 0.4);
-        width: 200px;
-        border-radius: 10px;
-        justify-content: center;
-        position: absolute;
-        top: 100%; 
-        z-index: 999;
-        display: none;
-        transition: opacity 1s ease;
-    }
-    .sub_menu{
-    margin:auto;
-    text-align: center;
+.wrap{
+   
+    margin: auto;
+   	width: 80%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column; 
-    }
-    .sub{
-        margin-right:30px;
-        white-space: nowrap;
-    }
-    .sub_menu>.sub{
-        list-style: none;
+	position: relative;
     
-    }
+}
 
-    .sub_menu>.sub li {
-        border-bottom: 1px solid;
-        font-size: 15px;
-        
-    }
-    .sub_menu>.sub li>a{
-        text-decoration: none;
-    }
+/*헤더 영역 스타일*/
+.header{height: 250px;}
 
-    .sub_menu li:hover {
-        background-color: #1abc9c;
-        border-radius: 10px;
-        color: white;
-        padding: 3px; 
-    }
+.afterLogin{
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    margin-right: 20px
+}
+
+.header_nav{
+    height: 40%; 
+    display: flex;
+    background-color: #e0e0e0;
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+} 
 
 
 
-    /*section 스타일*/
+.header_nav::before { /*상단 선 스타일*/
+        content: "";
+        position: absolute;
+        top: -10px; /* 선의 위치 조정 */
+        left: 0; 
+        width: 100%; 
+        height: 4px; /* 선의 두께 설정 */
+        background-color: #e0e0e0; 
+}
 
-    .carousel-item img { /*배너 이미지 스타일*/
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        max-height: 600px;
-    }
-    .main_text{ /*메인 글자 스타일*/
-        text-align: center;
-        font-size: 40px;
-        min-height: 50px;
-    border-bottom: 3px solid #e0e0e0;
-    margin-bottom: 20px;
+.header_nav div a{
+    color: black;
+}
+.header_roop {
+    display: flex;
+    margin-bottom: 20px; 
+    max-height: 100px;
+    width: 100%;
+    
+}
+.Login_section a {/*로그인 버튼*/
+    width: 90px;
+    height: 30px;
+    margin-right: 20px;
+}
+.Search_section {/*검색 영역*/
+    flex: 1;
+    width: 40%;
+    margin-right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    }
-
    
 
-    /*footer 스타일*/
-    .footer{
-        max-height: 200px;
-    }
-    .footer_company {
-        height: 15%;
-        padding-top: 20px; 
-        list-style-type: none;
+}
+.Search_section input{
+    width: 500px;
+    height: 40px;
     
-    }
-    .footer_company li{ /*푸터 글자 스타일*/
-        list-style-type: none;
-    }
-    .sidebarEnd{
-        margin-top: 40px;
-        border-top: 4px solid #e0e0e0;
-        height: 20px;
-    }
+}
+.SearchText_section{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.etc_Section{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    /*사이드바*/
-    .sidebar {
-        position: absolute;
-        
-        right: -35%; 
-        transform: translateY(-50%); 
-        transition: top 0.7s ease-out;
-        width: 50px; 
-        height: 100%;
-
-    }
-
-    .sidebar-item {
-        display:block;
-        padding: 10px;
-        text-decoration: none;
-        color: #333;
-        
-    }
+.Login_section {
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+.header-top-section { /* 홈페이지 최상단 여백*/ 
+    margin-top: 50px; 
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
     
-    .horizontal-btn {
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        width: auto; 
-        white-space: nowrap; 
+}
 
-    }
+.main_text{
+    margin-top: 20px;
+}
+.menu_logo{
+    
+    margin: 50px;
+}
+.menu_item {
+    display: flex; 
+    margin-left: 20px; 
+    position: relative;
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    line-height: 40px;
+    align-items: center;
+}
 
-    .sidebar .nav-justified li {
-        display: inline-block; 
-        margin-bottom: 20px;
-        
-    }
+.menu_item a {
+    text-decoration: none; 
+    display: inline-block; 
+}
 
-    .sidebar .nav-justified li:last-child {
-        margin-right: 0; 
-    }
-    .sidebar .nav-justified li a {
-        width: 80px; 
-        height: 30px; 
-        text-align: center;
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        
-    }
-    .sidebar .nav-justified li:nth-child(4){
-        margin-bottom: 30px;
-    }
-    .sidebar .nav-justified li:nth-child(5),
-    .sidebar .nav-justified li:nth-child(6) {
-    margin-bottom: 35px;
-    }
+.menu_item:hover .community {
+    font-weight: bold;
+    color: #1ABC9C; 
+}
+
+/*서브 메뉴 스타일*/
+#menu1 {
+    display: flex;
+    background-color: rgba(224, 224, 224, 0.4);
+    width: 90%;
+    border-radius: 10px;
+    justify-content: center;
+    position: absolute;
+    top: 100%; 
+    z-index: 999;
+    display: none;
+    transition: opacity 1s ease;
+}
+#menu2 {
+    display: flex;
+    background-color: rgba(224, 224, 224, 0.4);
+    width: 90%;
+    border-radius: 10px;
+    justify-content: center;
+    position: absolute;
+    top: 100%; 
+    z-index: 999;
+    display: none;
+    transition: opacity 1s ease;
+}
+.sub_menu{
+   margin:auto;
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column; 
+}
+.sub{
+    margin-right:30px;
+    white-space: nowrap;
+}
+.sub_menu>.sub{
+    list-style: none;
+   
+}
+
+.sub_menu>.sub li {
+    border-bottom: 1px solid;
+    font-size: 15px;
+    
+}
+.sub_menu>.sub li>a{
+    text-decoration: none;
+}
+
+.sub_menu li:hover {
+    background-color: #1abc9c;
+    border-radius: 10px;
+    color: white;
+    padding: 3px; 
+}
+
+
+
+/*section 스타일*/
+
+.carousel-item img { /*배너 이미지 스타일*/
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 500px;
+}
+.main_text{ /*메인 글자 스타일*/
+    text-align: center;
+    font-size: 40px;
+    min-height: 50px;
+   border-bottom: 3px solid #e0e0e0;
+   margin-bottom: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.main_content {
+    margin: auto;
+    width: 100%;
+}
+
+
+/*footer 스타일*/
+.footer{
+    max-height: 200px;
+}
+.footer_company {
+    height: 15%;
+    padding-top: 20px; 
+    list-style-type: none;
+  
+}
+.footer_company li{ /*푸터 글자 스타일*/
+    list-style-type: none;
+}
+.sidebarEnd{
+    margin-top: 40px;
+    border-top: 4px solid #e0e0e0;
+    height: 20px;
+}
+
+
+/*사이드바*/
+.sidebar {
+	position: absolute;
+    right: -5%; 
+    transition: top 0.7s ease-out;
+    width: 50px; 
+  
+
+ }
+
+ .sidebar-item {
+    display:block;
+	padding: 10px;
+	text-decoration: none;
+	color: #333;
+    
+ }
+ 
+ .horizontal-btn {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: auto; 
+    white-space: nowrap; 
+
+}
+
+.sidebar .nav-justified li {
+    display: inline-block; 
+    margin-bottom: 20px;
+    
+}
+
+.sidebar .nav-justified li:last-child {
+    margin-right: 0; 
+}
+.sidebar .nav-justified li a {
+    width: 80px; 
+    height: 30px; 
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    
+}
+.sidebar .nav-justified li:nth-child(4){
+    margin-bottom: 30px;
+}
+.sidebar .nav-justified li:nth-child(5),
+.sidebar .nav-justified li:nth-child(6) {
+   margin-bottom: 35px;
+}
+
 
 
     /*side메뉴*/
@@ -307,13 +320,15 @@
         flex-direction: column;
         background-color: #e0e0e0; 
         margin-top: 15px;    
-        height: 1500px
+        height: 1500px;
+        width: 15%;
     }
 
     .user_data a{
         width: 140px;
-        margin-top: 40px;
-        margin-left: 15px;
+        height: 40px;
+        margin-top: 45px;
+        margin-left: 40px;
     }
 
     .user_data:hover a {
@@ -388,8 +403,6 @@
         color: white;
     }
 
-
-
     /*모달 style*/
     #btn1{
         background: #1ABC9C;
@@ -415,41 +428,46 @@
         height: 38px;
     }
     .modal-body input[type=password]{margin: 5px;}
-
-    
-
-
-
     </style>
 </head>
+
 <body>
     <div class="wrap">
 
-    <!--headr start-->   
-    <header class="header-top-section">
+     <!--header start-->   
+     <header class="header-top-section">
         <div>
             <div>
-                <div class="headr_roop">
-                    <div class="section">
+                <div class="header_roop">
+                    <div class="etc_Section">
                         <table class="Login_section">
+                         <!--
                             <tr>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                             </tr>
+                          -->
+                          
+                            <tr>
+                              <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
+                              <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
+                              <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                          </tr>
+                        
                         </table>
                     </div>
                     <div class="Search_section">
                         <div class="Search_area">
-                            <img src="images\검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
-                            <input type="search" placeholder="검색어를 입력하세요" style="width: 300px;">
+                            <img src="/src/main/webapp/resources/img/common/검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
+                            <input type="search" placeholder="검색어를 입력하세요">
                             
                         </div>
                     </div>
-                    <div class="Search_section">
+                    <div class="SearchText_section">
                         
-                        <div class="Search_area2"><span style="font-size: 12px; color: gray; font-weight: bold;">인기 검색어</span>
-                        <span style="font-size: 15px;">오운완 | 운동 루틴 | 헬스 후기</span>
+                        <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
+                        <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
                         </div>
                     
                     </div>
@@ -460,39 +478,71 @@
                 
         <nav class="header_nav">
            
-            <div class="menu_logo">
-                <a href=""><img src="images\캡처-removebg-preview.jpg" style="width: 100px;"></a>
+            <div class="menu_logo" id="homelogo">
+                <a href=""><img src="/src/main/webapp/resources/img/common/캡처.jpg" style="width: 100px;"></a>
+                
               </div>
-
+              
+            <div class="menu_item" onmouseover="showTable();" onmouseout="hideTable();">
+            <a href="" class="community" >커뮤니티</a>
+                
+                  <div class="sub_menu" id="menu1">
+                    <ul class="sub">
+                      <li><a>공지사항</a></li>
+                      <li><a>자유게시판</a></li>
+                      <li><a>질문게시판</a></li>
+                      <li><a>헬스장후기</a></li>
+                      <li><a>운동모임</a></li>
+                    </ul>
+                  </div>
+                
+            </div> 
+   
             <div class="menu_item">
-            <a href="" class="community">커뮤니티</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >상품구매</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >헬스장 안내</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >추천운동영상</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >고객센터</a>
-          </div>
-          <div class="menu_item">
-            <a href="" >상담예약</a>
-          </div>     
+              <a href="" class="community">상품구매</a>
+            </div>
+            <div class="menu_item" onmouseover="showTable1();" onmouseout="hideTable1();">
+              <a href="" class="community">헬스장 안내</a>
+              
+                <div class="sub_menu" id="menu2">
+                  <ul class="sub">
+                    <li><a>헬스장위치</a></li>
+                    <li><a>시설 안내</a></li>
+                  </ul>   
+                </div>   
+              
+            </div>
+            <div class="menu_item">
+              <a href="" class="community">추천운동영상</a>
+            </div>
+            <div class="menu_item">
+              <a href="" class="community">고객센터</a>
+            </div>
+            <div class="menu_item">
+              <a href="" class="community">상담예약</a>
+            </div>     
         </nav>
-        <table id="hiddenTable" style="display: none;">
-            <tr>
-                <td>테이블 내용</td>
-            </tr>
-        </table>
+        <span class="main_text"><h1>MZYM</h1></span>
     </header>
 
     <!--headr end-->
+
+    <!--sidebar start-->
+    <div class="sidebar" id="quickmenu">
+        <nav class="col-sm-7 sidenav">
+        
+            <ul class="nav nav-pills nav-justified">
+            <li><a><img src="/src/main/webapp/resources/img/common/스크롤 업.png" style="width: 50px; height: 50px;" onclick="scrollToTop();"></a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">공지사항</a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">자유게시판</a></li>
+            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">질문게시판</a></li>
+            <li><a href="https://www.facebook.com" target="_blank"><img src="/src/main/webapp/resources/img/common/facebook.png" style="width: 50px; height: 50px"></a></li>
+            <li><a href="https://www.instagram.com" target="_blank"><img src="/src/main/webapp/resources/img/common/instagram.png" style="width: 50px; height: 50px"></a></li>
+            <li><a><img src="/src/main/webapp/resources/img/common/스크롤 다운.png" style="width: 50px; height: 50px;" onclick="scrollToBottom();"></a></li>
+            </ul>
+        </nav>
+    </div>
     
-    <span class="main_text">MZYE</span>
 
     <!--section start-->    
     <section class="main_content">
@@ -675,18 +725,19 @@
     </section>
     <!--section end-->
 
-    <!--footer start-->    
-    
+    <!--footer start--> 
+    <footer>
+        <div class="sidebarEnd"></div>
         <div class="footer_company">
             <ul>
-                <li>상호명 : MZYE</li>
+                <li>상호명 : MZYM</li>
                 <li>전화 : 02) 2696-8000</li>
                 <li>서울특별시 금천구 가산디지털2로 95 3층</li>
             </ul>
         </div>
 
         <ul class="footer_copyright">
-            Copyright ⓒ <span style="color: #1ABC9C;">M</span>ZYE. All rights reserved.
+            Copyright ⓒ <span style="color: #1ABC9C;">M</span>ZYM. All rights reserved.
         </ul>
     </footer>
     <!--footer end-->
@@ -695,6 +746,8 @@
 
 
 </div>
+
+
 
 </body>
 </html>
