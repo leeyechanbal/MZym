@@ -1,0 +1,99 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.member.vo.Member" %>
+    
+<%
+	Member currentUser = (Member)request.getSession().getAttribute("");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+        body{
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        #background{
+            background-color: #e0e0e0;
+            width: 1500px;
+            padding: 5%;
+        }
+        #home{
+            background-color: rgb(94, 94, 94);
+            padding: 5%;
+        }
+        #head{
+            display: flex;
+            justify-content: center;
+        }
+        #foot{
+            display: flex;
+            justify-content: flex-end;
+        }
+        #center{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .font{
+            text-align: center;
+            color: aliceblue;
+        }
+        #logOut{
+            margin-right: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        #head,#foot,#center{
+            margin: 10px;
+        }
+        #react #info:hover,
+        #react #boradManagment:hover,
+        #react #dateManagment:hover,
+        #react #logOut:hover{
+            background-color: rgba(26, 188, 156, 0.2);
+        }
+    </style>
+
+</head>
+<body>
+
+	 <div id="background">
+        <div id="home">
+            <div id="head"><img src="/src/main/webapp/resources/img/icon/logo-lg-300x150.png" alt="Myzm logo"></div>
+
+            <div id="react">
+
+                <div id="center">
+                    <div id="info" onclick="">
+                        <img src="" alt="adminWho">
+                        <p class="font">sysdate<br>안녕하세요 관리자님<%= %></p>
+                    </div>
+
+                    <div id="boradManagment" onclick="">
+                        <img src="/src/main/webapp/resources/img/icon/Board-icon-100x100.png" alt="boardPage">
+                        <div class="font">게시물</div>
+                    </div>
+
+                    <div id="dateManagment" onclick="">
+                        <img src="/src/main/webapp/resources/img/icon/galender-100x100.png" alt="clanderPage">
+                        <div class="font">PT일정</div>
+                    </div>
+                </div>
+
+                <div id="foot">
+                    <div id="logOut">
+                        <img src="/src/main/webapp/resources/img/icon/logout-icon-50x50.png" alt="logout">
+                        <div class="font">로그 아웃</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
