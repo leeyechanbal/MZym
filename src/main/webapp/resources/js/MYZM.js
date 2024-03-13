@@ -2,7 +2,7 @@
     //사이드바 스크롤 이벤트
     $(document).ready(function(){
         var sidebar = $(".sidebar");
-        var footerBottom = $(".sidebarEnd").offset().top + $(".sidebarEnd").outerHeight(); 
+        var footerBottom = $(".footer_company").offset().top + $(".footer_company").outerHeight(); 
        
         
         $(window).scroll(function() {
