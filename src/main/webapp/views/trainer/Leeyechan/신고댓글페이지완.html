@@ -14,253 +14,10 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link href="/src/main/webapp/resources/css/leeyechan/trailnerLee.css" rel="stylesheet" type="text/css">
+    <script src="/src/main/webapp/resources/js/trailnerLee.js" rel="javascript"></script>
+
     <style>
-        /* * {
-            border: 1px black solid;
-        } */
-
-        /* 전제적인 배치 관련 스타일 */
-
-        /* 맨 바깥요소 태두리 및 크기 지정 */
-        #outTable{
-            border: 1px black solid;
-            min-width: 1500px;
-        }
-        /* 사이드바, 게시판 정렬 */
-        body{
-            display: flex;
-            justify-content: center;
-        }
-        /* 뒤로가기 아이콘 및 사이드바 가로 길이 및 글자 가운데 정렬 */
-        .section1{
-            min-width: 120px;
-            text-align: center;
-        }
-        /* 로고 및 테이블 가운데 정렬 */
-        .section2 > div{
-            display: flex;
-            justify-content: center;
-        }
-        /* 버튼 쪽 가로길이 */
-        .section3{
-            width: 120px;
-        }
-        /* 맨 상단 배경색 변경 */
-        thead{
-            background-color: rgba(26, 188, 156, 0.78);
-        }
-        /* 맨 상단과 페이징바, 버튼쪽 높이 지정 */
-        thead, tfoot{
-            height: 20%;
-        }
-        #logo{
-            display: flex;            
-            justify-content: center;
-        }
-
-
-        /* 메뉴 관련 스타일 */
-        
-        /* 메뉴 정렬 및 각 메뉴 박스의 배경색상 변경 */
-        .boardNav, 
-        .suteOption{
-            display: none;
-            background-color: white;
-        }
-        /* 메뉴 뒤 배경 색 변경 및 관리자 박스위치의 기준 */
-        #menu{
-            background-color: rgb(224, 224, 224);
-            position: relative;
-        }
-        /* 사이드바의 각 메뉴별 박스 모양, 간격, 글시, 배경색 스타일 */
-        #menu>div>*{
-            min-height: 40px;
-            width: 80%;
-            border-radius: 10px;
-            margin-top: 20px;
-            margin-left: 10px;
-            font-weight: bold;
-            font-size: 15px;
-            background-color: white;
-        }
-        /* 매뉴 요소들 호버시 배경색 과 마우스 커서 모양 변경 */
-        /* 전 메뮤 변경 */
-        #board:hover,
-        #counseling:hover,
-        #customer:hover,
-        #accusation:hover,
-        #calory:hover,
-        .boardNav>div:hover,
-        .suteOption>div:hover{
-            background-color: rgba(26, 188, 156, 0.2);
-            cursor: pointer;
-        }
-        /*  관리자 요소 #menu의 기준점으로 위치 설정 및 배경색, 크기 변경 */
-        #adi{
-            position: absolute;
-            background-color: white;
-            font-weight: bold;
-            top: 0px;
-            width: 100%;
-        }
-         /* 게시판 안의 게시판 종류 글시크기 및 밑줄 삭제 */
-         /* 전부 변경 */
-        .boardNav a,
-        .suteOption a{
-            color: black;
-            font-size: 13px;
-        }
-        /* 게시판 안의 게시판 종류 호버시 밑줄 색상 변경 */
-        a:hover{
-            color: black;
-            text-decoration: none;
-        }
-        /* 메뉴의 a요소들 글자 색상 변경 */
-        #counseling>a,
-        #customer>a, 
-        #accusation>a, 
-        #calory>a{
-            color: black;
-        }
-
-
-        
-        
-        /* 페이징 영역 스타일 */
-
-        /* 페이징 영역 ul 앞 아이콘 삭제 및 정렬*/
-        #paging > ul{
-            list-style-type: none;
-            display: flex;
-            justify-content: center;
-        }
-       /* 페이징 호버 및 액티브 되었을 때 색 변경 */
-        .pagination > .active > a,
-        .pagination > .active > span,
-        .pagination > .active > a:hover,
-        .pagination > .active > span:hover,
-        .pagination > .active > a:focus,
-        .pagination > .active > span:focus {
-            background-color: #1abc9cc7;
-            border-color: #1abc9cc7;
-        }
-        /* 페이징 영역의 글자 색상 변경 */
-        .pagination > li > a,
-        .pagination > li > span {
-            color: #1abc9cc7;
-        }
-        /* 페이징의 버튼 클릭으로 액티브시 배경색과 테두리 색상 변경  */
-        .page-item.active .page-link {
-            background-color: #1abc9cc7;
-            border-color: #1abc9cc7;
-        }
-
-
-        /*  버튼 관련 스타일 (.btn-outline-success) 
-            저희가 지정한 초록색으로
-            이 클래스를 사용해야 스타일 변경 됩니다.
-        */
-
-        /* 버튼 호버시의 배경색 변경 */
-        .btn-outline-success:hover{
-            background-color: #1abc9cc7;
-        }
-        /* 버튼의 테두리 색 변경 */
-        .btn-outline-success{
-            border: 1px solid #1abc9cc7;
-            color: #1abc9cc7;
-        }
-        
-
-        /* 모달 스타일 */
-
-        /* 모달 정렬 */
-        .modal-body > div{
-            display: flex;
-        }
-        /* 모달 안의 ul아이콘(이동) 삭제 및 정렬 */
-        .modal-body ul{
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-        }
-        /* 모달 바깥쪽 테두리 색상, 굵기, 모양 변경 */
-        .modal-content{
-            border: 5px solid #1abc9cc7;
-            border-radius: 10px;
-        }
-        /* 모달 안의 li요소 호버시 배경색 변경 */
-        .modal-body>div>ul>li:hover{
-            background-color: rgba(26, 188, 156, 0.2);
-        }
-
-
-        /* 작성 모달 스타일 */
-
-        /* 모달 내부의 입력 부분에 모달 테두리에 너무 딱 붙어서 여백 줌 */
-         .modal-create * {
-            padding-left: 1%;
-            padding-right: 1%;
-        }
-        /* 작성 모달 헤더 부분 글자 크기와 밑줄 추가 */
-        #creat-modal-header{
-            text-decoration:underline;
-            font-size: 28px;
-        }
-        /* 제목 입력 부분에 테스트 값 설정 */
-        .hair-careate > input{
-            font-size: 20px;
-            width:80%;
-        }
-        /* 글 입력 부분 큭자 크기 및 가로 길이 설정 */
-        .bottom-create > textarea{
-            font-size: 15px;
-            width: 100%;
-        }
-        /* 모달 페이지 맨 상단에서 부터 떨어트리기 */
-        .modal {  
-            top: 20px;
-        }
-
-        /* 테이블 관련 스타일 */
-
-        /* 게시판 호버시 마우스모양, 게시판 크기 */
-        #boardcontent{
-            cursor: pointer;
-            width: 1000px;
-        }
-        /* 각 행들의 높이 및 글자 가운데 정렬 */
-        #boardcontent tr{
-            height: 35px;
-            text-align: center;
-        }
-        /* 테이블 영역 머리부분 글자 굵기 및 크기 */
-        #theader{
-            font-weight: bold;
-            font-size: 15px;
-        }
-        /* 각 행들의 글자 크기 지정 */
-        #boardcontent td{
-           font-size: 13px;
-        }
-        /* 번호 부분 가로 길이 */
-        .table-number{
-            width: 70px;
-        }
-        /* 제목 부분 가로 길이 */
-        .table-title{
-            width: 600px;
-        }
-        /* 각 행들의 마우스 위치시 배경색 변경 */
-        .table > tbody > .tr-title:hover {
-            background-color: rgba(26, 188, 156, 0.2);
-        }
-        /* 테이블 머리부분 호버시 마우스모양 변경 안되게 설정 */
-        th:hover{
-            cursor: default;
-        }
-   
-
 
         /* 신고 댓글 추가 스타일 */
         .board-out>#accusation{
@@ -291,48 +48,13 @@
         }
     </style>
 
-    <script>
-    // 게시판 메뉴가 눌렸을때 발생하는 배경색 변경
-        function unfold(e){
-            const a = document.querySelectorAll(".boardNav");
-            
-            for(let i=0; i<a.length; i++ ){
-                if(a[i].style.display == 'block'){
-                    a[i].style.display='none';
-                    e.style.backgroundColor = null;
-
-                } else {
-                    a[i].style.display='block';
-                    e.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
-                }
-            } 
-        }
-
-        function sUnfold(e){
-            const a = document.querySelectorAll(".suteOption");
-            console.log(e)
-            
-            for(let i=0; i<a.length; i++ ){
-                if(a[i].style.display == 'none'){
-                    a[i].style.display='block';
-                    e.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
-                    
-                } else {
-                    a[i].style.display='none';
-                    e.style.backgroundColor = null;
-                }
-            } 
-        }
-
-
-   </script>
 </head>
 <body>
    <table id="outTable">
         
         <thead class="">
-            <td class="section1" id="back"><img src="resource/image/back-igon.png" alt="뒤로가기"></td>
-            <td class="section2" id="logo"><img src="resource/image/logo-sm.png" alt="로고"></td>
+            <td class="section1" id="back"><img src="/src/main/webapp/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
+            <td class="section2" id="logo"><img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
             <td class="section3"></td>
         </thead>
         
@@ -342,7 +64,7 @@
             <td class="section1" id="menu">
                 <div id="adi">관리자<br>xxx</div>
                 <div class="board-out">
-                    <div id="board" onclick="unfold(this);">게시판</div>
+                    <div id="board">게시판</div>
 
                     <div class="boardNav" style="margin-top: 0px;">
                         <div><a href="">공지사항</a></div>
@@ -354,7 +76,7 @@
 
                     <div id="counseling"><a href="">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
-                    <div id="accusation" onclick="sUnfold(this);">신고</div>
+                    <div id="accusation">신고</div>
                     <div class="suteOption" style="margin-top: 0;">
                         <div class="suteBoard"><a href="">게시글</a></div>
                         <div class="suteRrepeat"><a href="">답글</a></div>
