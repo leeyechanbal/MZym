@@ -11,6 +11,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../resources/css/common/MYZM.css">
     <script src="../../../resources/js/MYZM.js"></script> 
+    <script src="../../../resources/js/summernote/summernote-lite.js"></script>
+    <script src="../../../resources/js/summernote/summernote-ko-KR.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/summernote/summernote-lite.css">
+
 
     <style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -74,6 +78,22 @@
         .content_img{
             width:180px;
             height:100px;
+        }
+
+        .starnum{
+            width: 20px;
+        }
+        
+        .star{
+            width: 1037px;
+            height: 37px;
+            padding: 10px; 
+            border: 1px solid #ccc;
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            display: flex;
+            align-items: center;
+            text-align: center;
         }
 
     </style>
@@ -180,17 +200,18 @@
             <h2>후기글 작성</h2>
             <hr>
             <br><br>
-
-            
+                    
             <form action="" method="">
+                <input type="text" class="form-control" required placeholder="제목 입력">
+                <div class="star">
+                    <div style="margin-right: 10px;">&#9733;</div>
+                    <input type="number" id="star_num" name="star_num" min="1" max="5">
+                </div>
                 <table class="table">
                     <tr>
-                        <th>제목</th>
-                        <td colspan="3"><input type="text" class="form-control" required></td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td colspan="3"><textarea cols="30" rows="10" class="form-control" style="resize:none;" required></textarea></td>
+                        <form method="post">
+                            <textarea id="summernote" name="content"></textarea>
+                        </form>
                     </tr>
                     <tr>
                         <th width="120">대표이미지</th>
@@ -247,6 +268,16 @@
 
     </section>
     <!-- Section end -->
+
+    <script>
+        $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: 400
+        });
+    });
+    </script>    
 
     <!--footer start-->    
     
