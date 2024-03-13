@@ -1,10 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.member.vo.Member" %>
+    
+<%
+	Member currentUser = (Member)request.getSession().getAttribute("");
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
         body{
             display: flex;
             justify-content: center;
@@ -51,40 +58,42 @@
             background-color: rgba(26, 188, 156, 0.2);
         }
     </style>
+
 </head>
 <body>
-    <div id="background">
+
+	 <div id="background">
         <div id="home">
-            <div id="head"><img src="/weMap/resource/image/logo-lg-1.png" alt="Myzm logo"></div>
+            <div id="head"><img src="/src/main/webapp/resources/img/icon/logo-lg-300x150.png" alt="Myzm logo"></div>
 
             <div id="react">
 
                 <div id="center">
                     <div id="info" onclick="">
                         <img src="" alt="adminWho">
-                        <p class="font">sysdate <br>안녕하세요 관리자님</p>
+                        <p class="font">sysdate<br>안녕하세요 관리자님<%= %></p>
                     </div>
 
                     <div id="boradManagment" onclick="">
-                        <img src="/weMap/resource/image/Board-icon-1.png" alt="boardPage">
+                        <img src="/src/main/webapp/resources/img/icon/Board-icon-100x100.png" alt="boardPage">
                         <div class="font">게시물</div>
                     </div>
 
                     <div id="dateManagment" onclick="">
-                        <img src="/weMap/resource/image/galender-1.png" alt="clanderPage">
+                        <img src="/src/main/webapp/resources/img/icon/galender-100x100.png" alt="clanderPage">
                         <div class="font">PT일정</div>
                     </div>
                 </div>
 
                 <div id="foot">
                     <div id="logOut">
-                        <img src="/weMap/resource/image/logout-icon-1.png" alt="logout">
+                        <img src="/src/main/webapp/resources/img/icon/logout-icon-50x50.png" alt="logout">
                         <div class="font">로그 아웃</div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+    
 </body>
 </html>

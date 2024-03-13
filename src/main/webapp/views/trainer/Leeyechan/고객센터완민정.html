@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>자유게시판 페이지</title>
+    <title>고객 센터 페이지</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -13,226 +13,18 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link href="/src/main/webapp/resources/css/leeyechan/trailnerLee.css" rel="stylesheet" type="text/css">
+    <script src="/src/main/webapp/resources/js/trailnerLee.js" rel="javascript"></script>
+
+
     <style>
-        /* * {
-            border: 1px black solid;
-        } */
-
-        /* 전제적인 배치 관련 스타일 */
-
-        /* 맨 바깥요소 태두리 및 크기 지정 */
-        #outTable{
-            border: 1px black solid;
-            min-width: 1500px;
-        }
-        /* 사이드바, 게시판 정렬 */
-        body{
-            display: flex;
-            justify-content: center;
-        }
-        /* 뒤로가기 아이콘 및 사이드바 가로 길이 및 글자 가운데 정렬 */
-        .section1{
-            min-width: 120px;
-            text-align: center;
-        }
-        /* 로고 및 테이블 가운데 정렬 */
-        .section2 > div{
-            display: flex;
-            justify-content: center;
-        }
-        /* 버튼 쪽 가로길이 */
-        .section3{
-            width: 120px;
-        }
-        /* 맨 상단 배경색 변경 */
-        thead{
-            background-color: rgba(26, 188, 156, 0.78);
-        }
-        /* 맨 상단과 페이징바, 버튼쪽 높이 지정 */
-        thead, tfoot{
-            height: 20%;
-        }
-        #logo{
-            display: flex;            
-            justify-content: center;
-        }
-
-
-        /* 메뉴 관련 스타일 */
-        
-        /* 메뉴 뒤 배경 색 변경 및 관리자 박스위치의 기준 */
-        #menu{
-            background-color: rgb(224, 224, 224);
-            position: relative;
-        }
-        /* 사이드바의 각 메뉴별 박스 모양, 간격, 글시, 배경색 스타일 */
-        #menu>div>*{
-            min-height: 40px;
-            width: 80%;
-            border-radius: 10px;
-            margin-top: 20px;
-            margin-left: 10px;
-            font-weight: bold;
-            font-size: 15px;
-            background-color: white;
-        }
-        /* 매뉴 요소들 호버시 배경색 과 마우스 커서 모양 변경 */
-        #board:hover,
-        #counseling:hover,
-        #customer:hover,
-        #accusation:hover,
-        #calory:hover,
-        .boardNav>div:hover,
-        .suteOption>div:hover{
-            background-color: rgba(26, 188, 156, 0.2);
-            cursor: pointer;
-        }
-        /*  관리자 요소 #menu의 기준점으로 위치 설정 및 배경색, 크기 변경 */
-        #adi{
-            position: absolute;
-            background-color: white;
-            font-weight: bold;
-            top: 0px;
-            width: 100%;
-        }
-         /* 게시판 안의 게시판 종류 글시크기 및 밑줄 삭제 */
-         .boardNav a,
-        .suteOption a{
-            color: black;
-            font-size: 13px;
-        }
-        /* 게시판 안의 게시판 종류 호버시 밑줄 색상 변경 */
-        a:hover{
-            color: black;
-            text-decoration: none;
-        }
-        /* 메뉴의 a요소들 글자 색상 변경 */
-        #counseling>a,
-        #customer>a, 
-        #accusation>a, 
-        #inbody>a{
-            color: black;
-        }
-
-
-        /* 테이블 관련 스타일 */
-
-        /* 게시판 호버시 마우스모양, 게시판 크기 */
-        #boardcontent{
-            cursor: pointer;
-            width: 1000px;
-        }
-        /* 각 행들의 높이 및 글자 가운데 정렬 */
-        #boardcontent tr{
-            height: 35px;
-            text-align: center;
-        }
-        /* 테이블 영역 머리부분 글자 굵기 및 크기 */
-        #theader{
-            font-weight: bold;
-            font-size: 15px;
-        }
-        /* 각 행들의 글자 크기 지정 */
-        #boardcontent td{
-           font-size: 13px;
-        }
-        /* 번호 부분 가로 길이 */
-        .table-number{
-            width: 70px;
-        }
-        /* 제목 부분 가로 길이 */
-        .table-title{
-            width: 600px;
-        }
-        /* 각 행들의 마우스 위치시 배경색 변경 */
-        .table > tbody > .tr-title:hover {
-            background-color: rgba(26, 188, 156, 0.2);
-        }
-        /* 테이블 머리부분 호버시 마우스모양 변경 안되게 설정 */
-        th:hover{
-            cursor: default;
-        }
-
-        
-        /* 페이징 영역 스타일 */
-        /* 페이징 영역 ul 앞 아이콘 삭제 및 정렬*/
-        #paging > ul{
-            list-style-type: none;
-            display: flex;
-            justify-content: center;
-        }
-       /* 페이징 호버 및 액티브 되었을 때 색 변경 */
-        .pagination > .active > a,
-        .pagination > .active > span,
-        .pagination > .active > a:hover,
-        .pagination > .active > span:hover,
-        .pagination > .active > a:focus,
-        .pagination > .active > span:focus {
-            background-color: #1abc9cc7;
-            border-color: #1abc9cc7;
-        }
-        /* 페이징 영역의 글자 색상 변경 */
-        .pagination > li > a,
-        .pagination > li > span {
-            color: #1abc9cc7;
-        }
-        /* 페이징의 버튼 클릭으로 액티브시 배경색과 테두리 색상 변경  */
-        .page-item.active .page-link {
-            background-color: #1abc9cc7;
-            border-color: #1abc9cc7;
-        }
-
-
-        /*  버튼 관련 스타일 (.btn-outline-success) 
-            저희가 지정한 초록색으로
-            이 클래스를 사용해야 스타일 변경 됩니다.
-        */
-
-        /* 버튼 호버시의 배경색 변경 */
-        .btn-outline-success:hover{
-            background-color: #1abc9cc7;
-        }
-        /* 버튼의 테두리 색 변경 */
-        .btn-outline-success{
-            border: 1px solid #1abc9cc7;
-            color: #1abc9cc7;
-        }
-        
-
-        /* 모달 스타일 */
-
-        /* 모달 정렬 */
-        .modal-body > div{
-            display: flex;
-        }
-        /* 모달 바깥쪽 테두리 색상, 굵기, 모양 변경 */
-        .modal-content{
-            border: 5px solid #1abc9cc7;
-            border-radius: 10px;
-        }
-
-
-        /* 이동 모달 스타일 */
-
-        /* 모달 안의 ul아이콘(이동) 삭제 및 정렬 */
-        .modal-body ul{
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-        }
-        /* 모달 안의 li요소 호버시 배경색 변경 */
-        .modal-body>div>ul>li:hover{
-            background-color: rgba(26, 188, 156, 0.2);
-        }
-
-
-        /* 자유게시판 추가적 스타일 */
+        /* 고객센터 추가적 스타일 */
         /* 공지사항이라는 위치를 알리기 위한 배경색 */
-        .board-out>#board{
+        .board-out>#customer{
             background-color: rgba(26, 188, 156, 0.2);
         }
         .boardNav{
-            display: block;
+            display: none;
         }
         .boardNav>.boardFree{
             background-color: rgba(26, 188, 156, 0.2);
@@ -256,31 +48,13 @@
 
     </style>
 
-    <script>
-    // 게시판 메뉴가 눌렸을때 발생하는 배경색 변경
-        function unfold(e){
-            const a = document.querySelectorAll('.boardNav')
-            
-            for(let i=0; i<a.length; i++ ){
-                if(a[i].style.display == 'block'){
-                    a[i].style.display='none';
-                    e.style.backgroundColor = "white";
-
-                } else {
-                    a[i].style.display='block';
-                    e.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
-                }
-            } 
-        }
-   </script>
-   
 </head>
 <body>
    <table id="outTable">
         
         <thead class="">
-            <td class="section1" id="back"><img src="/weMap/resource/image/back-igon.png" alt="뒤로가기"></td>
-            <td class="section2" id="logo"><img src="/weMap/resource/image/logo-sm.png" alt="로고"></td>
+            <td class="section1" id="back"><img src="/src/main/webapp/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
+            <td class="section2" id="logo"><img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
             <td class="section3"></td>
         </thead>
         
@@ -290,7 +64,7 @@
             <td class="section1" id="menu">
                 <div id="adi">관리자<br>xxx</div>
                 <div class="board-out">
-                    <div id="board" onclick="unfold(this);">게시판</div>
+                    <div id="board">게시판</div>
 
                     <div class="boardNav" style="margin-top: 0px;">
                         <div class="boardNotice"><a href="">공지사항</a></div>
@@ -303,7 +77,12 @@
                     <div id="counseling"><a href="">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
                     <div id="accusation"><a href="">신고</a></div>
-                    <div id="inbody"><a href="">칼로리</a></div>
+                    <div class="suteOption" style="margin-top: 0;">
+                        <div class="suteBoard"><a href="">게시글</a></div>
+                        <div class="suteRrepeat"><a href="">답글</a></div>
+                    </div>
+
+                    <div id="calory"><a href="">칼로리</a></div>
 
                 </div>
             </td>
@@ -335,10 +114,10 @@
                                     게시글의 내용입니다
                                 </p>
                                 <hr>
-                                <div><img src="" alt="미리보기 입니다."></div>
+                                <div><img src="" alt="미리보기입니다."></div>
                                 <input type="file">
                                 <hr>
-                                <div class="repeat border mx-auto">
+                                <div class="repeat border rounded mx-auto">
                                     <div><b>관리자<br>xxx</b></div>
                                     <div style="width: 80%;"><input type="control" class="form-control" required></div>
                                     <button type="button" class="btn btn-outline-secondary btn-sm">답변</button>
@@ -436,8 +215,6 @@
             </td>
             
             <td class="section3">
-                
-                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                 <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
                  
             </td>
@@ -470,46 +247,6 @@
       </div>
     </div>
   </div>
-
-
-  
-<!-- 이동용 모달 -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3 class="modal-title">게시물 이동</h3>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-  
-        <!-- Modal body -->
-    <form action="">
-        <div class="modal-body">
-          <div style="font-size: 20px;">현재 위치 : </div>
-          <div style="font-size: 20px;"> 이동 위치 선택
-            <ul style="font-size: 15px;">
-                <li>공지사항</li>
-                <li>자유게시판</li>
-                <li>질문게시판</li>
-                <li>PT 및 헬스장 후기</li>
-                <li>운동 모임</li>
-            </ul>
-          </div>
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">이동</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-        </div>
-    </form>
-  
-      </div>
-    </div>
-  </div>
-
 
 </body>
 </html>

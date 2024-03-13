@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인페이지</title>
+    <title>헬스장 위치 페이지</title>
     <link rel="icon" href="images/favicon.png">
      <!--부트 스트랩 및 제이쿼리-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -17,7 +17,10 @@
     
   </head>
   <style>
-    .homePage_content{ /*메인 영역*/
+   
+
+
+    .locationPage_content{ /*메인 영역*/
     border: 2px solid #1ABC9C;
     width: 90%;
     height: 100%;
@@ -26,89 +29,114 @@
     min-height: 1200px;
     padding: 50px;
     border-radius: 10px;
-    display: flex;
   }
-    .trainerInfo{
+  .locationPage_content > div {
+    flex: 1;
+    margin: 20px;
+}
+.pageTitle{
+    height: 20%;
+    position: relative;
     
-    width: 50%;
-    height: 100%;
-    margin: 50px auto;
-    min-height: 1200px;
-    padding: 50px;
-    }
-    .boardInfo{
-    width: 50%;
-    height: 100%;
-    margin: 50px auto;
-    min-height: 1200px;
-    padding: 50px;
-    }
-    .noticeArea{
-      border: 1px solid red;
-      width: 80%;
-      height: 100%;
-      margin: 50px auto;
-      min-height: 500px;
-     
-    }
-
-    .boardArea{
-      border: 1px solid red;
-      width: 80%;
-      height: 100%;
-      margin: 50px auto;
-      min-height: 500px;
-     
-    }
-    .trainerArea{
-      border: 2px solid #1ABC9C;
-      width: 100%;
-      height: 100%;
-      margin: auto;
-      min-height: 1200px;
-      border-radius: 10px;
+}
+.text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 80%;
+      transform: translate(-50%, -50%);
+      color: white;
+      padding: 10px;
       display: flex;
-      flex-direction: column;
-      padding: 50px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+      width: 50%;
+    
     }
-    .trainerTitle{
-      margin: 10px;
-      width: 100%;
-      text-align: center;
-    }
-   .trainer-wrapper{
+.pageTitle img{
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    min-height: 1200px;
     border-radius: 10px;
-
-   }
-   .trainerImg img{
-    min-height: 1200px;
-   }
-   .text-area li{
-    list-style: none;
+   
+}
+.addressArea{
+    height: 10%;
+    flex-wrap: nowrap;
+    font-size: 30px;
+    border-bottom: 4px solid #e0e0e0;
+}
+.mapArea {
+ height: 30%;
+}
+.mapArea img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}  
+.contentArea{
+    height: 20%;
+}
+.iconArea{
+    height: 20%;
     display: flex;
-    flex-direction: column;
-    text-align: right;
+    margin: auto;
+    justify-content: space-between;
+}
+.icon1{
+    background-color: #1ABC9C;
+    border-radius: 10px;
+    width: 20%;
+    height: 50%;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+    font-size: 30px;
+    flex-wrap: nowrap;
+}
+.contentField{
+    font-size: 20px;
+    padding: 20px;
     
-   }
-   .text-area h5{
-      text-align: right;
-      margin-left: 20px;
-      margin-top: 50px;
-   }
-   .text-area h3{
-      text-align: left;
-      margin-left: 20px;
-      margin-top: 50px;
-   }
+}
+.con1{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.con2 {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 80%; 
+    border-top: 2px solid grey;
+}
 
+.con2 ul {
+    padding: 0; 
+}
+
+.con2 li {
+    list-style: none;
+    margin: 20px;
+    font-size: 20px; 
+    text-align: center; 
+}
+.iconCentent{
+    background-color: #1ABC9C;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 20px;
+    width: 25%;
+    
+}
   </style>
 <body>
      
-  <div class="wrap">
+    <div class="wrap">
     <!--header start-->   
     <header class="header-top-section">
         <div>
@@ -203,39 +231,7 @@
     <!--headr end-->
   
 
-    <!--banner start-->
-
-    <div id="demo" class="carousel slide" data-ride="carousel">
-
-        <!-- Indicators -->
-        <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-          <li data-target="#demo" data-slide-to="1"></li>
-          <li data-target="#demo" data-slide-to="2"></li>
-        </ul>
-      
-        <!-- The slideshow -->
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="/src/main/webapp/resources/img/common/메인사진1.jpg" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/src/main/webapp/resources/img/common/메인사진2.jpg" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/src/main/webapp/resources/img/common/메인사진3.jpg" alt="">
-          </div>
-        </div>
-      
-        <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </a>
-      
-      </div>
+    
 
       <!--section start-->    
       <section class="main_content">
@@ -255,100 +251,54 @@
         </nav>
      </div>
     <!--sidebar end-->
-      <!--메인 컨텐츠 내용 -->  
-        <div class="homePage_content">
-            <div class="trainerInfo">
-             
-              <div class="trainerArea">
-
-                <div class="trainerTitle"><span><h3>퍼스널 트레이너 소개</h3></span></div>
-                 
-                <div class="trainer-wrapper">
-
-                <div id="trainer" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators -->
-                  <ul class="carousel-indicators">
-                    <li data-target="#trainer" data-slide-to="0" class="active"></li>
-                    <li data-target="#trainer" data-slide-to="1"></li>
-                    <li data-target="#trainer" data-slide-to="2"></li>
-                  </ul>
-                  <!-- The slideshow -->
-                  <div class="carousel-inner trainerImg">
-                    <div class="carousel-item active">
-                      <img src="/src/main/webapp/resources/img/common/트레이너 이미지 샘플.png" alt="트레이너 이미지1">
-                      <div class="carousel-caption d-none d-md-block text-area">
-                        <h3>홍길동 트레이너</h3>
-                        <div>
-                          <h5>자격증 및 수료증</h5>
-                            <ul>
-                              <li>홍길동 자격증1</li>
-                              <li>홍길동 자격증2</li>
-                              <li>홍길동 자격증3</li>
-                              <li>홍길동 자격증4</li>
-                              <li>홍길동 자격증5</li>
-                            </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <img src="/src/main/webapp/resources/img/common/트레이너 이미지 샘플2.png" alt="트레이너 이미지2">
-                      <div class="carousel-caption d-none d-md-block text-area">
-                        <h3>김철수 트레이너</h3>
-                        <div class="text-area">
-                          <h5>자격증 및 수료증</h5>
-                            <ul>
-                              <li>김철수 자격증1</li>
-                              <li>김철수자격증2</li>
-                              <li>김철수 자격증3</li>
-                              <li>김철수 자격증4</li>
-                              <li>김철수 자격증5</li>
-                            </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <img src="/src/main/webapp/resources/img/common/트레이너 이미지 샘플3.png" alt="트레이너 이미지3">
-                      <div class="carousel-caption d-none d-md-block text-area">
-                        <h3>김민수 트레이너</h3>
-                        <div>
-                          <h5>자격증 및 수료증</h5>
-                          <ul>
-                            <li>김민수 자격증1</li>
-                            <li>김민수 자격증2</li>
-                            <li>김민수 자격증3</li>
-                            <li>김민수 자격증4</li>
-                            <li>김민수 자격증5</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Left and right controls -->
-                  <a class="carousel-control-prev" href="#trainer" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                  </a>
-                  <a class="carousel-control-next" href="#trainer" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                  </a>
+      <!--메인 컨텐츠 내용 --> 
+        <div class="locationPage_content">
+            <div class="pageTitle">
+                <img src="/src/main/webapp/resources/img/common/제목 배경사진.png">
+                <div class="text-overlay">
+                    <h1>Mzym 오시는 길</h1>
                 </div>
-                </div>
-              </div>
             </div>
-            <div class="boardInfo">
-                <div class="noticeArea">
-                  <div style="text-align: center;"><span><h3>공지사항</h3></span></div>
-                 
-                  공지사항 incloude
+            <div class="addressArea"><span style="font-size: 40px; font-weight: bold;">주소 :</span> 서울 금천구 가산디지털2로 95 3층 </div>
+            <div class="mapArea"><img src="/src/main/webapp/resources/img/common/지도 샘플.png"></div>
+            <div class="contentArea">
+                <div class="icon1">Myzm 소개</div>
+                <div class="contentField">서울 금천구에 위치한 Mzym은 넓은 규모에 최신식 운동기구, 체계적이고 효율적 1:1 전문매칭 시스템을 통해 웨이트트레이닝 본질에 <br><br>집중한, 회원님께 최고의 서비스를 제공하는 피트니스 센터입니다. </div>
+            </div>
+            <div class="iconArea">
+                <div class="iconCentent">
+                    <div class="con1">운영시간</div>
+                    <div class="con2">
+                        <ul>
+                            <li>평일 : 06:00 ~ 24:00</li>
+                            <li>주말 : 09:00 ~ 22:00</li>
+                            <li>공휴일 : 09:00 ~ 18:00</li>
+                        </ul>
+                    </div>
                 </div>
-                
-                <div class="boardArea">
-                  <div style="text-align: center;"><span><h3>자유게시판</h3></span></div>
-                  자유게시판 incloude
-                </div>
-            
-              </div>
+                <div class="iconCentent">
+                    <div class="con1">회원권</div>
+                    <div class="con2">
+                        <ul>
+                            <li>3개월/ 6개월/ 12개월</li>
+                            <li>PT이용권 (상품구매 참조)</li>
+                        </ul>
 
-        </div>
+                    </div>
+                </div>
+                <div class="iconCentent">
+                    <div class="con1">기타 및 비용</div>
+                    <div class="con2">
+                       <ul>
+                            <li>일일 입장 무제한</li>
+                            <li>운동복 월 1만원</li>
+                            <li>개인사물함 월 1만원</li>
+                       </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div> 
       </section>
       <!--section end-->
 
@@ -369,7 +319,7 @@
     </footer>
     <!--footer end-->
   
-  </div>
+    </div>
     
 </body>
 </html>

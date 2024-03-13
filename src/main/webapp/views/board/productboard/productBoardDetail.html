@@ -95,7 +95,32 @@
             text-align: right;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
 
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #1abc9c;
+            width: 25%;
+            text-align: center;
+        }
+
+        #closeButton{
+            width: 30%; 
+            margin-left: 35%; 
+            border: solid #1abc9c;
+            background-color: #1abc9c;
+            color: white;
+        }
 
     </style>
 
@@ -210,17 +235,17 @@
                     <h6>MZYM PT 10회권</h6>
                     <p class="price" style="color: #1abc9c; margin-right: 50px;">500,000원</p>
                     <p>MZYM Persnol Training 10회 + 헬스장 2개월 이용권</p>
-                    <div class="quantity-container">
+                    <div id="quantity-container">
                         <button onclick="adjustQuantity(-1)">-</button>
-                        <input type="textbox" id="quantity" name="quantity">
+                        <input type="text" id="quantity" value="1" oninput="calculateTotalPrice()">
                         <button onclick="adjustQuantity(1)">+</button>
                     </div>
                     <br>
                     <p>총 상품 금액</p>
                     <hr style="width: 650px;">
                     <div class="total-and-button">
-                        <p>500,000원</p>
-                        <button id="sellButton" type="button" style="margin-right: 50px;">판매하기</button>
+                        <p class="total_price">500,000원</p>
+                        <button id="sellButton" type="button" style="margin-right: 50px;">구매하기</button>
                     </div>
                 </div>
             </div>
@@ -230,10 +255,67 @@
                 <img src="../../../resources/img/common/MZYMProduct.png" alt="상세정보 이미지" style="width: 65%; height: 600px; display: block; margin: 0 auto;">
             </div>
 
-        </div>
+            <!-- Modal HTML -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <p>상품이 구매되었습니다.</p>
+                    <p>감사합니다   .</p>
+                    <button id="closeButton" onclick="closeModal()">닫기</button>
+                </div>
+            </div>
+  
 
-    </section>s
+    </section>
     <!-- Section end -->
+
+    <script>
+        function openModal() {
+          var modal = document.getElementById('myModal');
+          modal.style.display = 'block';
+        }
+        
+        function closeModal() {
+          var modal = document.getElementById('myModal');
+          modal.style.display = 'none';
+        }
+        
+        document.getElementById('sellButton').addEventListener('click', function() {
+          openModal();
+        });
+
+        function adjustQuantity(value) {
+            var quantityInput = document.getElementById('quantity');
+            var currentQuantity = parseInt(quantityInput.value);
+            var newQuantity = Math.max(1, currentQuantity + value);
+            quantityInput.value = newQuantity;
+            calculateTotalPrice();
+        }
+    
+        function calculateTotalPrice() {
+            var quantityInput = document.getElementById('quantity');
+            var priceElement = document.querySelector('.price');
+            var totalPriceElement = document.querySelector('.total_price');
+    
+            var currentQuantity = parseInt(quantityInput.value);
+            var price = parseInt(priceElement.innerText.replace('원', '').replace(',', ''));
+    
+            var total_price = currentQuantity * price;
+            totalPriceElement.innerText = total_price.toLocaleString('ko-KR') + '원';
+        }
+
+        function showModal() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'flex';
+        }
+
+        function hideModal() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        }
+
+        
+    </script>
+
 
     <!--footer start-->    
     

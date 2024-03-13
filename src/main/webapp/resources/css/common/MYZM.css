@@ -20,11 +20,7 @@
     white-space: nowrap;
     margin-right: 20px
 }
-.SearchText_section {
-    width: 20%;
-    float: left;
 
-}
 .header_nav{
     height: 40%; 
     display: flex;
@@ -56,8 +52,6 @@
     margin-bottom: 20px; 
     max-height: 100px;
     width: 100%;
-    justify-content: space-between;
-    align-items: center;
     
 }
 .Login_section a {/*로그인 버튼*/
@@ -66,8 +60,8 @@
     margin-right: 20px;
 }
 .Search_section {/*검색 영역*/
-    
-    width: 60%;
+    flex: 1;
+    width: 40%;
     margin-right: 10px;
     display: flex;
     justify-content: center;
@@ -81,21 +75,21 @@
     
 }
 .SearchText_section{
-    width: 20%;
-    float: left;
-
-}
-.etc_Section{
-    width: 20%;
+    width: 30%;
     display: flex;
-    float: left;
+    justify-content: center;
+    align-items: center;
+}
 
+.etc_Section{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .Login_section {
    
-   margin-left: 200px;
-   margin-right: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -145,7 +139,7 @@
 #menu1 {
     display: flex;
     background-color: rgba(224, 224, 224, 0.4);
-    width: 200px;
+    width: 90%;
     border-radius: 10px;
     justify-content: center;
     position: absolute;
@@ -157,7 +151,7 @@
 #menu2 {
     display: flex;
     background-color: rgba(224, 224, 224, 0.4);
-    width: 200px;
+    width: 90%;
     border-radius: 10px;
     justify-content: center;
     position: absolute;
@@ -209,6 +203,9 @@
     object-fit: cover;
     max-height: 500px;
 }
+
+
+
 .main_text{ /*메인 글자 스타일*/
     text-align: center;
     font-size: 40px;

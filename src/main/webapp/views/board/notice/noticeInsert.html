@@ -11,6 +11,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../resources/css/common/MYZM.css">
     <script src="../../../resources/js/MYZM.js"></script> 
+    <script src="../../../resources/js/summernote/summernote-lite.js"></script>
+    <script src="../../../resources/js/summernote/summernote-ko-KR.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/summernote/summernote-lite.css">
+
 
     <style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -189,15 +193,12 @@
 
             <div class="backgray">             
             <form  action="" method="">
+                <input type="text" class="form-control" required placeholder="제목 입력">
                 <table class="table">
                     <tr>
-                        <td><input type="text" class="form-control" required placeholder="제목 입력"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" required placeholder="에디터api 들어갈 곳"></td>
-                    </tr>
-                    <tr>
-                        <td><textarea cols="30" rows="10" class="form-control" style="resize:none;" required placeholder="내용 입력"></textarea></td>
+                        <form method="post">
+                            <textarea id="summernote" name="content"></textarea>
+                        </form>
                     </tr>
                     <tr>
                         <td>
@@ -218,6 +219,16 @@
 
     </section>
     <!-- Section end -->
+
+    <script>
+        $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: 400
+        });
+    });
+    </script>    
 
     <!--footer start-->    
     
