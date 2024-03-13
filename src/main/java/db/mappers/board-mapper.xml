@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<!-- 
+	작성자 : 이예찬
+	공지사항을 조회해오는 쿼리문
+	글번호, 제목, 조회수, 작성자, 글 내용, 작성일, 첨부파일
+ -->
+<entry key="selectNotice">
+select
+    NOTICE_NO
+    , User_ID
+    , NOTICE_TITLE
+    , NOTICE_CONTENT
+    , TO_CHAR(n.REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+from MZYM_NOTICE n
+join mzym_member on (user_no = notice_writer)
+where n.status = 'Y'
+</entry>
+	
+<!-- 
+	작성자: 이예찬
+	페이징처리 위한 공지사항의 총 갯수를 알라오기 위한 쿼리문
+ -->
+<entry key="selectNoticeCount">
+select count(*)
+from mzym_notice
+</entry>
+
+
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+</properties>

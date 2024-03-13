@@ -242,3 +242,12 @@
         .modal {  
             top: 20px;
         }
+        .border{
+            min-height:150px; 
+            width: 1000px; 
+            text-align: left; 
+            white-space: pre;
+            /* word-wrap:break-all; */
+            /* 넘어가는 글자부분을 스크롤바을 이용햐서 보도록 해주는 스타일 */
+            overflow : auto;
+        }

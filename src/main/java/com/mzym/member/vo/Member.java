@@ -207,6 +207,5 @@ public class Member {
 				+ enrollDate + ", modifyDate=" + modifyDate + ", trCareer=" + trCareer + ", certificate=" + certificate
 				+ ", status=" + status + ", assignTr=" + assignTr + ", imageURL=" + imageURL + "]";
 	}
-	
 
 }

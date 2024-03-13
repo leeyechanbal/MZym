@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.vo.Member" %>
-    
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
+<!--  
+	작성자 : 이예찬
+	로그인 이후 일정 관리 와 게시물 관리 페이지를 결정하는 화면
+	로그아웃 시 세션에서 객체를 만료시키고 로그인 화면으로 돌아가기
+-->    
 <%
 	Member currentUser = (Member)request.getSession().getAttribute("");
+	String currentDate = new SimpleDateFormat("YYYY년 MM월 dd일").format(new Date());
+	String mzymPath = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html>
@@ -64,32 +72,32 @@
 
 	 <div id="background">
         <div id="home">
-            <div id="head"><img src="/src/main/webapp/resources/img/icon/logo-lg-300x150.png" alt="Myzm logo"></div>
+            <div id="head"><img src="<%=mzymPath%>/resources/img/icon/logo-lg-300x150.png" alt="Myzm logo"></div>
 
             <div id="react">
 
                 <div id="center">
-                    <div id="info" onclick="">
+                    <div id="info">
                         <img src="" alt="adminWho">
-                        <p class="font">sysdate<br>안녕하세요 관리자님<%= %></p>
+                        <p class="font"><%=currentDate%><br>안녕하세요. 관리자님</p>
                     </div>
 
-                    <div id="boradManagment" onclick="">
-                        <img src="/src/main/webapp/resources/img/icon/Board-icon-100x100.png" alt="boardPage">
+                    <a id="boradManagment" href="<%=mzymPath%>/board.trainer">
+                        <img src="<%=mzymPath%>/resources/img/icon/Board-icon-100x100.png" alt="boardPage">
                         <div class="font">게시물</div>
-                    </div>
+                    </a>
 
-                    <div id="dateManagment" onclick="">
-                        <img src="/src/main/webapp/resources/img/icon/galender-100x100.png" alt="clanderPage">
+                    <a id="dateManagment" href="">
+                        <img src="<%=mzymPath%>/resources/img/icon/galender-100x100.png" alt="clanderPage">
                         <div class="font">PT일정</div>
-                    </div>
+                    </a>
                 </div>
 
                 <div id="foot">
-                    <div id="logOut">
-                        <img src="/src/main/webapp/resources/img/icon/logout-icon-50x50.png" alt="logout">
+                    <a id="logOut" href="">
+                        <img src="<%=mzymPath%>/resources/img/icon/logout-icon-50x50.png" alt="logout">
                         <div class="font">로그 아웃</div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
