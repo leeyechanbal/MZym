@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인페이지</title>
+    <title>회원가입페이지</title>
     <link rel="icon" href="images/favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/src/main/webapp/resources/css/common/MYZM.css">
-    <script src="/src/main/webapp/resources/js/MYZM.js"></script>
+    <link rel="stylesheet" href="/resources/css/common/MYZM.css">
+    <script src="/resources/js/MYZM.js"></script>
+
 
     <!-- 메인콘테트 관련 style -->
     <style>
@@ -23,8 +24,10 @@
 
     .homePage_content{ /*메인 영역*/
         border: 3px solid #1ABC9C;
+        border-radius: 3%;
     }
-    .main_content>div{ /*메인 영역*/
+    
+    .main_content{ /*메인 영역*/
         min-height: 500px;
         width: 1000px;
         margin: auto;
@@ -33,6 +36,11 @@
     .main_header{
         width: 1000px;
         margin: auto;
+    }
+
+    .homePage_content{
+        margin: auto;
+        padding: 30px;
     }
 
     .homePage_content td {
@@ -70,29 +78,10 @@
 </head>
 
 <body>
-    <div class="wrap">
-
-    <!--sidebar start-->
-    <div class="sidebar" id="quickmenu">
-      <nav class="col-sm-7 sidenav">
-        
-          <ul class="nav nav-pills nav-justified">
-            <li><a><img src="images\8666582_chevrons_up_icon.png" style="width: 50px; height: 50px;" onclick="scrollToTop();"></a></li>
-            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">공지사항</a></li>
-            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">자유게시판</a></li>
-            <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">질문게시판</a></li>
-            <li><a href="https://www.facebook.com" target="_blank"><img src="images\facebook.png" style="width: 50px; height: 50px"></a></li>
-            <li><a href="https://www.instagram.com" target="_blank"><img src="images\instagram.png" style="width: 50px; height: 50px"></a></li>
-            <li><a><img src="images\8666577_chevrons_down_icon.png" style="width: 50px; height: 50px;" onclick="scrollToBottom();"></a></li>
-          </ul>
-        </nav>
-        
-      </div>
-    </div>
-    <!--sidebar end-->
-
-    <!--header start-->   
-    <header class="header-top-section">
+<div class="wrap">
+<!--header start-->   
+<header class="header-top-section">
+    <div>
         <div>
             <div>
                 <div class="header_roop">
@@ -122,11 +111,9 @@
                         </div>
                     </div>
                     <div class="SearchText_section">
-                        
-                        <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
+                      <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
                         <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
                         </div>
-                    
                     </div>
                 </div>
             </div>
@@ -192,8 +179,21 @@
         <h5>회원정보 입력</h5>
       </div>
       <section class="main_content">
+        <div class="sidebar" id="quickmenu">
+          <nav class="col-sm-7 sidenav">
+            
+              <ul class="nav nav-pills nav-justified">
+                <li><a><img src="/src/main/webapp/resources/img/common/스크롤 업.png" style="width: 50px; height: 50px;" onclick="scrollToTop();"></a></li>
+                <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">공지사항</a></li>
+                <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">자유게시판</a></li>
+                <li><a href="#" class="btn btn-secondary btn-sm horizontal-btn">질문게시판</a></li>
+                <li><a href="https://www.facebook.com" target="_blank"><img src="/src/main/webapp/resources/img/common/facebook.png" style="width: 50px; height: 50px"></a></li>
+                <li><a href="https://www.instagram.com" target="_blank"><img src="/src/main/webapp/resources/img/common/instagram.png" style="width: 50px; height: 50px"></a></li>
+                <li><a><img src="/src/main/webapp/resources/img/common/스크롤 다운.png" style="width: 50px; height: 50px;" onclick="scrollToBottom();"></a></li>
+              </ul>
+            </nav>
+         </div>
      
-
 
           <!--메인 컨텐츠 내용 -->  
             <div class="homePage_content">
@@ -201,36 +201,36 @@
                     <table class="table table-borderless">
                         <tr>
                             <td>
-                                <input type="text" class="form-control" placeholder="아이디" required>
+                                <input type="text" class="form-control" placeholder="아이디" required id="input_id">
                                 <button type="button" class="info_btn btn-sm">중복확인</button>
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="password" class="form-control" placeholder="비밀번호" required></td>
+                            <td><input type="password" class="form-control" placeholder="비밀번호" required id="input_pwd"></td>
                         </tr>
                         <tr>
-                            <td><input type="password" class="form-control" placeholder="비밀번호 확인" required></td>
+                            <td><input type="password" class="form-control" placeholder="비밀번호 확인" required id="input_pwdcheck"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="이름" required></td>
+                            <td><input type="text" class="form-control" placeholder="이름" required id="input_name" id="input_name"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)"></td>
+                            <td><input type="text" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)" id="input_phone"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="주민번호(-포함해서 입력해주세요)"></td>
+                            <td><input type="text" class="form-control" placeholder="주민번호(-포함해서 입력해주세요)" id="input_residentRegistrationNumber"></td>
                         </tr>
                         <tr>
-                            <td><input type="email" class="form-control" placeholder="이메일"></td>
+                            <td><input type="email" class="form-control" placeholder="이메일" id="input_email"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="주소"></td>
+                            <td><input type="text" class="form-control" placeholder="주소" id="input_address"></td>
                         </tr>
                         
                         <tr>
                             <td style="font-size: larger;">
                                 <label style="display: flex; align-items: center; justify-content: center; text-align: center;">
-                                <input type="checkbox" name="" id="" style="margin-right: 7px; width: 20px;">
+                                <input type="checkbox" name="check_agreement" id="check_agreement" style="margin-right: 7px; width: 20px;">
                                 [필수]개인정보 수집, 이용 동의
                                 </label>
                             </td>
@@ -247,6 +247,8 @@
 
       </section>
       <!--section end-->
+
+      <script src="/resources/js/validation_GSM.js"></script>
 
     <!--footer start--> 
     <footer>

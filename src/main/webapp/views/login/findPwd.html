@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아이디 찾기</title>
+    <title>비밀번호 찾기</title>
     <link rel="icon" href="images/favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -71,8 +71,8 @@
 
     .modal-content {
       border: 3px solid #1ABC9C;
-      width: 400px;
-      height: 300px;
+      width: 500px;
+      height: 500px;
       margin: auto;
       padding: 30px;
     }
@@ -195,7 +195,7 @@
 
       <!--section start-->    
       <div class="main_header">
-        <h1>아이디 찾기</h1>
+        <h1>비밀번호 찾기</h1>
         <hr>
         <h5>회원정보 입력</h5>
       </div>
@@ -205,18 +205,18 @@
                 <form id="myForm" action="" method="" style="width: 100%;">
                     <table class="table table-borderless">
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="이름" required id="input_name"></td>
+                            <td><input type="text" class="form-control" placeholder="아이디"  id="input_id"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)" required id="input_phone"></td>
+                            <td><input type="text" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)"  id="input_phone"></td>
                         </tr>
                         <tr>
-                            <td><input type="email" class="form-control" placeholder="이메일" required></td>
+                            <td><input type="text" class="form-control" placeholder="이메일"></td>
                         </tr>
 
                         <tr>
                             <th style="text-align: center; padding-top: 20px;">
-                                <button type="submit" class="findId_btn" data-toggle="modal" onclick="checkForm(event)">아이디찾기</button>
+                                <button type="submit" class="findId_btn" data-toggle="modal" onclick="checkForm(event)">비밀번호 재설정</button>
                             </th>
                         </tr>
                     </table>
@@ -228,11 +228,16 @@
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; padding: 0; overflow: visible !important;">
               <div class="modal-dialog modal-dialog-centered" role="document" style="position: absolute; bottom: 10%; left: 40%;">
                 <div class="modal-content">
-                  <div style="text-align: center; padding-top: 10%;">
-                   <p style="font-size: larger;">안녕하세요 홍길동님<br>회원님의 아이디는<br>user01입니다.</p>
+                  <div>
+                    <h1>비밀번호 재설정</h1>
                   </div>
-                  <div style="width: 100%; padding-top: 10%; display: flex; justify-content: center;">
-                    <button type="button" class="findId_btn" data-dismiss="modal" style="width: 170px;">로그인하러 가기</button>
+                  <form action="">
+                    <input type="password" placeholder="비밀번호 설정">
+                    <input type="password" placeholder="비밀번호 확인">
+                  </form>
+                  <div>
+                    <button type="button" class="findId_btn" data-dismiss="modal">취소</button>
+                    <button type="sumit" class="findId_btn">재설정</button>
                   </div>
                 </div>
               </div>

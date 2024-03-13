@@ -203,6 +203,9 @@
     object-fit: cover;
     max-height: 500px;
 }
+
+
+
 .main_text{ /*메인 글자 스타일*/
     text-align: center;
     font-size: 40px;
