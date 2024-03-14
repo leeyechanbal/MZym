@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/views/trainer/Leeyechan/trainerFilter.jsp" %>
 	
 </body>
 </html>
