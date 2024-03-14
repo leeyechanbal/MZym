@@ -13,20 +13,11 @@ public class BoardService {
 	
 	BoardDao dao = new BoardDao();
 
-	/**
-	 * @author 이예찬
-	 * @return List<Notice>
-	 * 공지사항에 대한 조회 요청을 처리 및 처지된 데이터를 전달하는 매서드
-	 */
-	public List<Notice> selectNotice() {
-		
-		Connection conn = getConnection();
-		List<Notice> list  = dao.selectNotice(conn);
-		
-		close(conn);
-		
-		return list;
-	}
+	/*
+	 * selectNotice()은 
+	 * 페이징 처리가 된 후에 게시물을 보이게 되서
+	 * 사용할 일이 없어 졌습니다.
+	*/
 
 	/**
 	 * @author 이예찬

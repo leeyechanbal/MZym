@@ -82,7 +82,7 @@
                         <p class="font"><%=currentDate%><br>안녕하세요. 관리자님</p>
                     </div>
 
-                    <a id="boradManagment" href="<%=mzymPath%>/board.trainer">
+                    <a id="boradManagment" href="<%=mzymPath%>/listNotice.trainer?page=1">
                         <img src="<%=mzymPath%>/resources/img/icon/Board-icon-100x100.png" alt="boardPage">
                         <div class="font">게시물</div>
                     </a>

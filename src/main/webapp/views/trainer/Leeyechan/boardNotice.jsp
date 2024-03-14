@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 알림창 넣는데 밑에 두면 옆에 매뉴 바의 display가 none처리 되버려요. -->
 <%@ include file="/views/trainer/Leeyechan/trainerFilter.jsp" %>
+
 <%@ page import="com.mzym.board.vo.Notice" %>
 <%@ page import="com.mzym.common.paging.PageInfo"%>
 <%@ page import="java.util.List"%>
@@ -40,7 +42,7 @@
 <body>
 	        
         <tr style="height: 30px;"></tr>
-
+		
         <tbody>
             <td class="section1" id="menu">
                 <div id="adi">관리자<br>xxx</div>
@@ -48,7 +50,7 @@
                     <div id="board">게시판</div>
 
                     <div class="boardNav" style="margin-top: 0px;">
-                        <div class="boardNotice"><a href="<%=mzymPath%>/board.trainer>">공지사항</a></div>
+                        <div class="boardNotice"><a href="<%=mzymPath%>/listNotice.trainer?page=1">공지사항</a></div>
                         <div class="boardFree"><a href="">자유게시판</a></div>
                         <div class="boardQuestion"><a href="">질문게시판</a></div>
                         <div class="boardReview"><a href="">PT 및 헬스장 후기</a></div>
@@ -79,13 +81,12 @@
                         </tr>
 
 					
-					<%for(int i= 0; i<list.size(); i++){ %>
-                    <form action="<%=mzymPath %>/update.change" method="post">
-                        <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>"> <!--반복문 !! -->
+					<%for(int i= 0; i < list.size(); i++){ %>
+                    <form action="" method="post">
+                        <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
                             <td class="table-number" name=""><%=list.get(i).getNoticeNo()%></td>
                             <td class="table-title" name=""><%=list.get(i).getTitle()%></td>
                             <td name=""><%=list.get(i).getWriterName()%></td>
-                            <%-- <% System.out.println(list.get(i).getWriterName());%> --%>
                             <td name=""><%=list.get(i).getRegistDate()%></td>
                         </tr>
 
@@ -116,14 +117,42 @@
             
 	           <td class="section2" id="paging" >
 	                <ul class="pagination" >
-	                    <li class="page-item"><a class="page-link" href="#">이전</a></li>
-	
-	                    <li class="page-item active"><a class="page-link" href="<%=mzymPath%>/paging.trainer?page=1&board=notice">1</a></li>
-	                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-	                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-	
-	                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+	                <!-- 현재 페이지가 1인 경우 이전 버튼이 작동하지 않도록 -->
+	           		<% if (info.getCurrentPage() == 1) {%>
+	                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+					<% } else {%>
+	                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/listNotice.trainer?page=" + (info.getCurrentPage()- 1) %>>이전</a></li>
+					<%} %>
+					
+					<!-- 페이징바 숫자 부분 -->
+					<% for (int i= info.getStartPage(); i < info.getEndPage(); i++){ %>
+						<!-- 
+							페이징바의 현재 숫자가 총 페이징 수보다 작으면 이동 가능한 페이지를
+							페이지의 총 수보다 클 경우는 페이징 이동이 불가능하게 구현
+							(info.getCurrentPage() <= info.getMaxPage())
+							!(info.getCurrentPage() >= info.getMaxPage())
+							하는 같은 경우를 제외 하고 하나는 같은 경우를 포함
+						 -->
+						<%if((info.getCurrentPage() <= info.getMaxPage())) {%>					
+							<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
+							<% if(info.getCurrentPage() == i){ %>
+		                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
+		                    <%} else if (i <= info.getMaxPage()) { %>
+		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/listNotice.trainer?page=" + i%>"><%=i%></a></li>
+		                    <%}else { %>
+		                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
+		                    <%} %>
+	                    <%} %>
+					<%} %>
+					
+					<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
+					<% if(info.getCurrentPage() >= info.getMaxPage()) {%>						
+	                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+                   	<%} else { %> 
+	                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/listNotice.trainer?page=" + (info.getCurrentPage()+ 1) %>">다음</a></li>
+                    <%} %>
 	                </ul>
+	                
 	            </td>
             
             <td class="section3 ">

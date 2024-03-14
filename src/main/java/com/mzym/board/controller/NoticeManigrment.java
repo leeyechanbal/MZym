@@ -42,8 +42,6 @@ public class NoticeManigrment extends HttpServlet {
 		
 		int listCount = new BoardService().selectNoticeCount();
 		
-		
-		
 		PageInfo info = new PageHandler().getPaging(listCount, currantPage, 10, 10);
 			
 		if (info != null) {
@@ -52,7 +50,7 @@ public class NoticeManigrment extends HttpServlet {
 			request.setAttribute("info", info);
 			request.setAttribute("list", list);
 			
-			request.getRequestDispatcher("/views/trainer/Leeyechan/boardNotice.jsp");
+			request.getRequestDispatcher("/views/trainer/Leeyechan/boardNotice.jsp").forward(request, response);
 			
 		}
 		

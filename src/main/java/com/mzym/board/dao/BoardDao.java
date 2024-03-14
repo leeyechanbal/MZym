@@ -37,37 +37,12 @@ public class BoardDao {
 		
 	}
 
-	public List<Notice> selectNotice(Connection conn) {
-		PreparedStatement pst = null;
-		ResultSet rset = null;
-		List<Notice> list = new ArrayList<>();
-		
-		try {
-			pst = conn.prepareStatement(prop.getProperty("selectNotice"));
-			rset = pst.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Notice(
-							rset.getInt("NOTICE_NO")
-							, rset.getString("USER_ID")
-							, rset.getString("NOTICE_TITLE")
-							, rset.getString("NOTICE_CONTENT")
-							, rset.getString("REGIST_DATE")
-						));
-			}
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pst);
-		}
-		
-		
-		return list;
-	}
-
+	/*
+	 * selectNotice(Connection conn)은 
+	 * 페이징 처리가 된 후에 게시물을 보이게 되서
+	 * 사용할 일이 없어 졌습니다.
+	*/
+	
 	/**
 	 * @author 이예찬
 	 * @param conn db연결을 위한 Connection 객체
