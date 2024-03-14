@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이페이지</title>
+    <title>대표로그인</title>
 
     <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -21,10 +21,13 @@
         }
 
         body {
-            background-color: gray; /* 나머지 영역의 배경색 회색으로 설정 */
-        }   
-
-        a { color :black; }
+            background-color: lightgrey; /* 나머지 영역의 배경색 회색으로 설정 */
+        }
+        
+        a{
+            color: white;
+            font-size: larger;
+        }
 
         .wrap,
         .wrap * {
@@ -47,10 +50,18 @@
             min-height: 500px;
             padding: 50px;
             /* border-radius: 20px; */
-            background-color: white;
+            background-color: gray;
         }
         .main_content * {
+            background-color: gray;
+        }
+
+        .main_content input {
             background-color: white;
+        }
+
+        .main_content button {
+            background-color: lightgrey;
         }
 
         .login_header hr {
@@ -63,7 +74,7 @@
         }
 
         .login_content{
-            height:900px; 
+            height:800px; 
             display: flex;
             flex-direction: column;
         }
@@ -74,19 +85,14 @@
         }
 
         .login_title{ 
-            height: 60%;
-            display: flex;
+            align-items: center;
         }
-        
-        .login_title_left, .login_title_right{ width: 10%; }
-        .login_title_center { width: 80%; }
 
         .login_select{
-            height: 40%;
-            display: flex;
+            height: 100%;
+            padding-top: 5%;
         }
 
-        .login_select_user, .login_select_trainer {  width: 50%; margin: auto; margin-top: 3%; }
         
         .login_body{
             height: 70%;
@@ -110,10 +116,11 @@
             height: 85%;
             display: flex;
             flex-direction: column;
+            padding-top: 5%;
         }
 
         .login_input_id, .login_input_pwd { 
-            height: 35%;
+            height: 45%;
             margin: auto;
             padding: 3%;
         }
@@ -172,18 +179,6 @@
             font-size: large;
         }
 
-        .btn {
-            background-color: #1ABC9C;
-            border: solid #1ABC9C;
-            color: white;
-        }
-
-        .btn:hover{
-            background: #19b192;
-            border: solid #19b192;
-            color: white;
-        }
-
         /* 기본 커서 설정 */
         .login_select_user h5,
         .login_select_trainer h5 {
@@ -197,6 +192,10 @@
             cursor: pointer;
         }
 
+        .btn{
+            color: black;
+        }
+
         
 
     </style>
@@ -207,37 +206,17 @@
     <div class="wrap">
 
         <!-- section start -->
+        <div class="login_title_center">
+            <img src="/resources/img/icon/logo-lg-300x150.png" alt="">
+        </div>
         <section class="main_content">
 
             <div class="login_content">
-                
                 <!-- 로그인 헤더 -->
                 <div class="login_header">
-
-                    <div class="login_title">
-
-                        <div class="login_title_left">
-                            <button style="border: none;"><img src="/resources/img/btn/backward-arrow_50x50.png"></button>
-                        </div>
-
-                        <div class="login_title_center">
-                            <h2 style="text-align: center;">로그인</h2>
-                        </div>
-
-                        <div class="login_title_right"></div>
+                    <div class="login_select" style="text-align: center;">
+                        <h1 style="color: white;">대표로그인</h1>
                     </div>
-
-                    <div class="login_select">
-
-                        <div class="login_select_user">
-                          <h5 id="selectUser">회원 로그인</h5>
-                        </div>
-
-                        <div class="login_select_trainer">
-                          <h5 id="selectTrainer">트레이너 로그인</h5>
-                        </div>
-                    </div>
-                    <hr>
                 </div>
                 <!-- 로그인 헤더 끝-->
 
@@ -245,7 +224,6 @@
                 <!-- 로그인 바디-->
                 <div class="login_body">
                     <div class="login_input">
-                    
                             <form action="" method="" style="height: 100%;">
                                
                                 <div class="login_input_id">
@@ -254,13 +232,7 @@
 
                                 <div class="login_input_pwd">
                                     <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="userPwd" id="passwordInput">
-                                    <button style="border: none;" id="showPasswordBtn"><img src="/resources/img/icon/show_password_icon_50x50.png"></button>
-                                </div>
-
-                                <div class="login_input_btn">
-                                    <button type="submit" class="btn" style="font-size: larger;">로그인</button>
-                                </div>
-                                
+                                </div>     
                             </form>
 
                     </div>
@@ -271,69 +243,24 @@
                             <a href="">아이디 찾기</a>
                         </div>
                         <div class="login_search_center" style="margin: auto; margin-top: 5%; font-size: larger;">
-                            |
                         </div>
                         <div class="login_search_pwd" style="margin: auto; margin-top: 5%; font-size: larger">
                             <a href="">비밀번호 찾기</a>
                         </div>
                     </div>
-                    <hr>
 
                 </div> 
 
                 <!-- 로그인 바디 끝-->
 
                 <!-- 로그인 풋터 -->
-                <div class="login_footer" style="font-size: larger;">
-                    아직 MZym회원이 아니시라면, 지금 가입해 이용해 보세요!
-                    <br><br>
-                    <button class="btn">회원가입</button>
+                <div class="login_footer" >
+                    <button class="btn btn-secondary" style="font-size: x-large;">Login</button>
                 </div>
                 <!-- 로그인 풋터 끝-->
             </div>
         </section>
 
-        <script>
-            
-            // 회원 트레이너 구별 스크립트 - 구성모
-            $(document).ready(function() {
-                // 초기 상태 설정
-                $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
-                $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
-        
-                // 회원 로그인 클릭 시
-                $('#selectUser').click(function() {
-                    $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
-                    $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
-                });
-        
-                // 트레이너 로그인 클릭 시
-                $('#selectTrainer').click(function() {
-                    $('.login_select_user h5').css({'color':'gray', 'font-weight':'normal'});
-                    $('.login_select_trainer h5').css({'color':'black', 'font-weight':'bold'});
-                });
-            });
-
-            // input 비밀번호 text 토글 스크립트 - 구성모
-            // 이미지 버튼을 클릭했을 때 실행되는 함수
-            document.getElementById('showPasswordBtn').addEventListener('click', function() {
-                
-                event.preventDefault();
-                // 입력란의 타입을 확인
-                var passwordInput = document.getElementById('passwordInput');
-                var currentType = passwordInput.getAttribute('type');
-
-                // 입력란의 타입이 password일 때
-                if (currentType === 'password') {
-                    // 타입을 text로 변경
-                    passwordInput.setAttribute('type', 'text');
-                    console.log(currentType);
-                } else { // 입력란의 타입이 text일 때
-                    // 타입을 password로 변경
-                    passwordInput.setAttribute('type', 'password');
-                }
-            });
-        </script>
     </div>
 </body>
 

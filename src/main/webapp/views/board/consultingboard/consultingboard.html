@@ -59,6 +59,9 @@
     .homePage_content td input{
         height: 60px;
     }
+    .homePage_content td select{
+        height: 60px;
+    }
 
     .consulting_table {
         width: 100%;
@@ -226,26 +229,27 @@
                         <tr>
                             <th><h4>이름</h4></th>
                             <td>
-                                <input type="text" class="form-control" placeholder="이름을 입력해주세요" required id="input_id">
+                                <input type="text" class="form-control" placeholder="이름을 입력해주세요" required id="input_name">
                             </td>
                         </tr>
                         <tr>
                             <th><h4>연락처</h4></th>
-                            <td><input type="password" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)" required id="input_pwd"></td>
+                            <td><input type="text" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)" required id="input_phone"></td>
                         </tr>
                         <tr>
                             <th><h4>상담분류</h4></th>
-                            <td><input type="password" class="form-control" placeholder="비밀번호 확인" required id="input_pwdcheck"></td>
-                        </tr>
-                        <tr>
-                            <th><h4>희망상담일</h4></th>
                             <td><select name="" id="category" class="form-control">
-                                <option value="" selected>상담선택</option>
+                                <option value="select_consulting" selected>상담선택</option>
                                 <option value="">회원권 문의</option>
                                 <option value="">PT 문의</option>
                                 <option value="">상품 문의</option>
                                 <option value="">기타</option>
                             </select></td>
+              
+                        </tr>
+                        <tr>
+                            <th><h4>희망상담일</h4></th>
+                            <td><input type="text" class="form-control" placeholder="xxxx-xx-xx(-포함하여 입력해주세요)" required id="input_date"></td>
                         </tr>
                         <tr>
                             <th><h4>상담내용</h4></th>
@@ -280,31 +284,9 @@
                         return;
                     }
 
-                    var id = $('#input_id').val();
-                    var password = $('#input_pwd').val();
-                    var confirmPassword = $('#input_pwdcheck').val();
                     var name = $('#input_name').val();
                     var phoneNumber = $('#input_phone').val();
-                    var residentRegistrationNumber = $('#input_residentRegistrationNumber').val();
-                    
-                    var idRegex = /^[a-zA-Z0-9]+$/;
-                    if (!idRegex.test(id)) {
-                        console.log("아이디오류");
-                        alert("아이디는 영문자와 숫자만 입력 가능합니다.");
-                        return;
-                    }
-                    // 비밀번호 유효성 검사: 영문자, 숫자, 특수문자 포함, 8자 이상
-                    var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-                    if (!passwordRegex.test(password)) {
-                        alert("비밀번호는 영문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
-                        return;
-                    }
-
-                    // 비밀번호와 비밀번호 확인 일치 여부 검사
-                    if (password !== confirmPassword) {
-                        alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-                        return;
-                    }
+                    var date = $('#input_date').val();
 
                     // 이름 유효성 검사: 한글만 허용
                     var nameRegex = /^[가-힣]+$/;
@@ -320,13 +302,20 @@
                         return;
                     }
 
+                    var selectedValue = document.getElementById("category").value;
+                    if (selectedValue === "select_consulting") {
+                    alert("상담을 선택하세요!");
+                    return false; // 폼 제출을 막음
+                    }
+
                     // 주민등록번호 유효성 검사: 6자리 숫자-7자리 숫자 형식
-                    var residentRegistrationNumberRegex = /^\d{6}-\d{7}$/;
-                    if (!residentRegistrationNumberRegex.test(residentRegistrationNumber)) {
-                        alert("주민등록번호 형식이 올바르지 않습니다. 예) 123456-1234567");
+                    var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                    if (!dateRegex.test(date)) {
+                        alert("날짜입력형식이 올바르지 않습니다. 예) xxxx-xx-xx");
                         return;
                     }
 
+                    alert("상담 신청이 완료했습니다 빠른 시일내에 연락드리겠습니다!");
                     this.submit();
                 });
                 </script>
@@ -334,8 +323,6 @@
 
       </section>
       <!--section end-->
-
-      <script src="/resources/js/validation_GSM.js"></script>
 
     <!--footer start--> 
     <footer>
