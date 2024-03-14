@@ -337,7 +337,7 @@
     /*마이페이지 style*/
     .mypage_content{
         margin: auto;
-        width: 80%;
+        width: 90%;
     }
 
     .food_date{
@@ -584,7 +584,7 @@
                             <ul>
                                 <li style="margin-left: 10px;"><i class="fas fa-clock" id="icon_large"><span class="ext">아침식사</span></i></li>
                                 <li>
-                                    <li>이삭토스트 381kcal<a class="btn fas fa-trash" id="icon1"></a></li>
+                                    <li>이삭토스트 381kcal<button type="button" class="btn fas fa-trash" id="icon1" onclick="deleteMenu();"></button></li>
                                 </li>
                             </ul>           
                             <table>
@@ -604,8 +604,8 @@
                             <ul>
                                 <li style="margin-left: 10px;"><i class="fas fa-clock" id="icon_large"><span class="ext">저녁식사</span></i></li>
                                 <li>
-                                    <li>빅맥 505kcal<a class="btn fas fa-trash" id="icon1"></a></li>
-                                    <li>콜라 152kcal<a class="btn fas fa-trash" id="icon1"></a></li>
+                                    <li>빅맥 505kcal<button type="button" class="btn fas fa-trash" id="icon1" onclick="deleteMenu();"></button></li>
+                                    <li>콜라 152kcal<button type="button" class="btn fas fa-trash" id="icon1"></button></li>
                                 </li>
                             </ul>
                             <table>
@@ -629,7 +629,7 @@
                             <ul>
                                 <li style="margin-left: 10px;"><i class="fas fa-clock" id="icon_large"><span class="ext">점심식사</span></i></li>
                                 <li>
-                                    <li>바나나 93kcal<a class="btn fas fa-trash" id="icon1"></a></li>
+                                    <li>바나나 93kcal<button type="button" class="btn fas fa-trash" id="icon1" onclick="deleteMenu();"></button></li>
                                 </li>
                             </ul>
                             <table>    
@@ -649,7 +649,7 @@
                             <ul>
                                 <li style="margin-left: 10px;"><i class="fas fa-clock" id="icon_large"><span class="ext">간식</span></i></li>
                                 <li>
-                                    <li>콜라 152kcal<a class="btn fas fa-trash" id="icon1"></a></li>
+                                    <li>콜라 152kcal<button type="button" class="btn fas fa-trash" id="icon1" onclick="deleteMenu();"></button></li>
                                 </li>
                             </ul>
                             <table>
@@ -669,6 +669,25 @@
                 
                 </div>
 
+                <script>
+                    function deleteMenu(){
+                        $.ajax({
+                            url:"<%=contextPath%>/dietMenu.me",
+                            data:{
+                                //no://foodno
+                                //content://foodName
+                            },
+                            type:"post",
+                            success:function(){// 성공시
+                                // 갱신된 음식 목록 조회 다시 화면에 뿌리기
+                            },
+                            error:function(){
+                                console.log("");
+                            }
+                        });
+                    }
+                </script>
+
                 <div class="kcal">
                     <table>
                         <tr>
@@ -677,7 +696,7 @@
                         </tr>
                         <tr>
                             <th>오늘의 섭취 칼로리 : </th>
-                            <td><input type="text"></td>
+                            <td><input type="text" readonly></td>
                         </tr>
                     </table>
                     <div class="goal">

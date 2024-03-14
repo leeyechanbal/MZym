@@ -39,8 +39,7 @@
  </style>
 
 </head>
-<body>
-	        
+<body>       
         <tr style="height: 30px;"></tr>
 		
         <tbody>
@@ -125,7 +124,7 @@
 					<%} %>
 					
 					<!-- 페이징바 숫자 부분 -->
-					<% for (int i= info.getStartPage(); i < info.getEndPage(); i++){ %>
+					<% for (int i= info.getStartPage(); i <= info.getEndPage(); i++){ %>
 						<!-- 
 							페이징바의 현재 숫자가 총 페이징 수보다 작으면 이동 가능한 페이지를
 							페이지의 총 수보다 클 경우는 페이징 이동이 불가능하게 구현

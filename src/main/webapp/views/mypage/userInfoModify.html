@@ -355,7 +355,7 @@
     border-radius: 10px;
     }
 
-    .mypage_info a{
+    .mypage_info button{
         width: 70px;
         font-weight: bold; 
         margin-left: 90%;
@@ -379,7 +379,7 @@
     .mypage_content input[type=text]{margin: 5px; border: none;}
     .modal-body input[type=text]{border: 1px solid lightgray;}
 
-    .etc_button a{
+    .etc_button button{
         margin-left: 10px;
         font-weight: bold;
         background: rgb(224, 224, 224);
@@ -396,6 +396,7 @@
         background: #1ABC9C;
         color: white;
         border: #1ABC9C;
+        font-weight: bold;
     }
 
     #btn_resign:hover{
@@ -575,21 +576,20 @@
                                 </tr>
                                 <tr id="info">
                                     <th>아이디</th>
-                                    <td><input type="text" class="form-control" readonly value="user01"></td>
+                                    <td><input type="text" readonly value="user01"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>이름</th>
-                                    <td><input type="text" class="form-control" readonly value="홍길동"></td>
+                                    <td><input type="text" readonly value="홍길동"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>생년월일</th>
-                                    <td><input type="text" class="form-control" readonly value="1999년 9월 13일"></td>
+                                    <td><input type="text" readonly value="1999년 9월 13일"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>성별</th>
                                     <td>
-                                        <input type="radio" name="gender">남성
-                                        <input type="radio" name="gender">여성
+                                        <input type="text" name="gender" readonly value="남성">
                                     </td>
                                 </tr>
                             </table>
@@ -604,20 +604,20 @@
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td><input type="text" class="form-control" value="user01@gmail.com"></td>
+                                    <td><input type="text" readonly value="user01@gmail.com"></td>
                                 </tr>
                                 <tr>
                                     <th>휴대전화</th>
-                                    <td><input type="text" class="form-control" value="010-1111-2222"></td>
+                                    <td><input type="text" readonly value="010-1111-2222"></td>
                                 </tr>
                                 <tr>
                                     <th>주소</th>
-                                    <td><input type="text" class="form-control" value="서울시"></td>
+                                    <td><input type="text" readonly value="서울시"></td>
                                 </tr>                       
                              </table>
 
                              <div>
-                                <a href="" class="btn" data-toggle="modal" data-target="#changeInfoModal">수정</a>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#changeInfoModal">수정</button>
                              </div>
 
                         </div>
@@ -630,11 +630,11 @@
                                 </tr>
                                 <tr id="info">
                                     <th>헬스장 이용권</th>
-                                    <td><input type="text" class="form-control" value="24년 8월 22일 까지"></td>
+                                    <td><input type="text" readonly value="24년 8월 22일 까지"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>PT 이용권</th>
-                                    <td><input type="text" class="form-control" value="24년 3월 22일 까지"></td>
+                                    <td><input type="text" readonly value="24년 3월 22일 까지"></td>
                                 </tr>                      
                              </table>
                         </div>   
@@ -643,7 +643,7 @@
                         
                     <tr>
                     <th><a href="" class="btn" id="btn_resign">회원탈퇴</a></th>
-                    <th><a href="" class="btn" data-toggle="modal" data-target="#changePwdModal">비밀번호변경</a></th>
+                    <th><button type="button" class="btn" data-toggle="modal" data-target="#changePwdModal">비밀번호변경</button></th>
                     </tr>  
 
                 </table>
