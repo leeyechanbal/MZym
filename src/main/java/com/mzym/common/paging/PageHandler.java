@@ -39,7 +39,7 @@ public class PageHandler {
 			int endPage = startPage + pagingLimit - 1;
 			System.out.println("endPage = " +endPage);
 			
-			if(endPage < maxPage) {
+			if(endPage > maxPage) {
 				endPage = maxPage;
 			}
 			
