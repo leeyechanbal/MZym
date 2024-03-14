@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	<div class="wrap">
+
+        <%@ include file="/views/common/Mzym_header.jsp" %>
+
+        <!-- Section start -->
+        
+        <!-- Section end -->
+
+        <%@ include file="/views/common/Mzym_footer.jsp" %>
+
+    </div>
 </body>
 </html>
