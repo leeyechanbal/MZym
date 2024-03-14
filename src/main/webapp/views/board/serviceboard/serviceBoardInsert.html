@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 작성</title>
+    <link rel="icon" href="images/favicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/common/MYZM.css">
+    <script src="/src/main/webapp/resources/js/MYZM.js"></script> 
+    <script src="/src/main/webapp/resources/js/summernote/summernote-lite.js"></script>
+    <script src="/src/main/webapp/resources/js/summernote/summernote-ko-KR.js"></script>
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/summernote/summernote-lite.css">
+
+    <style>
+       
+
+    
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        /* Section 관련 스타일 */
+        .main_content>div{
+            border:1px solid #1abc9c;
+            width:80%;
+            margin:auto;
+            margin-top:50px; 
+            margin-bottom:50px;
+            min-height:500px;
+            padding:50px;
+            border-radius:10px;
+        }
+
+        hr{
+            width: 200px;
+            text-align: center;
+        }
+
+        h2 { 
+            text-align: center; 
+        }
+
+        .btn1{
+            border: 1px solid #eee;
+            color: #000;
+        }
+        .btn2{
+            border: 1px solid #eee;
+            color: #000;
+            float: right;
+            overflow: hidden;
+        }
+        .btn3{
+            border: 1px solid #eee;
+            color: #000;
+            float: right;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+
+        input[type=file]::file-selector-button {
+        width: 100px;
+        height: 30px;
+        background: #1abc9c;
+        border: none;
+        color : white;
+        cursor: pointer;
+        &:hover {
+        background: rgb(77,77,77);
+        color: #fff;
+            }
+        }
+        .category{
+            width: 20%;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+
+    </style>
+
+</head>
+
+<body>
+    <div class="wrap">
+    <!--header start-->   
+    <header class="header-top-section">
+        <div>
+            <div>
+                <div class="header_roop">
+                    <div class="etc_Section">
+                        <table class="Login_section">
+                         <!--
+                            <tr>
+                                <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
+                                <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
+                                <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                            </tr>
+                          -->
+                          
+                            <tr>
+                              <td><img src="/src/main/webapp/resources/img/common/profile_icon_512x512.png" style="width: 50px;"></td>
+                              <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
+                              <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
+                              <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                          </tr>
+                        
+                        </table>
+                    </div>
+                    <div class="Search_section">
+                        <div class="Search_area">
+                            <img src="/src/main/webapp/resources/img/common/검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
+                            <input type="search" placeholder="검색어를 입력하세요">
+                            
+                        </div>
+                    </div>
+                    <div class="SearchText_section">
+                        
+                        <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
+                        <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+                
+        <nav class="header_nav">
+           
+            <div class="menu_logo" id="homelogo">
+                <a href=""><img src="/src/main/webapp/resources/img/common/캡처.jpg" style="width: 100px;"></a>
+                
+              </div>
+              
+            <div class="menu_item" onmouseover="showTable();" onmouseout="hideTable();">
+            <a href="" class="community" >커뮤니티</a>
+                
+                  <div class="sub_menu" id="menu1">
+                    <ul class="sub">
+                      <li><a>공지사항</a></li>
+                      <li><a>자유게시판</a></li>
+                      <li><a>질문게시판</a></li>
+                      <li><a>헬스장후기</a></li>
+                      <li><a>운동모임</a></li>
+                    </ul>
+                  </div>
+                
+            </div> 
+   
+            <div class="menu_item">
+              <a href="" class="community">상품구매</a>
+            </div>
+            <div class="menu_item" onmouseover="showTable1();" onmouseout="hideTable1();">
+              <a href="" class="community">헬스장 안내</a>
+              
+                <div class="sub_menu" id="menu2">
+                  <ul class="sub">
+                    <li><a>헬스장위치</a></li>
+                    <li><a>시설 안내</a></li>
+                  </ul>   
+                </div>   
+              
+            </div>
+            <div class="menu_item">
+              <a href="" class="community">추천운동영상</a>
+            </div>
+            <div class="menu_item">
+              <a href="" class="community">고객센터</a>
+            </div>
+            <div class="menu_item">
+              <a href="" class="community">상담예약</a>
+            </div>     
+        </nav>
+        <span class="main_text"><h1>MZYM</h1></span>
+    </header>
+
+    <!--headr end-->
+
+     <!--banner start-->
+
+     <div id="demo" class="carousel slide" data-ride="carousel">
+
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <li data-target="#demo" data-slide-to="1"></li>
+          <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+      
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/src/main/webapp/resources/img/common/메인사진1.jpg" alt="">
+          </div>
+          <div class="carousel-item">
+            <img src="/src/main/webapp/resources/img/common/메인사진2.jpg" alt="">
+          </div>
+          <div class="carousel-item">
+            <img src="/src/main/webapp/resources/img/common/메인사진3.jpg" alt="">
+          </div>
+        </div>
+      
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      
+      </div>
+    <!-- Section start -->
+       <section class="main_content">
+
+        <div class="board_content">
+            <h2>고객센터</h2>
+            <hr>
+            <br><br>
+
+            <div class="backgray">             
+            <form  action="" method="post">
+
+                <select class="category">
+                    <option value="">PT 문의</option>
+                    <option value="">이용 문의</option>
+                    <option value="">기타 문의</option>
+                </select>
+
+                <input type="text" class="form-control" required placeholder="제목 입력">
+                <table class="table">
+                    <tr>
+                        <form method="post">
+                            <textarea id="summernote" name="content" placeholder="글 내용 입력"></textarea>
+                        </form>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" class="form-control-file border">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn1 btn-outline-secondary btn-sm" onclick="history.back();">목록</button>
+                            <button type="reset" class="btn2 btn-outline-danger btn-sm">취소</button>
+                            <button type="submit" class="btn3 btn-outline-secondary btn-sm">등록</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div> 
+
+    </section>
+    <!-- Section end -->
+
+    <script>
+        $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: 400
+        });
+    });
+    </script>    
+
+    <!--footer start--> 
+    <footer>
+        <div class="sidebarEnd"></div>
+        <div class="footer_company">
+            <ul>
+                <li>상호명 : MZYM</li>
+                <li>전화 : 02) 2696-8000</li>
+                <li>서울특별시 금천구 가산디지털2로 95 3층</li>
+            </ul>
+        </div>
+
+        <ul class="footer_copyright">
+            Copyright ⓒ <span style="color: #1ABC9C;">M</span>ZYM. All rights reserved.
+        </ul>
+    </footer>
+    <!--footer end-->
+      
+    </div>
+    
+</body>
+</html>
