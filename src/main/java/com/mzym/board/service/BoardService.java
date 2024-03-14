@@ -1,12 +1,13 @@
-package com.mzym.trainer.board.service;
+package com.mzym.board.service;
 
 import static com.mzym.common.template.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
 
-import com.mzym.trainer.board.dao.BoardDao;
-import com.mzym.trainer.board.vo.Notice;
+import com.mzym.board.dao.BoardDao;
+import com.mzym.board.vo.Notice;
+import com.mzym.common.paging.PageInfo;
 
 public class BoardService {
 	
@@ -39,6 +40,21 @@ public class BoardService {
 		
 		close(conn);
 		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param info
+	 * @return 페이징 처리된 List<Notice> 반환
+	 * 페이지의 정보를 가지고 공지사항을 요청하는 매서드
+	 */
+	public List<Notice> selectNotice(PageInfo info) {
+		
+		Connection conn = getConnection();
+		List<Notice> list  = dao.selectNotice(conn, info);
+		close(conn);
+		
+		return list;
 	}
 
 }

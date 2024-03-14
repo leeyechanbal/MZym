@@ -1,4 +1,4 @@
-package com.mzym.trainer.board.vo;
+package com.mzym.board.vo;
 
 
 /**

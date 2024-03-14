@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/trainer/Leeyechan/trainerFilter.jsp" %>
-<%@ page import="com.mzym.trainer.board.vo.Notice" %>
+<%@ page import="com.mzym.board.vo.Notice" %>
+<%@ page import="com.mzym.common.paging.PageInfo"%>
 <%@ page import="java.util.List"%>
 <%
+	PageInfo info = (PageInfo)request.getAttribute("info");
 	List<Notice> list = (List<Notice>)request.getAttribute("list");	
 %>
 
@@ -112,7 +114,17 @@
         <tfoot>
             <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
             
-           <%@ page file="/views/trainer/Leeyechan/pasing.jsp" %>
+	           <td class="section2" id="paging" >
+	                <ul class="pagination" >
+	                    <li class="page-item"><a class="page-link" href="#">이전</a></li>
+	
+	                    <li class="page-item active"><a class="page-link" href="<%=mzymPath%>/paging.trainer?page=1&board=notice">1</a></li>
+	                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+	                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+	
+	                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+	                </ul>
+	            </td>
             
             <td class="section3 ">
                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">작성</button>

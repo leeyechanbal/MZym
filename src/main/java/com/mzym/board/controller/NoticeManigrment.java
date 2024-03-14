@@ -1,4 +1,4 @@
-package com.mzym.trainer.board.controller;
+package com.mzym.board.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.trainer.board.service.BoardService;
-import com.mzym.trainer.board.vo.Notice;
+import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Notice;
+import com.mzym.common.paging.PageHandler;
+import com.mzym.common.paging.PageInfo;
 
 /**
- * Servlet implementation class BoardManigement
+ * Servlet implementation class NoticeManigrment
  */
-@WebServlet("/board.trainer")
-public class BoardManigement extends HttpServlet {
+@WebServlet("/listNotice.trainer")
+public class NoticeManigrment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardManigement() {
+    public NoticeManigrment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +32,30 @@ public class BoardManigement extends HttpServlet {
 	/**
 	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * 공지사항 페이지 이동
-	 * db에서 공지사항에 대한 정보를 조회한 뒤에 응답페이지에 전달하는 서블릿
-	 * 
+	 * 공지사항에 대한 페이징 처리를 위한 서블릿 
+	 * PageHandler을 이용해서 페이징수 처리 후 PageInfo 객체 와 
+	 * 페이징 처리된 공지사항등을 가져와 화면단에 전달
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Notice> list = new BoardService().selectNotice();
-		if(list != null) {
+		int currantPage =   Integer.parseInt(request.getParameter("page"));
+		
+		int listCount = new BoardService().selectNoticeCount();
+		
+		
+		
+		PageInfo info = new PageHandler().getPaging(listCount, currantPage, 10, 10);
+			
+		if (info != null) {
+			List<Notice> list = new BoardService().selectNotice(info);
+			
+			request.setAttribute("info", info);
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("/views/trainer/Leeyechan/boardNotice.jsp").forward(request, response);			
-		}else {
+			
+			request.getRequestDispatcher("/views/trainer/Leeyechan/boardNotice.jsp");
 			
 		}
+		
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.mzym.trainer.board.dao;
+package com.mzym.board.dao;
 
 import static com.mzym.common.template.JDBCTemplate.close;
 
@@ -12,7 +12,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
-import com.mzym.trainer.board.vo.Notice;
+import com.mzym.board.vo.Notice;
+import com.mzym.common.paging.PageInfo;
 
 public class BoardDao {
 	
@@ -92,5 +93,46 @@ public class BoardDao {
 			close(pst);
 		}
 		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param info
+	 * @return 페이징 처리된 List<Notice>
+	 * 	db에 페이징 처리된 공지사항을 요청
+	 */
+	public List<Notice> selectNotice(Connection conn, PageInfo info) {
+		PreparedStatement pst = null;
+		ResultSet rset = null;
+		List<Notice> list = new ArrayList<>();
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectNotice"));
+					
+			pst.setInt(1, info.getStartBoard()); 
+			pst.setInt(2, info.getEndBoard()); 
+			
+			rset = pst.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(
+							rset.getInt("NOTICE_NO")
+							, rset.getString("USER_ID")
+							, rset.getString("NOTICE_TITLE")
+							, rset.getString("NOTICE_CONTENT")
+							, rset.getString("REGIST_DATE")
+						));
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
+		}
+		
+		return list;
 	}
 }
