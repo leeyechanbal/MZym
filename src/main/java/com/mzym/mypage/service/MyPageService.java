@@ -51,6 +51,19 @@ public class MyPageService {
 		return updateMem;
 	}
 	
+	public int deleteMember(String userId, String userPwd) {
+		
+		Connection conn = getConnection();
+		int result = myDao.deleteMember(conn, userId, userPwd);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
 	
 	
 	

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.member.vo.Member" %>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,18 +69,19 @@
       <section class="main_content">
 
         <div class="resign_content">
-            <h2>탈퇴안내</h2>
-            <hr>
-            <p style="color: #9e9e9e; font-size: small;">회원 탈퇴를 하기 전 안내사항을 꼭 확인해주세요</p>
-            <p style="font-weight: bold;">사용하고 계신 아이디(user 01)는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
-            <input type="password" class="form-control" placeholder="비밀번호입력">
-            <table class="btn_area">
-                <tr>
-                    <td><button type="button" class="btn" id="btn_cencle">취소</button></td>
-                    <td><button type="button" class="btn" id="btn_resign">탈퇴</button></td>
-                </tr>
-            </table>
-
+        	<form action="<%=contextPath%>/delete.me" method="post">
+	            <h2>탈퇴안내</h2>
+	            <hr>
+	            <p style="color: #9e9e9e; font-size: small;">회원 탈퇴를 하기 전 안내사항을 꼭 확인해주세요</p>
+	            <p style="font-weight: bold;">사용하고 계신 아이디(user 01)는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
+	            <input type="password" class="form-control" name="userPwd" placeholder="비밀번호입력">
+	            <table class="btn_area">
+	                <tr>
+	                    <td><a href="" class="btn" id="btn_cencle">취소</a></td>
+	                    <td><button type="submit" class="btn" id="btn_resign">탈퇴</button></td>
+	                </tr>
+	            </table>
+			</form>
         </div>
 
     </section>

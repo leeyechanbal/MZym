@@ -39,4 +39,13 @@
 	  AND USER_PWD = ?
 </entry>
 
+<entry key="deleteMember">
+	UPDATE
+	      MZYM_MEMBER
+	  SET STATUS = 'N'
+	    , MODIFY_DATE = SYSDATE
+	WHERE USER_ID = ?
+	  AND USER_PWD = ?
+</entry>
+
 </properties>

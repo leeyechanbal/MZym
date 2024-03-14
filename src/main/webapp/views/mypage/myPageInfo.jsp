@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.vo.Member" %>
-<%
-	String contextPath = request.getContextPath();
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,10 +128,15 @@ margin-left: 230px;
 <body>
 
  <div class="wrap">
+ 	
+ 	 <%@ include file="/views/common/Mzym_header.jsp" %>
 
     <!--section start-->    
     <section class="main_content">
-
+    
+    	<%@ include file="/views/common/Mzym_sidebar.jsp" %>
+		
+		
         <!--side menu start-->
         <div class="side_menu">
             <h3 style="height: 40px; padding: 30px" align="center">My page</h3>
@@ -153,7 +156,7 @@ margin-left: 230px;
         <!--side menu end-->
 
         <div class="mypage_content">
-            <form action="<%=contextPath%>/myPageInfo.me" method="post">
+            <form action="<%=contextPath%>/myPage.me" method="post">
                     <h4>기본정보</h4>
                         <div class="mypage_info">
                             <table style="width: 70%;">
@@ -228,7 +231,7 @@ margin-left: 230px;
                 <table class="etc_button">
                         
                     <tr>
-                    <th><a href="" class="btn" id="btn_resign">회원탈퇴</a></th>
+                    <th><a href="<%=contextPath%>/delete.me" class="btn" id="btn_resign">회원탈퇴</a></th>
                     <th><button type="button" class="btn" data-toggle="modal" data-target="#changePwdModal">비밀번호변경</button></th>
                     </tr>  
 
@@ -314,6 +317,8 @@ margin-left: 230px;
 
     </section>
     <!--section end-->
+    
+    <%@ include file="/views/common/Mzym_footer.jsp" %>
 
 </div>
 
