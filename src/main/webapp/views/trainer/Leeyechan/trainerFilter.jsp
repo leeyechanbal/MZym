@@ -39,7 +39,7 @@
 	
 	<%if(alertMsg != null){%>
 		<script>
-			alert('<%=alertMsg%>'');
+			alert('<%=alertMsg%>');
 			
 		</script>
 	<% session.removeAttribute("alertMsg");
@@ -48,8 +48,8 @@
 		
 	<table id="outTable">
         
-        <thead class="">
-            <td class="section1" id="back"><img src="<%=mzymPath %>/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
+        <thead>
+            <a class="section1" id="back" onclick="history.back();"><img src="<%=mzymPath %>/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></a>
             <td class="section2" id="logo"><img src="<%=mzymPath %>/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
             <td class="section3"></td>
         </thead>

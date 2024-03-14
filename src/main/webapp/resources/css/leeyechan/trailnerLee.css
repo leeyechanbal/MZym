@@ -251,3 +251,13 @@
             /* 넘어가는 글자부분을 스크롤바을 이용햐서 보도록 해주는 스타일 */
             overflow : auto;
         }
+        /* 미리보기 div 배경 스타일 */
+        .picture{
+            height: 300px;
+            padding: 5px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+            background-attachment: scroll; 
+            margin: auto;
+        }

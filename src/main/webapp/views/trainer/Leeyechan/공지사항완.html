@@ -36,6 +36,15 @@
         tfoot{
             height: 100px;
         }
+        .picture{
+            height: 300px;
+            padding: 5px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+            background-attachment: scroll; 
+            margin: auto;
+        }
     </style>
     
 </head>
@@ -111,16 +120,47 @@
                                         국회의원의 수는 법률로 정하되, 200인 이상으로 한다. 사회적 특수계급의 제도는 인정되지 아니하며, 어떠한 형태로도 이를 창설할 수 없다. 헌법재판소는 법률에 저촉되지 아니하는 
                                         범위안에서 심판에 관한 절차, 내부규율과 사무처리에 관한 규칙을 제정할 수 있다.
                                         리한 진술을 강요당하지 아니한다.</p>
-                                    <div><img src="" alt="첨부파일 미리보기"></div>
+
+                                    <div class="picture img1" onclick="pictureFile(1)">사진등록 <br> 클릭해 보세요.</div>
                                     <div class="formOut">
-                                        <input type="file" name="">
+                                        <input type="file" name="file">
                                         <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
                                     </div>
+                                    <div style="display: none;">
+                                        <input type="file" class="picture1" onchange="imaging(1)">
+                                    </div>
+
                                 </div>
                             </td>
                         </tr>
                     </form>
                     
+                    <script>
+                        function pictureFile(index){
+                            $(".picture"+index).click();
+                        }
+
+                        function imaging(index){
+                            const file = window.event.target.files[0];
+                            console.log(window.event.target.files[0] != null);
+                            console.log(file);
+
+                            if(file != null){
+                                const read = new FileReader();
+
+                                read.readAsDataURL(file);
+
+                                read.onload = function(e){
+                                    console.log(".img"+index)
+                                    $(".img"+index).css("background-image", 'url('+ e.target.result +')');
+                                    $(".img"+index).text("");
+                                }
+                            } else {
+                                $(".img"+index).css("background-image", null);
+                            }
+                        }
+
+                    </script>
 
 
                         <!-- 샘플데이터 -->
@@ -235,12 +275,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    $("tbody>tr").click(function(){
-        alert()
-    })
-  </script>
   
 <!-- 작성용 모달 -->
 <div class="modal" id="myModal">

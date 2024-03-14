@@ -28,3 +28,29 @@ $(function(){
         }
     })
 })
+
+// 미리보기 스크립트문
+function pictureFile(index){
+    $(".picture"+index).click();
+}
+
+function imaging(index){
+    const file = window.event.target.files[0];
+    console.log(window.event.target.files[0] != null);
+    console.log(file);
+
+    if(file != null){
+        const read = new FileReader();
+
+        read.readAsDataURL(file);
+
+        read.onload = function(e){
+            console.log(".img"+index)
+            $(".img"+index).css("background-image", 'url('+ e.target.result +')');
+            $(".img"+index).text("");
+        }
+    } else {
+        $(".img"+index).css("background-image", null);
+    }
+}
+

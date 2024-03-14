@@ -93,10 +93,14 @@
                             <td colspan="5">
                                 <div>
                                     <p class="border"><%=list.get(i).getContent()%></p>
-                                    <div><img src="" alt="첨부파일 미리보기"></div>
+                                    
+                                    <div class="picture img<%=i%>" onclick="pictureFile(<%=i%>)">사진등록 <br> 클릭해 보세요.</div>
                                     <div class="formOut">
-                                        <input type="file" name="">
+                                        <input type="file" name="file">
                                         <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
+                                    </div>
+                                    <div style="display: none;">
+                                        <input type="file" class="picture<%=i%>" onchange="imaging(<%=i%>)">
                                     </div>
                                 </div>
                             </td>
@@ -196,7 +200,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-create">
-            <form action="">
+            <form action="<%=mzymPath %>/insertNotice.trainer?page=1" method="post" enctype="multipart/form-data">
                 <!-- Modal Header -->
                 <div class="modal-header-create">
                 <h3 class="modal-title text-center" id="creat-modal-header">공지사항</h3>
@@ -205,12 +209,12 @@
                 <br>
                 <!-- Modal body -->
                 <div class="modal-body-create">
-                <div class="hair-careate"><input type="text" placeholder="제목 입력"></div>
+                <div class="hair-careate"><input type="text" placeholder="제목 입력" name="title"></div>
                 <hr>
-                <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
+                <div class="bottom-create"><textarea name="content" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
                 <!-- 큰모달창 일 경우 cols="55" -->
                 <hr>
-                <div class="file-create"><input type="file"></div>
+                <div class="file-create"><input type="file" name="file"></div>
                 <br>
                 </div>
         
