@@ -77,6 +77,23 @@
       padding: 30px;
     }
 
+    .reset_pwd {
+      width: 100%;
+      height: 50px;
+    }
+
+    .resetPwd_btn{
+      background: #1ABC9C;
+      border: solid #1ABC9C;
+      color: white;
+    }
+    .modal_footer {
+      padding: 3%;
+    }
+    .modal_footer >button {
+      width: 80px;
+    }
+
     </style>
 </head>
 
@@ -231,13 +248,19 @@
                   <div>
                     <h1>비밀번호 재설정</h1>
                   </div>
-                  <form action="">
-                    <input type="password" placeholder="비밀번호 설정">
-                    <input type="password" placeholder="비밀번호 확인">
+                  <form action="" style="width: 100%;">
+                    <table class="table table-borderless" id="modal_table">
+                      <tr>
+                        <td><input type="password" placeholder="비밀번호 설정" class="reset_pwd form-control"></td>
+                      </tr>
+                      <tr>
+                        <td><input type="password" placeholder="비밀번호 설정" class="reset_pwd form-control"></td>
+                      </tr>
+                    </table>
                   </form>
-                  <div>
-                    <button type="button" class="findId_btn" data-dismiss="modal">취소</button>
-                    <button type="sumit" class="findId_btn">재설정</button>
+                  <div class="modal_footer" align="right">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="sumit" class="btn resetPwd_btn">재설정</button>
                   </div>
                 </div>
               </div>
