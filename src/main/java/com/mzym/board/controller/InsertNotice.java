@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.mzym.common.file.RenameFile;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -40,7 +41,7 @@ public class InsertNotice extends HttpServlet {
 			
 			String filePath = request.getSession().getServletContext().getRealPath("/resources/upfile/");
 			
-			MultipartRequest multiRequest ; 
+			MultipartRequest mutiplePicture = new MultipartRequest(request, filePath, maxFileSize, "UTF-8", new RenameFile());  
 			
 			
 			

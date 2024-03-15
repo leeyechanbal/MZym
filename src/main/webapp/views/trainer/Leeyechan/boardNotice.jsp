@@ -104,14 +104,9 @@
                             <td colspan="5">
                                 <div>
                                     <p class="border"><%=list.get(i).getContent()%></p>
-                                    
-                                    <div class="picture img<%=i%>" onclick="pictureFile(<%=i%>)">사진등록 <br> 클릭해 보세요.</div>
                                     <div class="formOut">
                                         <input type="file" name="file">
                                         <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
-                                    </div>
-                                    <div style="display: none;">
-                                        <input type="file" class="picture<%=i%>" onchange="imaging(<%=i%>)">
                                     </div>
                                 </div>
                             </td>
@@ -226,15 +221,10 @@
                     <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
                 <!-- 큰모달창 일 경우 cols="55" -->
                     <hr>
-
-                    <div class="picture img20" onclick="pictureFile(20)">사진등록 <br> 클릭해 보세요.</div>
                     <br><br>
                     <div class="formOut">
                         <input name="file" type="file">
                         <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
-                    </div>
-                    <div style="display: none;">
-                        <input name="picture" type="file" class="picture20" onchange="imaging(20)">
                     </div>
                 </div>
                 <br>
