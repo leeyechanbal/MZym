@@ -221,7 +221,6 @@
                     <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
                 <!-- 큰모달창 일 경우 cols="55" -->
                     <hr>
-                    <br><br>
                     <div class="formOut">
                         <input name="file" type="file">
                         <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
