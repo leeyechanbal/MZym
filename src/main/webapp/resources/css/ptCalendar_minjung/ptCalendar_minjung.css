@@ -1,0 +1,220 @@
+.wrap{
+
+    margin: auto;
+    width: 100%;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: column; 
+    }
+    .section .Login_section td a {
+    width: 90px;
+    height: 30px;
+    }
+    .header{height: 250px;}
+    .header-top
+    {
+    background-color: #e0e0e0;
+
+    }
+    .header_nav{
+    height: 20%; display: flex;
+    background-color:rgba(26, 188, 156, 0.78);
+    padding-top: 20px; 
+    padding-bottom: 20px; 
+    position: relative;
+    justify-content: space-between;
+    } 
+
+    /* header 여백 설정 */
+    .main_back{
+       flex:1;
+       text-align: left;
+       margin-left: 25px;
+    }
+
+    .main_item{
+        flex: 1;
+        text-align: right;
+        margin-right: 60px;
+    }
+    /* ------------------- */
+
+    .header_nav div{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    min-height: 100px;  
+
+    }
+
+
+    .header_nav div a{
+    color: black;
+    }
+
+    .headr_roop {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    }
+
+    .main_back, .main_item{
+       flex-grow: 0;
+    }
+ 
+
+    .Search_section {
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    }
+
+    .section {
+    width: 33%;
+
+    }
+
+    .Search_area {
+    width: 100%;
+
+    }
+    .headr_roop {
+    display: flex;
+    margin-bottom: 20px; 
+
+    }
+
+
+    .section {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    }
+
+    .Login_section {
+    width: 100%;
+    margin-left: 13px;
+    }
+    .header-top-section { /* 홈페이지 최상단 여백*/ 
+    margin-top: 50px; 
+    margin-bottom: 20px;
+    position: relative;
+
+    }
+    /*sction 스타일*/
+    
+    .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 400px;
+    }
+    .main_text{
+    text-align: center;
+    font-size: 40px;
+    min-height: 50px;
+    border-bottom: 3px solid #e0e0e0;;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    /* main_content */
+
+    .main_content{
+        display: flex;
+    }
+
+
+    /*side메뉴*/
+    .side_menu{
+        float: left;
+        flex-direction: column;
+        background-color: #e0e0e0; 
+        height: 1500px;
+    }
+    .side_login{
+        height: 10%;
+        background-color: white;
+        text-align: center;
+        padding-top: 15px;
+        
+    }
+    .side_list{
+        height: 90%;
+    }
+
+    .cal_content{
+        border: 2px solid #1ABC9C;
+        width: 80%;
+        height: 1500px;
+        margin: auto;
+        padding: 70px;
+        border-radius: 10px;
+    }
+
+    /* submanu버튼 */
+    .user_search div{
+        width: 160px;
+        height: 50px;
+        margin-top: 40px;
+        margin-left: 35px;
+        margin-right: 35px;
+        padding-top: 13px;
+        
+    }
+
+    .user_search:hover div {
+    font-weight: bold;
+    background: #1ABC9C; 
+    color: white;
+    }
+
+
+    /*모달 style*/
+    #btn{
+        background: #1ABC9C;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        width: 60px;
+        height: 35px;
+    }
+   
+    /* 회원별조회 모달 스타일 */
+    .modal-content{
+        border: 2px solid rgba(26, 188, 156, 0.78);
+        border-radius: 10px;
+        padding: 10px;
+        width : 400px;        
+     }
+    .modal-userInsert{
+        width: 700px;
+    }
+    .modal-header h4 {
+        font-size: 24px; 
+    }
+    .modal-body ul{
+        list-style: none;
+        padding-left: 1px ;       
+    }
+    #modal-footer-btn{ 
+        background-color: rgba(26, 188, 156, 0.78);
+        border: none;
+    }
+    /* 회원등록 버튼 */
+    #insert_btn{
+        border: none;
+        background: #1ABC9C;
+        color: white;
+        font-weight: bold;
+    }
