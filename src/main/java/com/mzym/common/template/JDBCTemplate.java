@@ -35,6 +35,8 @@ public class JDBCTemplate {
 			
 			conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("id"), prop.getProperty("pass"));
 			
+			conn.setAutoCommit(false);
+			
 		} catch (FileNotFoundException e) {
 			
 			e.printStackTrace();

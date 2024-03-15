@@ -49,7 +49,21 @@ public class Notice {
 		this.content = content;
 		this.registDate = registDate;
 	}
-	
+
+	/**
+	 * @author 이예찬
+	 * @param writer
+	 * @param title
+	 * @param content
+	 * 공지사항 등록시 필요한 데이터를 담기 위한 생성자
+	 */
+	public Notice(int writer, String title, String content) {
+		super();
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+	}
+
 	public String getWriterName() {
 		return writerName;
 	}

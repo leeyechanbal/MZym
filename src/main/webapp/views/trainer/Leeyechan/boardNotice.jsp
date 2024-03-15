@@ -122,8 +122,9 @@
         </tbody>
         <!-- tfoot : 페이징 바 및 작성 과 삭제 버튼 영역 -->
         <tfoot>
-            <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
-            
+               <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
+               
+               
 	           <td class="section2" id="paging" >
 	                <ul class="pagination" >
 	                <!-- 현재 페이지가 1인 경우 이전 버튼이 작동하지 않도록 -->
@@ -171,13 +172,7 @@
         </tfoot>
         <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
    </table>
-
-   
-</body>
-
-
-
-
+	
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
     <div class="modal-dialog">
@@ -206,39 +201,41 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-create">
-            <form action="<%=mzymPath %>/insertNotice.trainer" method="post" enctype="multipart/form-data">
                 <!-- Modal Header -->
                 <div class="modal-header-create">
+                <br>
                 <h3 class="modal-title text-center" id="creat-modal-header">공지사항</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <br>
-                
-                <!-- Modal body -->
-                <div class="modal-body-create">
-                    <div class="hair-careate"><input type="text" placeholder="제목 입력"></div>
-                    <hr>
-                    <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
-                <!-- 큰모달창 일 경우 cols="55" -->
-                    <hr>
-                    <div class="formOut">
-                        <input name="file" type="file">
-                        <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
-                    </div>
-                </div>
-                <br>
-        
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-success btn-sm" data-dismiss="modal">작성</button>
-                    <button type="submit" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-                </div>
-            </form>
+                <form action="<%=mzymPath%>/insertNotice.trainer" method="post" enctype="multipart/form-data">
+	                <!-- Modal body -->
+	                <div class="modal-body-create">
+	                    <div class="hair-careate"><input name='title' type="text" placeholder="제목 입력"></div>
+	                    <hr>
+	                    <div class="bottom-create"><textarea name="content" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
+	                <!-- 큰모달창 일 경우 cols="55" -->
+	                    <hr>
+	                    <div class="formOut">
+	                        <input name="file" type="file">
+	                    </div>
+	                </div>
+	                <br>
+	        
+	                <!-- Modal footer -->
+	                <div class="modal-footer">
+	                <!-- data-dismiss="modal" : 요청이 가기도 전에 모달을 닫아버려서 요청이 가지를 않는다. -->
+	                    <button type="submit" class="btn btn-outline-success btn-sm">작성</button>
+	                    <button type="submit" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
+	                </div>
+                </form>       
         </div>
       </div>
     </div>
   </div>
-
-
+	
+	
+   
 </body>
+
 </html>

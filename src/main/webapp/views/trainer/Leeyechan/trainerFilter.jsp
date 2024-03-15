@@ -13,7 +13,7 @@
 	Member currentUser = (Member)request.getSession().getAttribute("");
 	String currentDate = new SimpleDateFormat("YYYY년 MM월 dd일").format(new Date());
 	String mzymPath = request.getContextPath();
-	String alertMsg = (String)request.getSession().getAttribute("alertMsg");
+	String alert = (String)request.getSession().getAttribute("alert");
 %>
  
 <!DOCTYPE html>
@@ -37,12 +37,12 @@
 </head>
 <body>
 	
-	<%if(alertMsg != null){%>
+	<%if(alert != null){%>
 		<script>
-			alert('<%=alertMsg%>');
+			alert('<%=alert%>');
 			
 		</script>
-	<% session.removeAttribute("alertMsg");
+	<% session.removeAttribute("alert");
 		} 
 	%>
 				

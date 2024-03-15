@@ -12,6 +12,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
+import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
 
@@ -109,5 +110,62 @@ public class BoardDao {
 		}
 		
 		return list;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn db연결을 위한 객체
+	 * @param n 게시글의 정보를 담겨있는 객체
+	 * @return 요청된 공지사항이 등록되었을 때 결과을 int값으로 반환
+	 * 반드시, 첨부파일보다 먼저 실행 되어야함
+	 */
+	public int insertNotice(Connection conn, Notice n) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("insertNotice"));
+			pst.setInt(1, n.getWriter());
+			pst.setString(2, n.getTitle());
+			pst.setString(3, n.getContent());
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		return result;
+	}
+
+	/**
+	 * @author 이에찬
+	 * @param conn db연결을 위한 객체
+	 * @param att 첨부파일의 정보를 담은 객체
+	 * @return 첨부파일에 결과가 담긴 이후 int 결과 반환
+	 * 모든 게시글의 첨부파일 저장시 사용 됩니다.
+	 * 쿼리문에 좀더 상세히 기술 되어있습니다.
+	 */
+	public int insertAttachment(Connection conn, Attachment att) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("insertAttachment"));
+			pst.setString(1, "N");
+			pst.setString(2, att.getOriginName());
+			pst.setString(3, att.getChangeName());
+			pst.setString(4, att.getFilePath());
+			pst.setNull(5, java.sql.Types.NULL); //자바에서 null값을 쿼리문에 전달하는 방법
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		return result;
 	}
 }

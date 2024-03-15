@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.mzym.board.dao.BoardDao;
+import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
 
@@ -46,6 +47,37 @@ public class BoardService {
 		close(conn);
 		
 		return list;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param n Notice
+	 * @param att Attachment
+	 * @return int result db 정장 이후 결과
+	 * 반드시 게시글이 실행되고 첨부파일이 실행되어야함 => nextval 과 currval
+	 */
+	public int insertBoard(Notice n, Attachment att) {
+		
+		Connection conn = getConnection();
+		
+		int resultNotice = dao.insertNotice(conn, n);
+		System.out.println("resultNotice " + resultNotice);
+		
+		int resultAttachment = 1;
+		
+		if(att != null) {
+			resultAttachment = dao.insertAttachment(conn, att); 
+		} 
+		
+		if(resultNotice > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return resultNotice * resultAttachment;
 	}
 
 }

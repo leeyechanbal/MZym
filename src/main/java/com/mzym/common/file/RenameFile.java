@@ -21,10 +21,11 @@ public class RenameFile implements FileRenamePolicy  {
 		String currentTime = new SimpleDateFormat("yyMMddHHmmss").format(new Date());
 		int random = (int)(Math.random()*999+1);
 		String name = originFile.getName();
-		String exName = name.substring(name.lastIndexOf("."));
-		String changeName = "mzym_" + currentTime+ "_" + random + "_" + exName;
+		String ex = name.substring(name.lastIndexOf("."));
+		String changeName = "mzym_" + currentTime+ "_" + random + "_" + ex;
 		
-		return new File(originFile.getPath(), changeName);
+		// 상위 폴더
+		return new File(originFile.getParent(), changeName);
 	}
 
 }

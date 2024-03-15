@@ -37,10 +37,10 @@ from mzym_notice
 <!-- 
 	작성자 : 이예찬
 	"공지사항" 등록 쿼리
-	글번호, 작성자 회원 번호, 제목, 내용 , 날짜, 수정일, 작성자, 글상태
+	 작성자의 회원 번호, 공지사항 제목, 공지사항 내용 필요
 	단, 첨부파일보다 먼저 등록되어야함
  -->
-<entry key="">
+<entry key="insertNotice">
 insert 
 into mzym_notice(
     NOTICE_NO
@@ -53,9 +53,9 @@ into mzym_notice(
     , STATUS
 ) values(
     SEQ_NOTICENO.nextval
-    , 2
-    , ?
-    , ?
+    , ? <!-- ? 작성자 즉, 세션값의 트레이너 정보필요 -->
+    , ? <!-- 제목 -->
+    , ? <!-- 내용 -->
     , sysdate
     , sysdate
     , sysdate
@@ -66,28 +66,35 @@ into mzym_notice(
 <!-- 
 	작성자 : 이예찬
 	"공지사항" 등록시 첨부파일 등록 쿼리문
-	첨부파일, 참조될 글 번호(기시판의 글번호), 글 유형 (N), 원본명, 수정명, 경로, 등록일, 파일 상태
+	카테고리 
+	원본명, 수정명, 경로 ,
+	후기부분에서만 FILE_LEVEL(이미지 구분) 사용 하기고 나머지는 null 넣으면 됩니다.
  -->
-<entry key="">
+<entry key="insertAttachment">
 insert 
 into attachment
 (
     FILE_NO
     , ATT_NO
+    , ATT_CATEGORY
     , ORIGIN_NAME
     , CHANGE_NAME
     , FILE_PATH
     , UPLORD_DATE
+    , FILE_LEVEL
     , STATUS
 ) values (
     SEQ_ATTACHMENT.nextval
     , SEQ_NOTICENO.currval
-    , ?
-    , ?
-    , ?
+    , ? <!-- 카테고리 N,B,P -->
+    , ? <!-- 원본명 -->
+    , ? <!-- 수정명 -->
+    , ? <!-- 경로 -->
     , sysdate
+    , ? <!-- number타입 -->
     , DEFAULT
 )
+
 </entry>
 
 
