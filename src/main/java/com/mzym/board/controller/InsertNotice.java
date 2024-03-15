@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.oreilly.servlet.MultipartRequest;
+
 /**
  * Servlet implementation class InsertNotice
  */
@@ -30,11 +32,16 @@ public class InsertNotice extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxFileSize = 10 * 1024 * 1024;
 			
-			String savePath = request.getSession().getServletContext().getContextPath("/")
+			String filePath = request.getSession().getServletContext().getRealPath("/resources/upfile/");
+			
+			MultipartRequest multiRequest ; 
+			
 			
 			
 		}

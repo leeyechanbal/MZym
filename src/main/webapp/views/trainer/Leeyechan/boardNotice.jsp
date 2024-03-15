@@ -230,11 +230,11 @@
                     <div class="picture img20" onclick="pictureFile(20)">사진등록 <br> 클릭해 보세요.</div>
                     <br><br>
                     <div class="formOut">
-                        <input type="file" name="file">
+                        <input name="file" type="file">
                         <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
                     </div>
                     <div style="display: none;">
-                        <input type="file" class="picture20" onchange="imaging(20)" name="picture">
+                        <input name="picture" type="file" class="picture20" onchange="imaging(20)">
                     </div>
                 </div>
                 <br>
