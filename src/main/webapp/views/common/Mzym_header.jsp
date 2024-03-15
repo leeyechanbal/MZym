@@ -20,6 +20,9 @@
     <!--이미지 스크립트 링크-->
     <link rel="stylesheet" href="<%=contextPath %>/resources/css/common/MYZM.css">
     <script src="<%=contextPath %>/resources/js/MYZM.js"></script>
+    <script src="<%=contextPath %>/resources/js/summernote/summernote-lite.js"></script>
+ <script src="<%=contextPath %>/resources/js/summernote/summernote-ko-KR.js"></script>
+ <link rel="stylesheet" href="<%=contextPath %>/resources/css/summernote/summernote-lite.css">
 </head>
 <body>
 	<% if(alertMsg != null) { %>
@@ -114,7 +117,7 @@
               <a href="" class="community">추천운동영상</a>
             </div>
             <div class="menu_item">
-              <a href="" class="community">고객센터</a>
+              <a href="<%=contextPath %>/list.service" class="community">고객센터</a>
             </div>
             <div class="menu_item">
               <a href="" class="community">상담예약</a>

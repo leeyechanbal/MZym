@@ -1,4 +1,4 @@
-package com.mzym.board.controller;
+package com.mzym.information.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
