@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageHandler;
 import com.mzym.common.paging.PageInfo;
@@ -46,7 +47,7 @@ public class NoticeManigrment extends HttpServlet {
 			
 		if (info != null) {
 			List<Notice> list = new BoardService().selectNotice(info);
-			
+//			List<Attachment> atList = new BoardService().selecctA
 			request.setAttribute("info", info);
 			request.setAttribute("list", list);
 			
