@@ -15,12 +15,13 @@ public class Calendar {
 	private Date registDate;
 	private Date modifyDate;
 	private String status;
-	private String calUserName;
+
 	
 	public Calendar() {}
 
+
 	public Calendar(int calNo, int calUserNo, String calTR, String startDate, String endDate, String calTitle,
-			String calContent, String calColor, Date registDate, Date modifyDate, String status, String calUserName) {
+			String calContent, String calColor, Date registDate, Date modifyDate, String status) {
 		super();
 		this.calNo = calNo;
 		this.calUserNo = calUserNo;
@@ -33,112 +34,128 @@ public class Calendar {
 		this.registDate = registDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
-		this.calUserName = calUserName;
 	}
+
 
 	public int getCalNo() {
 		return calNo;
 	}
 
+
 	public void setCalNo(int calNo) {
 		this.calNo = calNo;
 	}
+
 
 	public int getCalUserNo() {
 		return calUserNo;
 	}
 
+
 	public void setCalUserNo(int calUserNo) {
 		this.calUserNo = calUserNo;
 	}
+
 
 	public String getCalTR() {
 		return calTR;
 	}
 
+
 	public void setCalTR(String calTR) {
 		this.calTR = calTR;
 	}
+
 
 	public String getStartDate() {
 		return startDate;
 	}
 
+
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
+
 
 	public String getEndDate() {
 		return endDate;
 	}
 
+
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+
 
 	public String getCalTitle() {
 		return calTitle;
 	}
 
+
 	public void setCalTitle(String calTitle) {
 		this.calTitle = calTitle;
 	}
+
 
 	public String getCalContent() {
 		return calContent;
 	}
 
+
 	public void setCalContent(String calContent) {
 		this.calContent = calContent;
 	}
+
 
 	public String getCalColor() {
 		return calColor;
 	}
 
+
 	public void setCalColor(String calColor) {
 		this.calColor = calColor;
 	}
+
 
 	public Date getRegistDate() {
 		return registDate;
 	}
 
+
 	public void setRegistDate(Date registDate) {
 		this.registDate = registDate;
 	}
+
 
 	public Date getModifyDate() {
 		return modifyDate;
 	}
 
+
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
+
 
 	public String getStatus() {
 		return status;
 	}
 
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getCalUserName() {
-		return calUserName;
-	}
-
-	public void setCalUserName(String calUserName) {
-		this.calUserName = calUserName;
-	}
 
 	@Override
 	public String toString() {
 		return "Calendar [calNo=" + calNo + ", calUserNo=" + calUserNo + ", calTR=" + calTR + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", calTitle=" + calTitle + ", calContent=" + calContent + ", calColor="
-				+ calColor + ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", status=" + status
-				+ ", calUserName=" + calUserName + "]";
+				+ calColor + ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
+
+	
+	
 
 	
 }
