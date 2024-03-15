@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.mzym.board.vo.Board;
 import com.mzym.common.file.RenameFile;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -43,7 +44,7 @@ public class InsertNotice extends HttpServlet {
 			
 			MultipartRequest mutiplePicture = new MultipartRequest(request, filePath, maxFileSize, "UTF-8", new RenameFile());  
 			
-			
+			Board b = new Board(); 
 			
 			
 			

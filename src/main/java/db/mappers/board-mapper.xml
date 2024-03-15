@@ -34,11 +34,63 @@ select count(*)
 from mzym_notice
 </entry>
 
+<!-- 
+	작성자 : 이예찬
+	"공지사항" 등록 쿼리
+	글번호, 작성자 회원 번호, 제목, 내용 , 날짜, 수정일, 작성자, 글상태
+	단, 첨부파일보다 먼저 등록되어야함
+ -->
+<entry key="">
+insert 
+into mzym_notice(
+    NOTICE_NO
+    , NOTICE_WRITER
+    , NOTICE_TITLE
+    , NOTICE_CONTENT
+    , REGIST_DATE
+    , EDIT_DATE
+    , START_DATE
+    , STATUS
+) values(
+    SEQ_NOTICENO.nextval
+    , 2
+    , ?
+    , ?
+    , sysdate
+    , sysdate
+    , sysdate
+    , default
+)
+</entry>
 
-<!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	"공지사항" 등록시 첨부파일 등록 쿼리문
+	첨부파일, 참조될 글 번호(기시판의 글번호), 글 유형 (N), 원본명, 수정명, 경로, 등록일, 파일 상태
+ -->
+<entry key="">
+insert 
+into attachment
+(
+    FILE_NO
+    , ATT_NO
+    , ORIGIN_NAME
+    , CHANGE_NAME
+    , FILE_PATH
+    , UPLORD_DATE
+    , STATUS
+) values (
+    SEQ_ATTACHMENT.nextval
+    , SEQ_NOTICENO.currval
+    , ?
+    , ?
+    , ?
+    , sysdate
+    , DEFAULT
+)
+</entry>
+
+
 <!--  -->
 <entry key=""></entry>
 <!--  -->
