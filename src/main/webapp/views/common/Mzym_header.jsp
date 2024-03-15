@@ -47,7 +47,7 @@
                               <td><img src="/src/main/webapp/resources/img/common/profile_icon_512x512.png" style="width: 50px;"></td>
                               <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
                               <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
-                              <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                              <td><a href="<%= contextPath %>/myPage.me" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                           </tr>
                         -->
                         </table>

@@ -8,30 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-/*side메뉴*/
-.side_menu{
-    float: left;
-    flex-direction: column;
-    background-color: #e0e0e0; 
-    margin-top: 15px;    
-    height: 1500px;
-    width: 15%;
-}
-
-.user_data a{
-    width: 140px;
-    height: 40px;
-    margin-top: 45px;
-    margin-left: 15%;
-}
-
-.user_data:hover a {
-font-weight: bold;
-background: #1ABC9C; 
-color: white;
-}
-
 /*마이페이지 style*/
+
 
 .mypage_content{
     margin: auto;
@@ -86,7 +64,7 @@ margin-left: 230px;
 }
 
 #btn_resign{
-    margin-left: 700px;
+    margin-left: 650px;
     background: #1ABC9C;
     color: white;
     border: #1ABC9C;
@@ -135,25 +113,8 @@ margin-left: 230px;
     <section class="main_content">
     
     	<%@ include file="/views/common/Mzym_sidebar.jsp" %>
-		
-		
-        <!--side menu start-->
-        <div class="side_menu">
-            <h3 style="height: 40px; padding: 30px" align="center">My page</h3>
-            <div class="user_data">
-                <a href="" class="btn btn-light" style="font-weight: bold;">회원정보</a>
-            </div>
-            <div class="user_data">
-                <a href="" class="btn btn-light" style="font-weight: bold;">나의 식단 정보</a>
-            </div>
-            <div class="user_data">
-                <a href="" class="btn btn-light" style="font-weight: bold;">나의 인바디</a>
-            </div>
-            <div class="user_data">
-                <a href="" class="btn btn-light" style="font-weight: bold;">나의 구매내역</a>
-            </div>
-        </div>
-        <!--side menu end-->
+	
+        <%@ include file="/views/common/mypage_sidemenu.jsp" %>
 
         <div class="mypage_content">
             <form action="<%=contextPath%>/myPage.me" method="post">
@@ -173,7 +134,7 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>생년월일</th>
-                                    <td><input type="text" readonly name="Birth" value="1999년 9월 13일"></td>
+                                    <td><input type="text" readonly name="birth" value="1999년 9월 13일"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>성별</th>
@@ -183,6 +144,8 @@ margin-left: 230px;
                                 </tr>
                             </table>
                         </div>
+                        
+     
                      
                     <h4>연락처정보</h4>                   
                         <div class="mypage_info">
@@ -231,7 +194,7 @@ margin-left: 230px;
                 <table class="etc_button">
                         
                     <tr>
-                    <th><a href="<%=contextPath%>/delete.me" class="btn" id="btn_resign">회원탈퇴</a></th>
+                    <th><a href="<%=contextPath%>/deleteForm.me" class="btn" id="btn_resign">회원탈퇴</a></th>
                     <th><button type="button" class="btn" data-toggle="modal" data-target="#changePwdModal">비밀번호변경</button></th>
                     </tr>  
 
@@ -321,6 +284,8 @@ margin-left: 230px;
     <%@ include file="/views/common/Mzym_footer.jsp" %>
 
 </div>
+	
+	
 
 </body>
 </html>

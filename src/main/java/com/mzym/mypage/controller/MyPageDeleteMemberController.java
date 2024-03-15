@@ -41,7 +41,7 @@ public class MyPageDeleteMemberController extends HttpServlet {
 			
 			session.removeAttribute("m");
 			session.setAttribute("alertMsg", "회원탈퇴가 완료되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/myPage.me");
+			response.sendRedirect(request.getContextPath());
 			
 		}else {
 			

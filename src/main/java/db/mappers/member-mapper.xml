@@ -48,4 +48,10 @@
 	  AND USER_PWD = ?
 </entry>
 
+<entry key="selectListCount">
+	SELECT COUNT(*) COUNT
+	  FROM PAYMENT
+	 WHERE STATUS = 'S'
+</entry>
+
 </properties>

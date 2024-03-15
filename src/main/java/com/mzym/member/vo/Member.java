@@ -49,6 +49,29 @@ public class Member {
 		this.imageURL = imageURL;
 	}
 
+	public Member(int userNo, String userId, String userPwd, String userName, String phone, String rRN, String email,
+			String address, Date enrollDate, Date modifyDate, String status) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		RRN = rRN;
+		this.email = email;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+	}
+
+	public Member(String userId, String phone, String email, String address) {
+		super();
+		this.userId = userId;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+	}
 
 	public int getUserNo() {
 		return userNo;
