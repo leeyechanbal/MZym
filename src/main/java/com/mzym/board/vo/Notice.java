@@ -16,21 +16,26 @@ public class Notice {
 	private String startDate; // 작성일 == 등록일
 	private String status;
 	
+	private Attachment att; // hase관계, is관계
+	
 	public Notice() {
 		super();
 	}
-
-	public Notice(int noticeNo, int writer, String title, String content, String registDate, String modifyDate,
-			String startDate, String status) {
+	
+	
+	public Notice(int noticeNo, int writer, String writerName, String title, String content, String registDate,
+			String modifyDate, String startDate, String status, Attachment att) {
 		super();
 		this.noticeNo = noticeNo;
 		this.writer = writer;
+		this.writerName = writerName;
 		this.title = title;
 		this.content = content;
 		this.registDate = registDate;
 		this.modifyDate = modifyDate;
 		this.startDate = startDate;
 		this.status = status;
+		this.att = att;
 	}
 
 	/**
@@ -62,6 +67,15 @@ public class Notice {
 		this.writer = writer;
 		this.title = title;
 		this.content = content;
+	}
+
+	
+	public Attachment getAtt() {
+		return att;
+	}
+
+	public void setAtt(Attachment att) {
+		this.att = att;
 	}
 
 	public String getWriterName() {
