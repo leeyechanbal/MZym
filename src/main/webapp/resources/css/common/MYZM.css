@@ -63,17 +63,16 @@
 .Search_section {/*검색 영역*/
     flex: 1;
     width: 40%;
-    margin-right: 10px;
+    margin-left: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-   
+    
 
 }
 .Search_section input{
     width: 500px;
     height: 40px;
-    
 }
 .SearchText_section{
     width: 30%;
@@ -85,16 +84,11 @@
 .etc_Section{
     width: 30%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-left: 30px;
 }
 
 .Login_section {
-   
     display: flex;
-    justify-content: center;
-    align-items: center;
-   
 }
 .header-top-section { /* 홈페이지 최상단 여백*/ 
     margin-top: 50px; 

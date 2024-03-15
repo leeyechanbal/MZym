@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.member.vo.Member" %>    
 <% String contextPath = request.getContextPath(); 
    String alertMsg = (String)session.getAttribute("alertMsg");
+   Member loginUser = (Member)session.getAttribute("loginUser");
 %>    
 <!DOCTYPE html>
 <html>
@@ -35,21 +37,22 @@
                 <div class="header_roop">
                     <div class="etc_Section">
                         <table class="Login_section">
-                         
+                         <%if(loginUser==null){ %>
+                         <!-- 로그인 이전 보여질 화면  -->
                             <tr>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                             </tr>
-                         
-                          <!--  
+                           
+                         <%}else{ %>
+                           <!-- 로그인 이후 보여질 화면  -->
                             <tr>
-                              <td><img src="/src/main/webapp/resources/img/common/profile_icon_512x512.png" style="width: 50px;"></td>
+                              <td><img src="<%=contextPath %>/resources/img/common/profile_icon_512x512.png" style="width: 50px;"></td>
                               <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
                               <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
-                              <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+                              <td><a href="<%=contextPath %>/myPage.me" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                           </tr>
-                        -->
+                        <%}%>
                         </table>
                     </div>
                     <div class="Search_section">
@@ -74,7 +77,7 @@
         <nav class="header_nav">
            
             <div class="menu_logo" id="homelogo">
-                <a href=""><img src="<%=contextPath %>/resources/img/common/캡처.jpg" style="width: 100px;"></a>
+                <a href="<%=contextPath%>"><img src="<%=contextPath %>/resources/img/common/캡처.jpg" style="width: 100px;"></a>
                 
               </div>
               
@@ -101,8 +104,8 @@
               
                 <div class="sub_menu" id="menu2">
                   <ul class="sub">
-                    <li><a>헬스장위치</a></li>
-                    <li><a>시설 안내</a></li>
+                    <li><a href="<%=contextPath %>/location.me">헬스장위치</a></li>
+                    <li><a href="<%=contextPath %>/facility.me">시설 안내</a></li>
                   </ul>   
                 </div>   
               
