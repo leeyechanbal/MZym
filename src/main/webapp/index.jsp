@@ -6,10 +6,9 @@
 <meta charset="UTF-8">
 <title>메인 페이지</title>
 <style>
- .homePage_content{ /*메인 영역*/
+    .homePage_content{ /*메인 영역*/
     border: 2px solid #1ABC9C;
-    width: 90%;
-    height: 100%;
+    width: 100%;
     margin: auto;
     margin-top: 50px;
     min-height: 1200px;
@@ -19,35 +18,42 @@
   }
     .trainerInfo{
     
-    width: 50%;
+    width: 100%;
     height: 100%;
     margin: 50px auto;
     min-height: 1200px;
     padding: 50px;
     }
     .boardInfo{
-    width: 50%;
+    width: 100%;
     height: 100%;
-    margin: 50px auto;
+    margin: auto;
     min-height: 1200px;
     padding: 50px;
     }
+
+    .boardInfo tr{
+      width: 100%;
+      text-align: center;
+      font-size: small;
+      vertical-align: middle;
+    }
     .noticeArea{
-      border: 1px solid red;
-      width: 80%;
+      
+      width: 100%;
       height: 100%;
       margin: 50px auto;
-      min-height: 500px;
+      min-height: 600px;
      
     }
 
     .boardArea{
-      border: 1px solid red;
-      width: 80%;
+      
+      width: 100%;
       height: 100%;
-      margin: 50px auto;
-      min-height: 500px;
-     
+      margin: 50px  auto;
+      min-height: 600px;
+   
     }
     .trainerArea{
       border: 2px solid #1ABC9C;
@@ -93,51 +99,15 @@
       margin-left: 20px;
       margin-top: 50px;
    }
-
-
-
-
-</style>
+  
+  </style>
 </head>
 <body>
 	<div class="wrap">
 
         <%@ include file="/views/common/Mzym_header.jsp" %>
-        
-		<!--banner start-->
-	
-	    <div id="demo" class="carousel slide" data-ride="carousel">
-	
-	        <!-- Indicators -->
-	        <ul class="carousel-indicators">
-	          <li data-target="#demo" data-slide-to="0" class="active"></li>
-	          <li data-target="#demo" data-slide-to="1"></li>
-	          <li data-target="#demo" data-slide-to="2"></li>
-	        </ul>
-	      
-	        <!-- The slideshow -->
-	        <div class="carousel-inner">
-	          <div class="carousel-item active">
-	            <img src="<%=contextPath %>/resources/img/common/메인사진1.jpg" alt="">
-	          </div>
-	          <div class="carousel-item">
-	            <img src="<%=contextPath %>/resources/img/common/메인사진2.jpg" alt="">
-	          </div>
-	          <div class="carousel-item">
-	            <img src="<%=contextPath %>/resources/img/common/메인사진3.jpg" alt="">
-	          </div>
-	        </div>
-	      
-	        <!-- Left and right controls -->
-	        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-	          <span class="carousel-control-prev-icon"></span>
-	        </a>
-	        <a class="carousel-control-next" href="#demo" data-slide="next">
-	          <span class="carousel-control-next-icon"></span>
-	        </a>
-	      
-	      </div>
-	      <!-- banner end -->
+        <%@ include file="/views/common/Mzym_banner.jsp" %>
+		
 	      
       
         <!-- Section start -->
@@ -230,13 +200,80 @@
             <div class="boardInfo">
                 <div class="noticeArea">
                   <div style="text-align: center;"><span><h3>공지사항</h3></span></div>
-                 
-                  공지사항 incloude
+                 <table class="table">
+                    <thead>
+                      <tr>
+                      <th width="15%">글번호</th>
+                      <th width="20%">카테고리</th>
+                      <th width="30%">글제목</th>
+                      <th width="15%">작성자</th>
+                      <th width="15%">작성일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                    </tbody>
+
+                  </table>
                 </div>
                 
                 <div class="boardArea">
                   <div style="text-align: center;"><span><h3>자유게시판</h3></span></div>
-                  자유게시판 incloude
+                  <table class="table">
+                    <thead>
+                      <tr>
+                      <th width="15%">글번호</th>
+                      <th width="20%">카테고리</th>
+                      <th width="30%">글제목</th>
+                      <th width="15%">작성자</th>
+                      <th width="15%">작성일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                    </tbody>
+
+                  </table>
                 </div>
             
               </div>

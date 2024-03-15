@@ -19,8 +19,7 @@
   <style>
     .homePage_content{ /*메인 영역*/
     border: 2px solid #1ABC9C;
-    width: 90%;
-    height: 100%;
+    width: 100%;
     margin: auto;
     margin-top: 50px;
     min-height: 1200px;
@@ -30,35 +29,42 @@
   }
     .trainerInfo{
     
-    width: 50%;
+    width: 100%;
     height: 100%;
     margin: 50px auto;
     min-height: 1200px;
     padding: 50px;
     }
     .boardInfo{
-    width: 50%;
+    width: 100%;
     height: 100%;
-    margin: 50px auto;
+    margin: auto;
     min-height: 1200px;
     padding: 50px;
     }
+
+    .boardInfo tr{
+      width: 100%;
+      text-align: center;
+      font-size: small;
+      vertical-align: middle;
+    }
     .noticeArea{
-      border: 1px solid red;
-      width: 80%;
+      
+      width: 100%;
       height: 100%;
       margin: 50px auto;
-      min-height: 500px;
+      min-height: 600px;
      
     }
 
     .boardArea{
-      border: 1px solid red;
-      width: 80%;
+      
+      width: 100%;
       height: 100%;
-      margin: 50px auto;
-      min-height: 500px;
-     
+      margin: 50px  auto;
+      min-height: 600px;
+   
     }
     .trainerArea{
       border: 2px solid #1ABC9C;
@@ -104,7 +110,7 @@
       margin-left: 20px;
       margin-top: 50px;
    }
-
+  
   </style>
 <body>
      
@@ -116,21 +122,22 @@
                 <div class="header_roop">
                     <div class="etc_Section">
                         <table class="Login_section">
-                         <!--
+                         
                             <tr>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">로그인</a></td>
                                 <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
+          
                             </tr>
-                          -->
                           
+                          <!--
                             <tr>
                               <td><img src="/src/main/webapp/resources/img/common/profile_icon_512x512.png" style="width: 50px;"></td>
                               <td><div class="afterLogin">사용자 님 환영합니다~</div></td>
                               <td><a href="#" class="btn btn-secondary btn-sm icon">로그아웃</a></td>
                               <td><a href="#" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                           </tr>
-                        
+                        -->
+                         
                         </table>
                     </div>
                     <div class="Search_section">
@@ -343,14 +350,83 @@
             </div>
             <div class="boardInfo">
                 <div class="noticeArea">
-                  <div style="text-align: center;"><span><h3>공지사항</h3></span></div>
-                 
-                  공지사항 incloude
+                  <div style="text-align: center; margin-bottom: 50px;"><span><h3>공지사항</h3></span></div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                      <th width="15%">글번호</th>
+                      <th width="20%">카테고리</th>
+                      <th width="30%">글제목</th>
+                      <th width="15%">작성자</th>
+                      <th width="15%">작성일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+        
                 </div>
                 
                 <div class="boardArea">
-                  <div style="text-align: center;"><span><h3>자유게시판</h3></span></div>
-                  자유게시판 incloude
+                  <div style="text-align: center; margin-bottom: 50px;"><span><h3>자유게시판</h3></span></div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                      <th width="15%">글번호</th>
+                      <th width="20%">카테고리</th>
+                      <th width="30%">글제목</th>
+                      <th width="15%">작성자</th>
+                      <th width="15%">작성일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>이용관련</td>
+                        <td>글제목입니다</td>
+                        <td>admin</td>
+                        <td>2024-01-12</td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+                
                 </div>
             
               </div>

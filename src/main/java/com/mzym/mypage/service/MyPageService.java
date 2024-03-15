@@ -65,6 +65,13 @@ public class MyPageService {
 	}
 	
 	
+	public int selectListCount() {
+		Connection conn = getConnection();
+		int listCount = myDao.selectListCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
 	
 	
 	

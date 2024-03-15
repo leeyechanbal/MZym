@@ -1,27 +1,28 @@
 package com.mzym.mypage.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.mzym.common.paging.PageInfo;
 import com.mzym.mypage.service.MyPageService;
 
 /**
- * Servlet implementation class MyPageDeleteMemberController
+ * Servlet implementation class MyPagePurchaseController
  */
-@WebServlet("/delete.me")
-public class MyPageDeleteMemberController extends HttpServlet {
+@WebServlet("/purchase.me")
+public class MyPagePurchaseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageDeleteMemberController() {
+    public MyPagePurchaseController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,23 +32,28 @@ public class MyPageDeleteMemberController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		int listCount;
+		int currentPage;
+		int pagingLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage;
 		
-		int result= new MyPageService().deleteMember(userId, userPwd);
-		
-		HttpSession session = request.getSession();
-		if(result> 0 ) {
-			
-			session.removeAttribute("m");
-			session.setAttribute("alertMsg", "회원탈퇴가 완료되었습니다.");
-			response.sendRedirect(request.getContextPath());
-			
-		}else {
-			
-			//response.sendRedirect(request.getContextPath() + "/myPage.me");
-			
+		listCount = new MyPageService().selectListCount();
+		currentPage = Integer.parseInt(request.getParameter("page"));
+		pagingLimit = 5;
+		boardLimit = 10;
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage-1) / pagingLimit * pagingLimit + 1;
+		endPage = startPage + pagingLimit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
 		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
+		//List<Payment>list = new MyPageService().selectList(pi);
+		
 	}
 
 	/**

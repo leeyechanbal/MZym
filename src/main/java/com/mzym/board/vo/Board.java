@@ -6,7 +6,7 @@ import java.sql.Date;
  * @author 이예찬
  *	게시글 정보관리 클래스
  */
-public class Baord {
+public class Board {
 	private int baordNo; // 글번호
 	private int baordWriter; // 작성자 = 회원 맴버번호
 	private int baordType; // 게시글 카테고리
@@ -18,11 +18,11 @@ public class Baord {
 	private int reviewRate; // null 0 
 	private int count;  // 기본값 0
 	
-	public Baord() {
+	public Board() {
 		super();
 	}
 
-	public Baord(int baordNo, int baordWriter, int baordType, String baordTiltle, String baordcontent, Date registDate,
+	public Board(int baordNo, int baordWriter, int baordType, String baordTiltle, String baordcontent, Date registDate,
 			Date modify_date, String status, int reviewRate, int count) {
 		super();
 		this.baordNo = baordNo;
