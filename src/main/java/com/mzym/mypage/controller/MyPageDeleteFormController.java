@@ -1,27 +1,23 @@
 package com.mzym.mypage.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.mzym.mypage.service.MyPageService;
 
 /**
- * Servlet implementation class MyPageDeleteMemberController
+ * Servlet implementation class MyPageDeleteFormController
  */
-@WebServlet("/delete.me")
-public class MyPageDeleteMemberController extends HttpServlet {
+@WebServlet("/deleteForm.me")
+public class MyPageDeleteFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageDeleteMemberController() {
+    public MyPageDeleteFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,23 +27,7 @@ public class MyPageDeleteMemberController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		
-		int result= new MyPageService().deleteMember(userId, userPwd);
-		
-		HttpSession session = request.getSession();
-		if(result> 0 ) {
-			
-			session.removeAttribute("m");
-			session.setAttribute("alertMsg", "회원탈퇴가 완료되었습니다.");
-			response.sendRedirect(request.getContextPath());
-			
-		}else {
-			
-			//response.sendRedirect(request.getContextPath() + "/myPage.me");
-			
-		}
+		request.getRequestDispatcher("/views/mypage/deleteMember.jsp").forward(request, response);
 	}
 
 	/**

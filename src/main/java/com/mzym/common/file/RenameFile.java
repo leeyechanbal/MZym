@@ -8,15 +8,6 @@ import com.oreilly.servlet.multipart.FileRenamePolicy;
 
 public class RenameFile implements FileRenamePolicy  {
 	
-	private String type;
-	
-	/**
-	 * @author 이예찬
-	 * @param type 사진,파일 구분해서 문자열 값 넣어주세요
-	 */
-	public RenameFile(String type) {
-		this.type = type;
-	}
 	
 	/**
 	 * @author 이예찬
@@ -31,22 +22,9 @@ public class RenameFile implements FileRenamePolicy  {
 		int random = (int)(Math.random()*999+1);
 		String name = originFile.getName();
 		String exName = name.substring(name.lastIndexOf("."));
-		String changeName = "mzym_" + currentTime+ "_" + random + "_" + type + exName;
+		String changeName = "mzym_" + currentTime+ "_" + random + "_" + exName;
 		
 		return new File(originFile.getPath(), changeName);
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	@Override
-	public String toString() {
-		return "ReNameFile [type=" + type + "]";
-	}
-	
 }

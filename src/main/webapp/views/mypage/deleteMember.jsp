@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.vo.Member" %>
-<%
-	String contextPath = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +61,11 @@
 </head>
 <body>
 <div class="wrap">
-
+		 
+	<%@ include file="/views/common/Mzym_header.jsp" %>
+	
+	  <%@ include file="/views/common/Mzym_sidebar.jsp" %>
+		
       <!--section start-->    
       <section class="main_content">
 
@@ -77,7 +78,7 @@
 	            <input type="password" class="form-control" name="userPwd" placeholder="비밀번호입력">
 	            <table class="btn_area">
 	                <tr>
-	                    <td><a href="" class="btn" id="btn_cencle">취소</a></td>
+	                    <td><a href="<%=contextPath%>" class="btn" id="btn_cencle">취소</a></td>
 	                    <td><button type="submit" class="btn" id="btn_resign">탈퇴</button></td>
 	                </tr>
 	            </table>
@@ -86,7 +87,9 @@
 
     </section>
     <!--section end-->
-
+    
+    <%@ include file="/views/common/Mzym_footer.jsp" %>
+		
 </div>
 
 

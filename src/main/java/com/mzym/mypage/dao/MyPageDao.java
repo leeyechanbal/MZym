@@ -57,19 +57,19 @@ public class MyPageDao {
 			pstmt.setString(1, userId);
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				m = new Member(rset.getInt("user_no")
-							 , rset.getString("user_id")
-							 , rset.getString("user_pwd")
-							 , rset.getString("user_name")
-							 , rset.getString("phone")
-							 , rset.getString("RRN")
-							 , rset.getString("email")
-							 , rset.getString("address")
-							 , rset.getDate("enroll_date")
-							 , rset.getDate("modify_date")
-							 , rset.getString("status"));
-			}
+//			if(rset.next()) {
+//				m = new Member(rset.getInt("user_no")
+//							 , rset.getString("user_id")
+//							 , rset.getString("user_pwd")
+//							 , rset.getString("user_name")
+//							 , rset.getString("phone")
+//							 , rset.getString("RRN")
+//							 , rset.getString("email")
+//							 , rset.getString("address")
+//							 , rset.getDate("enroll_date")
+//							 , rset.getDate("modify_date")
+//							 , rset.getString("status"));
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -122,6 +122,29 @@ public class MyPageDao {
 		return result;
 	}
 	
+	public int selectListCount(Connection conn) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	
 	
 }
