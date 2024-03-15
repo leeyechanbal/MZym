@@ -14,7 +14,9 @@
     <!--이미지 스크립트 링크-->
     <link rel="stylesheet" href="/src/main/webapp/resources/css/common/MYZM.css">
     <script src="/src/main/webapp/resources/js/MYZM.js"></script>
-    
+    <!--네이버지도-->
+    <script type="text/javascript" 
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8fnkkiuva9"></script>
   </head>
   <style>
    
@@ -65,15 +67,8 @@
     font-size: 30px;
     border-bottom: 4px solid #e0e0e0;
 }
-.mapArea {
- height: 30%;
-}
-.mapArea img{
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: cover;
-}  
+
+
 .contentArea{
     height: 20%;
 }
@@ -261,7 +256,7 @@
                 </div>
             </div>
             <div class="addressArea"><span style="font-size: 40px; font-weight: bold;">주소 :</span> 서울 금천구 가산디지털2로 95 3층 </div>
-            <div class="mapArea"><img src="/src/main/webapp/resources/img/common/지도 샘플.png"></div>
+            <div id="map" style="height: 500px;"></div>
             <div class="contentArea">
                 <div class="icon1">Myzm 소개</div>
                 <div class="contentField">서울 금천구에 위치한 Mzym은 넓은 규모에 최신식 운동기구, 체계적이고 효율적 1:1 전문매칭 시스템을 통해 웨이트트레이닝 본질에 <br><br>집중한, 회원님께 최고의 서비스를 제공하는 피트니스 센터입니다. </div>
@@ -321,6 +316,18 @@
     <!--footer end-->
   
     </div>
-    
+    <script>
+
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.47641021789274, 126.87983768328583),
+            zoom: 17
+        });
+
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.47641021789274, 126.87983768328583),
+            map: map
+        });
+
+    </script>
 </body>
 </html>
