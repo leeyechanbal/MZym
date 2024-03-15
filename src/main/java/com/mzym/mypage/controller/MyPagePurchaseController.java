@@ -1,6 +1,7 @@
 package com.mzym.mypage.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +34,7 @@ public class MyPagePurchaseController extends HttpServlet {
 		
 		int listCount;
 		int currentPage;
-		int pageLimit;
+		int pagingLimit;
 		int boardLimit;
 		int maxPage;
 		int startPage;
@@ -41,17 +42,17 @@ public class MyPagePurchaseController extends HttpServlet {
 		
 		listCount = new MyPageService().selectListCount();
 		currentPage = Integer.parseInt(request.getParameter("page"));
-		pageLimit = 5;
+		pagingLimit = 5;
 		boardLimit = 10;
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		startPage = (currentPage-1) / pageLimit * pageLimit + 1;
-		endPage = startPage + pageLimit -1;
+		startPage = (currentPage-1) / pagingLimit * pagingLimit + 1;
+		endPage = startPage + pagingLimit -1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		List<Purchase>list = new MyPageService().selectList(pi);
+		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
+		//List<Payment>list = new MyPageService().selectList(pi);
 		
 	}
 
