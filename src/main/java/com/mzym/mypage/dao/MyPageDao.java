@@ -8,9 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import com.mzym.common.paging.PageInfo;
 import com.mzym.member.vo.Member;
+import com.mzym.mypage.vo.Payment;
 
 public class MyPageDao {
 	
@@ -146,5 +150,39 @@ public class MyPageDao {
 		return listCount;
 	}
 	
+	public List<Payment> selectList(Connection conn, PageInfo pi){
+		
+		List<Payment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Payment(rset.getInt("product_no"),
+							         rset.getInt("payment_price"),
+							         rset.getDate("payment_date")));
+							         
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 }

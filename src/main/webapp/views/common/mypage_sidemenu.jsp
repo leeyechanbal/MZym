@@ -44,7 +44,7 @@ color: white;
              <a href="<%=contextPath%>/inbody.me" class="btn btn-light" style="font-weight: bold;">나의 인바디</a>
          </div>
          <div class="user_data">
-             <a href="" class="btn btn-light" style="font-weight: bold;">나의 구매내역</a>
+             <a href="<%=contextPath%>/purchase.me" class="btn btn-light" style="font-weight: bold;">나의 구매내역</a>
          </div>
      </div>
 <!--side menu end-->

@@ -54,4 +54,27 @@
 	 WHERE STATUS = 'S'
 </entry>
 
+<entry key="selectList">
+	SELECT *
+	  FROM (
+			SELECT ROWNUM RNUM, A.*
+			  FROM (
+					SELECT 
+					       TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') PAYMENT_DATE
+					     , SELECT RPODUCT_NAME
+					         FROM PRODUCT
+                            WHERE PRODUCT_NO = ?) AS PRODUCT_NAME
+					     , PAYMENT_PRICE
+					  FROM PAYMENT A
+					  JOIN PRODUCT USING (PRODUCT_NO)
+					 WHERE A.STATUS = 'S'
+					 ORDER
+					 	BY PAYMENT_DATE DESC
+			 		) A
+			)
+	 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+
+
 </properties>

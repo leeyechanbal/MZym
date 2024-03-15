@@ -1,11 +1,17 @@
 package com.mzym.mypage.service;
 
-import static com.mzym.common.template.JDBCTemplate.*;
+import static com.mzym.common.template.JDBCTemplate.close;
+import static com.mzym.common.template.JDBCTemplate.commit;
+import static com.mzym.common.template.JDBCTemplate.getConnection;
+import static com.mzym.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
+import com.mzym.common.paging.PageInfo;
 import com.mzym.member.vo.Member;
 import com.mzym.mypage.dao.MyPageDao;
+import com.mzym.mypage.vo.Payment;
 
 public class MyPageService {
 
@@ -72,6 +78,12 @@ public class MyPageService {
 		return listCount;
 	}
 	
+	public List<Payment> selectList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Payment> list = myDao.selectList(conn, pi);
+		close(conn);
+		return list;
+	}
 	
 	
 	
