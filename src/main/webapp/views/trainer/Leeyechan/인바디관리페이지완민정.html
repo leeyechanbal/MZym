@@ -30,7 +30,7 @@
             align-items: center;
         }
         .inbody{
-            border: 5px solid #1abc9cc7;
+            border: 2px solid #1abc9cc7;
             border-radius: 10px;
             margin: 10px;
             padding: 30px;
@@ -39,8 +39,8 @@
             width: 700px; 
             height: 500px;
         }
-        .inbody li{
-           margin: 30px;
+        .inbody table{
+           margin: 90px;
            font-size: 20px;
         }
         .calory>*{
@@ -93,14 +93,28 @@
                     <button >검색</button>
                 </div>
                 <div class="inbody">
-                    <ul>
-                        <h3>xxx회원의 인바디</h3>
-                        <li>신장: <input type="number"> cm</li>
-                        <li>체중: <input type="number"> kg</li>
-                        <li>기초대사량: <input type="number"> kcal</li>
-                        <li>체지방량: <input type="number"> bmi</li>
-                        <li>등록일: <input type="date"></li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td width="150px">신장  </td>
+                            <td><input type="number" style="margin-bottom: 10px;"> cm</td>
+                        </tr>
+                        <tr>
+                            <td>체중  </td>
+                            <td><input type="number" style="margin-bottom: 10px;"> kg</td>
+                        </tr>
+                        <tr>
+                            <td>기초대사량  </td>
+                            <td><input type="number" style="margin-bottom: 10px;"> kcal</td>
+                        </tr> 
+                        <tr>
+                            <td>체지방량  </td>
+                            <td><input type="number" style="margin-bottom: 10px;"> bmi</td>
+                        </tr>
+                        <tr>
+                            <td>등록일 </td>
+                            <td><input type="date" style="margin-bottom: 10px;"></td>
+                        </tr>
+                    </table>
                     <div style="display: flex; align-items: end;">
                         <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">확인</button>
                         <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
