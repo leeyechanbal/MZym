@@ -50,7 +50,7 @@ function imaging(index){
             $(".img"+index).text("");
         }
     } else {
-        $(".img"+index).css("background-image", null);
+        $(".img"+index).css("background-image", 'none');
     }
 }
 

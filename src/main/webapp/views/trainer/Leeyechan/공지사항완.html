@@ -142,8 +142,8 @@
 
                         function imaging(index){
                             const file = window.event.target.files[0];
-                            console.log(window.event.target.files[0] != null);
-                            console.log(file);
+                            // console.log(window.event.target.files[0] != null);
+                            // console.log(file);
 
                             if(file != null){
                                 const read = new FileReader();
@@ -156,7 +156,7 @@
                                     $(".img"+index).text("");
                                 }
                             } else {
-                                $(".img"+index).css("background-image", null);
+                                $(".img" + index).css("background-image", 'none');
                             }
                         }
 
@@ -290,15 +290,23 @@
                 <br>
                 <!-- Modal body -->
                 <div class="modal-body-create">
-                <div class="hair-careate"><input type="text" placeholder="제목 입력"></div>
-                <hr>
-                <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
+                    <div class="hair-careate"><input type="text" placeholder="제목 입력"></div>
+                    <hr>
+                    <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
                 <!-- 큰모달창 일 경우 cols="55" -->
-                <hr>
-                <div class="file-create"><input type="file"></div>
-                <br>
+                    <hr>
+
+                    <div class="picture img20" onclick="pictureFile(20)">사진등록 <br> 클릭해 보세요.</div>
+                    <br><br>
+                    <div class="formOut">
+                        <input type="file" name="file">
+                        <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
+                    </div>
+                    <div style="display: none;">
+                        <input type="file" class="picture20" onchange="imaging(20)">
+                    </div>
                 </div>
-        
+                <br>
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">작성</button>

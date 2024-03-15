@@ -1,11 +1,14 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  * Servlet implementation class InsertNotice
@@ -27,7 +30,15 @@ public class InsertNotice extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			int maxFileSize = 10 * 1024 * 1024;
+			
+			String savePath = request.getSession().getServletContext().getContextPath("/")
+			
+			
+		}
+	
 		
 		
 	}

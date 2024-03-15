@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>공지사항</title>
 
@@ -40,6 +41,16 @@
 
 </head>
 <body>       
+		
+		<table id="outTable">
+        
+        <thead>
+            <td class="section1" id="back" onclick="history.back();"><img src="<%=mzymPath %>/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
+            <td class="section2" id="logo"><img src="<%=mzymPath %>/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
+            <td class="section3"></td>
+        </thead>
+		
+		
         <tr style="height: 30px;"></tr>
 		
         <tbody>
@@ -200,28 +211,38 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-create">
-            <form action="<%=mzymPath %>/insertNotice.trainer?page=1" method="post" enctype="multipart/form-data">
+            <form action="<%=mzymPath %>/insertNotice.trainer" method="post" enctype="multipart/form-data">
                 <!-- Modal Header -->
                 <div class="modal-header-create">
                 <h3 class="modal-title text-center" id="creat-modal-header">공지사항</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <br>
+                
                 <!-- Modal body -->
                 <div class="modal-body-create">
-                <div class="hair-careate"><input type="text" placeholder="제목 입력" name="title"></div>
-                <hr>
-                <div class="bottom-create"><textarea name="content" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
+                    <div class="hair-careate"><input type="text" placeholder="제목 입력"></div>
+                    <hr>
+                    <div class="bottom-create"><textarea name="" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
                 <!-- 큰모달창 일 경우 cols="55" -->
-                <hr>
-                <div class="file-create"><input type="file" name="file"></div>
-                <br>
+                    <hr>
+
+                    <div class="picture img20" onclick="pictureFile(20)">사진등록 <br> 클릭해 보세요.</div>
+                    <br><br>
+                    <div class="formOut">
+                        <input type="file" name="file">
+                        <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
+                    </div>
+                    <div style="display: none;">
+                        <input type="file" class="picture20" onchange="imaging(20)" name="picture">
+                    </div>
                 </div>
+                <br>
         
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">작성</button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
+                    <button type="submit" class="btn btn-outline-success btn-sm" data-dismiss="modal">작성</button>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
                 </div>
             </form>
         </div>
