@@ -16,13 +16,13 @@ import com.mzym.mypage.service.MyPageService;
  * Servlet implementation class MyPgeUpdateController
  */
 @WebServlet("/update.me")
-public class MyPgeUpdateController extends HttpServlet {
+public class MyPageUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPgeUpdateController() {
+    public MyPageUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,7 +45,7 @@ public class MyPgeUpdateController extends HttpServlet {
 		Member updateMem = new MyPageService().updateMyPage(m);
 		
 		if(updateMem == null) {
-			session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
+			session.setAttribute("alertMsg", "회원정보 변경에 실패했습니다.");
 			
 		}else {
 			session.setAttribute("updateMem", updateMem);
