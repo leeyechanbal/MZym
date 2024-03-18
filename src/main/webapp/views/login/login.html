@@ -246,7 +246,7 @@
                 <div class="login_body">
                     <div class="login_input">
                     
-                            <form action="" method="" style="height: 100%;">
+                            <form action="" method="post" style="height: 100%;">
                                
                                 <div class="login_input_id">
                                     <input type="text" class="form-control" placeholder="아이디를 입력해주세요" name="userId">
@@ -300,17 +300,20 @@
                 // 초기 상태 설정
                 $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
                 $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
+                $('form').attr('action', '<%= contextPath %>/insert.me'); // 회원 로그인 form의 action 변경
         
                 // 회원 로그인 클릭 시
                 $('#selectUser').click(function() {
                     $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
                     $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
+                    $('form').attr('action', '/user_login_action'); // 회원 로그인 form의 action 변경
                 });
         
                 // 트레이너 로그인 클릭 시
                 $('#selectTrainer').click(function() {
                     $('.login_select_user h5').css({'color':'gray', 'font-weight':'normal'});
                     $('.login_select_trainer h5').css({'color':'black', 'font-weight':'bold'});
+                    $('form').attr('action', '/trainer_login_action'); // 트레이너 로그인 form의 action 변경
                 });
             });
 
