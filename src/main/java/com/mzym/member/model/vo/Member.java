@@ -90,6 +90,12 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.assignTr = assignTr;
 		this.status = status;
+
+	public Member(int userNo, String userName, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userName = userName;
+		this.phone = phone;
 	}
 
 	public int getUserNo() {
