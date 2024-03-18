@@ -317,7 +317,7 @@
                 // 초기 상태 설정
                 $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
                 $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
-        
+                $('#select_user').val("Y")
                 // 회원 로그인 클릭 시
                 $('#selectUser').click(function() {
                     $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
