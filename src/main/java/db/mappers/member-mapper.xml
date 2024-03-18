@@ -39,6 +39,74 @@
 	 WHERE USER_ID = ?
 </entry>
 
+<entry key="selectMyPage">
+	SELECT 
+		   USER_NO
+		 , USER_ID
+		 , USER_PWD
+		 , USER_NAME
+		 , PHONE
+		 , RRN
+		 , EMAIL
+		 , ADDRESS
+		 , ENROLL_DATE
+		 , MODIFY_DATE
+		 , STATUS
+	  FROM MZYM_MEMBER
+	 WHERE USER_ID = ?
+</entry>
+
+<entry key="updateMyPage">
+	UPDATE
+	       MZYM_MEMBER
+	   SET PHONE = ?
+	     , EMAIL = ?
+	     , ADDRESS = ?
+	     , MODIFY_DATE = SYSDATE
+	WHERE USER_ID = ?
+</entry>
+
+<entry key="updatePwdMember">
+	UPDATE
+	      MZYM_MEMBER
+	  SET USER_PWD = ?
+	    , MODIFY_DATE = SYSDATE 
+	WHERE USER_ID = ?
+	  AND USER_PWD = ?
+</entry>
+
+<entry key="deleteMember">
+	UPDATE
+	      MZYM_MEMBER
+	  SET STATUS = 'N'
+	    , MODIFY_DATE = SYSDATE
+	WHERE USER_ID = ?
+	  AND USER_PWD = ?
+</entry>
+
+<entry key="selectListCount">
+	SELECT COUNT(*) COUNT
+	  FROM PAYMENT
+	 WHERE STATUS = 'S'
+</entry>
+
+<entry key="selectList">
+	SELECT ROWNUM RNUM, A.*
+				  FROM (
+						SELECT 
+	                          TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') PAYMENT_DATE
+						     , RPODUCT_NAME
+						     , PAYMENT_PRICE
+						  FROM PAYMENT A
+						  JOIN PRODUCT USING (PRODUCT_NO)
+	                     WHERE PAYMENT_USER = ?
+						 ORDER
+						 	BY PAYMENT_DATE DESC
+				 		) A;
+			)
+	 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
 
 
 
