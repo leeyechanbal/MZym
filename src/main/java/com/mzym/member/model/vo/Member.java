@@ -20,7 +20,7 @@ public class Member {
 	private String trCareer; // 트레이너 경력
 	private String certificate; //자격증
 	private String status;
-	private String assignTr; // 담당 트레이너 번호
+	private int assignTr; // 담당 트레이너 번호
 	private String imageURL;
 	
 	
@@ -30,7 +30,7 @@ public class Member {
 
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String rRN, String email,
 			String address, Date enrollDate, Date modifyDate, String trCareer, String certificate, String status,
-			String assignTr, String imageURL) {
+			int assignTr, String imageURL) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -74,6 +74,22 @@ public class Member {
 	}
 	
 	
+	// 멤버(회원) 로그인을 위한 member객체 - 구성모
+	public Member(int userNo, String userId, String userPwd, String userName, String phone, String rRN, String email,
+			String address, Date enrollDate, Date modifyDate, int assignTr, String status) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.RRN = rRN;
+		this.email = email;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.assignTr = assignTr;
+		this.status = status;
 
 	public Member(int userNo, String userName, String phone) {
 		super();
@@ -212,12 +228,12 @@ public class Member {
 	}
 
 
-	public String getAssignTr() {
+	public int getAssignTr() {
 		return assignTr;
 	}
 
 
-	public void setAssignTr(String assignTr) {
+	public void setAssignTr(int assignTr) {
 		this.assignTr = assignTr;
 	}
 
