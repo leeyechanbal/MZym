@@ -40,60 +40,10 @@
 </entry>
 
 
-<entry key="updateMyPage">
-	UPDATE
-	       MZYM_MEMBER
-	   SET PHONE = ?
-	     , EMAIL = ?
-	     , ADDRESS = ?
-	     , MODIFY_DATE = SYSDATE
-	WHERE USER_ID = ?
-</entry>
 
-<entry key="updatePwdMember">
-	UPDATE
-	      MZYM_MEMBER
-	  SET USER_PWD = ?
-	    , MODIFY_DATE = SYSDATE 
-	WHERE USER_ID = ?
-	  AND USER_PWD = ?
-</entry>
 
-<entry key="deleteMember">
-	UPDATE
-	      MZYM_MEMBER
-	  SET STATUS = 'N'
-	    , MODIFY_DATE = SYSDATE
-	WHERE USER_ID = ?
-	  AND USER_PWD = ?
-</entry>
 
-<entry key="selectListCount">
-	SELECT COUNT(*) COUNT
-	  FROM PAYMENT
-	 WHERE STATUS = 'S'
-</entry>
 
-<entry key="selectList">
-	SELECT *
-	  FROM (
-			SELECT ROWNUM RNUM, A.*
-			  FROM (
-					SELECT 
-					       TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') PAYMENT_DATE
-					     , SELECT RPODUCT_NAME
-					         FROM PRODUCT
-                            WHERE PRODUCT_NO = ?) AS PRODUCT_NAME
-					     , PAYMENT_PRICE
-					  FROM PAYMENT A
-					  JOIN PRODUCT USING (PRODUCT_NO)
-					 WHERE A.STATUS = 'S'
-					 ORDER
-					 	BY PAYMENT_DATE DESC
-			 		) A
-			)
-	 WHERE RNUM BETWEEN ? AND ?
-</entry>
 
 
 
