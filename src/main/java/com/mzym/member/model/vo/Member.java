@@ -1,4 +1,4 @@
-package com.mzym.member.vo;
+package com.mzym.member.model.vo;
 
 import java.sql.Date;
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.mzym.member.vo.Member" %>    
+<%@ page import="com.mzym.member.model.vo.Member" %>    
 <% String contextPath = request.getContextPath(); 
    String alertMsg = (String)session.getAttribute("alertMsg");
    Member loginUser = (Member)session.getAttribute("loginUser");
