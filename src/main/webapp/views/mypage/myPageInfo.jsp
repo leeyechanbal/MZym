@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.mzym.member.vo.Member" %>
+<%@ page import="com.mzym.member.model.vo.Member" %>
 
 <!DOCTYPE html>
 <html>
@@ -126,11 +126,11 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>아이디</th>
-                                    <td><input type="text" readonly name="userId" value=""></td>
+                                    <td><input type="text" readonly name="userId" value="<%=loginUser.getUserId()%>"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>이름</th>
-                                    <td><input type="text" readonly name="userName" value="홍길동"></td>
+                                    <td><input type="text" readonly name="userName" value="<%=loginUser.getUserName()%>"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>생년월일</th>
@@ -145,6 +145,32 @@ margin-left: 230px;
                             </table>
                         </div>
                         
+                        <%
+                        String RRN = request.getParameter("RRN"); 
+                        
+                		String gStr = RRN.substring(7,8);
+                		int gender = Integer.parseInt(gStr);
+                		
+                		String sGender = null;
+                		if(gender % 2 == 0) {
+                			sGender = "여성";
+                		}else {
+                			sGender = "남성";
+                		}
+                		
+                		String frontYear = null;
+                		if(gender == 1 || gender == 2 || gender ==5 || gender == 6) {
+                			frontYear = "19";
+                		}else {
+                			frontYear= "20";
+                		}
+                		
+                		String year = frontYear + RRN.substring(0,2) + "년";
+                		String month = RRN.substring(2,4) + "월"; 
+                		String day = RRN.substring(4,6) + "일";
+                		String birth = year + month + day;
+                        
+                		%>
      
                      
                     <h4>연락처정보</h4>                   
