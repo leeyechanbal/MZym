@@ -1,4 +1,4 @@
-package com.mzym.mypage.vo;
+package com.mzym.mypage.model.vo;
 
 import java.sql.Date;
 

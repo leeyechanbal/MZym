@@ -1,4 +1,4 @@
-package com.mzym.mypage.dao;
+package com.mzym.mypage.model.dao;
 
 import static com.mzym.common.template.JDBCTemplate.close;
 
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Properties;
 
 import com.mzym.common.paging.PageInfo;
-import com.mzym.member.vo.Member;
-import com.mzym.mypage.vo.Payment;
+import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.vo.Payment;
 
 public class MyPageDao {
 	
@@ -61,19 +61,19 @@ public class MyPageDao {
 			pstmt.setString(1, userId);
 			rset = pstmt.executeQuery();
 			
-//			if(rset.next()) {
-//				m = new Member(rset.getInt("user_no")
-//							 , rset.getString("user_id")
-//							 , rset.getString("user_pwd")
-//							 , rset.getString("user_name")
-//							 , rset.getString("phone")
-//							 , rset.getString("RRN")
-//							 , rset.getString("email")
-//							 , rset.getString("address")
-//							 , rset.getDate("enroll_date")
-//							 , rset.getDate("modify_date")
-//							 , rset.getString("status"));
-//			}
+			if(rset.next()) {
+				m = new Member(rset.getInt("user_no")
+							 , rset.getString("user_id")
+							 , rset.getString("user_pwd")
+							 , rset.getString("user_name")
+							 , rset.getString("phone")
+							 , rset.getString("RRN")
+							 , rset.getString("email")
+							 , rset.getString("address")
+							 , rset.getDate("enroll_date")
+							 , rset.getDate("modify_date")
+							 , rset.getString("status"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -150,7 +150,7 @@ public class MyPageDao {
 		return listCount;
 	}
 	
-	public List<Payment> selectList(Connection conn, PageInfo pi){
+	public List<Payment> selectList(Connection conn, PageInfo pi, int productNo, int paymentUser){
 		
 		List<Payment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -163,8 +163,10 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, productNo);
+			pstmt.setInt(2, paymentUser);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -184,5 +186,18 @@ public class MyPageDao {
 		
 		return list;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
