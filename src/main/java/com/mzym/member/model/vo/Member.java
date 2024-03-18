@@ -92,9 +92,10 @@ public class Member {
 		this.status = status;
 	}
 
-	public Member(int userNo, String userName, String phone) {
+
+
+	public Member(String userName, String phone) {
 		super();
-		this.userNo = userNo;
 		this.userName = userName;
 		this.phone = phone;
 	}
