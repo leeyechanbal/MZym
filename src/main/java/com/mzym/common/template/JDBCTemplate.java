@@ -28,8 +28,8 @@ public class JDBCTemplate {
 		
 		try {
 //			밑에 꺼안되면 위에 꺼 해보세요. 
-//			prop.load(new FileInputStream(JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath()));
-			prop.load(JDBCTemplate.class.getResourceAsStream("/db/driver/driver.properties"));
+		prop.load(new FileInputStream(JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath()));
+			//prop.load(JDBCTemplate.class.getResourceAsStream("/db/driver/driver.properties"));
 			
 			Class.forName(prop.getProperty("driver"));
 			

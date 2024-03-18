@@ -90,12 +90,20 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.assignTr = assignTr;
 		this.status = status;
-
+	}
 	public Member(int userNo, String userName, String phone) {
 		super();
 		this.userNo = userNo;
 		this.userName = userName;
 		this.phone = phone;
+	}
+	
+	public Member(int userNo, String userName, String phone, String userId ) {
+		super();
+		this.userNo = userNo;
+		this.userName = userName;
+		this.phone = phone;
+		this.userId = userId;
 	}
 
 	public int getUserNo() {

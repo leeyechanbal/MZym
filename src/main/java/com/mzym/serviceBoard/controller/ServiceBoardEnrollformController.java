@@ -1,23 +1,28 @@
-package com.mzym.board.controller;
+package com.mzym.serviceBoard.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mzym.serviceBoard.service.ServiceBoardService;
+import com.mzym.serviceBoard.vo.ServiceCategory;
+
 /**
- * Servlet implementation class ServiceEnrollFormController
+ * Servlet implementation class ServiceBoardEnrollformController
  */
-@WebServlet("/list.service")
-public class ServiceEnrollFormController extends HttpServlet {
+@WebServlet("/enroll.service")
+public class ServiceBoardEnrollformController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServiceEnrollFormController() {
+    public ServiceBoardEnrollformController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +31,14 @@ public class ServiceEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/board/serviceboard/serviceBoardList.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		List<ServiceCategory> list = new ServiceBoardService().selectListCategory();
+		
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher("/views/board/serviceboard/serviceBoardEnrollForm.jsp").forward(request, response);
+		
 	}
 
 	/**
