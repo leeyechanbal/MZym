@@ -261,7 +261,9 @@
                 <div class="login_body">
                     <div class="login_input">
                     
-                            <form action="" method="" style="height: 100%;" id="login_form">
+                            <form action='<%= contextPath %>/login.me' method="post" style="height: 100%;" id="login_form">
+                               
+                               <input type="hidden" name="status" id="select_user">
                                
                                 <div class="login_input_id">
                                     <input type="text" class="form-control" placeholder="아이디를 입력해주세요" required name="userId">
@@ -315,20 +317,20 @@
                 // 초기 상태 설정
                 $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
                 $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
-                $('form').attr('action', '<%= contextPath %>/login.me');
-        
+                $('#select_user').val("Y")
                 // 회원 로그인 클릭 시
                 $('#selectUser').click(function() {
                     $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
                     $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
-                    $('form').attr('action', '<%= contextPath %>/login.me'); // 회원 로그인 form의 action 변경
+                    $('#select_user').val("Y")
+                   // $('form').attr('action', ); // 회원 로그인 form의 action 변경
                 });
         
                 // 트레이너 로그인 클릭 시
                 $('#selectTrainer').click(function() {
                     $('.login_select_user h5').css({'color':'gray', 'font-weight':'normal'});
                     $('.login_select_trainer h5').css({'color':'black', 'font-weight':'bold'});
-                    $('form').attr('action', '<%= contextPath %>/login.me'); // 트레이너 로그인 form의 action 변경
+                    $('#select_user').val("T")
                 });
             });
             // input 비밀번호 text 토글 스크립트 - 구성모
