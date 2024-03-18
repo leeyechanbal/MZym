@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+<entry key="selctListCount">
+ SELECT COUNT(*) COUNT
+        FROM MZYM_SERVICE
+        WHERE STATUS = 'Y'
+</entry>
+
+<entry key="selectList">
+	SELECT *
+	FROM(
+	    SELECT ROWNUM RNUM, A.*
+	    FROM(
+	        SELECT 
+	            SERVICE_NO
+	           ,CATEGORY_NAME 
+	           ,SERVICE_TITLE 
+	           ,USER_ID 
+	           ,TO_CHAR(REGIST_DATE,'YYYY/MM/DD') REGIST_DATE
+	           ,SERVICE_CONTENT 
+	        FROM MZYM_SERVICE sb
+	        JOIN SERVICE_CATEGORY USING(CATEGORY_NO)
+	        JOIN MZYM_MEMBER ON (SERVICE_USER = USER_NO)
+	        WHERE 
+	        sb.STATUS = 'Y'
+	        ORDER BY SERVICE_NO DESC) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+
+</entry>
+
+<entry key="selectCategoryList">
+	SELECT 
+	 CATEGORY_NO
+	,CATEGORY_NAME
+	FROM SERVICE_CATEGORY
+</entry>
+
+<entry key="selectCategoryList">
+	SELECT 
+	 CATEGORY_NO
+	,CATEGORY_NAME
+	FROM SERVICE_CATEGORY
+</entry>
+
+<entry key="insertServiceBoard">
+	INSERT 
+		INTO MZYM_SERVICE
+		(
+		SERVICE_NO,
+		CATEGORY_NO,
+		SERVICE_TITLE,
+		SERVICE_CONTENT,
+		SERVICE_USER
+		)
+	VALUES
+	(
+	SEQ_SERVICENO.NEXTVAL
+	,?
+	,?
+	,?
+	,?
+	)
+</entry>
+
+<entry key="insertAttachment">
+	INSERT INTO ATTACHMENT
+		(
+		FILE_NO
+        , ATT_NO
+        , ATT_CATEGORY
+        , ORIGIN_NAME
+        , CHANGE_NAME
+        , FILE_PATH
+        , UPLORD_DATE
+        , STATUS
+		)
+		VALUES
+		(
+		 SEQ_ATTACHMENT.nextval
+        , SEQ_SERVICENO.currval
+        , 'B' 
+        , ?
+        , ? 
+        , ? 
+        , SYSDATE
+        , 'Y'
+		)
+</entry>
+
+
+
+</properties>

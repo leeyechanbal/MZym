@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  
+<%@ page import="com.mzym.common.paging.PageInfo"%>
+<%@ page import="com.mzym.serviceBoard.vo.ServiceBoard"%>
+<%@ page import="java.util.List"%>  
+<%
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+List<ServiceBoard> list = (List<ServiceBoard>)request.getAttribute("list");
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,6 +122,9 @@
           border-top: 2px solid #e0e0e0;
           border-bottom: 2px solid #e0e0e0;
         }
+        .border rounded{
+        	margin-left: 50px;
+        }
     </style>
 </head>
 <body>
@@ -134,50 +146,59 @@
                 <input type="text" placeholder="검색어를 입력하세요">
                 <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
-			<%if(loginUser != null){ %>
+			
             <div align="right">
-                <button type="button" class="btn btn-secondary">글쓰기</button>
+                <a href="<%=contextPath %>/enroll.service" class="btn btn-secondary">글쓰기</a>
                 <br><br>
             </div>
-			<%} %>
+			
             <br>
             <table class="table">
                 <thead>
                     <tr>
-                        <th width="100px">글번호</th>
-                        <th width="100px">카테고리</th>
-                        <th width="400px">글제목</th>
-                        <th width="120px">작성자</th>
-                        <th>조회수</th>
-                        <th>작성일</th>
+                        <th width="150px">글번호</th>
+                        <th width="150px">카테고리</th>
+                        <th width="450px">글제목</th>
+                        <th width="150px">작성자</th>
+                        <th width="150px">작성일</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- case1. 조회된 게시글이 없을 경우 -->
-                    <!--
+                   <%if(list == null || list.isEmpty()){ %>
                     <tr>
-                        <td colspan="6" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+                        <td colspan="5" style="text-align: center;">존재하는 게시글이 없습니다.</td>
                     </tr>
-                    -->
+                    <%}else{ %>
 
                     <!-- case2. 조회된 게시글이 있을 경우 -->
-                    <tr data-toggle="collapse" data-target="#context">
-                        <td>3</td>
-                        <td>이용관련</td>
-                        <td style="cursor: pointer;">글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
+                    <% int index = 0; %>
+                    <script>
+    
+					    function viewContent(index) {
+					        var content = document.getElementById("content_" + index);
+					        content.classList.toggle("collapse"); 
+					    }
+					</script>	
+                    <%for(ServiceBoard sb : list){ %>
+                    <tr data-toggle="collapse" data-target="#context_<%= index %>">
+                        <td><%=sb.getServiceNo()%></td>
+                        <td><%=sb.getCategoryNo() %></td>
+                        <td style="cursor: pointer;" onclick="viewContent(<%= index %>)"><%=sb.getServiceTitle()%></td>
+                        <td><%=sb.getServiceUser() %></td>
+                        <td><%=sb.getRegistDate() %></td>
+                  
                     </tr>
-                    <tr id="context" class="collapse">
-                      <td colspan="6">
-                          <p class="border rounded">
+                    <tr id="context_<%=index %>" class="collapse">
+                      <td colspan="5">
+                          <div class="border rounded">
                           
-                            게시글의 내용입니다
+                            <%=sb.getServiceContent() %>
 
-                          </p>
+                          </div>
                           
-                          <div class="upfileArea "><img src="" alt="미리보기 입니다."></div>
+                          <div class="upfileArea ">
+                          	
+                          </div>
                           <div class="buttonArea"> 
                             <button type="button" class="btn btn-outline-secondary btn-sm">수정</button>
                             <button type="button" class="btn btn-outline-danger btn-sm">삭제</button>
@@ -191,55 +212,37 @@
                           </div>
                         -->
                       </td>
-                  </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>이용관련</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>이용관련</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>이용관련</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>이용관련</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
+                      </tr>
+                      	<% index++; %>
+                        <%} %>  
+                    <%} %>    
                	 </tbody>
 	            </table>
-	
-	
+				
+					
 	            <br>
-            
-            <ul class="pagination my justify-content-center">
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-
+            	<!--  페이징바 영역 -->
+                <ul class="pagination justify-content-center">
+                	<%if(pi.getCurrentPage()==1){ %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <%}else{ %>
+                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/list.service?page=<%=pi.getCurrentPage()-1 %>">Previous</a></li>
+                    <%} %>
+                    <%for(int p = pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+	                    <%if(p==pi.getCurrentPage()){ %>
+	                    <li class="page-item active"><a class="page-link" href="#"><%=p %></a></li>
+	                   	<%}else{%>
+                    	<li class="page-item"><a class="page-link" href="<%=contextPath%>/list.service?page=<%=p%>"><%=p %></a></li>
+                   		<%} %>
+                   	<%} %>
+                   	
+                   	
+                   	<%if(pi.getCurrentPage()==pi.getMaxPage()){ %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                	<%}else{ %>
+                	<li class="page-item"><a class="page-link" href="<%=contextPath%>/list.service?page=<%=pi.getCurrentPage()+1%>">Next</a></li>
+                	<%} %>
+                </ul>
         </div>
 		</section>
         <!-- Section end -->
