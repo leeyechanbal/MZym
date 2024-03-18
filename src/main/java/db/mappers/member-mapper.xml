@@ -19,7 +19,7 @@
 		  FROM MZYM_MEMBER
 		 WHERE USER_ID = ?
 		   AND USER_PWD = ? 
-		   AND STATUS = 'Y'
+		   AND STATUS = ?
 </entry>
 
 <entry key="selectMyPage">

@@ -23,7 +23,7 @@ public class MemberDao {
 		}
 	}
 
-	public Member loginMember(Connection conn, String userId, String userPwd) {
+	public Member loginMember(Connection conn, String userId, String userPwd, String userStatus) {
 		
 		Member m = null;
 		PreparedStatement pstmt = null;
@@ -34,6 +34,7 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPwd);
+			pstmt.setString(3, userStatus);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {

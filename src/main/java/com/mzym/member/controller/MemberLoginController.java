@@ -34,8 +34,9 @@ public class MemberLoginController extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
+		String userStatus = request.getParameter("status");
 		
-		Member m = new MemberService().loginMember(userId, userPwd);
+		Member m = new MemberService().loginMember(userId, userPwd, userStatus);
 		
 		if(m == null) { // 로그인 실패(조회 결과가 없음)
 			// 에러페이지
