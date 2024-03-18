@@ -10,11 +10,12 @@ public class MemberService {
 	
 	private MemberDao mDao = new MemberDao();
 
-	public Member loginMember(String userId, String userPwd) {
+	public Member loginMember(String userId, String userPwd, String userStatus) {
 		
 		Connection conn = getConnection();
-		Member loginUser = mDao.loginMember(conn, userId, userPwd);
+		Member loginUser = mDao.loginMember(conn, userId, userPwd, userStatus);
 		close(conn);
 		return loginUser;
 	}
+
 }
