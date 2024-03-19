@@ -483,6 +483,7 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -556,6 +557,7 @@ public class BoardDao {
 		
 		
 		return list;
+	}
 	
 	/**
 	 * @author 황수림
@@ -576,7 +578,7 @@ public class BoardDao {
 				b = new Board(rset.getInt("board_no"),
 							  rset.getString("board_title"),
 							  rset.getString("board_content"),
-							  rset.getString("user_id")
+							  rset.getString("user_no")
 							  );
 			}
 			
