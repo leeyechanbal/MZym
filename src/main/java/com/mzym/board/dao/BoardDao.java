@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.mzym.board.vo.Attachment;
+import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
 
@@ -281,6 +282,49 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return listCount;
+	}
+	
+	/**
+	 * @author 황수림
+	 * @return
+	 * 자유게시판 목록 실행 및 결과값 반환
+	 */
+	public List<Board> selectFreeList(Connection conn, PageInfo pi){
+		List<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFreeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_no"),
+									rset.getString("board_title"),
+									rset.getString("user_name"),
+									rset.getInt("count"),
+									rset.getDate("regist_date")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
 
 	/**
 	 * @author 이예찬

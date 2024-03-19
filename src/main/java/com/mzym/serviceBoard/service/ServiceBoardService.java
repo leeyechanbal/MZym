@@ -61,6 +61,21 @@ public class ServiceBoardService {
 		return result1 * result2;
 		
 	}
+
+	public int deleteBoard(int serviceNo) {
+		
+		Connection conn = getConnection();
+		int result = sDao.deleteBoard(conn, serviceNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 	
 	
 	

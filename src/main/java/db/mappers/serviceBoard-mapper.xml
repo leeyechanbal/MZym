@@ -11,22 +11,27 @@
 
 <entry key="selectList">
 	SELECT *
-	FROM(
-	    SELECT ROWNUM RNUM, A.*
-	    FROM(
-	        SELECT 
-	            SERVICE_NO
-	           ,CATEGORY_NAME 
-	           ,SERVICE_TITLE 
-	           ,USER_ID 
-	           ,TO_CHAR(REGIST_DATE,'YYYY/MM/DD') REGIST_DATE
-	           ,SERVICE_CONTENT 
-	        FROM MZYM_SERVICE sb
-	        JOIN SERVICE_CATEGORY USING(CATEGORY_NO)
-	        JOIN MZYM_MEMBER ON (SERVICE_USER = USER_NO)
-	        WHERE 
-	        sb.STATUS = 'Y'
-	        ORDER BY SERVICE_NO DESC) A
+	FROM (
+    SELECT ROWNUM RNUM, A.*
+    FROM (
+        SELECT 
+            sb.SERVICE_NO,
+            mm.USER_ID,
+            sc.CATEGORY_NAME,
+            sb.SERVICE_TITLE,
+            sb.SERVICE_CONTENT,
+            TO_CHAR(sb.REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE,
+            sb.SERVICE_TR,
+            sb.SERVICE_REPEAT,
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL
+        
+        FROM MZYM_SERVICE sb
+        JOIN SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
+        JOIN MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO
+        LEFT JOIN ATTACHMENT at ON sb.SERVICE_NO = at.ATT_NO
+        WHERE sb.STATUS = 'Y'
+        ORDER BY sb.SERVICE_NO DESC
+    	) A
 	)
 	WHERE RNUM BETWEEN ? AND ?
 
@@ -91,6 +96,11 @@
 		)
 </entry>
 
-
+<entry key="deleteServiceBoard">
+		UPDATE MZYM_SERVICE 
+		SET STATUS = 'N'
+		WHERE SERVICE_NO = ? 
+			
+</entry>
 
 </properties>

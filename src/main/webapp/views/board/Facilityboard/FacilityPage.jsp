@@ -107,7 +107,7 @@
 <body>
 	<div class="wrap">
 	<%@ include file="/views/common/Mzym_header.jsp" %>
-	<%@ include file="/views/common/Mzym_banner.jsp" %>
+
 	      
       
         <!-- Section start -->

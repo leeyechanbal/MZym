@@ -33,6 +33,8 @@ public class ServiceBoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
 		//------------------------- 페이징 처리 -------------------------------
 		int listCount; 	
 		int currentPage; 

@@ -1,6 +1,8 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Board;
 import com.mzym.common.paging.PageInfo;
 
 /**
@@ -53,8 +56,12 @@ public class FreeBoardListController extends HttpServlet {
 		// 페이징바 데이터 객체
 		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
 		
-		System.out.println(pi);
-		// 요청된 페이지의 게시글 목록 
+		List<Board> list = new BoardService().selectFreeList(pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher("/viest/board/freeboard/freeBoardList.jsp").forward(request, response);
 		
 	}
 
