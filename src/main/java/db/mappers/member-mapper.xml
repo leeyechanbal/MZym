@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+<!-- 로그인 기능-구성모 -->
 <entry key="loginMember">
 	SELECT
 		   USER_NO
@@ -107,10 +108,40 @@
 	 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 아이디 중복 체크-구성모 -->
+<entry key="idCheck">
+	SELECT
+		   COUNT(*) COUNT
+	 FROM MZYM_MEMBER
+	WHERE USER_ID = ?
+</entry>
 
-
-
-
+<!-- 회원가입 insert-구성모 -->
+<entry key="insertMember">
+	INSERT
+	  INTO MZYM_MEMBER
+	  (
+	    USER_NO
+	  , USER_ID
+	  , USER_PWD
+	  , USER_NAME
+	  , PHONE
+	  , RRN
+	  , EMAIL
+	  , ADDRESS
+	  )
+	  VALUES
+	  (
+	    SEQ_MEMEBERNO.NEXTVAL
+	  , ? <!-- 아이디 -->
+	  , ? <!-- 비밀번호 -->
+	  , ? <!-- 이름 -->
+	  , ? <!-- 전화번호 -->
+	  , ? <!-- 주민번호 -->
+	  , ? <!-- 이메일 -->
+	  , ? <!-- 주소 -->
+	  )
+</entry>
 
 
 
