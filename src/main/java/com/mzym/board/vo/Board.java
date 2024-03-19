@@ -7,11 +7,11 @@ import java.sql.Date;
  *	게시글 정보관리 클래스
  */
 public class Board {
-	private int baordNo; // 글번호
-	private int baordWriter; // 작성자 = 회원 맴버번호
-	private int baordType; // 게시글 카테고리
-	private String baordTiltle; // 글 제목
-	private String baordcontent; // 글 내용
+	private int boardNo; // 글번호 
+	private int boardWriter; // 작성자 = 회원 맴버번호
+	private int boardType; // 게시글 카테고리
+	private String boardTiltle; // 글 제목
+	private String boardcontent; // 글 내용
 	private Date registDate; // 등록일
 	private Date modify_date; // 수정일
 	private String status; 
@@ -22,59 +22,53 @@ public class Board {
 		super();
 	}
 
-	public Board(int baordNo, int baordWriter, int baordType, String baordTiltle, String baordcontent, Date registDate,
-			Date modify_date, String status, int reviewRate, int count) {
+	public Board(int boardNo, int boardWriter, String boardTiltle, Date registDate, int count) {
 		super();
-		this.baordNo = baordNo;
-		this.baordWriter = baordWriter;
-		this.baordType = baordType;
-		this.baordTiltle = baordTiltle;
-		this.baordcontent = baordcontent;
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardTiltle = boardTiltle;
 		this.registDate = registDate;
-		this.modify_date = modify_date;
-		this.status = status;
-		this.reviewRate = reviewRate;
 		this.count = count;
 	}
 
-	public int getBaordNo() {
-		return baordNo;
+	public int getBoardNo() {
+		return boardNo;
 	}
 
-	public void setBaordNo(int baordNo) {
-		this.baordNo = baordNo;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
-	public int getBaordWriter() {
-		return baordWriter;
+	public int getBoardWriter() {
+		return boardWriter;
 	}
 
-	public void setBaordWriter(int baordWriter) {
-		this.baordWriter = baordWriter;
+	public void setBoardWriter(int boardWriter) {
+		this.boardWriter = boardWriter;
 	}
 
-	public int getBaordType() {
-		return baordType;
+	public int getBoardType() {
+		return boardType;
 	}
 
-	public void setBaordType(int baordType) {
-		this.baordType = baordType;
+	public void setBoardType(int boardType) {
+		this.boardType = boardType;
 	}
 
-	public String getBaordTiltle() {
-		return baordTiltle;
+	public String getBoardTiltle() {
+		return boardTiltle;
 	}
 
-	public void setBaordTiltle(String baordTiltle) {
-		this.baordTiltle = baordTiltle;
+	public void setBoardTiltle(String boardTiltle) {
+		this.boardTiltle = boardTiltle;
 	}
 
-	public String getBaordcontent() {
-		return baordcontent;
+	public String getBoardcontent() {
+		return boardcontent;
 	}
 
-	public void setBaordcontent(String baordcontent) {
-		this.baordcontent = baordcontent;
+	public void setBoardcontent(String boardcontent) {
+		this.boardcontent = boardcontent;
 	}
 
 	public Date getRegistDate() {
@@ -117,17 +111,19 @@ public class Board {
 		this.count = count;
 	}
 
-	@Override
-	public String toString() {
-		return "Baord [baordNo=" + baordNo + ", baordWriter=" + baordWriter + ", baordType=" + baordType
-				+ ", baordTiltle=" + baordTiltle + ", baordcontent=" + baordcontent + ", registDate=" + registDate
-				+ ", modify_date=" + modify_date + ", status=" + status + ", reviewRate=" + reviewRate + ", count="
-				+ count + "]";
+	public Board(int boardNo, int boardWriter, int boardType, String boardTiltle, String boardcontent, Date registDate,
+			Date modify_date, String status, int reviewRate, int count) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardType = boardType;
+		this.boardTiltle = boardTiltle;
+		this.boardcontent = boardcontent;
+		this.registDate = registDate;
+		this.modify_date = modify_date;
+		this.status = status;
+		this.reviewRate = reviewRate;
+		this.count = count;
 	}
-	
-	
-	
-	
-	
-	
+
 }
