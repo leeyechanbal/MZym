@@ -230,8 +230,8 @@
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         </div>
-        <input type="text" id="boardNum" name="boardNum">
-        <input type="text" id="fileName" name="fileName">
+        <input type="hidden" id="boardNum" name="boardNum">
+        <input type="hidden" id="fileName" name="fileName">
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>

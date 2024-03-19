@@ -429,7 +429,7 @@ public class BoardDao {
 		
 		try {
 			System.out.println(num);
-			pst = conn.prepareStatement("deletedNotice");
+			pst = conn.prepareStatement(prop.getProperty("deletedNotice"));
 			pst.setInt(1, num);
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -453,7 +453,7 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		
 		try {
-			pst = conn.prepareStatement("deletedAttachment");
+			pst = conn.prepareStatement(prop.getProperty("deletedAttachment"));
 			pst.setInt(1, num);
 			pst.setString(2, type);
 			result = pst.executeUpdate();

@@ -196,7 +196,7 @@ public class BoardService {
 		int outcome = dao.deletedNotice(conn, num);
 		int result = 1;
 		
-		if(change != null) {
+		if(change != "") {
 			result = dao.deletedAttachment(conn, num, type);
 		}
 		

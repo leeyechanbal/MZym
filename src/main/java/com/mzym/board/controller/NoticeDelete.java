@@ -38,6 +38,7 @@ public class NoticeDelete extends HttpServlet {
 			
 			int  boardNum= Integer.parseInt(request.getParameter("boardNum"));
 			String change = request.getParameter("fileName");
+			System.out.println(change);
 			String type = "N";
 	
 			int result = new BoardService().deletedNotice(boardNum, change, type);
