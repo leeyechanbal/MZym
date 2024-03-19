@@ -42,7 +42,11 @@ public class FreeBoardListController extends HttpServlet {
 		int endPage;		// 사용자가 요청한 페이지 하단에 보여질 페이징바의 수
 		
 		listCount = new BoardService().selectFreeListCount();
-		currentPage = Integer.parseInt(request.getParameter("page"));
+		try {
+	          currentPage = Integer.parseInt(request.getParameter("page"));
+	      } catch (NumberFormatException e) {
+	          currentPage = 1;
+	      }
 		pagingLimit = 10;
 		boardLimit = 10;
 		
