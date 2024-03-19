@@ -421,6 +421,7 @@ public class BoardDao {
 		}
 		
 		return result;
+}
 
 	public int deletedNotice(Connection conn, int num) {
 		int result = 0;
