@@ -93,7 +93,7 @@
             font-size: 13px;
         }
         /* 게시판 안의 게시판 종류 호버시 밑줄 색상 변경 */
-        a:hover{
+        .boardNav a:hover{
             color: black;
             text-decoration: none;
         }
@@ -250,14 +250,22 @@
             /* word-wrap:break-all; */
             /* 넘어가는 글자부분을 스크롤바을 이용햐서 보도록 해주는 스타일 */
             overflow : auto;
+            padding: 10px;
         }
-        /* 미리보기 div 배경 스타일 */
-        .picture{
-            height: 300px;
-            padding: 5px;
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center center;
-            background-attachment: scroll; 
-            margin: auto;
+        /* 공지사항 첨부파일 정렬 */
+        .formOut{
+            display: flex; 
+            justify-content: space-between;
+        }
+       /* 파일 쪽 스타일 */
+       .file{
+            display: flex;
+            align-items: start;
+            flex-direction: column;
+        }
+        .file>*{  
+            margin-bottom: 5px;      	
+        }
+        tfoot{
+            height: 100px;
         }

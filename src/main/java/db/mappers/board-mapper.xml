@@ -16,9 +16,13 @@ from(
             , NOTICE_TITLE
             , NOTICE_CONTENT
             , TO_CHAR(n.REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+            , origin_name
+            , change_name
+            , file_path
         from MZYM_NOTICE n
         join mzym_member on (user_no = notice_writer)
-        where n.status = 'Y'
+        left join attachment a on (att_no = notice_no)
+        where n.status = 'Y' 
         order by NOTICE_NO DESC       
     )n
 )
@@ -65,12 +69,10 @@ into mzym_notice(
 
 <!-- 
 	작성자 : 이예찬
-	"공지사항" 등록시 첨부파일 등록 쿼리문
-	카테고리 
-	원본명, 수정명, 경로 ,
-	후기부분에서만 FILE_LEVEL(이미지 구분) 사용 하기고 나머지는 null 넣으면 됩니다.
+	직접 dao에 제시하기로 함 
+	위치 => BoardDao클래스 (insertAttachment)
  -->
-<entry key="insertAttachment">
+<!-- <entry key="insertAttachment">
 insert 
 into attachment
 (
@@ -86,15 +88,28 @@ into attachment
 ) values (
     SEQ_ATTACHMENT.nextval
     , SEQ_NOTICENO.currval
-    , ? <!-- 카테고리 N,B,P -->
-    , ? <!-- 원본명 -->
-    , ? <!-- 수정명 -->
-    , ? <!-- 경로 -->
+    , ? 카테고리 N,B,P
+    , ? 원본명
+    , ? 수정명
+    , ? 경로
     , sysdate
-    , ? <!-- number타입 -->
+    , ? number타입
     , DEFAULT
 )
 
+</entry> -->
+
+<!-- 
+	작성자 : 이예찬
+	공지사항 수정시 쿼리 
+ -->
+<entry key="updateNotice">
+update mzym_Notice
+set notice_Title = ? <!-- 공지사항 제목 -->
+   , notice_content = ? <!-- 공지사항 내용 -->
+   , Edit_date = sysdate 
+   , notice_writer = ? <!-- 변경한 작성자 -->
+where notice_no = ? <!-- 해당 공지사항 -->
 </entry>
 
 
@@ -110,6 +125,17 @@ into attachment
 </entry>
 <!--  -->
 <entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	해당 글번호의 첨부파일이 수정 되었을때 
+ -->
+<entry key="updateAttachment">
+update attachment
+set origin_name = ?
+,    change_name= ?
+,    UPLORD_DATE = sysdate
+where att_no = ?
+</entry>
 <!--  -->
 <entry key=""></entry>
 <!--  -->
