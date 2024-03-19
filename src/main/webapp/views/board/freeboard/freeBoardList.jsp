@@ -40,6 +40,10 @@
             padding:50px;
             border-radius:10px;
         }
+        
+        .board_content table>tbody>tr{
+ 		cursor:pointer
+ 		}
 
         .search {
             position: relative;
@@ -118,7 +122,7 @@
             <% } %>
 
             <br>
-            <table class="table">
+            <table class="table" id="board_list">
                 <thead>
                     <tr>
                         <th>글번호</th>
@@ -148,7 +152,15 @@
                 <% } %>
                 </tbody>
             </table>
-
+            
+            <script>
+            $(function(){
+                $("#board_list>tbody>tr").click(function(){
+                	location.href = "<%=contextPath%>/freedetail.bo?no=" + $(this).children().eq(0).text();
+                })
+            })
+            </script>
+            
 				
             <br>
             

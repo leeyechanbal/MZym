@@ -211,6 +211,48 @@ public class BoardService {
 		close(conn);
 		return total;
 	}
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판 게시글 조회시 조회수 count 하는 메소드
+	 */
+	public int increaseFreeCount (int boardNo) {
+		Connection conn = getConnection();
+		
+		int result = dao.increaseFreeCount(conn, boardNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글 조회하는 메소드
+	 */
+	public Board selectFreeBoard(int boardNo) {
+		Connection conn = getConnection();
+		
+		Board b = dao.selectFreeBoard(conn, boardNo);
+		close(conn);
+		return b;
+		
+	}
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글의 첨부파일을 조회하는 메소드
+	 */
+	public Attachment selectFreeAttachment(int boardNo) {
+		Connection conn = getConnection();
+		
+		Attachment at = dao.selectFreeAttachment(conn, boardNo);
+		close(conn);
+		return at;
+	}
 
 	/**
 	 * @author 이예찬
