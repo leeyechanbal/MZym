@@ -9,6 +9,7 @@ import java.sql.Date;
 public class Board {
 	private int boardNo; // 글번호 
 	private int boardWriter; // 작성자 = 회원 맴버번호
+	private String boardMember; // 조인한 작성자 = 이름
 	private int boardType; // 게시글 카테고리
 	private String boardTitle; // 글 제목
 	private String boardContent; // 글 내용
@@ -36,6 +37,14 @@ public class Board {
 
 	public void setBoardWriter(int boardWriter) {
 		this.boardWriter = boardWriter;
+	}
+	
+	public String getBoardmember() {
+		return boardMember;
+	}
+
+	public void setBoardmember(String boardmember) {
+		this.boardMember = boardmember;
 	}
 
 	public int getBoardType() {
@@ -116,4 +125,15 @@ public class Board {
 		this.reviewRate = reviewRate;
 		this.count = count;
 	}
+
+	public Board(int boardNo, String boardTitle, String boardmember, int count, Date regist_Date) {
+		super();
+		this.boardNo = boardNo;
+		this.boardMember = boardMember;
+		this.boardTitle = boardTitle;
+		this.regist_Date = regist_Date;
+		this.count = count;
+	}
+
+	
 }
