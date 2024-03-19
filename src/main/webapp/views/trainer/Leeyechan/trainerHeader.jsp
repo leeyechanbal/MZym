@@ -32,7 +32,7 @@
                         <div class="boardClass"><a href="">운동 모임</a></div>
                     </div>
 
-                    <div id="counseling"><a href="<%=mzymPath%>/counseling.trainer?page=1">상담예약</a></div>
+                    <div id="counseling"><a href="<%=mzymPath%>/counseling.trainer?pageY=1&pageN=1">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
                     <div id="accusation"><a href="">신고</a></div>
                     <div class="suteOption" style="margin-top: 0;">

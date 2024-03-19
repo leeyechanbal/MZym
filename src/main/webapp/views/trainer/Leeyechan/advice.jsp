@@ -6,7 +6,7 @@
 
 %>  
   
-<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>  
+<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
