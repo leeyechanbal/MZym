@@ -30,7 +30,9 @@ public class CounselingManigment extends HttpServlet {
     }
 
 	/**
+	 * @author 이예차
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -49,6 +51,14 @@ public class CounselingManigment extends HttpServlet {
 		if(infoY != null && infoN != null) {
 			List<Advice> listY = new BoardService().selectAdvice(infoY, checkY);
 			List<Advice> listN = new BoardService().selectAdvice(infoN, checkN);
+			
+			
+			request.setAttribute("infoY", infoY);
+			request.setAttribute("infoN", infoN);
+			request.setAttribute("listY", listY);
+			request.setAttribute("listN", listN);
+			
+			request.getRequestDispatcher("/views/trainer/Leeyechan/advice.jsp").forward(request, response);
 		}
 		
 		

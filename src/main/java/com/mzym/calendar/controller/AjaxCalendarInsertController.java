@@ -14,7 +14,7 @@ import com.mzym.calendar.vo.Calendar;
 /**
  * Servlet implementation class CalendarInsertController
  */
-@WebServlet("/insert.cal")
+@WebServlet("/ajaxinsert.cal")
 public class AjaxCalendarInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

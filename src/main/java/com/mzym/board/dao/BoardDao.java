@@ -396,7 +396,6 @@ public class BoardDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -487,6 +486,9 @@ public class BoardDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		return result;
+	}
 
 	/**
 	 * @author 이예찬
@@ -518,6 +520,14 @@ public class BoardDao {
 		return result;
 	}
 
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param info
+	 * @param check
+	 * @return
+	 * check 값이 Y, N인지에 따라서 다른 조회문을 가져옴
+	 */
 	public List<Advice> selectAdvice(Connection conn, PageInfo info, String check) {
 		ResultSet rset = null;
 		PreparedStatement pst = null;
@@ -539,19 +549,22 @@ public class BoardDao {
 							, rset.getString("ADVICE_DATE")
 							, rset.getString("user_id")
 							, rset.getString("ADVICE_CONTENT")
-							, rset.getString("REGIST_DATE")
-							, rset.getString("a.status")
+							, rset.getString("ADVICE_REPEAT")
+							, rset.getString("REGIST_DATE") // NULL값이 존재함
+							, rset.getString("status")
 						));
 				
 			}
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
 		}
 		
-		
-		
 		return list;
+	}
 	
 	/**
 	 * @author 황수림

@@ -5,6 +5,8 @@ import java.sql.Date;
 /**
  * @author 이예찬
  *	상담문의 관련 데이터 관리 클래스
+ *	Y는 상담완료  보고서가 존재
+ *	N은 상담 대기 보고서가 null
  */
 public class Advice {
 	private int adviceNo;
@@ -13,13 +15,16 @@ public class Advice {
 	private String adviceName; // 상담자 이름
 	private String phone; // 핸드폰 번호
 	private String adviceDate; // 상담 신청 날짜
-	private String adviceContent; // 상단 내용
-	private Date regist; // 등록일
+	private String adviceContent; // 상담 내용
+	private String regist; // 등록일
 	private String repeat; // 보고서
-	private String status;
+	private String status; // y가 완료 된것 N이 완료가 안된 것
 	
 	// 조회에서 필요한 데이터들
 	private String trainerId; // 트레이너 아이디
+	private String categoryName;
+	
+	// 수정한 날짜가 없음
 	
 	
 	public Advice() {
@@ -27,7 +32,7 @@ public class Advice {
 	}
 
 	public Advice(int adviceNo, int categoryNo, int adviceTR, String adviceName, String phone, String adviceDate,
-			String adviceContent, Date regist, String repeat, String status) {
+			String adviceContent, String regist, String repeat, String status) {
 		super();
 		this.adviceNo = adviceNo;
 		this.categoryNo = categoryNo;
@@ -45,8 +50,50 @@ public class Advice {
 	
 	
 	
-	public Advice(int int1, String string, String string2, String string3, String string4, String string5,
-			String string6, String string7, String string8) {
+
+	/**
+	 * @author 이예찬
+	 * @param adviceNo
+	 * @param adviceName
+	 * @param phone
+	 * @param categoryName
+	 * @param adviceDate
+	 * @param trainerId
+	 * @param adviceContent
+	 * @param repeat
+	 * @param regist
+	 * @param status
+	 */
+	public Advice(int adviceNo, String adviceName, String phone,String categoryName, 
+						String adviceDate, String trainerId, String adviceContent,
+						String repeat, String regist, String status) {
+		super();
+		this.adviceNo = adviceNo;
+		this.adviceName = adviceName;
+		this.phone = phone;
+		this.adviceDate = adviceDate;
+		this.adviceContent = adviceContent;
+		this.regist = regist;
+		this.repeat = repeat;
+		this.status = status;
+		this.trainerId = trainerId;
+		this.categoryName = categoryName;
+	}
+
+	public String getTrainerId() {
+		return trainerId;
+	}
+
+	public void setTrainerId(String trainerId) {
+		this.trainerId = trainerId;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public int getAdviceNo() {
@@ -105,11 +152,11 @@ public class Advice {
 		this.adviceContent = adviceContent;
 	}
 
-	public Date getRegist() {
+	public String getRegist() {
 		return regist;
 	}
 
-	public void setRegist(Date regist) {
+	public void setRegist(String regist) {
 		this.regist = regist;
 	}
 
