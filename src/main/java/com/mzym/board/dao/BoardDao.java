@@ -16,6 +16,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
+import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Notice;
@@ -496,13 +497,14 @@ public class BoardDao {
 	 * @param conn
 	 * @return 상담게시물 총 갯수 조회
 	 */
-	public int selectCounselingCount(Connection conn) {
+	public int selectCounselingCount(Connection conn, String check) {
 		ResultSet rset = null;
 		PreparedStatement pst = null;
 		int result = 0;
 		
 		try {
 			pst = conn.prepareStatement(prop.getProperty("selectCounselingCount"));
+			pst.setString(1, check);
 			rset = pst.executeQuery();
 			
 			if(rset.next()) {
@@ -519,6 +521,41 @@ public class BoardDao {
 		
 		return result;
 	}
+
+	public List<Advice> selectAdvice(Connection conn, PageInfo info, String check) {
+		ResultSet rset = null;
+		PreparedStatement pst = null;
+		List<Advice> list = new ArrayList<>();
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectAdvice"));
+			pst.setString(1, check);
+			pst.setInt(2, info.getStartBoard());
+			pst.setInt(3, info.getEndBoard());
+			rset = pst.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Advice(
+							rset.getInt("ADVICE_NO")
+							, rset.getString("ADVICE_USER")
+							, rset.getString("PHONE_NO")
+							, rset.getString("CATEGORY_NAME")
+							, rset.getString("ADVICE_DATE")
+							, rset.getString("user_id")
+							, rset.getString("ADVICE_CONTENT")
+							, rset.getString("REGIST_DATE")
+							, rset.getString("a.status")
+						));
+				
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		return list;
 	
 	/**
 	 * @author 황수림

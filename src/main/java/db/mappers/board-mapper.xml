@@ -296,10 +296,38 @@ and ATT_CATEGORY = ?
 <entry key="selectCounselingCount">
 	select count(*)
 	from mzym_advice
-	where status = 'Y'
+	where status = ?
 </entry>
-<!--  -->
-<entry key=""></entry>
+
+
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 조회 후 데이터를 담아올 쿼리문
+ -->
+<entry key="selectAdvice">
+select *
+from(
+    select ROWNUM r , n.* 
+    from(
+        select
+            ADVICE_NO
+            , ADVICE_USER
+            , PHONE_NO
+            , CATEGORY_NAME
+            , ADVICE_DATE
+            , user_id
+            , ADVICE_CONTENT
+            , TO_CHAR(REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+            , a.status
+        from mzym_advice a
+        join service_category USING (CATEGORY_NO)
+        join mzym_member on (user_no = advice_tr)
+        where a.status = ? 
+        order by ADVICE_NO DESC 
+    )n
+)
+where r BETWEEN ? and ?
+</entry>
 <!--  -->
 <entry key=""></entry>
 <!--  -->

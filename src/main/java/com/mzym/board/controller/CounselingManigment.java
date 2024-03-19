@@ -1,6 +1,7 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Advice;
+import com.mzym.common.paging.PageHandler;
+import com.mzym.common.paging.PageInfo;
 
 /**
  * Servlet implementation class CounselingManigment
@@ -30,8 +34,24 @@ public class CounselingManigment extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int currantPage = Integer.parseInt(request.getParameter("page"));
-		int listCount = new BoardService().selectCounselingCount();
+		int currantPageY = Integer.parseInt(request.getParameter("pageY"));
+		int currantPageN = Integer.parseInt(request.getParameter("pageN"));
+		
+		String checkY = "Y";
+		String checkN = "N";
+		
+		int listCountY = new BoardService().selectCounselingCount(checkY);
+		int listCountN = new BoardService().selectCounselingCount(checkN);
+		
+		PageInfo infoY = new PageHandler().getPaging(listCountY, currantPageY, 10, 10);
+		PageInfo infoN = new PageHandler().getPaging(listCountN, currantPageN, 10, 10);
+		
+		if(infoY != null && infoN != null) {
+			List<Advice> listY = new BoardService().selectAdvice(infoY, checkY);
+			List<Advice> listN = new BoardService().selectAdvice(infoN, checkN);
+		}
+		
+		
 		
 		
 	}

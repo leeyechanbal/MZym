@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.mzym.board.dao.BoardDao;
+import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Notice;
@@ -257,13 +258,22 @@ public class BoardService {
 	 * @author 이예찬
 	 * @return 상담예약 게시판 갯수 반환
 	 */
-	public int selectCounselingCount() {
+	public int selectCounselingCount(String check) {
 		Connection conn = getConnection();
-		int result = dao.selectCounselingCount(conn);
+		int result = dao.selectCounselingCount(conn, check);
 		
 		close(conn);
 		
 		return result;
+	}
+
+	public List<Advice> selectAdvice(PageInfo info, String check) {
+		Connection conn = getConnection();
+		List<Advice> list  = dao.selectAdvice(conn, info, check);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }
