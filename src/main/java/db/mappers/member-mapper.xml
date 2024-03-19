@@ -39,23 +39,6 @@
 	 WHERE USER_ID = ?
 </entry>
 
-<entry key="selectMyPage">
-	SELECT 
-		   USER_NO
-		 , USER_ID
-		 , USER_PWD
-		 , USER_NAME
-		 , PHONE
-		 , RRN
-		 , EMAIL
-		 , ADDRESS
-		 , ENROLL_DATE
-		 , MODIFY_DATE
-		 , STATUS
-	  FROM MZYM_MEMBER
-	 WHERE USER_ID = ?
-</entry>
-
 <entry key="updateMyPage">
 	UPDATE
 	       MZYM_MEMBER
@@ -91,23 +74,32 @@
 </entry>
 
 <entry key="selectList">
-	SELECT ROWNUM RNUM, A.*
+		SELECT *
+		  FROM (
+				SELECT ROWNUM RNUM, A.*
 				  FROM (
 						SELECT 
 	                          TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') PAYMENT_DATE
 						     , RPODUCT_NAME
 						     , PAYMENT_PRICE
-						  FROM PAYMENT A
+						  FROM PAYMENT 
 						  JOIN PRODUCT USING (PRODUCT_NO)
 	                     WHERE PAYMENT_USER = ?
 						 ORDER
 						 	BY PAYMENT_DATE DESC
-				 		) A;
+				 		) A
 			)
 	 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
-
+<entry key="selectInbody">
+	SELECT BODY_HEIGHT
+		 , BODY_WEIGHT
+		 , BODY_FAT
+		 , REGIST_DATE
+	  FROM INBODY
+	 WHERE USER_NO = ?
+</entry>
 
 
 
