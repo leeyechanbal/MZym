@@ -340,6 +340,12 @@ public class BoardDao {
 		return result;
 	}
 
+	/**
+	 * @author 이예찬
+	 * @param n
+	 * @param conn
+	 * @return
+	 */
 	public int insertNumAttachment(Notice n, Connection conn) {
 		PreparedStatement pst = null;
 		int result = 0;

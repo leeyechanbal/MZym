@@ -16,6 +16,9 @@ from(
             , NOTICE_TITLE
             , NOTICE_CONTENT
             , TO_CHAR(n.REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+            , origin_name
+            , change_name
+            , file_path
         from MZYM_NOTICE n
         join mzym_member on (user_no = notice_writer)
         left join attachment a 
