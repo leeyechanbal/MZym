@@ -38,7 +38,6 @@ public class MyPageUpdateController extends HttpServlet {
 		String email = request.getParameter("newEmail");
 		String address = request.getParameter("newAddress");
 		
-		
 		HttpSession session = request.getSession();
 	    Member loginUser = (Member)session.getAttribute("loginUser");
 	    String userId = loginUser.getUserId();
@@ -51,7 +50,8 @@ public class MyPageUpdateController extends HttpServlet {
 			session.setAttribute("alertMsg", "회원정보 변경에 실패했습니다.");
 			
 		}else {
-			session.setAttribute("updateMem", updateMem);
+			session.setAttribute("alertMsg", "성공적으로 회원정보 변경되었습니다.");
+			session.setAttribute("loginUser", updateMem);
 		}
 		response.sendRedirect(request.getContextPath() + "/myPage.me");
 	}
