@@ -37,21 +37,23 @@ margin-left: 280px;
 margin-top: 60px;
 }
 
-/*페이징 style*/
-.page-link{
-    color: black;
+/*페이징 style*/ 
+
+
+.my.pagination > .active > a, 
+.my.pagination > .active > span, 
+.my.pagination > .active > a:hover, 
+.my.pagination > .active > span:hover, 
+.my.pagination > .active > a:focus, 
+.my.pagination > .active > span:focus {
+   background: #1abc9c;
+   border-color: #1abc9c;
+}
+        
+.page-item a.page-link {
+   color: #1abc9c;
 }
 
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color:#1ABC9C;
-    border-color:#1ABC9C;
-}
-
-.pagination{
-    margin-top: 40px;
-}
 </style>
 </head>
 <body>

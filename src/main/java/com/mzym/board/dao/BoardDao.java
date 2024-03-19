@@ -421,17 +421,18 @@ public class BoardDao {
 		}
 		
 		return result;
+}
 
 	public int deletedNotice(Connection conn, int num) {
 		int result = 0;
 		PreparedStatement pst = null;
 		
 		try {
-			pst = conn.prepareStatement("deletedNotice");
+			System.out.println(num);
+			pst = conn.prepareStatement(prop.getProperty("deletedNotice"));
 			pst.setInt(1, num);
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}finally {
 			close(pst);
@@ -447,9 +448,51 @@ public class BoardDao {
 	 * @return 
 	 * 첨부파일의 상태를 'N'으로 변경하는 매서드
 	 */
-	public int deletedAttachment(Connection conn, int num) {
+	public int deletedAttachment(Connection conn, int num, String type) {
+		int result = 0;
+		PreparedStatement pst = null;
 		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("deletedAttachment"));
+			pst.setInt(1, num);
+			pst.setString(2, type);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
 		
-		return 0;
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @return 상담게시물 총 갯수 조회
+	 */
+	public int selectCounselingCount(Connection conn) {
+		ResultSet rset = null;
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectCounselingCount"));
+			rset = pst.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("count(*)");
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
+		}
+		
+		return result;
 	}
 }

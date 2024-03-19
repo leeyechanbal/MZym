@@ -13,6 +13,7 @@ import com.mzym.member.model.vo.Member;
 import com.mzym.mypage.model.dao.MyPageDao;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
+import com.mzym.mypage.model.vo.Product;
 
 public class MyPageService {
 
@@ -75,9 +76,9 @@ public class MyPageService {
 	}
 	
 	
-	public int selectListCount() {
+	public int selectListCount(int paymentUser) {
 		Connection conn = getConnection();
-		int listCount = myDao.selectListCount(conn);
+		int listCount = myDao.selectListCount(conn, paymentUser);
 		close(conn);
 		return listCount;
 	}
@@ -94,6 +95,13 @@ public class MyPageService {
 		Inbody body = myDao.selectInbody(conn, userNo);
 		close(conn);
 		return body;
+	}
+	
+	public Payment selectPayment(int userNo) {
+		Connection conn = getConnection();
+		Payment pay = myDao.selectPayment(conn, userNo);
+		close(conn);
+		return pay;
 	}
 	
 	

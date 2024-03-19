@@ -43,7 +43,11 @@ public class MyPagePurchaseController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		listCount = new MyPageService().selectListCount();
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int paymentUser = loginUser.getUserNo();
+		
+		listCount = new MyPageService().selectListCount(paymentUser);
 	      try {
 	          currentPage = Integer.parseInt(request.getParameter("page"));
 	      } catch (NumberFormatException e) {
@@ -61,10 +65,6 @@ public class MyPagePurchaseController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
-	    
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		int paymentUser = loginUser.getUserNo();
 		
 		List<Payment>list = new MyPageService().selectList(pi, paymentUser);
 		

@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>MZYM 로그인</title>
 
 <!-- 스타일 -->
  <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
@@ -285,13 +285,13 @@
                     <div class="login_search">
                         
                         <div class="login_search_id" style="margin: auto; margin-top: 5%; font-size: larger">
-                            <a href="">아이디 찾기</a>
+                            <a href="<%=contextPath %>/findIdForm.me">아이디 찾기</a>
                         </div>
                         <div class="login_search_center" style="margin: auto; margin-top: 5%; font-size: larger;">
                             |
                         </div>
                         <div class="login_search_pwd" style="margin: auto; margin-top: 5%; font-size: larger">
-                            <a href="">비밀번호 찾기</a>
+                            <a href="<%=contextPath %>/findPwdForm.me">비밀번호 찾기</a>
                         </div>
                     </div>
                     <hr>
