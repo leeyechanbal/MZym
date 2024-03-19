@@ -1,11 +1,14 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mzym.board.service.BoardService;
 
 /**
  * Servlet implementation class CounselingManigment
@@ -28,7 +31,7 @@ public class CounselingManigment extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int currantPage = Integer.parseInt(request.getParameter("page"));
-		int listCount = new BoardService().selectCounselingCount()
+		int listCount = new BoardService().selectCounselingCount();
 		
 		
 	}

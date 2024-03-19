@@ -466,4 +466,33 @@ public class BoardDao {
 		
 		return result;
 	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @return 상담게시물 총 갯수 조회
+	 */
+	public int selectCounselingCount(Connection conn) {
+		ResultSet rset = null;
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectCounselingCount"));
+			rset = pst.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("count(*)");
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
+		}
+		
+		return result;
+	}
 }

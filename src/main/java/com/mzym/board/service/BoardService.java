@@ -213,11 +213,15 @@ public class BoardService {
 
 	/**
 	 * @author 이예찬
-	 * @return
+	 * @return 상담예약 게시판 갯수 반환
 	 */
 	public int selectCounselingCount() {
+		Connection conn = getConnection();
+		int result = dao.selectCounselingCount(conn);
 		
-		return 0;
+		close(conn);
+		
+		return result;
 	}
 
 }
