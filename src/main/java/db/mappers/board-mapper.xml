@@ -21,9 +21,12 @@ from(
             , file_path
         from MZYM_NOTICE n
         join mzym_member on (user_no = notice_writer)
-        left join attachment a on (att_no = notice_no)
+        left join attachment a 
+        on (a.status = 'Y' 
+        and ATT_CATEGORY ='N' 
+        and a.att_no = n.notice_no)
         where n.status = 'Y' 
-        order by NOTICE_NO DESC       
+        order by NOTICE_NO DESC 
     )n
 )
 where r BETWEEN ? and ?
@@ -72,7 +75,7 @@ into mzym_notice(
 	직접 dao에 제시하기로 함 
 	위치 => BoardDao클래스 (insertAttachment)
  -->
-<!-- <entry key="insertAttachment">
+<entry key="insertNumAttachment">
 insert 
 into attachment
 (
@@ -87,17 +90,17 @@ into attachment
     , STATUS
 ) values (
     SEQ_ATTACHMENT.nextval
-    , SEQ_NOTICENO.currval
-    , ? 카테고리 N,B,P
-    , ? 원본명
-    , ? 수정명
-    , ? 경로
+    , ?
+    , ? 
+    , ? 
+    , ? 
+    , ? 
     , sysdate
-    , ? number타입
+    , ? 
     , DEFAULT
 )
 
-</entry> -->
+</entry>
 
 <!-- 
 	작성자 : 이예찬
@@ -123,8 +126,6 @@ where notice_no = ? <!-- 해당 공지사항 -->
 	WHERE	BOARD_TYPE = 1
 	AND		STATUS = 'Y';
 </entry>
-<!--  -->
-<entry key=""></entry>
 <!-- 
 	작성자 : 이예찬
 	해당 글번호의 첨부파일이 수정 되었을때 
@@ -136,6 +137,10 @@ set origin_name = ?
 ,    UPLORD_DATE = sysdate
 where att_no = ?
 </entry>
+
+<!--  -->
+<entry key=""></entry>
+
 <!--  -->
 <entry key=""></entry>
 <!--  -->

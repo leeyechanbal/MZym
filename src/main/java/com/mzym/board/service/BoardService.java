@@ -110,7 +110,8 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int outcome = dao.updateNotice(conn, n);
-		int result = 0;
+		System.out.println("outcome" + outcome);
+		int result = 1;
 		
 		/*
 		 *	원래 파일이 있고 첨부파일 수정 하면 => update
@@ -118,15 +119,26 @@ public class BoardService {
 		 *	원래 파일이 없어 첨부파일 수정 x => x 
 		 */
 		
-		if(n.getAtt().isCheckedFile()) {
-			if (n.getAtt().getOriginName() != null) {
-				dao.updateAttachment(conn, n);
-			} else {
-				dao.insertAttachment(conn, n);
-			}
-		} 		
 		
-		return result;
+		if (n.getAtt().getOriginName() != null) {
+			if(n.getAtt().isCheckedFile()) {
+				result = dao.updateAttachment(conn, n);
+				
+			} else {
+				result = dao.insertNumAttachment(n, conn);	
+				
+			}
+		}
+		
+		
+		int totalresult =  outcome * result;
+		if(totalresult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return totalresult;
 	}
 
 }

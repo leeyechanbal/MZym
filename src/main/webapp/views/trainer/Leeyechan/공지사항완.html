@@ -136,6 +136,13 @@
                     </form>
                     
                     <script>
+                        $(function(){
+                            $("#boardcontent tr").click(function(){
+                                console.log($(this).eq(0));
+                                console.log($(this));
+                            })
+                        })
+
                         function pictureFile(index){
                             $(".picture"+index).click();
                         }

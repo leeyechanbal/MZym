@@ -38,12 +38,6 @@ public class BoardDao {
 		}
 		
 	}
-
-	/*
-	 * selectNotice(Connection conn)은 
-	 * 페이징 처리가 된 후에 게시물을 보이게 되서
-	 * 사용할 일이 없어 졌습니다.
-	*/
 	
 	/**
 	 * @author 이예찬
@@ -105,29 +99,7 @@ public class BoardDao {
 						, (originName != null) ? 
 								new Attachment(originName, rset.getString("change_name"), rset.getString("file_path")) 
 								: null
-						));
-				
-				
-//				if (originName != null) {
-//					list.add(new Notice(
-//								rset.getInt("NOTICE_NO")
-//								, rset.getString("USER_ID")
-//								, rset.getString("NOTICE_TITLE")
-//								, rset.getString("NOTICE_CONTENT")
-//								, rset.getString("REGIST_DATE")
-//								, new Attachment(originName, rset.getString("change_name"), rset.getString("file_path"))
-//							));
-//				} else {
-//					list.add(new Notice(
-//							rset.getInt("NOTICE_NO")
-//							, rset.getString("USER_ID")
-//							, rset.getString("NOTICE_TITLE")
-//							, rset.getString("NOTICE_CONTENT")
-//							, rset.getString("REGIST_DATE")
-//						));
-//				}
-				
-				
+						));				
 				
 			}
 			
@@ -184,7 +156,6 @@ public class BoardDao {
 		
 		String type = null;
 		String seq = null;
-//		int boardNum = 0;
 		Attachment att = null;
 		
 		
@@ -193,19 +164,6 @@ public class BoardDao {
 			seq = "SEQ_NOTICENO.currval";
 			att = ((Notice) obj).getAtt();
 		}
-		
-		
-//		if (option == 0) {
-//			if (obj instanceof Notice) {
-//				type = "N";
-//				seq = "SEQ_NOTICENO.currval";
-//				att = ((Notice) obj).getAtt();
-//			}
-//		} else {
-//			if (obj instanceof Notice) {
-//				boardNum = ((Notice) obj).getNoticeNo();
-//			}
-//		}
 		
 		String sql = "insert"
 				+ " into attachment"
@@ -241,7 +199,6 @@ public class BoardDao {
 			// pt후기에서 바꿀 수 있음
 			pst.setNull(5, java.sql.Types.NULL); 
 			//자바에서 null값을 쿼리문에 전달하는 방법
-			System.out.println(sql);
 			
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -281,6 +238,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return listCount;
+	}
 
 	/**
 	 * @author 이예찬
@@ -292,7 +250,6 @@ public class BoardDao {
 	public int updateNotice(Connection conn, Notice n) {
 		PreparedStatement pst = null;
 		int result = 0;
-		Attachment at = n.getAtt();
 		
 		try {
 			pst = conn.prepareStatement(prop.getProperty("updateNotice"));
@@ -318,7 +275,7 @@ public class BoardDao {
 	 * @param n
 	 * 첨부파일을 재 설정 하는 매서드
 	 */
-	public void updateAttachment(Connection conn, Notice n) {
+	public int updateAttachment(Connection conn, Notice n) {
 		PreparedStatement pst = null;
 		int result = 0;
 		Attachment att = n.getAtt();
@@ -326,7 +283,7 @@ public class BoardDao {
 			pst = conn.prepareStatement(prop.getProperty("updateAttachment"));
 			pst.setString(1, att.getOriginName());
 			pst.setString(2, att.getChangeName());
-			pst.setInt(3, att.getAttNo());
+			pst.setInt(3, n.getNoticeNo());
 
 			result = pst.executeUpdate();
 			
@@ -337,6 +294,33 @@ public class BoardDao {
 			close(pst);
 		}
 		
+		return result;
+	}
+
+	public int insertNumAttachment(Notice n, Connection conn) {
+		PreparedStatement pst = null;
+		int result = 0;
+		Attachment att = n.getAtt();
 		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("insertNumAttachment"));
+			pst.setInt(1, n.getNoticeNo());
+			pst.setString(2, "N");
+			pst.setString(3, att.getOriginName());
+			pst.setString(4, att.getChangeName());
+			pst.setString(5, att.getFilePath());
+			
+			// pt후기에서 바꿀 수 있음
+			pst.setNull(6, java.sql.Types.NULL); 
+			//자바에서 null값을 쿼리문에 전달하는 방법
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		return result;
 	}
 }

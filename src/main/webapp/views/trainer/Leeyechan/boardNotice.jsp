@@ -107,27 +107,31 @@
 						String originName = nChecked ?  null : att.getOriginName();
 					%>
 					<!-- 추후 세션값에서 &noticeWriter=로그인된 트레이너아이돌 바꿀꺼임 -->
-                    <form action="<%=mzymPath%>/updateNotice.trainer" method="post" enctype="multipart/form-data">
                         <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
-                            <td class="table-number" name="noticeNo"><%=list.get(i).getNoticeNo()%></td>
-                            <td class="table-title" name="noticeTitle"><%=list.get(i).getTitle()%></td>
-                            <td name="noticeWriter"><%=list.get(i).getWriterName()%></td>
-                            <td name="noticeRegist"><%=list.get(i).getRegistDate()%></td>
+                            <td class="table-number"><%=list.get(i).getNoticeNo()%></td>
+                            <td class="table-title"><%=list.get(i).getTitle()%></td>
+                            <td><%=list.get(i).getWriterName()%></td>
+                            <td><%=list.get(i).getRegistDate()%></td>
                         </tr>
+
 
                         <tr id="context<%=i%>" class="collapse">
                             <td colspan="5">
+                   				<form action="<%=mzymPath%>/updateNotice.trainer" method="post" enctype="multipart/form-data">
                                 <div>
-                                    <p class="border" style="padding: 10px;" name="noticeContent"><%=list.get(i).getContent()%></p>
+                                    <textarea class="border" style="padding: 10px;" name="noticeContent"><%=list.get(i).getContent()%></textarea>
                                     <div class="formOut">
                                     	<div class="file">
                                     	<% if(nChecked) { %>
                                          	<div>다운로드: "현재 첨부파일이 없습니다."</div>
+                                         	
                                          <%} else { %>
                                             <div>다운로드: <a download="<%=originName%>" href="<%=mzymPath + "/" + att.getFilePath() + att.getChangeName()%>"><%=originName%></a></div>
-                                            <input type="hidden" name="wasOriginName" value="<%=att.getOriginName()%>">
+                                           	<input type="hidden" name="wasOriginName" value="<%=att.getOriginName()%>">
                                             <input type="hidden" name="wasChangeName" value="<%=att.getChangeName()%>">
                                          <%} %>
+                                          	<input type="hidden" name="noticeNo" value="<%=list.get(i).getNoticeNo()%>">
+                                            <input type="hidden" name="noticeTitle" value="<%=list.get(i).getTitle()%>">
                                          	<div>수정: <input type="file" name="file"></div>
                                         </div>
                                         <div style="align-self: self-end;">
@@ -135,9 +139,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </td>
                         </tr>
-                    </form>
                     <%} %>
 
 
@@ -198,7 +202,13 @@
         </tfoot>
         <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
    </table>
-	
+	<Script>
+        $(function(){
+            $("#boardcontent tr").click(function(){
+                console.log(window.event.target);
+            })
+        })
+    </Script>
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
     <div class="modal-dialog">
