@@ -6,8 +6,6 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	List<Board> list = (List<Board>)request.getAttribute("list");
-	
-	System.out.println(pi);
 %>    
     
     
@@ -141,7 +139,7 @@
                     <tr>
                         <td><%= b.getBoardNo() %></td>
                         <td><%= b.getBoardTitle() %></td>
-                        <td><%= b.getBoardmember() %></td>
+                        <td><%= b.getBoardMember() %></td>
                         <td><%= b.getCount() %></td>
                         <td><%= b.getRegist_Date() %></td>
                     </tr>
