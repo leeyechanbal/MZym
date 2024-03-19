@@ -57,7 +57,7 @@
              font-size: 14px;
         }
 
-        img {
+        .icon {
              position : absolute;
              width: 17px;
              top: 10px;
@@ -110,7 +110,7 @@
 
             <div class="search">
                 <input type="text" placeholder="검색어를 입력하세요">
-                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <img class="icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
 
             <div align="right">
