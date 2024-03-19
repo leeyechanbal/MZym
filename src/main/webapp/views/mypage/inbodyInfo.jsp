@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.mypage.model.vo.Inbody" %>
+<%
+	int age = (int)request.getAttribute("age");
+	String gender = (String)request.getAttribute("gender");
+	Inbody body = (Inbody)request.getAttribute("body");
+	double bmi = (double)request.getAttribute("bmi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,18 +66,18 @@
 	            <br>
 	
 	            <div class="inbody_list">
-	                <p>신장<span class="list_etc">170cm</span></p>
-	                <p>나이<sppn class="list_etc">24</sppn></p>
-	                <p>성별<span class="list_etc">여성</span></p>
+	                <p>신장<span class="list_etc" name="height"><%=body.getBodyHeight()%></span></p>
+	                <p>나이<span class="list_etc" name="age"><%=age%></span></p>
+	                <p>성별<span class="list_etc" name="gender"><%=gender%></span></p>
 	            </div>
 	            <br>
 	
 	            <hr>
 	            <br>
 	            <div class="inbody_list">
-	                <p>체중(kg)<span class="list_etc2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60(kg)</span></p>
-	                <p>체지방량(kg)<span class="list_etc2">35.9(kg)</span></p>
-	                <p>BMI(kg/m2)<span class="list_etc3">170</span></p>
+	                <p>체중(kg)<span class="list_etc2" name="weight">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=body.getBodyWeight()%>(kg)</span></p>
+	                <p>체지방량(kg)<span class="list_etc2" name="fat"><%=body.getBodyFat()%>(kg)</span></p>
+	                <p>BMI(kg/m2)<span class="list_etc3" name="bmi"><%=bmi %></span></p>
 	            </div>
 	            
 	         </form>

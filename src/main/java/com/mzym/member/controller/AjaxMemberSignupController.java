@@ -1,4 +1,4 @@
-package com.mzym.mypage.controller;
+package com.mzym.member.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mzym.member.model.service.MemberService;
 import com.mzym.member.model.vo.Member;
-import com.mzym.mypage.model.service.MyPageService;
 
 /**
- * Servlet implementation class MyPageUpdatePwdController
+ * Servlet implementation class MemberSignupController
  */
-@WebServlet("/updatePwd.me")
-public class MyPageUpdatePwdController extends HttpServlet {
+@WebServlet("/signup.me")
+public class AjaxMemberSignupController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageUpdatePwdController() {
+    public AjaxMemberSignupController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +31,24 @@ public class MyPageUpdatePwdController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
-		
+		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		String newPwd = request.getParameter("newPwd");
+		String userName = request.getParameter("userName");
+		String phone = request.getParameter("phone");
+		String rRN = request.getParameter("rRN");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
 		
-		HttpSession session = request.getSession();
-	    Member loginUser = (Member)session.getAttribute("loginUser");
-	    String userId = loginUser.getUserId();
 		
-	    Member updateMem = new MyPageService().updatePwdMember(userId, userPwd, newPwd);
-	    
-	    if(updateMem == null) {
-	    	session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
-	    }else {
+		
+		Member m = new Member(userId, userPwd, userName, phone, rRN, email, address);
 
-    	  session.setAttribute("loginUser", updateMem);
-    	  session.setAttribute("alertMsg", "성공적으로 비밀번호 변경되었습니다.");
-	    }
-	    response.sendRedirect(request.getContextPath() + "/myPage.me");
+		
+		int result = new MemberService().insertMember(m);
+		
+		response.getWriter().print(result);
 	}
 
 	/**

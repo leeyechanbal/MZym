@@ -1,6 +1,8 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Board;
 import com.mzym.common.paging.PageInfo;
 
 /**
@@ -39,8 +42,12 @@ public class FreeBoardListController extends HttpServlet {
 		int endPage;		// 사용자가 요청한 페이지 하단에 보여질 페이징바의 수
 		
 		listCount = new BoardService().selectFreeListCount();
-		currentPage = Integer.parseInt(request.getParameter("page"));
-		pagingLimit = 10;
+		try {
+	          currentPage = Integer.parseInt(request.getParameter("page"));
+	      } catch (NumberFormatException e) {
+	          currentPage = 1;
+	      }
+		pagingLimit = 5;
 		boardLimit = 10;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -53,8 +60,12 @@ public class FreeBoardListController extends HttpServlet {
 		// 페이징바 데이터 객체
 		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
 		
-		System.out.println(pi);
-		// 요청된 페이지의 게시글 목록 
+		List<Board> list = new BoardService().selectFreeList(pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher("/views/board/freeboard/freeBoardList.jsp").forward(request, response);
 		
 	}
 

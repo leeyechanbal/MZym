@@ -7,12 +7,13 @@ import java.sql.Date;
  *	게시글 정보관리 클래스
  */
 public class Board {
-	private int baordNo; // 글번호
-	private int baordWriter; // 작성자 = 회원 맴버번호
-	private int baordType; // 게시글 카테고리
-	private String baordTiltle; // 글 제목
-	private String baordcontent; // 글 내용
-	private Date registDate; // 등록일
+	private int boardNo; // 글번호 
+	private int boardWriter; // 작성자 = 회원 맴버번호
+	private String boardMember; // 조인한 작성자 = 이름
+	private int boardType; // 게시글 카테고리
+	private String boardTitle; // 글 제목
+	private String boardContent; // 글 내용
+	private Date regist_Date; // 등록일
 	private Date modify_date; // 수정일
 	private String status; 
 	private int reviewRate; // null 0 
@@ -22,67 +23,60 @@ public class Board {
 		super();
 	}
 
-	public Board(int baordNo, int baordWriter, int baordType, String baordTiltle, String baordcontent, Date registDate,
-			Date modify_date, String status, int reviewRate, int count) {
-		super();
-		this.baordNo = baordNo;
-		this.baordWriter = baordWriter;
-		this.baordType = baordType;
-		this.baordTiltle = baordTiltle;
-		this.baordcontent = baordcontent;
-		this.registDate = registDate;
-		this.modify_date = modify_date;
-		this.status = status;
-		this.reviewRate = reviewRate;
-		this.count = count;
+	public int getBoardNo() {
+		return boardNo;
 	}
 
-	public int getBaordNo() {
-		return baordNo;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
-	public void setBaordNo(int baordNo) {
-		this.baordNo = baordNo;
+	public int getBoardWriter() {
+		return boardWriter;
 	}
 
-	public int getBaordWriter() {
-		return baordWriter;
+	public void setBoardWriter(int boardWriter) {
+		this.boardWriter = boardWriter;
+	}
+	
+	public String getBoardMember() {
+		return boardMember;
 	}
 
-	public void setBaordWriter(int baordWriter) {
-		this.baordWriter = baordWriter;
+	public void setBoardMember(String boardmember) {
+		this.boardMember = boardmember;
 	}
 
-	public int getBaordType() {
-		return baordType;
+	public int getBoardType() {
+		return boardType;
 	}
 
-	public void setBaordType(int baordType) {
-		this.baordType = baordType;
+	public void setBoardType(int boardType) {
+		this.boardType = boardType;
 	}
 
-	public String getBaordTiltle() {
-		return baordTiltle;
+	public String getBoardTitle() {
+		return boardTitle;
 	}
 
-	public void setBaordTiltle(String baordTiltle) {
-		this.baordTiltle = baordTiltle;
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
 
-	public String getBaordcontent() {
-		return baordcontent;
+	public String getBoardContent() {
+		return boardContent;
 	}
 
-	public void setBaordcontent(String baordcontent) {
-		this.baordcontent = baordcontent;
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
 	}
 
-	public Date getRegistDate() {
-		return registDate;
+	public Date getRegist_Date() {
+		return regist_Date;
 	}
 
-	public void setRegistDate(Date registDate) {
-		this.registDate = registDate;
+	public void setRegist_Date(Date regist_Date) {
+		this.regist_Date = regist_Date;
 	}
 
 	public Date getModify_date() {
@@ -117,17 +111,29 @@ public class Board {
 		this.count = count;
 	}
 
-	@Override
-	public String toString() {
-		return "Baord [baordNo=" + baordNo + ", baordWriter=" + baordWriter + ", baordType=" + baordType
-				+ ", baordTiltle=" + baordTiltle + ", baordcontent=" + baordcontent + ", registDate=" + registDate
-				+ ", modify_date=" + modify_date + ", status=" + status + ", reviewRate=" + reviewRate + ", count="
-				+ count + "]";
+	public Board(int boardNo, int boardWriter, int boardType, String boardTitle, String boardContent, Date regist_Date,
+			Date modify_date, String status, int reviewRate, int count) {
+		super();
+		this.boardNo = boardNo;
+		this.boardWriter = boardWriter;
+		this.boardType = boardType;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.regist_Date = regist_Date;
+		this.modify_date = modify_date;
+		this.status = status;
+		this.reviewRate = reviewRate;
+		this.count = count;
 	}
-	
-	
-	
-	
-	
+
+	public Board(int boardNo, String boardTitle, String boardMember, int count, Date regist_Date) {
+		super();
+		this.boardNo = boardNo;
+		this.boardMember = boardMember;
+		this.boardTitle = boardTitle;
+		this.regist_Date = regist_Date;
+		this.count = count;
+	}
+
 	
 }

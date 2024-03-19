@@ -4,22 +4,34 @@ import java.sql.Date;
 
 public class Inbody {
 	
+	/**
+	 * @author 손수현
+	 */
+	
 	private int userNo;
 	private int bodyHeight;
 	private int bodyWeight;
 	private int badyMetabolism;
-	private int body_fat;
+	private int bodyFat;
 	private Date registDate;
 	
 	public Inbody() {}
 
-	public Inbody(int userNo, int bodyHeight, int bodyWeight, int badyMetabolism, int body_fat, Date registDate) {
+	public Inbody(int userNo, int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat, Date registDate) {
 		super();
 		this.userNo = userNo;
 		this.bodyHeight = bodyHeight;
 		this.bodyWeight = bodyWeight;
 		this.badyMetabolism = badyMetabolism;
-		this.body_fat = body_fat;
+		this.bodyFat = bodyFat;
+		this.registDate = registDate;
+	}
+
+	public Inbody(int bodyHeight, int bodyWeight, int bodyFat, Date registDate) {
+		super();
+		this.bodyHeight = bodyHeight;
+		this.bodyWeight = bodyWeight;
+		this.bodyFat = bodyFat;
 		this.registDate = registDate;
 	}
 
@@ -55,12 +67,12 @@ public class Inbody {
 		this.badyMetabolism = badyMetabolism;
 	}
 
-	public int getBody_fat() {
-		return body_fat;
+	public int getBodyFat() {
+		return bodyFat;
 	}
 
-	public void setBody_fat(int body_fat) {
-		this.body_fat = body_fat;
+	public void setBodyFat(int bodyFat) {
+		this.bodyFat = bodyFat;
 	}
 
 	public Date getRegistDate() {
@@ -74,8 +86,10 @@ public class Inbody {
 	@Override
 	public String toString() {
 		return "Inbody [userNo=" + userNo + ", bodyHeight=" + bodyHeight + ", bodyWeight=" + bodyWeight
-				+ ", badyMetabolism=" + badyMetabolism + ", body_fat=" + body_fat + ", registDate=" + registDate + "]";
+				+ ", badyMetabolism=" + badyMetabolism + ", bodyFat=" + bodyFat + ", registDate=" + registDate + "]";
 	}
+
+	
 	
 	
 	

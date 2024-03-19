@@ -16,9 +16,6 @@ from(
             , NOTICE_TITLE
             , NOTICE_CONTENT
             , TO_CHAR(n.REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
-            , origin_name
-            , change_name
-            , file_path
         from MZYM_NOTICE n
         join mzym_member on (user_no = notice_writer)
         left join attachment a 
@@ -72,8 +69,10 @@ into mzym_notice(
 
 <!-- 
 	작성자 : 이예찬
-	직접 dao에 제시하기로 함 
-	위치 => BoardDao클래스 (insertAttachment)
+	"공지사항" 등록시 첨부파일 등록 쿼리문
+	카테고리 
+	원본명, 수정명, 경로 ,
+	후기부분에서만 FILE_LEVEL(이미지 구분) 사용 하기고 나머지는 null 넣으면 됩니다.
  -->
 <entry key="insertNumAttachment">
 insert 
@@ -124,7 +123,7 @@ where notice_no = ? <!-- 해당 공지사항 -->
 	SELECT	COUNT(*) COUNT
 	FROM	MZYM_BOARD
 	WHERE	BOARD_TYPE = 1
-	AND		STATUS = 'Y';
+	AND		STATUS = 'Y'
 </entry>
 <!-- 
 	작성자 : 이예찬
@@ -136,6 +135,33 @@ set origin_name = ?
 ,    change_name= ?
 ,    UPLORD_DATE = sysdate
 where att_no = ?
+
+
+<!-- 작성자 : 황수림 -->
+<entry key="selectFreeList">
+	SELECT *
+	    FROM (
+	            SELECT ROWNUM RNUM, A.*
+	                FROM (
+	                        SELECT
+	                            BOARD_NO
+	                            , BOARD_TITLE
+	                            , USER_NAME
+	                            , COUNT
+	                            , REGIST_DATE
+	                        FROM
+	                            MZYM_BOARD B
+	                        JOIN
+	                            MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+	                        WHERE
+	                            BOARD_TYPE = 1
+	                        AND
+	                            B.STATUS = 'Y'
+	                        ORDER
+	                            BY BOARD_NO DESC
+	                    ) A
+	        )
+	WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <!--  -->

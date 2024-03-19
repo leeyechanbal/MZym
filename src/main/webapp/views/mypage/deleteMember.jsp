@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.mzym.member.vo.Member" %>
+<%@ page import="com.mzym.member.model.vo.Member" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,6 +75,7 @@
 	            <hr>
 	            <p style="color: #9e9e9e; font-size: small;">회원 탈퇴를 하기 전 안내사항을 꼭 확인해주세요</p>
 	            <p style="font-weight: bold;">사용하고 계신 아이디(user 01)는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</p>
+	             <input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
 	            <input type="password" class="form-control" name="userPwd" placeholder="비밀번호입력">
 	            <table class="btn_area">
 	                <tr>

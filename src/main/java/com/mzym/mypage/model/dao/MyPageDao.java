@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
 
 public class MyPageDao {
@@ -32,14 +33,13 @@ public class MyPageDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMyPage");
-		
+		System.out.println(m.getPhone());
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getPhone());
 			pstmt.setString(2, m.getEmail());
 			pstmt.setString(3, m.getAddress());
 			pstmt.setString(4, m.getUserId());
-			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -150,7 +150,7 @@ public class MyPageDao {
 		return listCount;
 	}
 	
-	public List<Payment> selectList(Connection conn, PageInfo pi, int productNo, int paymentUser){
+	public List<Payment> selectList(Connection conn, PageInfo pi, int paymentUser){
 		
 		List<Payment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -163,17 +163,16 @@ public class MyPageDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, productNo);
-			pstmt.setInt(2, paymentUser);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			pstmt.setInt(1, paymentUser);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Payment(rset.getInt("product_no"),
-							         rset.getInt("payment_price"),
-							         rset.getDate("payment_date")));
+				list.add(new Payment(rset.getString("PAYMENT_DATE"),
+							         rset.getString("RPODUCT_NAME"),
+							         rset.getInt("PAYMENT_PRICE")));
 							         
 			}
 			
@@ -185,6 +184,32 @@ public class MyPageDao {
 		}
 		
 		return list;
+	}
+	
+	public Inbody selectInbody(Connection conn, int userNo) {
+		Inbody body  = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInbody");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				body = new Inbody(rset.getInt("body_height"),
+								  rset.getInt("body_weight"),
+								  rset.getInt("body_fat"),
+								  rset.getDate("regist_date"));	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return body;
 	}
 	
 	

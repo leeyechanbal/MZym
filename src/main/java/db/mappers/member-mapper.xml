@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+<!-- 로그인 기능-구성모 -->
 <entry key="loginMember">
 	SELECT
 		   USER_NO
@@ -22,6 +23,7 @@
 		   AND STATUS = ?
 </entry>
 
+<!-- 손수현 마이페이지 조회 -->
 <entry key="selectMyPage">
 	SELECT 
 		   USER_NO
@@ -39,23 +41,7 @@
 	 WHERE USER_ID = ?
 </entry>
 
-<entry key="selectMyPage">
-	SELECT 
-		   USER_NO
-		 , USER_ID
-		 , USER_PWD
-		 , USER_NAME
-		 , PHONE
-		 , RRN
-		 , EMAIL
-		 , ADDRESS
-		 , ENROLL_DATE
-		 , MODIFY_DATE
-		 , STATUS
-	  FROM MZYM_MEMBER
-	 WHERE USER_ID = ?
-</entry>
-
+<!-- 손수현 회원정보 수정 -->
 <entry key="updateMyPage">
 	UPDATE
 	       MZYM_MEMBER
@@ -66,6 +52,7 @@
 	WHERE USER_ID = ?
 </entry>
 
+<!-- 손수현 비밀번호 수정 -->
 <entry key="updatePwdMember">
 	UPDATE
 	      MZYM_MEMBER
@@ -75,6 +62,7 @@
 	  AND USER_PWD = ?
 </entry>
 
+<!-- 손수현 회원 탈퇴 -->
 <entry key="deleteMember">
 	UPDATE
 	      MZYM_MEMBER
@@ -84,35 +72,77 @@
 	  AND USER_PWD = ?
 </entry>
 
+<!-- 손수현 페이징 -->
 <entry key="selectListCount">
 	SELECT COUNT(*) COUNT
 	  FROM PAYMENT
 	 WHERE STATUS = 'S'
 </entry>
 
+<!-- 손수현 페이징 -->
 <entry key="selectList">
-	SELECT ROWNUM RNUM, A.*
+		SELECT *
+		  FROM (
+				SELECT ROWNUM RNUM, A.*
 				  FROM (
 						SELECT 
 	                          TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') PAYMENT_DATE
 						     , RPODUCT_NAME
 						     , PAYMENT_PRICE
-						  FROM PAYMENT A
+						  FROM PAYMENT 
 						  JOIN PRODUCT USING (PRODUCT_NO)
 	                     WHERE PAYMENT_USER = ?
 						 ORDER
 						 	BY PAYMENT_DATE DESC
-				 		) A;
+				 		) A
 			)
 	 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 아이디 중복 체크-구성모 -->
+<entry key="idCheck">
+	SELECT
+		   COUNT(*) COUNT
+	 FROM MZYM_MEMBER
+	WHERE USER_ID = ?
+</entry>
 
+<!-- 회원가입 insert-구성모 -->
+<entry key="insertMember">
+	INSERT
+	  INTO MZYM_MEMBER
+	  (
+	    USER_NO
+	  , USER_ID
+	  , USER_PWD
+	  , USER_NAME
+	  , PHONE
+	  , RRN
+	  , EMAIL
+	  , ADDRESS
+	  )
+	  VALUES
+	  (
+	    SEQ_MEMEBERNO.NEXTVAL
+	  , ? <!-- 아이디 -->
+	  , ? <!-- 비밀번호 -->
+	  , ? <!-- 이름 -->
+	  , ? <!-- 전화번호 -->
+	  , ? <!-- 주민번호 -->
+	  , ? <!-- 이메일 -->
+	  , ? <!-- 주소 -->
+	  )
+</entry>
 
-
-
-
-
+<!-- 손수현 인바디 조회 -->
+<entry key="selectInbody">
+	SELECT BODY_HEIGHT
+		 , BODY_WEIGHT
+		 , BODY_FAT
+		 , REGIST_DATE
+	  FROM INBODY
+	 WHERE USER_NO = ?
+</entry>
 
 
 </properties>

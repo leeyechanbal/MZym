@@ -44,15 +44,15 @@
                          <!-- 로그인 이전 보여질 화면  -->
                             <tr>
                                 <td><a href="<%=contextPath %>/loginForm.me" class="btn btn-secondary btn-sm icon">로그인</a></td>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
+                                <td><a href="<%=contextPath %>/signupForm.me" class="btn btn-secondary btn-sm icon">회원가입</a></td>
                             </tr>
                            
                          <%}else{ %>
                            <!-- 로그인 이후 보여질 화면  -->
                             <tr>
                               <td><img src="<%=contextPath %>/resources/img/common/profile_icon_512x512.png" style="width: 50px;"></td>
-                              <td><div class="afterLogin"><%=loginUser.getUserName() %>님 환영합니다~</div></td>
-                              <td><a href="<%=contextPath %>/logout.me" class="btn btn-secondary btn-sm icon" onclick="return ()">로그아웃</a></td>
+                              <td><div class="afterLogin"><%=loginUser.getUserId() %>님 환영합니다~</div></td>
+                              <td><a href="<%=contextPath %>/logout.me" class="btn btn-secondary btn-sm icon" onclick="return confirmLogout();">로그아웃</a></td>
                               <td><a href="<%=contextPath %>/myPage.me" class="btn btn-secondary btn-sm icon">마이페이지</a></td>
                           </tr>
                         <%}%>
@@ -101,7 +101,7 @@
                   <div class="sub_menu" id="menu1">
                     <ul class="sub">
                       <li><a>공지사항</a></li>
-                      <li><a>자유게시판</a></li>
+                      <li><a href="<%= contextPath%>/freelist.bo">자유게시판</a></li>
                       <li><a>질문게시판</a></li>
                       <li><a>헬스장후기</a></li>
                       <li><a>운동모임</a></li>

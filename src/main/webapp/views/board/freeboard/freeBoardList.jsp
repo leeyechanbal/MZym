@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.common.paging.PageInfo" %>
+<%@ page import="com.mzym.board.vo.Board" %>
+<%@ page import="java.util.List" %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	List<Board> list = (List<Board>)request.getAttribute("list");
+%>    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +55,7 @@
              font-size: 14px;
         }
 
-        img {
+        .icon {
              position : absolute;
              width: 17px;
              top: 10px;
@@ -67,19 +76,11 @@
             background: #1abc9c;
             border-color: #1abc9c;
         }
+        
+        .page-item a.page-link {
+        color: #1abc9c;
+    	}
 
-        .page-link {
-            color: #000; 
-            background-color: #fff;
-            border: 1px solid #ccc; 
-        }
-
-        .page-item.active .page-link {
-            z-index: 1;
-            font-weight:bold;
-            background-color: #f1f1f1;
-            border-color: #ccc;
-        }
 
         hr{
             width: 200px;
@@ -107,7 +108,7 @@
 
             <div class="search">
                 <input type="text" placeholder="검색어를 입력하세요">
-                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <img class="icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
 
             <div align="right">
@@ -120,7 +121,6 @@
                 <thead>
                     <tr>
                         <th>글번호</th>
-                        <th>카테고리</th>
                         <th>글제목</th>
                         <th>작성자</th>
                         <th>조회수</th>
@@ -128,68 +128,53 @@
                     </tr>
                 </thead>
                 <tbody>
+                <% if(list.isEmpty()) {%>
                     <!-- case1. 조회된 게시글이 없을 경우 -->
-                    <!--
                     <tr>
                         <td colspan="6" style="text-align: center;">존재하는 게시글이 없습니다.</td>
                     </tr>
-                    -->
-
+                <% }else {%>
                     <!-- case2. 조회된 게시글이 있을 경우 -->
+                <% for(Board b : list) {%>
                     <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
+                        <td><%= b.getBoardNo() %></td>
+                        <td><%= b.getBoardTitle() %></td>
+                        <td><%= b.getBoardMember() %></td>
+                        <td><%= b.getCount() %></td>
+                        <td><%= b.getRegist_Date() %></td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>게임</td>
-                        <td>글제목입니다</td>
-                        <td>admin</td>
-                        <td>200</td>
-                        <td>2024-01-12</td>
-                    </tr>
+                    <% } %>
+                <% } %>
                 </tbody>
             </table>
 
-
+				
             <br>
             
+            <!--  페이징바 영역 -->
             <ul class="pagination my justify-content-center">
+            
+            	<% if(pi.getCurrentPage() == 1) { %>
                 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <% }else { %>
+                <li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%=pi.getCurrentPage() - 1%>">Previous</a></li>
+                <% } %>
+                
+                <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
+                
+	                <% if(p == pi.getCurrentPage()) { %>
+	                <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
+	                <% }else { %>
+	                <li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%= p %>"><%= p %></a></li>
+                	<% } %>
+                <% } %>
+                
+                <% if(pi.getCurrentPage() == pi.getMaxPage()) { %>
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            	<% }else { %>
+            	<li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%=pi.getCurrentPage() + 1%>">Next</a></li>
+            	<% } %>
+            	
             </ul>
 
         </div>
