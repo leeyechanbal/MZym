@@ -187,10 +187,9 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>헬스장 이용권</th>
-                                    <% if() { %>
-                                    <% } else { %>
+                        
                                     <td><input type="text" name="health" readonly value=""></td>
-                                	<% } %>
+                                	
                                 </tr>
                                 <tr id="info">
                                     <th>PT 이용권</th>
