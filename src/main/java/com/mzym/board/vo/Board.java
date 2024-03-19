@@ -10,9 +10,9 @@ public class Board {
 	private int boardNo; // 글번호 
 	private int boardWriter; // 작성자 = 회원 맴버번호
 	private int boardType; // 게시글 카테고리
-	private String boardTiltle; // 글 제목
-	private String boardcontent; // 글 내용
-	private Date registDate; // 등록일
+	private String boardTitle; // 글 제목
+	private String boardContent; // 글 내용
+	private Date regist_Date; // 등록일
 	private Date modify_date; // 수정일
 	private String status; 
 	private int reviewRate; // null 0 
@@ -20,15 +20,6 @@ public class Board {
 	
 	public Board() {
 		super();
-	}
-
-	public Board(int boardNo, int boardWriter, String boardTiltle, Date registDate, int count) {
-		super();
-		this.boardNo = boardNo;
-		this.boardWriter = boardWriter;
-		this.boardTiltle = boardTiltle;
-		this.registDate = registDate;
-		this.count = count;
 	}
 
 	public int getBoardNo() {
@@ -55,28 +46,28 @@ public class Board {
 		this.boardType = boardType;
 	}
 
-	public String getBoardTiltle() {
-		return boardTiltle;
+	public String getBoardTitle() {
+		return boardTitle;
 	}
 
-	public void setBoardTiltle(String boardTiltle) {
-		this.boardTiltle = boardTiltle;
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
 
-	public String getBoardcontent() {
-		return boardcontent;
+	public String getBoardContent() {
+		return boardContent;
 	}
 
-	public void setBoardcontent(String boardcontent) {
-		this.boardcontent = boardcontent;
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
 	}
 
-	public Date getRegistDate() {
-		return registDate;
+	public Date getRegist_Date() {
+		return regist_Date;
 	}
 
-	public void setRegistDate(Date registDate) {
-		this.registDate = registDate;
+	public void setRegist_Date(Date regist_Date) {
+		this.regist_Date = regist_Date;
 	}
 
 	public Date getModify_date() {
@@ -111,19 +102,18 @@ public class Board {
 		this.count = count;
 	}
 
-	public Board(int boardNo, int boardWriter, int boardType, String boardTiltle, String boardcontent, Date registDate,
+	public Board(int boardNo, int boardWriter, int boardType, String boardTitle, String boardContent, Date regist_Date,
 			Date modify_date, String status, int reviewRate, int count) {
 		super();
 		this.boardNo = boardNo;
 		this.boardWriter = boardWriter;
 		this.boardType = boardType;
-		this.boardTiltle = boardTiltle;
-		this.boardcontent = boardcontent;
-		this.registDate = registDate;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.regist_Date = regist_Date;
 		this.modify_date = modify_date;
 		this.status = status;
 		this.reviewRate = reviewRate;
 		this.count = count;
 	}
-
 }
