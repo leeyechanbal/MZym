@@ -47,7 +47,7 @@ public class NoticeManigrment extends HttpServlet {
 			
 		if (info != null) {
 			List<Notice> list = new BoardService().selectNotice(info);
-//			List<Attachment> atList = new BoardService().selecctA
+
 			request.setAttribute("info", info);
 			request.setAttribute("list", list);
 			

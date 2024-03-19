@@ -34,7 +34,9 @@ public class NoticeInser extends HttpServlet {
     }
 
 	/**
+	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 공지사항 등록 요청 처리 서블릿
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -54,22 +56,22 @@ public class NoticeInser extends HttpServlet {
 //			System.out.println(filePath);
 			MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxFileSize, "UTF-8", new RenameFile());  
 			
-			/*
-			관리자 로그인 세션완료시 구현 회원번호 필요
-			int memberNo = request.getSession().getAttribute("loginuser").get();
-			*/
-			Notice n = new Notice( 1 ,multiRequest.getParameter("title"), multiRequest.getParameter("content")); 
-			
-			Attachment att = null;
+
 			// 문자열로 전달된 이름의 파일의 원본명을 반환
 			String origin = multiRequest.getOriginalFileName("file");
 			
+			Notice n = null;
+			
 			if(origin != null) {
-				att = new Attachment(origin, multiRequest.getFilesystemName("file"), "/resources/upfile/");
+				Attachment att = new Attachment(origin, multiRequest.getFilesystemName("file"), "/resources/upfile/");
+				/*
+				관리자 로그인 세션완료시 구현 회원번호 필요
+				int memberNo = request.getSession().getAttribute("loginuser").get();
+				*/
+				n = new Notice( 1 ,multiRequest.getParameter("title"), multiRequest.getParameter("content"), att); 
 			}
 			
-			int num = new BoardService().insertBoard(n, att);
-			System.out.println("num " + num);
+			int num = new BoardService().insertNotice(n);
 			
 			HttpSession session = request.getSession();
 			
@@ -78,7 +80,7 @@ public class NoticeInser extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/listNotice.trainer?page=1");
 			} else {
 				// 에러페이지 할까 말까?
-				new File(filePath, att.getChangeName()).delete();
+				new File(filePath, n.getAtt().getChangeName()).delete();
 				session.setAttribute("alert", "등록에 실패 했습니다.");
 			}
 			

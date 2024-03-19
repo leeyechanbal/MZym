@@ -5,6 +5,7 @@
 
 <%@ page import="com.mzym.board.vo.Notice" %>
 <%@ page import="com.mzym.common.paging.PageInfo"%>
+<%@ page import="com.mzym.board.vo.Attachment" %>
 <%@ page import="java.util.List"%>
 <%
 	PageInfo info = (PageInfo)request.getAttribute("info");
@@ -19,8 +20,8 @@
 <title>공지사항</title>
 
 <style>
-         /* 공지사항 추가 스타일 */
-         .board-out>#board{
+        /* 공지사항 추가 스타일 */
+        .board-out>#board{
             background-color: rgba(26, 188, 156, 0.2);
         }
         .boardNav{
@@ -29,14 +30,23 @@
         .boardNav>.boardNotice{
             background-color: rgba(26, 188, 156, 0.2);
         }
+
         /* 공지사항 첨부파일 정렬 */
         .formOut{
             display: flex; 
             justify-content: space-between;
         }
-        tfoot{
-            height: 100px;
+       /* 파일 쪽 스타일 */
+       .file{
+            display: flex;
+            align-items: start;
+            flex-direction: column;
         }
+        .file>*{  
+            margin-bottom: 5px;      	
+        }
+
+        
  </style>
 
 </head>
@@ -91,22 +101,38 @@
                         </tr>
 
 					
-					<%for(int i= 0; i < list.size(); i++){ %>
-                    <form action="" method="post">
+					<%for(int i= 0; i < list.size(); i++){ 
+						Attachment att = list.get(i).getAtt();
+						boolean nChecked = att == null;
+						String originName = nChecked ?  null : att.getOriginName();
+					%>
+					<!-- 추후 세션값에서 &noticeWriter=로그인된 트레이너아이돌 바꿀꺼임 -->
+                    <form action="<%=mzymPath%>/updateNotice.trainer" method="post" enctype="multipart/form-data">
                         <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
-                            <td class="table-number" name=""><%=list.get(i).getNoticeNo()%></td>
-                            <td class="table-title" name=""><%=list.get(i).getTitle()%></td>
-                            <td name=""><%=list.get(i).getWriterName()%></td>
-                            <td name=""><%=list.get(i).getRegistDate()%></td>
+                            <td class="table-number" name="noticeNo"><%=list.get(i).getNoticeNo()%></td>
+                            <td class="table-title" name="noticeTitle"><%=list.get(i).getTitle()%></td>
+                            <td name="noticeWriter"><%=list.get(i).getWriterName()%></td>
+                            <td name="noticeRegist"><%=list.get(i).getRegistDate()%></td>
                         </tr>
 
                         <tr id="context<%=i%>" class="collapse">
                             <td colspan="5">
                                 <div>
-                                    <p class="border"><%=list.get(i).getContent()%></p>
+                                    <p class="border" style="padding: 10px;" name="noticeContent"><%=list.get(i).getContent()%></p>
                                     <div class="formOut">
-                                        <input type="file" name="file">
-                                        <button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
+                                    	<div class="file">
+                                    	<% if(nChecked) { %>
+                                         	<div>다운로드: "현재 첨부파일이 없습니다."</div>
+                                         <%} else { %>
+                                            <div>다운로드: <a download="<%=originName%>" href="<%=mzymPath + "/" + att.getFilePath() + att.getChangeName()%>"><%=originName%></a></div>
+                                            <input type="hidden" name="wasOriginName" value="<%=att.getOriginName()%>">
+                                            <input type="hidden" name="wasChangeName" value="<%=att.getChangeName()%>">
+                                         <%} %>
+                                         	<div>수정: <input type="file" name="file"></div>
+                                        </div>
+                                        <div style="align-self: self-end;">
+                                        	<button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
+                                        </div>
                                     </div>
                                 </div>
                             </td>

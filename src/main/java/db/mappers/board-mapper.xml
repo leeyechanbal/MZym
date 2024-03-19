@@ -98,10 +98,44 @@ into attachment
 </entry>
 
 
-<!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+<!-- 
+작성자 : 황수림
+페이징 처리 위한 자유게시판 갯수 가져오는 쿼리
+ -->
+<entry key="selectFreeListCount">
+	SELECT	COUNT(*) COUNT
+	FROM	MZYM_BOARD
+	WHERE	BOARD_TYPE = 1
+	AND		STATUS = 'Y'
+</entry>
+
+
+<!-- 작성자 : 황수림 -->
+<entry key="selectFreeList"></entry>
+	SELECT *
+	    FROM (
+	            SELECT ROWNUM RNUM, A.*
+	                FROM (
+	                        SELECT
+	                            BOARD_NO
+	                            , BOARD_TITLE
+	                            , USER_NAME
+	                            , COUNT
+	                            , TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE
+	                        FROM
+	                            MZYM_BOARD B
+	                        JOIN
+	                            MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+	                        WHERE
+	                            BOARD_TYPE = 1
+	                        AND
+	                            B.STATUS = 'Y'
+	                        ORDER
+	                            BY BOARD_NO DESC
+	                    ) A
+	        )
+	WHERE RNUM BETWEEN ? AND ?
+	
 <!--  -->
 <entry key=""></entry>
 <!--  -->

@@ -17,6 +17,7 @@ public class Attachment {
 	private Date uploadeDate; //sysdate
 	private int fileLevel; // 1 : 대표  나머지
 	private String status; 
+	private boolean checkedFile;
 	
 	public Attachment() {
 		super();
@@ -36,13 +37,43 @@ public class Attachment {
 		this.status = status;
 	}
 
-	
-
+	/**
+	 * @author 이예찬
+	 * @param originName
+	 * @param changeName
+	 * @param filePath
+	 * 공지사항에 첨부파일이 존재 할 경우 담아올 객체
+	 */
 	public Attachment(String originName, String changeName, String filePath) {
 		super();
 		this.originName = originName;
 		this.changeName = changeName;
 		this.filePath = filePath;
+	}
+
+	
+	/**
+	 * @author 이예찬
+	 * @param originName
+	 * @param changeName
+	 * @param filePath
+	 * @param checkedFile
+	 * 공지사항 업데이트 시 첨부파일이 존재하는지를 확인하는 생성자
+	 */
+	public Attachment(String originName, String changeName, String filePath, boolean checkedFile) {
+		super();
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.checkedFile = checkedFile;
+	}
+
+	public boolean isCheckedFile() {
+		return checkedFile;
+	}
+
+	public void setCheckedFile(boolean checkedFile) {
+		this.checkedFile = checkedFile;
 	}
 
 	public int getFileNO() {

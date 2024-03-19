@@ -3,7 +3,7 @@ package com.mzym.board.vo;
 
 /**
  * @author 이예찬
- *
+ * 공지사항에 대한 데이터를 관리하는 객체
  */
 public class Notice {
 	private int noticeNo;
@@ -16,7 +16,8 @@ public class Notice {
 	private String startDate; // 작성일 == 등록일
 	private String status;
 	
-	private Attachment att; // hase관계, is관계
+	private Attachment att; // 쿼리에서 게시글의 정보을 담아올 객체
+	// hase관계, is관계
 	
 	public Notice() {
 		super();
@@ -40,27 +41,31 @@ public class Notice {
 
 	/**
 	 * @author 이예찬
-	 * @param noticeNo
-	 * @param writer
-	 * @param title
+	 * @param noticeNo 공지사항 번호
+	 * @param writerName 작성자 아이디
+	 * @param title 
 	 * @param content
-	 * 트레이너 페이지에서 공지사항 조회시 필요한 데이터 그릇
+	 * @param registDate
+	 * @param att 공지사항에 대한 첨부 파일
+	 * 트레이너 페이지의 공지사항의을 페이징 처리시에 공지사항의 조회됭 데이터를 당기 위한 생성자
 	 */
-	public Notice(int noticeNo, String writerName, String title, String content, String registDate) {
+	public Notice(int noticeNo, String writerName, String title, String content, String registDate, Attachment att) {
 		super();
 		this.noticeNo = noticeNo;
 		this.writerName = writerName;
 		this.title = title;
 		this.content = content;
 		this.registDate = registDate;
+		this.att = att;
 	}
+	
 
 	/**
 	 * @author 이예찬
 	 * @param writer
 	 * @param title
 	 * @param content
-	 * 공지사항 등록시 필요한 데이터를 담기 위한 생성자
+	 * 공지사항 등록시 필요한 데이터를 담아 쿼리에 전달 하기 위한 생성자
 	 */
 	public Notice(int writer, String title, String content) {
 		super();
@@ -69,7 +74,40 @@ public class Notice {
 		this.content = content;
 	}
 
-	
+	/**
+	 * @author 이예찬
+	 * @param writer
+	 * @param title
+	 * @param content
+	 * @param att
+	 * 공지사항 수정시 사용되는 생성자
+	 */
+	public Notice(int noticeNo, int writer, String title, String content,  Attachment att) {
+		super();
+		this.noticeNo = noticeNo;
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.att = att;
+	}
+
+
+	/**
+	 * @author 이예찬
+	 * @param writer
+	 * @param title
+	 * @param content
+	 * @param att
+	 * 공지사항을 추가할떄 
+	 */
+	public Notice(int writer, String title, String content, Attachment att) {
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.att = att;
+	}
+
+
 	public Attachment getAtt() {
 		return att;
 	}
