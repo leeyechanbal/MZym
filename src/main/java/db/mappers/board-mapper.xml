@@ -241,12 +241,53 @@ and ATT_CATEGORY = ?
 	,	?
 	)
 </entry>
-<!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 게시글 조회시 조회수 count 하는 sql
+-->
+<entry key="increaseFreeCount">
+	UPDATE
+			MZYM_BOARD
+	SET		COUNT = COUNT + 1
+	WHERE 	BOARD_NO = ?
+	AND		STATUS = 'Y'
+
+</entry>
+
+
+<!-- 
+	작성자 : 황수림
+	자유게시판의 게시글 조회하는 sql
+ -->
+<entry key="selectFreeBoard">
+	SELECT
+			BOARD_NO
+		,	BOARD_TITLE
+		,	BOARD_CONTENT
+		,	USER_ID
+	FROM	MZYM_BOARD
+	JOIN 	MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+	WHERE	BOARD_NO = ?
+	AND		MZYM_BOARD.STATUS = 'Y'
+</entry>
+
+
+<!-- 
+	작성자 : 황수림
+	자유게시판의 게시글의 첨부파일을 조회하는 sql
+ -->
+<entry key="selectFreeAttachment">
+	SELECT
+			FILE_NO
+		,	ORIGIN_NAME
+		,	CHANGE_NAME
+		,	FILE_PATH
+	FROM	ATTACHMENT
+	WHERE	ATT_NO = ?	
+			
+
+</entry>
 <!--  -->
 <entry key=""></entry>
 <!--  -->

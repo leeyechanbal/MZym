@@ -135,5 +135,15 @@ public class Board {
 		this.count = count;
 	}
 
+	public Board(int boardNo, String boardTitle, String boardContent, String boardMember) {
+		super();
+		this.boardNo = boardNo;
+		this.boardMember = boardMember;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+	}
+	
+	
+
 	
 }
