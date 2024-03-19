@@ -211,4 +211,13 @@ public class BoardService {
 		return total;
 	}
 
+	/**
+	 * @author 이예찬
+	 * @return
+	 */
+	public int selectCounselingCount() {
+		
+		return 0;
+	}
+
 }
