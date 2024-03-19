@@ -203,11 +203,15 @@
         <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
    </table>
 	<Script>
-        $(function(){
-            $("#boardcontent tr").click(function(){
-                console.log(window.event.target);
-            })
-        })
+		$(function(){
+	        $("#boardcontent tr").click(function(){
+	            const boardNo = $(this).children(".table-number").text();
+	            console.log(boardNo);
+
+                console.log(($("#deletModal").find(":text")));
+	            $("#deletModal").find(":text").val(boardNo);
+	        })
+	    })
     </Script>
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
@@ -222,6 +226,7 @@
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         </div>
+        <input type="text">
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>

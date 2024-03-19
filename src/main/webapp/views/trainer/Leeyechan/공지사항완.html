@@ -138,8 +138,13 @@
                     <script>
                         $(function(){
                             $("#boardcontent tr").click(function(){
-                                console.log($(this).eq(0));
-                                console.log($(this));
+                                console.log($(this).children(".table-number"));
+                                const boardNo = $(this).children(".table-number").text();
+                                console.log(boardNo);
+
+                                console.log(($("#deletModal").find(":text")))
+                                $("#deletModal").find(":text").val(boardNo);
+                                console.log($(this).next().find(":file"));
                             })
                         })
 
@@ -274,6 +279,7 @@
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         </div>
+        <input type="text">
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
