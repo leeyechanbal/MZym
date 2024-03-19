@@ -196,7 +196,7 @@ public class BoardService {
 		int outcome = dao.deletedNotice(conn, num);
 		int result = 1;
 		
-		if(change != null) {
+		if(change != "") {
 			result = dao.deletedAttachment(conn, num, type);
 		}
 		
@@ -251,6 +251,19 @@ public class BoardService {
 		Attachment at = dao.selectFreeAttachment(conn, boardNo);
 		close(conn);
 		return at;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @return 상담예약 게시판 갯수 반환
+	 */
+	public int selectCounselingCount() {
+		Connection conn = getConnection();
+		int result = dao.selectCounselingCount(conn);
+		
+		close(conn);
+		
+		return result;
 	}
 
 }

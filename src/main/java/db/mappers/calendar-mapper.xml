@@ -2,22 +2,39 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="calInsert">
+	<entry key="selectCalendarList">
+		SELECT
+		       CAL_TR
+		     , TO_CHAR(TO_DATE(START_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')START_DATE
+		     , TO_CHAR(TO_DATE(END_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')END_DATE
+		     , CAL_TITLE
+		     , CAL_CONTENT
+		     , CAL_COLOR
+		  FROM MZYM_CALENDAR
+		 WHERE USER_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+
+	<entry key="ptCalendarInsert">
 		INSERT INTO MZYM_CALENDER
 		VALUES 
-		(
-		   SEQ_SEQ_CALNO.NEXTVAL -- CAL_NO
-		 , (SELECT USER_NO FROM MEMBER WHERE USER_NAME = ? AND PHONE = ?) CAL_USER
-		 , ?
-		 , ?
-		 , ?
-		 , ?
-	 	 , ?
-		 , ?
-		 , 'Y'
-		)		
-	
+				(
+				  SEQ_SEQ_CALNO.NEXTVAL
+				, (SELECT USER_NO FROM MEMBER WHERE USER_NAME = ? AND PHONE = ?)
+				, ? -- CAL_TR
+				, ? -- START_DATE
+				, ? -- END_DATE
+				, ? -- CAL_TITLE
+				, ? -- CAL_CONTENT
+				, ? -- CAL_COLOR
+				, 'Y'
+				)
 	</entry>
+
+
+
+
+
 
 
 </properties>

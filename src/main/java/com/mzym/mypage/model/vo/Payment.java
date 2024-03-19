@@ -34,6 +34,14 @@ public class Payment {
 		
 	}
 
+	public Payment(int paymentNo, String productName, int paymentPrice, String paymentDate) {
+		super();
+		this.paymentNo = paymentNo;
+		this.productName = productName;
+		this.paymentPrice = paymentPrice;
+		this.paymentDate = paymentDate;
+	}
+
 	public int getPaymentNo() {
 		return paymentNo;
 	}

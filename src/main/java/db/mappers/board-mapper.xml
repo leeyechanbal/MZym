@@ -39,6 +39,7 @@ where r BETWEEN ? and ?
 <entry key="selectNoticeCount">
 select count(*)
 from mzym_notice
+where STATUS = 'Y'
 </entry>
 
 <!-- 
@@ -288,6 +289,19 @@ and ATT_CATEGORY = ?
 			
 
 </entry>
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 총 갯수 쿼리문
+ -->
+<entry key="selectCounselingCount">
+	select count(*)
+	from mzym_advice
+	where status = 'Y'
+</entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
 <!--  -->
 <entry key=""></entry>
 <!--  -->

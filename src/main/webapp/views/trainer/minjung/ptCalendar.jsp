@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
-	//Member loginUser = (Member)request.getAttribute("longinUser");
+	Member loginUser = (Member)request.getAttribute("longinUser");
 
 %>
 <!DOCTYPE html>
@@ -10,8 +11,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PT일정등록</title>
@@ -19,47 +18,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/src/main/webapp/resources/css/ptCalendar_minjung/ptCalendar_minjung.css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/ptCalendar_minjung/ptCalendar_minjung.css">
     
     <!-------------------- fullcalendar script --------------------->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.11/index.global.min.js'></script>
     <!--------------------- fullcalendar script --------------------->
    
-    <!-- calendar 생성 script -->
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+      });
+    calendar.render();
+    });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-
-            headerToolbar : {
-                left : 'prev, next today',
-                conter : 'title',
-                right : 'dayGridMonth, timeGridWeek, timeGridDay'
-            },
-            locale : 'ko',
-            selectable : true,
-            selectMirror : true,
-            eventLimit : 'more',
-            initialView: 'dayGridMonth',
-            eventAdd : function(e){     // 이벤트가 추가되면 발생하는 이벤트
-                console.log(e);
-            },
-            
-            events:[{title: 'Meeting', start: new Date() }] //test
-
-            });
-
-            
-            calendar.render();
-        });
-    
-        </script>
-        <!-- calendar 생성 script -->
-
-
-</head>
+  </script>
 
 
 </head>
@@ -73,13 +48,13 @@
            
                 
         <nav class="header_nav">
-
+			
             <div class="main_back" style="cursor: pointer;">
-                <a href=""><img src="../../../resources/img/common/뒤로가기.png" style="width: 50px; "></a>
+                <a href=""><img src="<%=contextPath %>/resources/img/common/뒤로가기.png" style="width: 50px; "></a>
                 </div>
            
             <div class="main_logo" >
-                <a href=""><img src="../../../resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
+                <a href=""><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
               </div>
 
             <div class="main_item">
@@ -97,7 +72,7 @@
         <div  class="side_menu">
 
             <div class="side_login">
-                <img src="../../../resources/img/common/profile_icon_512x512.png" style="width: 75px"> <br>
+                <img src="<%=contextPath %>/resources/img/common/profile_icon_512x512.png" style="width: 75px"> <br>
                 xxx 트레이너
             </div>
             <div class="side_list" >
@@ -244,7 +219,8 @@
                                 </tr>
     
                             </table>
-                        </form>
+                       
+                         </form>
     
                     </div>
     
@@ -370,9 +346,71 @@
         </div>
 
         <script>
+	$(function(){
+		ptCalendar();
+	})
+        
+     
+	// 캘린더 일정 조회 함수
+	function ptCalendar(){
+        $.ajax({
+        	url:"<%=contextPath%>/list.cal",
+        	data:{no:15%>},
+        	type:"post",
+        	success:function(clist){
+        		
+        		console.log(clist);
+        		// 매개변수에 담겨잇는 데이터들에 접근해서 
+        		// let 변수 =  [{title:"db로부터조회한일정의제목", start:"일정날짜"}, {title:"db로부터조회한일정의제목", start:"일정날짜"} .. ] 이런형태로 만들기
+        		
+        		
+        		let pt = [];
+        		for(let i=0; i<clist.length;i++){
+        			pt.push({
+        				//organizer : clist[i].cal_tr,   			// 작성자
+        				start : clist[i].startDate,					// 시작일
+        				end : clist[i].endDate,						// 종료일
+        				title : clist[i].calTitle,					// 제목
+        				//description : clist[i].cal_content, 		// 내용
+        				color : clist[i].calColor  					// 일정색상
+        				
+        			});
+        		}
+        		
+        		
+        		
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
 
+                headerToolbar : {
+                    start : 'prev, next today',
+                    center : 'title',
+                    end : 'dayGridMonth, timeGridWeek, timeGridDay'
+                },
+                locale : 'ko',
+                selectable : true,
+                selectMirror : true,
+                eventLimit : 'more',
+                initialView: 'dayGridMonth',
+               // eventAdd : function(e){     // 이벤트가 추가되면 발생하는 이벤트
+               //     console.log(e);
+               // },
+                
+                // [{}]안의 구문을 변수에 담아서 넣을 수 있음
+                events:pt //test
+                
+                });
 
-
+                
+                calendar.render();
+        		
+        	},
+        	error:function(){
+        		console.log("ajax통신실패");
+        	}
+        })
+ 	}	
+ 
             // 회원별 조회 모달창 조회 클릭시 실행될 이벤트
 
 

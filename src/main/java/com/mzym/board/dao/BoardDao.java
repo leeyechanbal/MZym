@@ -432,7 +432,7 @@ public class BoardDao {
 		
 		try {
 			System.out.println(num);
-			pst = conn.prepareStatement("deletedNotice");
+			pst = conn.prepareStatement(prop.getProperty("deletedNotice"));
 			pst.setInt(1, num);
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -456,7 +456,7 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		
 		try {
-			pst = conn.prepareStatement("deletedAttachment");
+			pst = conn.prepareStatement(prop.getProperty("deletedAttachment"));
 			pst.setInt(1, num);
 			pst.setString(2, type);
 			result = pst.executeUpdate();
@@ -486,6 +486,31 @@ public class BoardDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @return 상담게시물 총 갯수 조회
+	 */
+	public int selectCounselingCount(Connection conn) {
+		ResultSet rset = null;
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectCounselingCount"));
+			rset = pst.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("count(*)");
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
 		}
 		
 		return result;
