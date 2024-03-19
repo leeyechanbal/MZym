@@ -174,15 +174,18 @@ where att_no = ?
 <entry key="deletedNotice">
 update mzym_Notice
 set STATUS =  'N'
-where notice_no = ?
+where NOTICE_NO = ?
 </entry>
 
 <!-- 
 	작성자 : 이예찬
 	첨부파일의 상태값을 'N'으로 변경하는 쿼리문
  -->
-<entry key="">
-	
+<entry key="deletedAttachment">
+update Attachment
+set STATUS =  'N'
+where att_no = ?
+and ATT_CATEGORY = ?
 </entry>
 
 

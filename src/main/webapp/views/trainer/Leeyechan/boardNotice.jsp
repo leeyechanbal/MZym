@@ -226,16 +226,16 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
-    <form action="<%=mzymPath%>/deletedNotice.traniner" method="get"></form>
+    <form action="<%=mzymPath%>/deletedNotice.traniner" method="get">
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         </div>
-        <input type="hidden" id="boardNum" name="boardNum">
-        <input type="hidden" id="fileName">
+        <input type="text" id="boardNum" name="boardNum">
+        <input type="text" id="fileName" name="fileName">
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
+            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
         </div>
     </form>
       </div>

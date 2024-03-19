@@ -27,23 +27,31 @@ public class NoticeDelete extends HttpServlet {
     }
 
 	/**
+	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNum= Integer.parseInt(request.getParameter("boardNum"));
-		String change = request.getParameter("fileName");
-		
-		int result = new BoardService().deletedNotice(boardNum, change);
-		
 		HttpSession session = request.getSession();
 		
-		if(result > 0) {
-			session.setAttribute("alert", "삭제 되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=1");
-		}else {
+		if(request.getParameter("boardNum") != null) {
+			
+			int  boardNum= Integer.parseInt(request.getParameter("boardNum"));
+			String change = request.getParameter("fileName");
+			String type = "N";
+	
+			int result = new BoardService().deletedNotice(boardNum, change, type);
+			
+			if(result > 0) {
+				session.setAttribute("alert", "삭제 되었습니다.");
+				response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=1");
+			}else {
+				session.setAttribute("alert", "요청에 실패 했습니다.");
+			}
+		} else {
 			session.setAttribute("alert", "요청에 실패 했습니다.");
 		}
+		
 		
 	}
 

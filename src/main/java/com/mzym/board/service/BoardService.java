@@ -159,26 +159,28 @@ public class BoardService {
 	/**
 	 * @author 이예찬
 	 * @param change 첨부파일이 존재하는지 확인하는 매개변수
+	 * @param num 글번호
+	 * @param type 공지사항인지 구별하기 위한 매개변수
 	 * @return update된 결과값
 	 * 공지사항의 상태(status = N)을 변경하기 위한 요청
 	 */
-	public int deletedNotice(int num, String change) {
+	public int deletedNotice(int num, String change, String type) {
 		Connection conn = getConnection();
 		
 		int outcome = dao.deletedNotice(conn, num);
 		int result = 1;
 		
 		if(change != null) {
-			result = dao.deletedAttachment(conn, num);
+			result = dao.deletedAttachment(conn, num, type);
 		}
 		
 		int total = outcome * result;
+		
 		if( total > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
-		
 		close(conn);
 		return total;
 	}

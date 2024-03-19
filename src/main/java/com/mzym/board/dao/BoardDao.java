@@ -378,11 +378,11 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		
 		try {
+			System.out.println(num);
 			pst = conn.prepareStatement("deletedNotice");
 			pst.setInt(1, num);
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}finally {
 			close(pst);
@@ -398,9 +398,22 @@ public class BoardDao {
 	 * @return 
 	 * 첨부파일의 상태를 'N'으로 변경하는 매서드
 	 */
-	public int deletedAttachment(Connection conn, int num) {
+	public int deletedAttachment(Connection conn, int num, String type) {
+		int result = 0;
+		PreparedStatement pst = null;
 		
+		try {
+			pst = conn.prepareStatement("deletedAttachment");
+			pst.setInt(1, num);
+			pst.setString(2, type);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
 		
-		return 0;
+		return result;
 	}
 }
