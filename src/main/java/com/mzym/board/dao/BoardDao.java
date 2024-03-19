@@ -421,5 +421,35 @@ public class BoardDao {
 		}
 		
 		return result;
+
+	public int deletedNotice(Connection conn, int num) {
+		int result = 0;
+		PreparedStatement pst = null;
+		
+		try {
+			pst = conn.prepareStatement("deletedNotice");
+			pst.setInt(1, num);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param num
+	 * @return 
+	 * 첨부파일의 상태를 'N'으로 변경하는 매서드
+	 */
+	public int deletedAttachment(Connection conn, int num) {
+		
+		
+		return 0;
 	}
 }
