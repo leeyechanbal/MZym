@@ -11,6 +11,7 @@ import java.util.List;
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
 import com.mzym.mypage.model.dao.MyPageDao;
+import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
 
 public class MyPageService {
@@ -22,6 +23,7 @@ public class MyPageService {
 
 		Connection conn = getConnection();
 		int result = myDao.updateMyPage(conn, m);
+		
 		
 		Member updateMem = null;
 		if(result > 0) {
@@ -54,6 +56,7 @@ public class MyPageService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return updateMem;
 	}
 	
@@ -67,6 +70,7 @@ public class MyPageService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		return result;
 	}
 	
@@ -78,14 +82,19 @@ public class MyPageService {
 		return listCount;
 	}
 	
-	public List<Payment> selectList(PageInfo pi, int productNo, int paymentUser){
+	public List<Payment> selectList(PageInfo pi, int paymentUser){
 		Connection conn = getConnection();
-		List<Payment> list = myDao.selectList(conn, pi, productNo, paymentUser);
+		List<Payment> list = myDao.selectList(conn, pi, paymentUser);
 		close(conn);
 		return list;
 	}
 	
-
+	public Inbody selectInbody(int userNo) {
+		Connection conn = getConnection();
+		Inbody body = myDao.selectInbody(conn, userNo);
+		close(conn);
+		return body;
+	}
 	
 	
 	

@@ -33,13 +33,7 @@ public class PageInfo {
 		this.startBoard = startBoard;
 		this.endBoard = endBoard;
 	}
-	
-	/**
-	 * 
-	 * @author 손수현
-	 * 구매내역 페이징 
-	 */
-	
+
 	public PageInfo(int listCount, int currentPage, int pagingLimit, int boardLimit, int maxPage, int startPage,
 			int endPage) {
 		super();

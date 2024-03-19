@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mzym.member.vo.Member;
-import com.mzym.mypage.service.MyPageService;
+import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.service.MyPageService;
 
 /**
  * Servlet implementation class MyPgeUpdateController
@@ -32,9 +32,12 @@ public class MyPageUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");
+		request.setCharacterEncoding("UTF-8");
+		
+		String phone = request.getParameter("newPhone");
+		String email = request.getParameter("newEmail");
+		String address = request.getParameter("newAddress");
+		
 		
 		HttpSession session = request.getSession();
 	    Member loginUser = (Member)session.getAttribute("loginUser");
@@ -50,7 +53,7 @@ public class MyPageUpdateController extends HttpServlet {
 		}else {
 			session.setAttribute("updateMem", updateMem);
 		}
-		response.sendRedirect(request.getContextPath() + "/myPageInfo.me");
+		response.sendRedirect(request.getContextPath() + "/myPage.me");
 	}
 
 	/**

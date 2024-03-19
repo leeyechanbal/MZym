@@ -4,6 +4,10 @@ import java.sql.Date;
 
 public class Product {
 	
+	/**
+	 * @author 손수현
+	 */
+	
 	private int productNo;
 	private String productName; 
 	private String productContent;
