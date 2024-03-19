@@ -6,6 +6,8 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	List<Board> list = (List<Board>)request.getAttribute("list");
+	
+	System.out.println(pi);
 %>    
     
     
@@ -76,19 +78,11 @@
             background: #1abc9c;
             border-color: #1abc9c;
         }
+        
+        .page-item a.page-link {
+        color: #1abc9c;
+    	}
 
-        .page-link {
-            color: #000; 
-            background-color: #fff;
-            border: 1px solid #ccc; 
-        }
-
-        .page-item.active .page-link {
-            z-index: 1;
-            font-weight:bold;
-            background-color: #f1f1f1;
-            border-color: #ccc;
-        }
 
         hr{
             width: 200px;
@@ -168,7 +162,7 @@
                 <li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%=pi.getCurrentPage() - 1%>">Previous</a></li>
                 <% } %>
                 
-                <% for(int p=pi.getStartPage(); p<pi.getEndPage(); p++) { %>
+                <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
                 
 	                <% if(p == pi.getCurrentPage()) { %>
 	                <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>

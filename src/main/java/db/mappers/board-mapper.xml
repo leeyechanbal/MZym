@@ -111,7 +111,7 @@ into attachment
 
 
 <!-- 작성자 : 황수림 -->
-<entry key="selectFreeList"></entry>
+<entry key="selectFreeList">
 	SELECT *
 	    FROM (
 	            SELECT ROWNUM RNUM, A.*
@@ -121,7 +121,7 @@ into attachment
 	                            , BOARD_TITLE
 	                            , USER_NAME
 	                            , COUNT
-	                            , TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE
+	                            , REGIST_DATE
 	                        FROM
 	                            MZYM_BOARD B
 	                        JOIN
@@ -135,7 +135,7 @@ into attachment
 	                    ) A
 	        )
 	WHERE RNUM BETWEEN ? AND ?
-	
+</entry>
 <!--  -->
 <entry key=""></entry>
 <!--  -->

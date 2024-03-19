@@ -42,8 +42,12 @@ public class FreeBoardListController extends HttpServlet {
 		int endPage;		// 사용자가 요청한 페이지 하단에 보여질 페이징바의 수
 		
 		listCount = new BoardService().selectFreeListCount();
-		currentPage = Integer.parseInt(request.getParameter("page"));
-		pagingLimit = 10;
+		try {
+	          currentPage = Integer.parseInt(request.getParameter("page"));
+	      } catch (NumberFormatException e) {
+	          currentPage = 1;
+	      }
+		pagingLimit = 5;
 		boardLimit = 10;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -61,7 +65,7 @@ public class FreeBoardListController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("/viest/board/freeboard/freeBoardList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/freeboard/freeBoardList.jsp").forward(request, response);
 		
 	}
 
