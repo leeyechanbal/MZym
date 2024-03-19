@@ -167,11 +167,26 @@ where att_no = ?
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	공지사항의 상태값을 'N'으로 변경하는 쿼리문
+ -->
+<entry key="deletedNotice">
+update mzym_Notice
+set STATUS =  'N'
+where notice_no = ?
+</entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	첨부파일의 상태값을 'N'으로 변경하는 쿼리문
+ -->
+<entry key="">
+	
+</entry>
+
+
+
 <!--  -->
 <entry key=""></entry>
 <!--  -->

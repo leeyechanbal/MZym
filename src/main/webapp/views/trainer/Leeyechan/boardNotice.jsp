@@ -128,7 +128,7 @@
                                          <%} else { %>
                                             <div>다운로드: <a download="<%=originName%>" href="<%=mzymPath + "/" + att.getFilePath() + att.getChangeName()%>"><%=originName%></a></div>
                                            	<input type="hidden" name="wasOriginName" value="<%=att.getOriginName()%>">
-                                            <input type="hidden" name="wasChangeName" value="<%=att.getChangeName()%>">
+                                            <input type="hidden" id="change" name="wasChangeName" value="<%=att.getChangeName()%>">
                                          <%} %>
                                           	<input type="hidden" name="noticeNo" value="<%=list.get(i).getNoticeNo()%>">
                                             <input type="hidden" name="noticeTitle" value="<%=list.get(i).getTitle()%>">
@@ -206,10 +206,13 @@
 		$(function(){
 	        $("#boardcontent tr").click(function(){
 	            const boardNo = $(this).children(".table-number").text();
-	            console.log(boardNo);
-
-                console.log(($("#deletModal").find(":text")));
-	            $("#deletModal").find(":text").val(boardNo);
+	            /* console.log(boardNo); */
+	            $("#deletModal").find("#boardNum").val(boardNo);
+	            
+	            const changeName = $(this).next().find("#change").val();            
+				/* console.log(changeName) */
+	            $("#deletModal").find("#fileName").val(changeName);
+	             
 	        })
 	    })
     </Script>
@@ -223,15 +226,18 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
+    <form action="<%=mzymPath%>/deletedNotice.traniner" method="get"></form>
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         </div>
-        <input type="text">
+        <input type="hidden" id="boardNum" name="boardNum">
+        <input type="hidden" id="fileName">
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
             <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
         </div>
+    </form>
       </div>
     </div>
   </div>
