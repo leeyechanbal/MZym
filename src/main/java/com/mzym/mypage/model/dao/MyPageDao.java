@@ -16,6 +16,7 @@ import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
+import com.mzym.mypage.model.vo.Product;
 
 public class MyPageDao {
 	
@@ -33,7 +34,6 @@ public class MyPageDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMyPage");
-		System.out.println(m.getPhone());
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getPhone());
@@ -126,7 +126,7 @@ public class MyPageDao {
 		return result;
 	}
 	
-	public int selectListCount(Connection conn) {
+	public int selectListCount(Connection conn, int paymentUser) {
 		
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -135,6 +135,7 @@ public class MyPageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paymentUser);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -171,7 +172,7 @@ public class MyPageDao {
 			
 			while(rset.next()) {
 				list.add(new Payment(rset.getString("PAYMENT_DATE"),
-							         rset.getString("RPODUCT_NAME"),
+							         rset.getString("PRODUCT_NAME"),
 							         rset.getInt("PAYMENT_PRICE")));
 							         
 			}
@@ -212,8 +213,32 @@ public class MyPageDao {
 		return body;
 	}
 	
-	
-	
+	public Payment selectPayment(Connection conn, int userNo) {
+		Payment pay = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pay = new Payment(rset.getInt("payment_no")
+								, rset.getString("product_name")
+							    , rset.getInt("payment_price")
+							    , rset.getString("payment_date"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pay;
+	}
 	
 	
 	

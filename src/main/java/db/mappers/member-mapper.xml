@@ -76,7 +76,7 @@
 <entry key="selectListCount">
 	SELECT COUNT(*) COUNT
 	  FROM PAYMENT
-	 WHERE STATUS = 'S'
+	 WHERE PAYMENT_USER = ?
 </entry>
 
 <!-- 손수현 페이징 -->
@@ -87,7 +87,7 @@
 				  FROM (
 						SELECT 
 	                          TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') PAYMENT_DATE
-						     , RPODUCT_NAME
+						     , PRODUCT_NAME
 						     , PAYMENT_PRICE
 						  FROM PAYMENT 
 						  JOIN PRODUCT USING (PRODUCT_NO)
@@ -154,4 +154,14 @@
  	  AND EMAIL = ?
 </entry>
 
+<entry key="selectPayment">
+	SELECT
+		   PAYMENT_NO
+	     , PRODUCT_NAME
+	     , PAYMENT_PRICE
+	     , PAYMENT_DATE
+	  FROM PAYMENT
+	  JOIN PRODUCT USING (PRODUCT_NO)
+	 WHERE  PAYMENT_USER = ?
+</entry>
 </properties>

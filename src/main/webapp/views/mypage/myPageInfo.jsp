@@ -4,6 +4,9 @@
 <%
 	String birth = (String)request.getAttribute("birth");
 	String gender = (String)request.getAttribute("gender");
+	String health =(String)request.getAttribute("health");
+	int PT = (int)request.getAttribute("PT");
+	int ptNum = (int)request.getAttribute("ptNum");
 %>
 
 <!DOCTYPE html>
@@ -187,14 +190,15 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>헬스장 이용권</th>
-                        
-                                    <td><input type="text" name="health" readonly value=""></td>
+                                    <td><input type="text" name="health" readonly value="<%=health%> 까지"></td>
                                 	
                                 </tr>
-                                <tr id="info">
-                                    <th>PT 이용권</th>
-                                    <td><input type="text" name="PT" readonly value=""></td>
-                                </tr>                      
+                              
+	                                <tr id="info">
+	                                    <th>PT 이용권</th>
+	                                    <td><input type="text" name="PT" readonly value="<%=ptNum%> / <%=PT%> 회"></td>
+	                                </tr> 
+                                              
                              </table>
                         </div>   
 

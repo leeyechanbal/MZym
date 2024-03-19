@@ -25,6 +25,13 @@ public class Product {
 		this.registDate = registDate;
 	}
 
+	public Product(String productName, String productContent, int price) {
+		super();
+		this.productName = productName;
+		this.productContent = productContent;
+		this.price = price;
+	}
+
 	public int getProductNo() {
 		return productNo;
 	}

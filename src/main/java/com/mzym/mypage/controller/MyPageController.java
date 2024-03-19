@@ -1,6 +1,7 @@
 package com.mzym.mypage.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.service.MyPageService;
+import com.mzym.mypage.model.vo.Payment;
+import com.mzym.mypage.model.vo.Product;
 
 /**
  * Servlet implementation class MyPageController
@@ -63,10 +67,53 @@ public class MyPageController extends HttpServlet {
 		 request.setAttribute("birth", birth);
 		 request.setAttribute("gender", gender);
 		 
+		 //------------------------나의 이용권 조회--------------------------
+		 
+		 int userNo = loginUser.getUserNo();
+		 Payment pay = new MyPageService().selectPayment(userNo);
+		 String proName = pay.getProductName();
 		 
 		 
+		 String ptStr = proName.substring(3,5);
 		 
-		
+		 
+		 LocalDate currentDate = LocalDate.now();
+		 LocalDate expiryDate;
+		 int ptNum = 0;
+		 int PT = 0;
+		 
+		 if(ptStr.equals("이용")) {
+			 switch(proName) {
+			 case "헬스장이용 1개월": expiryDate = currentDate.plusMonths(1); break;
+			 case "헬스장이용 3개월": expiryDate = currentDate.plusMonths(3); break;
+			 case "헬스장이용 6개월": expiryDate = currentDate.plusMonths(6); break;
+			 case "헬스장이용 12개월": expiryDate = currentDate.plusYears(1); break;
+			 default:
+			 return;
+			 }
+			 
+		 }else {
+			 ptNum = Integer.parseInt(ptStr);
+			 PT = (int)(Math.random() * ptNum);
+			 
+			 switch(proName) {
+			 case "PT 10회권": expiryDate = currentDate.plusMonths(1); break;
+			 case "PT 20회권": expiryDate = currentDate.plusMonths(2); break;
+			 case "PT 30회권": expiryDate = currentDate.plusMonths(3); break;
+			 case "PT 40회권": expiryDate = currentDate.plusMonths(4); break;
+			 default:
+			 return;
+			 }
+			
+		 }
+		 
+		 String health = expiryDate.toString();
+		 
+		 request.setAttribute("health", health);
+		 request.setAttribute("PT", PT);
+		 request.setAttribute("ptNum", ptNum);
+		 
+		 
 		request.getRequestDispatcher("/views/mypage/myPageInfo.jsp").forward(request, response);
 	}
 
