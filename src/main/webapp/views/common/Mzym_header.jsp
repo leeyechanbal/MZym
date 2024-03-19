@@ -44,7 +44,7 @@
                          <!-- 로그인 이전 보여질 화면  -->
                             <tr>
                                 <td><a href="<%=contextPath %>/loginForm.me" class="btn btn-secondary btn-sm icon">로그인</a></td>
-                                <td><a href="#" class="btn btn-secondary btn-sm icon">회원가입</a></td>
+                                <td><a href="<%=contextPath %>/signupForm.me" class="btn btn-secondary btn-sm icon">회원가입</a></td>
                             </tr>
                            
                          <%}else{ %>

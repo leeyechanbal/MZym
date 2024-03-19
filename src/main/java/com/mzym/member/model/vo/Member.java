@@ -89,6 +89,20 @@ public class Member {
 		this.assignTr = assignTr;
 		this.status = status;
 	}
+	
+
+
+	public Member(String userId, String userPwd, String userName, String phone, String rRN, String email,
+			String address) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.RRN = rRN;
+		this.email = email;
+		this.address = address;
+	}
 
 	public Member(String userName, String phone) {
 		super();
@@ -103,7 +117,7 @@ public class Member {
 		this.phone = phone;
 		this.userId = userId;
 	}
-
+	
 	public int getUserNo() {
 		return userNo;
 	}
