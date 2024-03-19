@@ -79,5 +79,19 @@ public class BoardService {
 		
 		return resultNotice * resultAttachment;
 	}
+	
+	/**
+	 * @author 황수림
+	 * @return int 조회된 공지사항의 총 갯수
+	 * 페이징 처리를 위한 자유게시 총 갯수를 요청하는 매서드
+	 */
+	public int selectFreeListCount() {
+		Connection conn = getConnection();
+		int listCount = dao.selectFreeListCount(conn);
+		close(conn);
+		return listCount;
+		
+		
+	}
 
 }

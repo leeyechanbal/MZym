@@ -168,4 +168,34 @@ public class BoardDao {
 		}
 		return result;
 	}
+	
+	/**
+	 * @author 황수림
+	 * @param conn db연결을 위한 Connection 객체
+	 * @return 자유게시판의 총 갯수
+	 * 페이징 처리를 위한 자유게시판의 총 갯수 요청 
+	 */
+	public int selectFreeListCount(Connection conn) {
+		
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFreeListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
 }
