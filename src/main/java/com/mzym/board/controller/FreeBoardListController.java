@@ -47,7 +47,7 @@ public class FreeBoardListController extends HttpServlet {
 	      } catch (NumberFormatException e) {
 	          currentPage = 1;
 	      }
-		pagingLimit = 10;
+		pagingLimit = 5;
 		boardLimit = 10;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
@@ -65,7 +65,7 @@ public class FreeBoardListController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("/viest/board/freeboard/freeBoardList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/freeboard/freeBoardList.jsp").forward(request, response);
 		
 	}
 
