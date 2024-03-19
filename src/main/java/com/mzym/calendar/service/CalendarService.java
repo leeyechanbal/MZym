@@ -16,7 +16,7 @@ public class CalendarService {
 	
 	CalendarDao cDao = new CalendarDao();
 	
-	
+	// 캘린더 일정 조회
 	public List<Calendar> selectCalendarList(int userNo){
 		
 		Connection conn = getConnection();
@@ -27,24 +27,14 @@ public class CalendarService {
 	}
 	
 	
-	/*
-	// 사용 x
-	public List<Member> selelctMemberList(String userId){
-		Connection conn = getConnection();
-		List<Member> mlist = cDao.selelctMemberList(conn, userId);
-		close(conn);
-		return mlist;
-	}
 	
 	
-	
-	
-	
-	public int calInsert(Calendar cal, String userName, String phone) {
+	// 일정 추가 
+	public int ptCalendarInsert(Calendar cal, String userName, String phone) {
 		
 		Connection conn = getConnection();
 		
-		int result = cDao.calInsert(conn, cal, userName, phone);
+		int result = cDao.ptCalendarInsert(conn, cal, userName, phone);
 		
 		if(result > 0) {
 			commit(conn);
@@ -54,6 +44,6 @@ public class CalendarService {
 		close(conn);
 		return result;
 	}
-	*/
+
 
 }

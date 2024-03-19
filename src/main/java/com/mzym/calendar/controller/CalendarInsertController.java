@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mzym.calendar.service.CalendarService;
 import com.mzym.calendar.vo.Calendar;
@@ -49,9 +50,17 @@ public class CalendarInsertController extends HttpServlet {
 		cal.setCalTitle(title);
 		cal.setCalContent(content);
 		
-		int result = new CalendarService().calInsert(cal, userName, phone);
+		int result = new CalendarService().ptCalendarInsert(cal, userName, phone);
 		
-		response.setContentType("application/json; charset=UTF-8");
+		HttpSession session = request.getSession();
+		
+		if(result>0) {
+			session.setAttribute("alert", "일정 등록에 성공하였습니다.");
+			response.sendRedirect(request.getContextPath() + "/list.cal");
+			
+		}else {
+			//에러페이지
+		}
 		
 		
 		

@@ -36,6 +36,7 @@
 
   </script>
 
+
 </head>
 <body>
 
@@ -47,7 +48,7 @@
            
                 
         <nav class="header_nav">
-
+			
             <div class="main_back" style="cursor: pointer;">
                 <a href=""><img src="<%=contextPath %>/resources/img/common/뒤로가기.png" style="width: 50px; "></a>
                 </div>
@@ -218,7 +219,8 @@
                                 </tr>
     
                             </table>
-                        </form>
+                       
+                         </form>
     
                     </div>
     
@@ -344,14 +346,16 @@
         </div>
 
         <script>
-
-        // 캘린더에 일정 조회
+	$(function(){
+		ptCalendar();
+	})
+        
      
-
+	// 캘린더 일정 조회 함수
 	function ptCalendar(){
         $.ajax({
         	url:"<%=contextPath%>/list.cal",
-        	data:{no:15},
+        	data:{no:15%>},
         	type:"post",
         	success:function(clist){
         		
@@ -379,9 +383,9 @@
                 var calendar = new FullCalendar.Calendar(calendarEl, {
 
                 headerToolbar : {
-                    left : 'prev, next today',
-                    conter : 'title',
-                    right : 'dayGridMonth, timeGridWeek, timeGridDay'
+                    start : 'prev, next today',
+                    center : 'title',
+                    end : 'dayGridMonth, timeGridWeek, timeGridDay'
                 },
                 locale : 'ko',
                 selectable : true,

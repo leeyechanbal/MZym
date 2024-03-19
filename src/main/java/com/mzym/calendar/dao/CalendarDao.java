@@ -30,6 +30,7 @@ public class CalendarDao {
 		
 	}
 	
+	// 캘린더 일정 조회
 	public List<Calendar> selectCalendarList(Connection conn, int userNo){
 		List<Calendar> clist = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -59,42 +60,12 @@ public class CalendarDao {
 		
 	}
 	
-	/*
-	// 사용x
-	public List<Member> selelctMemberList(Connection conn, String userId){
-		List<Member> mlist = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectCalendarList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				mlist.add(new Member(rset.getString("USER_NAME"),
-									 rset.getString("PHONE")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return mlist;
-		
-	}
 	
-	
-	
-	
-	
-	
-	public int calInsert(Connection conn, Calendar cal, String userName, String phone) {
+	// 일정 추가
+	public int ptCalendarInsert(Connection conn, Calendar cal, String userName, String phone) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("calInsert");
+		String sql = prop.getProperty("ptCalendarInsert");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -119,8 +90,7 @@ public class CalendarDao {
 		
 	}
 	
-	*/
-	
+
 	
 	
 	
