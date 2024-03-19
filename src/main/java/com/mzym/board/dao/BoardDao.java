@@ -486,6 +486,10 @@ public class BoardDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		
+		return result;
+	}
 
 	/**
 	 * @author 이예찬
