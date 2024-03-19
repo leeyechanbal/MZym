@@ -3,7 +3,7 @@
 <%@ page import="com.mzym.board.vo.*" %>
     
 <%
-	Board b = (Board)request.getAttribute("b"); // 글번호, 제목, 내용, 작성자이름
+	Board b = (Board)request.getAttribute("b");  // 글번호, 제목, 내용, 작성자이름
 	Attachment at = (Attachment)request.getAttribute("at"); // 파일번호, 원본명, 수정파일명, 저장경로
  %>
 <!DOCTYPE html>
@@ -109,30 +109,33 @@
             <hr>
 
             <table class="table">
+            	<thead>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자일 경우 보여지는 버튼 요소 -->
-                <% if(loginUser != null && loginUser.getUserId().equals(b.getBoardMember())) {%>
+                
                 <button type="button" class="btn2 btn-outline-danger btn-sm">삭제</button>
                 <button type="button" class="btn3 btn-outline-secondary btn-sm">수정</button>
-                <% }else { %>
+                
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자가 아닐 경우 보여지는 버튼 요소 -->
                 <button type="button" class="btn4 btn-outline-danger btn-sm">신고</button>
-                <% } %>
+                
                 <tr>
+                	<th>제목</th>
                     <td><h3><%= b.getBoardTitle() %></h3></td>
                 </tr>
                 <tr>
+                	<th>내용</th>
                     <td><p style="min-height:200px; white-space:pre"><%= b.getBoardContent() %></p></td>
                 </tr>
                 <tr>
+                	<th>첨부파일</th>
                     <td>
-                        <!-- case1. 해당 게시글에 첨부파일이 없을 경우 -->
-                        <% if(at == null){ %>
-                        현재 첨부파일이 없습니다.
-                        <% }else { %>
-
-                        <!-- case2. 해당 게시글에 첨부파일이 있을 경우 -->
-                        <a download="<%= at.getOriginName() %>" href='<%= contextPath + "/" + at.getFilePath() + at.getChangeName() %>' style="color:black"><%= at.getOriginName() %></a>
-                    	<% } %>
+                       <% if(at == null){ %>
+                       <!-- case1. 해당 게시글에 첨부파일이 없을 경우 -->
+                       현재 첨부파일이 없습니다. 
+						<% }else { %>
+                       <!-- case2. 해당 게시글에 첨부파일이 있을 경우 -->
+                       <a download="<%= at.getOriginName() %>" href='<%= contextPath + "/" + at.getFilePath() + at.getChangeName() %>' style="color:black"><%= at.getOriginName() %></a>
+                       <% } %>
                     </td>
                 </tr>
             </table>
