@@ -83,11 +83,14 @@ public class ServiceBoardDao {
 			
 			while(rset.next()) {
 				list.add(new ServiceBoard(rset.getInt("service_no"),
+								   rset.getString("USER_ID"),
 								   rset.getString("category_name"),
 								   rset.getString("service_title"),
-								   rset.getString("USER_ID"), 
+								   rset.getString("service_content"),
 								   rset.getString("REGIST_DATE"),
-								   rset.getString("service_content")
+								   rset.getString("SERVICE_TR"),
+								   rset.getString("SERVICE_REPEAT"),
+								   rset.getString("UPFILEURL")
 						)); 
 			}
 			
@@ -140,7 +143,7 @@ public class ServiceBoardDao {
 			pstmt.setString(1, sb.getCategoryNo());
 			pstmt.setString(2, sb.getServiceTitle());
 			pstmt.setString(3, sb.getServiceContent());
-			//pstmt.setString(4, sb.getServiceUser());
+			pstmt.setString(4, sb.getServiceUser());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -171,6 +174,27 @@ public class ServiceBoardDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteBoard(Connection conn, int serviceNo) {
+		int result =  0; 
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteServiceBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, serviceNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			
 		}
 		
 		return result;

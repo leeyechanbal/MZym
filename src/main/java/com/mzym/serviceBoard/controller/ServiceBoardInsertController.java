@@ -1,5 +1,6 @@
 package com.mzym.serviceBoard.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -42,14 +43,13 @@ public class ServiceBoardInsertController extends HttpServlet {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 *1024;
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upfile/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new RenameFile());
 			
 			ServiceBoard sb = new ServiceBoard();
 			sb.setCategoryNo(multiRequest.getParameter("ServiceCategory"));
 			sb.setServiceTitle(multiRequest.getParameter("title"));
 			sb.setServiceContent(multiRequest.getParameter("content"));
-			
 			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			sb.setServiceUser(String.valueOf(userNo));
 			
@@ -58,13 +58,18 @@ public class ServiceBoardInsertController extends HttpServlet {
 			String origin = multiRequest.getOriginalFileName("upfile");
 			
 			if(origin != null) {
-				at = new Attachment(origin, multiRequest.getFilesystemName("upfile"), "/resources/upfile/");
-			}
+				at = new Attachment(origin, multiRequest.getFilesystemName("upfile"), "/resources/serviceUpfile/");
+			}			
+			
 			int result = new ServiceBoardService().insertServiceBoard(sb,at);
 			
 			if(result>0) {
 				request.getSession().setAttribute("alertMsg", "글등록에 성공했습니다!");
 				response.sendRedirect(request.getContextPath() + "/list.service?page=1");
+			}else {
+				if(at != null) {
+					new File (savePath + at.getChangeName()).delete();
+					}
 			}
 			
 			
