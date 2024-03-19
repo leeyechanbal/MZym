@@ -144,5 +144,14 @@
 	 WHERE USER_NO = ?
 </entry>
 
+<!-- 구성모 아이디찾기 -->
+<entry key="findId">
+ 	SELECT
+ 		USER_ID
+ 	 FROM MZYM_MEMBER
+ 	WHERE USER_NAME = ?
+ 	  AND PHONE = ?
+ 	  AND EMAIL = ?
+</entry>
 
 </properties>

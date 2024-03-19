@@ -91,7 +91,6 @@ public class Member {
 	}
 	
 
-
 	public Member(String userId, String userPwd, String userName, String phone, String rRN, String email,
 			String address) {
 		super();
@@ -102,6 +101,14 @@ public class Member {
 		this.RRN = rRN;
 		this.email = email;
 		this.address = address;
+	}
+
+	// 회원 아이디 찾기 위한 객체 - 구성모
+	public Member(String userName, String phone, String email) {
+		super();
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
 	}
 
 	public Member(String userName, String phone) {

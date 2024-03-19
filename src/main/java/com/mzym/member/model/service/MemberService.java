@@ -39,4 +39,12 @@ public class MemberService {
 		return result;
 	}
 
+	public String findId(Member m) {
+		Connection conn = getConnection();
+		String id ="";
+		id= mDao.findId(conn, m);
+		close(conn);
+		return id;
+	}
+
 }
