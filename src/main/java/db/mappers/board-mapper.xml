@@ -140,7 +140,10 @@ set origin_name = ?
 where att_no = ?
 </entry>
 
-<!-- 작성자 : 황수림 -->
+<!-- 
+	작성자 : 황수림
+	자유게시판 글 목록 리스트 셀렉문
+ -->
 <entry key="selectFreeList">
 	SELECT *
 	    FROM (
@@ -167,6 +170,29 @@ where att_no = ?
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!--
+	작성자 : 황수림
+	자유게시판 게시글 insert문
+ -->
+<entry key="insertFreeBoard">
+	INSERT
+	INTO MZYM_BOARD
+	(
+		BOARD_NO
+	,	BOARD_WRITER
+	,	BOARD_TYPE
+	,	BOARD_TITLE
+	,	BOARD_CONTENT
+	)
+	VALUES
+	(
+		SEQ_BOARDNO.NEXTVAL
+	,	?
+	,	1
+	,	?
+	,	?	
+	)
+</entry>
 <!-- 
 	작성자 : 이예찬
 	공지사항의 상태값을 'N'으로 변경하는 쿼리문
@@ -190,8 +216,31 @@ and ATT_CATEGORY = ?
 
 
 
-<!--  -->
-<entry key=""></entry>
+<!--
+	작성자 : 황수림
+	자유게시판 첨부파일 insert문
+ -->
+<entry key="insertFreeAttachment">
+	INSERT
+	INTO ATTACHMENT
+	(
+		FILE_NO
+	,	ATT_NO
+	,	ATT_CATEGORY
+	,	ORIGIN_NAME
+	,	CHANGE_NAME
+	,	FILE_PATH
+	)
+	VALUES
+	(
+		SEQ_ATTACHMENT.NEXTVAL
+	,	SEQ_BOARDNO.CURRVAL
+	,	'B'
+	,	?
+	,	?
+	,	?
+	)
+</entry>
 <!--  -->
 <entry key=""></entry>
 <!--  -->

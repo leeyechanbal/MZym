@@ -105,16 +105,17 @@
             <br><br>
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
-
+			<% if(loginUser != null) { %>
             <div class="search">
                 <input type="text" placeholder="검색어를 입력하세요">
                 <img class="icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
 
             <div align="right">
-                <button type="button" class="btn btn-secondary">글쓰기</button>
+                <a href="<%=contextPath %>/freeEnrollForm.bo" class="btn btn-secondary">글쓰기</a>
                 <br><br>
             </div>
+            <% } %>
 
             <br>
             <table class="table">

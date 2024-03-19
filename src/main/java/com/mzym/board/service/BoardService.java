@@ -97,8 +97,8 @@ public class BoardService {
 	
 	/**
 	 * @author 황수림
-	 * @return int 조회된 공지사항의 총 갯수
-	 * 페이징 처리를 위한 자유게시 총 갯수를 요청하는 매서드
+	 * @return int 조회된 자유게시판의 총 갯수
+	 * 페이징 처리를 위한 자유게시판 총 갯수를 요청하는 매서드
 	 */
 	public int selectFreeListCount() {
 		Connection conn = getConnection();
@@ -154,6 +154,32 @@ public class BoardService {
 		close(conn);
 		
 		return totalresult;
+	}
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글을 DB에 insert하는 메소드
+	 */
+	public int insertFreeBoard(Board b, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = dao.insertFreeBoard(conn, b);
+		
+		int result2 = 1;
+		if(at != null) {
+			result2 = dao.insertFreeAttachment(conn, at);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+		
 	}
 
 	/**
