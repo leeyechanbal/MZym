@@ -1,6 +1,9 @@
 package com.mzym.board.service;
 
-import static com.mzym.common.template.JDBCTemplate.*;
+import static com.mzym.common.template.JDBCTemplate.close;
+import static com.mzym.common.template.JDBCTemplate.commit;
+import static com.mzym.common.template.JDBCTemplate.getConnection;
+import static com.mzym.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -266,6 +269,13 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	public int adviceTuring(Advice ad) {
+		Connection conn = getConnection();
+		int result = dao.adviceTuring(conn, ad);
+		close(conn);
+		return result;
+	}
 
 	public List<Advice> selectAdvice(PageInfo info, String check) {
 		Connection conn = getConnection();
@@ -275,7 +285,6 @@ public class BoardService {
 		
 		return list;
 	}
-	
 	/**
 	 * @author 황수림
 	 * @return 자유게시판 수정 갯수 반환
@@ -304,11 +313,6 @@ public class BoardService {
 		
 		return result1 * result2;
 	}
-	
-	public void adviceTuring() {
-		
-	}
-
 	/**
 	 * @author 구성모
 	 * @return dao.insert결과값 반환
@@ -325,4 +329,4 @@ public class BoardService {
 		return result;
 	}
 
-}
+}// class END

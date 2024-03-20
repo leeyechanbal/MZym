@@ -335,7 +335,7 @@ where r BETWEEN ? and ?
 	작성자 : 이예찬
 	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
  -->
-<entry key="adviceTuringY">
+<entry key="adviceComplete">
 update mzym_advice
 set advice_tr = (
     select user_no
@@ -450,11 +450,11 @@ where ADVICE_NO = ? <!-- 상담글 번호 -->
 	작성자 : 이예찬
 	상담이 완료된 글을 상담 대기로 변경하는 글
  -->
-<entry key="adviceTuringN">
+<entry key="adviceUpdate">
 update mzym_advice
-set status = 'N'
-, MODIFY_DATE = sysdate
-where ADVICE_NO = ? <!-- 상담글 번호 -->
+set MODIFY_DATE = sysdate
+, ADVICE_REPEAT = ? <!-- 변경된 상담글 내용 -->
+where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
 </entry>
 <!--  -->
 <entry key=""></entry>

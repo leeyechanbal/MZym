@@ -6,6 +6,8 @@
 
 	Member loginUser = (Member)session.getAttribute("loginUser");
  %>
+ 
+ /views/trainer/Leeyechan/trainerFilter.jsp
 <!DOCTYPE html>
 <html>
 <head>

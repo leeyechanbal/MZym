@@ -78,7 +78,7 @@
 
                 <div id="center">
                     <div id="info">
-                        <img src="" alt="adminWho">
+                        <img src="<%=mzymPath%>/resources/img/" alt="adminWho">
                         <p class="font"><%=currentDate%><br>안녕하세요. 관리자님</p>
                     </div>
 
