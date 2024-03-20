@@ -17,10 +17,10 @@ public class CalendarService {
 	CalendarDao cDao = new CalendarDao();
 	
 	// 캘린더 일정 조회
-	public List<Calendar> selectCalendarList(int userNo){
+	public List<Calendar> selectCalendarList(int trNo){
 		
 		Connection conn = getConnection();
-		List<Calendar> clist = cDao.selectCalendarList(conn, userNo);
+		List<Calendar> clist = cDao.selectCalendarList(conn, trNo);
 		close(conn);
 		return clist;
 		
@@ -30,11 +30,11 @@ public class CalendarService {
 	
 	
 	// 일정 추가 
-	public int ptCalendarInsert(Calendar cal, String phone) {
+	public int ptCalendarInsert(Calendar cal, String userName,String phone) {
 		
 		Connection conn = getConnection();
 		
-		int result = cDao.ptCalendarInsert(conn, cal, phone);
+		int result = cDao.ptCalendarInsert(conn, cal, userName, phone);
 		
 		if(result > 0) {
 			commit(conn);

@@ -33,7 +33,7 @@ public class AjaxCalendarListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userNo = Integer.parseInt(request.getParameter("no"));
+		int trNo = Integer.parseInt(request.getParameter("trNo"));
 		
 			
 		/*	clist와 mlist
@@ -52,7 +52,7 @@ public class AjaxCalendarListController extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(map, response.getWriter());
 		*/
-		List<Calendar> clist = new CalendarService().selectCalendarList(userNo);
+		List<Calendar> clist = new CalendarService().selectCalendarList(trNo);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(clist, response.getWriter());

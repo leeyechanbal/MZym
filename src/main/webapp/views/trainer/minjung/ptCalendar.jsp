@@ -206,7 +206,7 @@
                                         <label>제목</label>
                                     </td>
                                     <td colspan="3">
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px; width: 530px;" required name="title">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px; width: 530px;" required name="title" placeholder="제목을 입력해주세요">
                                     </td>
                                 </tr>                                
     
@@ -215,7 +215,7 @@
                                         <label>내용</label>
                                     </td>
                                     <td colspan="3">
-                                        <textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8" required name="content">
+                                        <textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8" required name="content" placeholder="내용을 입력해주세요.">
                                         </textarea></td>
                                 </tr>
     
@@ -255,11 +255,13 @@
                                             <label style="width: 100px;">회원이름</label>
                                         </td>
                                         <td>
-                                            <input type="text" required>
+                                            <input type="text" required id="calUserName">
                                         </td>
-                                        <td colspan="2">
-                                            <input type="color" style="margin-bottom: 15px; margin-top: 15px;" required>
-                                        </td> 
+                                        <td>
+                                        <label style="width: 100px;">일정색상</label>
+                                    </td>
+                                    <td colspan="3">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required id="calColor" placeholder=" ex)red"> 
                                     </tr >
         
                                     <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
@@ -267,13 +269,13 @@
                                             <label>시작일</label>
                                         </td>
                                         <td>
-                                            <input type="text" required>
+                                            <input type="text" id="startDate" required>
                                         </td>
                                         <td >
                                             <label style="width: 70px;">종료일</label>
                                         </td>
                                         <td>
-                                            <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required>
+                                            <input type="text" id="endDate" style="margin-bottom: 15px; margin-top: 15px;" required>
                                         </td>
                                     </tr>
         
@@ -282,7 +284,7 @@
                                             <label>핸드폰번호</label>
                                         </td>
                                         <td colspan="3">
-                                            <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required>
+                                            <input type="text" id="calPhone" style="margin-bottom: 15px; margin-top: 15px;" required>
                                         </td>
                                     </tr>
 
@@ -291,7 +293,7 @@
                                             <label>작성자</label>
                                         </td>
                                         <td colspan="3">
-                                            <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required>
+                                            <input type="text" id="writer" style="margin-bottom: 15px; margin-top: 15px;" required>
                                         </td>
                                     </tr>
         
@@ -300,7 +302,7 @@
                                             <label>제목</label>
                                         </td>
                                         <td colspan="3">
-                                            <input type="text" style="margin-bottom: 15px; margin-top: 15px; width: 530px;" required>
+                                            <input type="text" id="title" style="margin-bottom: 15px; margin-top: 15px; width: 530px;" required>
                                         </td>
                                     </tr>
         
@@ -309,7 +311,7 @@
                                             <label>내용</label>
                                         </td>
                                         <td colspan="3">
-                                            <textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8" required>
+                                            <textarea id="content"  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8" required>
                                             </textarea></td>
                                     </tr>
         
@@ -354,7 +356,7 @@
 	function ptCalendar(){
         $.ajax({
         	url:"<%=contextPath%>/list.cal",
-        	data:{no:15},
+        	data:{trNo:15},
         	type:"post",
         	success:function(clist){
         		
@@ -366,12 +368,14 @@
         		let pt = [];
         		for(let i=0; i<clist.length;i++){
         			pt.push({
-        				//organizer : clist[i].cal_tr,   			// 작성자
+        				title : clist[i].calTitle,					// 제목
         				start : clist[i].startDate,					// 시작일
         				end : clist[i].endDate,						// 종료일
-        				title : clist[i].calTitle,					// 제목
-        				//description : clist[i].cal_content, 		// 내용
-        				color : clist[i].calColor  					// 일정색상
+        				color : clist[i].calColor,  				// 일정색상
+        				phoneNumber : clist[i].calPhone,			// 회원 핸드폰번호
+        				organizer : clist[i].writer,   				// 작성자(로그인한트레이너이름)
+        				name : clist[i].calUserName,				// pt회원이름 
+        				description : clist[i].calContent			// 내용
         				
         			});
         		}
@@ -396,7 +400,38 @@
                // },
                 
                 // [{}]안의 구문을 변수에 담아서 넣을 수 있음
-                events:pt //test
+                events:pt,
+                
+                
+                eventClick:function(info){
+                	let event = info.event; // 클릭한 일정 정보 가져오기
+                	
+                	console.log(event);
+                	let name = event.name; // calUserName
+                	let color = event.color;    
+                	let start = event.start;
+                	let end = event.end;
+                	let phoneNumber = event.phoneNumber; // calPhone
+                	let organizer = event.organizer;     // writer
+                	let title = event.title;
+                	let description = event.description;  // content
+                	
+                	console.log(calUserName , color , start, end, calPhone, writer, title,content);
+                	
+                	//if(start != null && end != null){
+                		$("#myModal3 input[id='calUserName']").val(event.extendedProps.name);
+	                	$("#myModal3 input[id='calColor']").val(event.extendedProps.color);
+	                	$("#myModal3 input[id='startDate']").val(start.toLocaleDateString());
+	                	$("#myModal3 input[id='endDate']").val(end == null ? start.toLocaleDateString() : end.toLocaleDateString());
+	                	$("#myModal3 input[id='calPhone']").val(event.extendedProps.phoneNumber);
+	                	$("#myModal3 input[id='writer']").val(event.extendedProps.organizer);
+	                	$("#myModal3 input[id='title']").val(title);
+	                	$("#myModal3 textarea[id='content']").val(event.extendedProps.description);
+	
+	                	// 모달창 띄우기
+	                	$("#myModal3").modal("show");
+                	//}
+                }
                 
                 });
 
@@ -438,6 +473,9 @@
             		}
             	})
             })
+            
+            
+            // 날짜 클릭시 모달창 나타나는 함수
             
             
 

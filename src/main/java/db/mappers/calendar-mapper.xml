@@ -3,16 +3,19 @@
 <properties>
 
 	<entry key="selectCalendarList">
-		SELECT
-		       CAL_TR
-		     , TO_CHAR(TO_DATE(START_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')START_DATE
-		     , TO_CHAR(TO_DATE(END_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')END_DATE
-		     , CAL_TITLE
-		     , CAL_CONTENT
-		     , CAL_COLOR
-		  FROM MZYM_CALENDAR
-		 WHERE USER_NO = ?
-		   AND STATUS = 'Y'
+	SELECT 
+	       USER_NAME
+	     , TO_CHAR(TO_DATE(START_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')START_DATE
+	     , TO_CHAR(TO_DATE(END_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')END_DATE
+	     , PHONE
+	     , (SELECT USER_NAME FROM MZYM_MEMBER WHERE USER_NO = ?)WRITER
+	     , CAL_TITLE
+	     , CAL_CONTENT
+	     , CAL_COLOR
+	  FROM MZYM_CALENDAR C
+	  JOIN MZYM_MEMBER USING (USER_NO)
+	 WHERE CAL_TR = ?
+	   AND C.STATUS = 'Y'
 	</entry>
 
 	<entry key="ptCalendarInsert">
@@ -32,7 +35,11 @@
 	VALUES 
 	(
 	  SEQ_CALNO.NEXTVAL
-	, ?
+	, (SELECT
+	          USER_NO 
+	     FROM MZYM_MEMBER 
+	    WHERE USER_NAME = ? 
+	      AND PHONE = ?)
 	, ?
 	, ?
 	, ?
@@ -40,7 +47,7 @@
 	, ?
 	, ?
 	, 'Y'
-	)
+)
 	</entry>
 
 

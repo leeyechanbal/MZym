@@ -6,7 +6,7 @@ public class Calendar {
 	
 	private int calNo;
 	private int calUserNo;
-	private String calTR;
+	private int calTR;
 	private String startDate;
 	private String endDate;
 	private String calTitle;
@@ -16,19 +16,23 @@ public class Calendar {
 	private Date modifyDate;
 	private String status;
 	private String field;
+	
+	private String calUserName;
+	private String calPhone;
+	private String writer;
 
 	
 	public Calendar() {}
 	
-	
 
-
-	public Calendar(String calTR, String startDate, String endDate, String calTitle, String calContent,
-			String calColor) {
+	public Calendar(String calUserName, String startDate, String endDate, String calPhone, String writer,
+			String calTitle, String calContent, String calColor) {
 		super();
-		this.calTR = calTR;
+		this.calUserName = calUserName;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.calPhone = calPhone;
+		this.writer = writer;
 		this.calTitle = calTitle;
 		this.calContent = calContent;
 		this.calColor = calColor;
@@ -37,7 +41,16 @@ public class Calendar {
 
 
 
-	public Calendar(int calNo, int calUserNo, String calTR, String startDate, String endDate, String calTitle,
+
+
+
+
+
+
+
+
+
+	public Calendar(int calNo, int calUserNo, int calTR, String startDate, String endDate, String calTitle,
 			String calContent, String calColor, Date registDate, Date modifyDate, String status, String field) {
 		super();
 		this.calNo = calNo;
@@ -53,6 +66,48 @@ public class Calendar {
 		this.status = status;
 		this.field = field;
 	}
+
+
+	public String getCalUserName() {
+		return calUserName;
+	}
+
+
+
+
+	public void setCalUserName(String calUserName) {
+		this.calUserName = calUserName;
+	}
+
+
+
+
+	public String getCalPhone() {
+		return calPhone;
+	}
+
+
+
+
+	public void setCalPhone(String calPhone) {
+		this.calPhone = calPhone;
+	}
+
+
+
+
+	public String getWriter() {
+		return writer;
+	}
+
+
+
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+
 
 
 	public int getCalNo() {
@@ -75,12 +130,12 @@ public class Calendar {
 	}
 
 
-	public String getCalTR() {
+	public int getCalTR() {
 		return calTR;
 	}
 
 
-	public void setCalTR(String calTR) {
+	public void setCalTR(int calTR) {
 		this.calTR = calTR;
 	}
 
@@ -175,13 +230,19 @@ public class Calendar {
 	}
 
 
+
+
 	@Override
 	public String toString() {
 		return "Calendar [calNo=" + calNo + ", calUserNo=" + calUserNo + ", calTR=" + calTR + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", calTitle=" + calTitle + ", calContent=" + calContent + ", calColor="
 				+ calColor + ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", status=" + status
-				+ ", field=" + field + "]";
+				+ ", field=" + field + ", calUserName=" + calUserName + ", calPhone=" + calPhone + ", writer=" + writer
+				+ "]";
 	}
+
+
+
 
 
 

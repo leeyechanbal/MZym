@@ -48,12 +48,12 @@ public class CalendarInsertController extends HttpServlet {
 		cal.setCalColor(calColor);
 		cal.setStartDate(startDate);
 		cal.setEndDate(endDate);
-		cal.setCalTR(writer);
+		cal.setWriter(writer);
 		cal.setCalTitle(title);
 		cal.setCalContent(content);
-		cal.setCalUserNo(trNo);
+		cal.setCalTR(trNo);
 		
-		int result = new CalendarService().ptCalendarInsert(cal, phone);
+		int result = new CalendarService().ptCalendarInsert(cal,userName, phone);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		HttpSession session = request.getSession();
