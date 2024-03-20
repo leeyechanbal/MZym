@@ -37,9 +37,22 @@
  		}
 
         .retrieve {
-            position: relative;
-            width: 300px;
-            float: left;
+			position: relative;
+			width: 300px;
+			float: left;
+			margin-bottom: 30px;
+		}
+		
+		.retrieve button{
+			display: flex;	
+			margin-top: 20px;
+		}
+		.retrieve img {
+            position : absolute;
+            width: 18px;
+            top: 14px;
+            right: 12px;
+             margin: 0;
         }
 
         input {
@@ -101,11 +114,12 @@
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 			<% if(loginUser != null) { %>
+			<form action="<%=contextPath %>" method="get">
             <div class="retrieve">
-                <input type="text" placeholder="검색어를 입력하세요">
-                <a href=""><img class="icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"></a>
+                <input type="search" placeholder="검색어를 입력하세요" name="keyword" id="keyword">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
-
+			</form>
             <div align="right">
                 <a href="<%=contextPath %>/freeEnrollForm.bo" class="btn btn-secondary">글쓰기</a>
                 <br><br>
