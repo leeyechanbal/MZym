@@ -476,6 +476,32 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param adviceNo
+	 * @return
+	 */
+	public int deletedAdcie(Connection conn, int adviceNo) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("deletedAdcie"));
+			pst.setInt(1, adviceNo);
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
 /*	
 	=================================  이예찬 leeyechan ==================================
 */
@@ -832,5 +858,6 @@ public class BoardDao {
 		
 		return result;
 	}
+
 
 }// class END

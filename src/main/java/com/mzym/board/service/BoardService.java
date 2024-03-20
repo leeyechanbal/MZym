@@ -205,6 +205,26 @@ public class BoardService {
 		return result;
 	}
 	
+
+	/**
+	 * @author 이예찬
+	 * @param adviceNo
+	 * @return 데이터의 상태를 변경후 결과값
+	 * 
+	 */
+	public int deletedAdvice(int adviceNo) {
+		Connection conn = getConnection();
+		int result = dao.deletedAdcie(conn, adviceNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 	
 	
 	
