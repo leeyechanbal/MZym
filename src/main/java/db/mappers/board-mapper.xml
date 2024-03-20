@@ -319,6 +319,7 @@ from(
             , ADVICE_CONTENT
             , ADVICE_REPEAT
             , TO_CHAR(REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+            , TO_CHAR(a.MODIFY_DATE, 'YY"년"MM"월"DD"일"') MODIFY_DATE
             , a.status
         from mzym_advice a
         join service_category USING (CATEGORY_NO)
@@ -329,18 +330,19 @@ from(
 )
 where r BETWEEN ? and ?
 </entry>
+
 <!-- 
 	작성자 : 이예찬
 	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
  -->
-<entry key="turingAdvice">
-	update mzym_advice
+<entry key="adviceTuringY">
+update mzym_advice
 set advice_tr = (
     select user_no
     from mzym_member
     where user_id = ? <!-- 트레이너 아이디 -->
 )
-,   ADVICE_REPEAT = <!-- 보고서 -->
+,   ADVICE_REPEAT = ? <!-- 보고서 -->
 ,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
 where ADVICE_NO = ? <!-- 상담글 번호 -->
 </entry>
@@ -374,4 +376,86 @@ where ADVICE_NO = ? <!-- 상담글 번호 -->
 <!--  -->
 <entry key=""></entry>
 
+
+
+<!--  
+	작성자 : 황수림
+	자유게시판 수정 쿼리
+-->
+<entry key="updateFreeBoard">
+	UPDATE
+			MZYM_BOARD
+	SET		BOARD_TITLE = ?
+		,	BOARD_CONTENT = ?
+	WHERE	BOARD_NO = ?
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 첨부파일 수정 쿼리
+-->
+<entry key="updateFreeAttachment">
+	UPDATE
+			ATTACHMENT
+	SET		ORIGIN_NAME = ?
+		,	CHANGE_NAME = ?
+		,	FILE_PATH = ?
+	WHERE	FILE_NO = ?
+
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 첨부파일 수정시 추가하는 쿼리
+-->
+<entry key="insertNewFreeAttachment">
+	INSERT
+		INTO ATTACHMENT
+		(
+			FILE_NO
+		,	ATT_NO
+		,	ATT_CATEGORY
+		,	ORIGIN_NAME
+		,	CHANGE_NAME
+		,	FILE_PATH
+		)
+		VALUES
+		(
+			SEQ_ATTACHMENT.NEXTVAL
+		,	?
+		,	'B'
+		,	?
+		,	?
+		,	?
+		)
+</entry>
+
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	상담이 완료된 글을 상담 대기로 변경하는 글
+ -->
+<entry key="adviceTuringN">
+update mzym_advice
+set status = 'N'
+, MODIFY_DATE = sysdate
+where ADVICE_NO = ? <!-- 상담글 번호 -->
+</entry>
+<!--  -->
+<entry key=""></entry>
 </properties>

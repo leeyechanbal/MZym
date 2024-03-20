@@ -18,7 +18,8 @@ public class Advice {
 	private String adviceContent; // 상담 내용
 	private String regist; // 등록일
 	private String repeat; // 보고서
-	private String status; // y가 완료 된것 N이 완료가 안된 것
+	private String status; // Y가 완료 된것 N이 완료가 안된 것
+	private String modifyDate; // 데이터 수정일
 	
 	// 조회에서 필요한 데이터들
 	private String trainerId; // 트레이너 아이디
@@ -46,11 +47,6 @@ public class Advice {
 		this.status = status;
 	}
 
-	
-	
-	
-	
-
 	/**
 	 * @author 이예찬
 	 * @param adviceNo
@@ -63,10 +59,11 @@ public class Advice {
 	 * @param repeat
 	 * @param regist
 	 * @param status
+	 * 페이징 처리된 상담글의 페이지의 데이터를 담기 위한 생성자
 	 */
 	public Advice(int adviceNo, String adviceName, String phone,String categoryName, 
-						String adviceDate, String trainerId, String adviceContent,
-						String repeat, String regist, String status) {
+					String adviceDate, String trainerId, String adviceContent,
+					String repeat, String regist, String modifyDate ,String status) {
 		super();
 		this.adviceNo = adviceNo;
 		this.adviceName = adviceName;
@@ -74,10 +71,20 @@ public class Advice {
 		this.adviceDate = adviceDate;
 		this.adviceContent = adviceContent;
 		this.regist = regist;
+		this.modifyDate = modifyDate;
 		this.repeat = repeat;
 		this.status = status;
 		this.trainerId = trainerId;
 		this.categoryName = categoryName;
+	}
+	
+	
+	public String getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 	

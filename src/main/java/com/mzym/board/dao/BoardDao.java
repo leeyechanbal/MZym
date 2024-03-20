@@ -543,7 +543,6 @@ public class BoardDao {
 			rset = pst.executeQuery();
 			
 			while(rset.next()) {
-				// 버퍼을 이용해서 중복되는 매서드 처리하기
 				list.add(new Advice(
 							rset.getInt("ADVICE_NO")
 							, rset.getString("ADVICE_USER")
@@ -552,9 +551,9 @@ public class BoardDao {
 							, rset.getString("ADVICE_DATE")
 							, rset.getString("user_id")
 							, rset.getString("ADVICE_CONTENT")
-							, (rset.getString("ADVICE_REPEAT") == null) ? "" : rset.getString("ADVICE_REPEAT")
+							, rset.getString("ADVICE_REPEAT") // NULL값이 존재함
 							, rset.getString("REGIST_DATE")
-							// NULL값이 존재함
+							, rset.getString("MODIFY_DATE")
 							, rset.getString("status")
 						));
 			}
@@ -667,6 +666,118 @@ public class BoardDao {
 		return result;
 	}
 	
-//	public void 
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param ad
+	 * @return update가 완료된 결과값
+	 * 넘어오는 글상태에 따라서 상담글을 변경해주는 매서드
+	 * 들옥되어야 하는 쿼리문이 달라서 상태값에따라 실행되게 제작
+	 */
+	public int adviceTuring(Connection conn, Advice ad) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			if(ad.getStatus().equals("N")) {
+				pst = conn.prepareStatement(prop.getProperty("adviceTuringY"));
+				pst.setString(1, ad.getTrainerId());
+				pst.setString(2, ad.getRepeat());
+				pst.setInt(1, ad.getAdviceNo());
+				
+				result = pst.executeUpdate();
+				
+			} else  {
+				pst = conn.prepareStatement(prop.getProperty("adviceTuringN"));
+				pst.setInt(1, ad.getAdviceNo());
+				
+				result = pst.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
 	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글 수정하는 메소드
+	 * 자유게시판의 첨부파일 수정하는 메소드
+	 * 자유게시판의 첨부파일 추가하는 메소드
+	 */
+	public int updateFreeBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateFreeAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNO());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertNewFreeAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getAttNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }// class END

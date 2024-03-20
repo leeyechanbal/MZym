@@ -275,6 +275,39 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	/**
+	 * @author 황수림
+	 * @return 자유게시판 수정 갯수 반환
+	 */
+	public int updateFreeBoard(Board b, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = dao.updateFreeBoard(conn, b);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			if(at.getFileNO() != 0) {
+				result2 = dao.updateFreeAttachment(conn, at);	
+			}else {
+				result2 = dao.insertNewFreeAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+	}
+	
+	public void adviceTuring() {
+		
+	}
 
 	/**
 	 * @author 구성모
