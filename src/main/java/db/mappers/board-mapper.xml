@@ -329,8 +329,21 @@ from(
 )
 where r BETWEEN ? and ?
 </entry>
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
+ -->
+<entry key="turingAdvice">
+	update mzym_advice
+set advice_tr = (
+    select user_no
+    from mzym_member
+    where user_id = ? <!-- 트레이너 아이디 -->
+)
+,   ADVICE_REPEAT = <!-- 보고서 -->
+,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
+where ADVICE_NO = ? <!-- 상담글 번호 -->
+</entry>
 <!--  -->
 <entry key=""></entry>
 <!--  -->
