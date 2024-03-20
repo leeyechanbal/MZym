@@ -16,13 +16,13 @@ import com.mzym.board.vo.Advice;
  * Servlet implementation class TurnAdvice
  */
 @WebServlet("/turnAdvice.trainer")
-public class TurnAdvice extends HttpServlet {
+public class TurnCounselling extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TurnAdvice() {
+    public TurnCounselling() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +35,6 @@ public class TurnAdvice extends HttpServlet {
 		
 		String a = request.getParameter("adviceNo");
 		String status = request.getParameter("status");
-		System.out.println("서블릿 실행");
 		
 		if (a != null && status != null) {
 			int adviceNo =  Integer.parseInt(a);
