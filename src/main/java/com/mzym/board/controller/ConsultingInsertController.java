@@ -44,7 +44,7 @@ public class ConsultingInsertController extends HttpServlet {
 		
 		if(result > 0 ) {
 			request.getSession().setAttribute("alertMsg", "상담신청완료했습니다! MZYM 회원가입도 해보세요!");
-			response.sendRedirect(request.getContextPath() + "/signup.me");
+			response.sendRedirect(request.getContextPath() + "/signupForm.me");
 		}else {
 			request.getSession().setAttribute("alertMsg", "상담신청이 실패했습니다 다시 시도해주세요");
 		}
