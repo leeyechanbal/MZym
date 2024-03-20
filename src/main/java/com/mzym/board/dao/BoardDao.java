@@ -22,6 +22,7 @@ import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
+import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardDao {
 	
@@ -829,6 +830,29 @@ public class BoardDao {
 		}
 		
 		return list;
+		
+	}
+	
+	public int insertComment(Connection conn, Comment c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, c.getCommentWriter());
+			pstmt.setInt(2, c.getBoardNo());
+			pstmt.setString(3, c.getCommentContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 		
 	}
 	

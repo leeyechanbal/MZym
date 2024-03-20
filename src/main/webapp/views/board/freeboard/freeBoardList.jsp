@@ -36,13 +36,22 @@
  		cursor:pointer
  		}
 
-        .search {
-            position: relative;
-            width: 300px;
-            float: left;
+       .sea {
+			position: relative;
+			width: 300px;
+			float: left;
+			margin-bottom: 30px;
+		}
+		.sea img {
+             position : absolute;
+             width: 18px;
+             top: 14px;
+             right: 12px;
+              margin: 0;
         }
-
-        input {
+		
+		
+		input {
              width: 100%;
              border: 1px solid #bbb;
              border-radius: 8px;
@@ -50,13 +59,7 @@
              font-size: 14px;
         }
 
-        .icon {
-             position : absolute;
-             width: 17px;
-             top: 10px;
-             right: 12px;
-            margin: 0;
-        }
+       
 
         h2 { 
             text-align: center; 
@@ -101,11 +104,16 @@
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 			<% if(loginUser != null) { %>
-            <div class="search">
-                <input type="text" placeholder="검색어를 입력하세요">
-                <img class="icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-            </div>
-
+            <div class="sea">
+					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
+					<div class="sea">
+               		<input type="search" placeholder="검색어를 입력하세요" name="keyword" id="keyword">
+                	<img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+            		</div>
+					
+					</form>
+			</div>
+	
             <div align="right">
                 <a href="<%=contextPath %>/freeEnrollForm.bo" class="btn btn-secondary">글쓰기</a>
                 <br><br>
@@ -182,7 +190,8 @@
             </ul>
 
         </div>
-
+		
+		
     </section>
     <!-- Section end -->
     
