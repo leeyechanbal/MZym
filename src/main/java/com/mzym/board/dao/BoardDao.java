@@ -1,6 +1,9 @@
 package com.mzym.board.dao;
 
 import static com.mzym.common.template.JDBCTemplate.close;
+import static com.mzym.common.template.JDBCTemplate.commit;
+import static com.mzym.common.template.JDBCTemplate.getConnection;
+import static com.mzym.common.template.JDBCTemplate.rollback;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +16,10 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
+import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
 
@@ -39,12 +44,6 @@ public class BoardDao {
 		}
 		
 	}
-
-	/*
-	 * selectNotice(Connection conn)은 
-	 * 페이징 처리가 된 후에 게시물을 보이게 되서
-	 * 사용할 일이 없어 졌습니다.
-	*/
 	
 	/**
 	 * @author 이예찬
@@ -106,29 +105,7 @@ public class BoardDao {
 						, (originName != null) ? 
 								new Attachment(originName, rset.getString("change_name"), rset.getString("file_path")) 
 								: null
-						));
-				
-				
-//				if (originName != null) {
-//					list.add(new Notice(
-//								rset.getInt("NOTICE_NO")
-//								, rset.getString("USER_ID")
-//								, rset.getString("NOTICE_TITLE")
-//								, rset.getString("NOTICE_CONTENT")
-//								, rset.getString("REGIST_DATE")
-//								, new Attachment(originName, rset.getString("change_name"), rset.getString("file_path"))
-//							));
-//				} else {
-//					list.add(new Notice(
-//							rset.getInt("NOTICE_NO")
-//							, rset.getString("USER_ID")
-//							, rset.getString("NOTICE_TITLE")
-//							, rset.getString("NOTICE_CONTENT")
-//							, rset.getString("REGIST_DATE")
-//						));
-//				}
-				
-				
+						));				
 				
 			}
 			
@@ -185,7 +162,6 @@ public class BoardDao {
 		
 		String type = null;
 		String seq = null;
-//		int boardNum = 0;
 		Attachment att = null;
 		
 		
@@ -194,19 +170,6 @@ public class BoardDao {
 			seq = "SEQ_NOTICENO.currval";
 			att = ((Notice) obj).getAtt();
 		}
-		
-		
-//		if (option == 0) {
-//			if (obj instanceof Notice) {
-//				type = "N";
-//				seq = "SEQ_NOTICENO.currval";
-//				att = ((Notice) obj).getAtt();
-//			}
-//		} else {
-//			if (obj instanceof Notice) {
-//				boardNum = ((Notice) obj).getNoticeNo();
-//			}
-//		}
 		
 		String sql = "insert"
 				+ " into attachment"
@@ -242,7 +205,96 @@ public class BoardDao {
 			// pt후기에서 바꿀 수 있음
 			pst.setNull(5, java.sql.Types.NULL); 
 			//자바에서 null값을 쿼리문에 전달하는 방법
-			System.out.println(sql);
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param n
+	 * @return
+	 * 공지사항 수정 쿼리 실행 및 결과 값 반환 매서드
+	 */
+	public int updateNotice(Connection conn, Notice n) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("updateNotice"));
+			pst.setString(1, n.getTitle());
+			pst.setString(2, n.getContent());
+			pst.setInt(3, n.getWriter());
+			pst.setInt(4, n.getNoticeNo());
+			
+			result = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param n
+	 * 첨부파일을 재 설정 하는 매서드
+	 */
+	public int updateAttachment(Connection conn, Notice n) {
+		PreparedStatement pst = null;
+		int result = 0;
+		Attachment att = n.getAtt();
+		try {
+			pst = conn.prepareStatement(prop.getProperty("updateAttachment"));
+			pst.setString(1, att.getOriginName());
+			pst.setString(2, att.getChangeName());
+			pst.setInt(3, n.getNoticeNo());
+
+			result = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param n
+	 * @param conn
+	 * @return
+	 */
+	public int insertNumAttachment(Notice n, Connection conn) {
+		PreparedStatement pst = null;
+		int result = 0;
+		Attachment att = n.getAtt();
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("insertNumAttachment"));
+			pst.setInt(1, n.getNoticeNo());
+			pst.setString(2, "N");
+			pst.setString(3, att.getOriginName());
+			pst.setString(4, att.getChangeName());
+			pst.setString(5, att.getFilePath());
+			
+			// pt후기에서 바꿀 수 있음
+			pst.setNull(6, java.sql.Types.NULL); 
+			//자바에서 null값을 쿼리문에 전달하는 방법
 			
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -254,6 +306,179 @@ public class BoardDao {
 		return result;
 	}
 	
+	
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param num
+	 * @return 
+	 */
+	public int deletedNotice(Connection conn, int num) {
+		int result = 0;
+		PreparedStatement pst = null;
+		
+		try {
+			System.out.println(num);
+			pst = conn.prepareStatement(prop.getProperty("deletedNotice"));
+			pst.setInt(1, num);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param num
+	 * @return 
+	 * 첨부파일의 상태를 'N'으로 변경하는 매서드
+	 */
+	public int deletedAttachment(Connection conn, int num, String type) {
+		int result = 0;
+		PreparedStatement pst = null;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("deletedAttachment"));
+			pst.setInt(1, num);
+			pst.setString(2, type);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @return 상담게시물 총 갯수 조회
+	 */
+	public int selectCounselingCount(Connection conn, String check) {
+		ResultSet rset = null;
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectCounselingCount"));
+			pst.setString(1, check);
+			rset = pst.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("count(*)");
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param info
+	 * @param check
+	 * @return
+	 * check 값이 Y, N인지에 따라서 다른 조회문을 가져옴
+	 */
+	public List<Advice> selectAdvice(Connection conn, PageInfo info, String check) {
+		ResultSet rset = null;
+		PreparedStatement pst = null;
+		List<Advice> list = new ArrayList<>();
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectAdvice"));
+			pst.setString(1, check);
+			pst.setInt(2, info.getStartBoard());
+			pst.setInt(3, info.getEndBoard());
+			rset = pst.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Advice(
+							rset.getInt("ADVICE_NO")
+							, rset.getString("ADVICE_USER")
+							, rset.getString("PHONE_NO")
+							, rset.getString("CATEGORY_NAME")
+							, rset.getString("ADVICE_DATE")
+							, rset.getString("user_id")
+							, rset.getString("ADVICE_CONTENT")
+							, rset.getString("ADVICE_REPEAT") // NULL값이 존재함
+							, rset.getString("REGIST_DATE")
+							, rset.getString("MODIFY_DATE")
+							, rset.getString("status")
+						));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
+		}
+		
+		return list;
+	}
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param ad
+	 * @return update가 완료된 결과값
+	 * 넘어오는 글상태에 따라서 상담글을 변경해주는 매서드
+	 * 들옥되어야 하는 쿼리문이 달라서 상태값에따라 실행되게 제작
+	 */
+	public int adviceTuring(Connection conn, Advice ad) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			if(ad.getStatus().equals("N")) {
+				pst = conn.prepareStatement(prop.getProperty("adviceComplete"));
+				System.out.println(ad.getTrainerId());
+				
+				pst.setString(1, ad.getTrainerId());
+				System.out.println(ad.getRepeat());
+				
+				pst.setString(2, ad.getRepeat());
+				pst.setInt(3, ad.getAdviceNo());
+				
+				result = pst.executeUpdate();
+				
+			} else  {
+				pst = conn.prepareStatement(prop.getProperty("adviceUpdate"));
+				pst.setString(1, ad.getRepeat());
+				pst.setInt(2, ad.getAdviceNo());
+				
+				result = pst.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
+/*	
+	=================================  이예찬 leeyechan ==================================
+*/
 	/**
 	 * @author 황수림
 	 * @param conn db연결을 위한 Connection 객체
@@ -325,62 +550,287 @@ public class BoardDao {
 		return list;
 		
 	}
-
+	
 	/**
-	 * @author 이예찬
-	 * @param conn
-	 * @param n
-	 * @return
-	 * 공지사항 수정 쿼리 실행 및 결과 값 반환 매서드
+	 * @author 황수림
+	 * 자유게시판 게시글 조회시 조회수 count 하는 메소드
 	 */
-	public int updateNotice(Connection conn, Notice n) {
-		PreparedStatement pst = null;
+	public int increaseFreeCount(Connection conn, int boardNo) {
 		int result = 0;
-		Attachment at = n.getAtt();
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseFreeCount");
 		
 		try {
-			pst = conn.prepareStatement(prop.getProperty("updateNotice"));
-			pst.setString(1, n.getTitle());
-			pst.setString(2, n.getContent());
-			pst.setInt(3, n.getWriter());
-			pst.setInt(4, n.getNoticeNo());
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글 조회하는 메소드
+	 */
+	public Board selectFreeBoard(Connection conn, int boardNo) {
+		Board b = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rset = pstmt.executeQuery();
 			
-			result = pst.executeUpdate();
+			if(rset.next()) {
+				b = new Board(rset.getInt("board_no"),
+							  rset.getString("board_title"),
+							  rset.getString("board_content"),
+							  rset.getString("user_no")
+							  );
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pst);
+			close(rset);
+			close(pstmt);
+		}
+		
+		return b;
+	}
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글의 첨부파일을 조회하는 메소드
+	 */
+	public Attachment selectFreeAttachment(Connection conn, int boardNo) {
+		
+		Attachment at = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment();
+				at.setFileNO(rset.getInt("file_no"));
+				at.setOriginName(rset.getString("origin_name"));
+				at.setChangeName(rset.getString("change_name"));
+				at.setFilePath(rset.getString("file_path"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return at;
+	}
+	
+	public int insertFreeAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+}
+	/**
+	 * @author 황수림
+	 * @return
+	 * 자유게시판 게시글 insert
+	 */
+	public int insertFreeBoard(Connection conn, Board b){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getBoardWriter());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글 수정하는 메소드
+	 * 자유게시판의 첨부파일 수정하는 메소드
+	 * 자유게시판의 첨부파일 추가하는 메소드
+	 */
+	public int updateFreeBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateFreeAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNO());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertNewFreeAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getAttNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public List<Comment> selectCommentList(Connection conn, int boardNo){
+		List<Comment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Comment(rset.getInt("comment_No"),
+									 rset.getString("user_name"),
+									 rset.getString("comment_Content"),
+									 rset.getString("comment_Date")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	
+/*	
+	=================================  황수림 a yellow forest ==================================
+*/
+
+	/**
+	 * @author 구성모
+	 * @param conn
+	 * @param a
+	 * @return 상담예약 insert결과값 반환
+	 */
+	public int insertAdvice(Connection conn, Advice a) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAdvice");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a.getCategoryNo());
+			pstmt.setString(2, a.getAdviceName());
+			pstmt.setString(3, a.getPhone());
+			pstmt.setString(4, a.getAdviceDate());
+			pstmt.setString(5, a.getAdviceContent());
+			
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
 		return result;
 	}
 
-	/**
-	 * @author 이예찬
-	 * @param conn
-	 * @param n
-	 * 첨부파일을 재 설정 하는 매서드
-	 */
-	public void updateAttachment(Connection conn, Notice n) {
-		PreparedStatement pst = null;
-		int result = 0;
-		Attachment att = n.getAtt();
-		try {
-			pst = conn.prepareStatement(prop.getProperty("updateAttachment"));
-			pst.setString(1, att.getOriginName());
-			pst.setString(2, att.getChangeName());
-			pst.setInt(3, att.getAttNo());
-
-			result = pst.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		}finally {
-			close(pst);
-		}
-		
-		
-	}
-}
+}// class END

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mzym.mypage.service.MyPageService;
+import com.mzym.mypage.model.service.MyPageService;
 
 /**
  * Servlet implementation class MyPageDeleteMemberController
@@ -39,13 +39,13 @@ public class MyPageDeleteMemberController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(result> 0 ) {
 			
-			session.removeAttribute("m");
+			session.removeAttribute("loginUser");
 			session.setAttribute("alertMsg", "회원탈퇴가 완료되었습니다.");
 			response.sendRedirect(request.getContextPath());
 			
 		}else {
-			
-			//response.sendRedirect(request.getContextPath() + "/myPage.me");
+			session.setAttribute("alertMsg", "회원탈퇴 실패");
+			response.sendRedirect(request.getContextPath() + "/myPage.me");
 			
 		}
 	}

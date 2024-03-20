@@ -15,13 +15,30 @@ public class Calendar {
 	private Date registDate;
 	private Date modifyDate;
 	private String status;
+	private String field;
 
 	
 	public Calendar() {}
+	
+	
+
+
+	public Calendar(String calTR, String startDate, String endDate, String calTitle, String calContent,
+			String calColor) {
+		super();
+		this.calTR = calTR;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.calTitle = calTitle;
+		this.calContent = calContent;
+		this.calColor = calColor;
+	}
+
+
 
 
 	public Calendar(int calNo, int calUserNo, String calTR, String startDate, String endDate, String calTitle,
-			String calContent, String calColor, Date registDate, Date modifyDate, String status) {
+			String calContent, String calColor, Date registDate, Date modifyDate, String status, String field) {
 		super();
 		this.calNo = calNo;
 		this.calUserNo = calUserNo;
@@ -34,6 +51,7 @@ public class Calendar {
 		this.registDate = registDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
+		this.field = field;
 	}
 
 
@@ -147,12 +165,26 @@ public class Calendar {
 	}
 
 
+	public String getField() {
+		return field;
+	}
+
+
+	public void setField(String field) {
+		this.field = field;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Calendar [calNo=" + calNo + ", calUserNo=" + calUserNo + ", calTR=" + calTR + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", calTitle=" + calTitle + ", calContent=" + calContent + ", calColor="
-				+ calColor + ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+				+ calColor + ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", status=" + status
+				+ ", field=" + field + "]";
 	}
+
+
+
 
 	
 	

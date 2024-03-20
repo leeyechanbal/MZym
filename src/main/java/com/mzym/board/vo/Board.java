@@ -39,11 +39,11 @@ public class Board {
 		this.boardWriter = boardWriter;
 	}
 	
-	public String getBoardmember() {
+	public String getBoardMember() {
 		return boardMember;
 	}
 
-	public void setBoardmember(String boardmember) {
+	public void setBoardMember(String boardmember) {
 		this.boardMember = boardmember;
 	}
 
@@ -126,7 +126,7 @@ public class Board {
 		this.count = count;
 	}
 
-	public Board(int boardNo, String boardTitle, String boardmember, int count, Date regist_Date) {
+	public Board(int boardNo, String boardTitle, String boardMember, int count, Date regist_Date) {
 		super();
 		this.boardNo = boardNo;
 		this.boardMember = boardMember;
@@ -134,6 +134,16 @@ public class Board {
 		this.regist_Date = regist_Date;
 		this.count = count;
 	}
+
+	public Board(int boardNo, String boardTitle, String boardContent, String boardMember) {
+		super();
+		this.boardNo = boardNo;
+		this.boardMember = boardMember;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+	}
+	
+	
 
 	
 }

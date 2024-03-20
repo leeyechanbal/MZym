@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
-	//Member loginUser = (Member)request.getAttribute("longinUser");
+	Member loginUser = (Member)request.getAttribute("longinUser");
 
 %>
 <!DOCTYPE html>
@@ -10,8 +11,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PT일정등록</title>
@@ -19,47 +18,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/src/main/webapp/resources/css/ptCalendar_minjung/ptCalendar_minjung.css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/ptCalendar_minjung/ptCalendar_minjung.css">
     
     <!-------------------- fullcalendar script --------------------->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.11/index.global.min.js'></script>
     <!--------------------- fullcalendar script --------------------->
    
-    <!-- calendar 생성 script -->
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+      });
+    calendar.render();
+    });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-
-            headerToolbar : {
-                left : 'prev, next today',
-                conter : 'title',
-                right : 'dayGridMonth, timeGridWeek, timeGridDay'
-            },
-            locale : 'ko',
-            selectable : true,
-            selectMirror : true,
-            eventLimit : 'more',
-            initialView: 'dayGridMonth',
-            eventAdd : function(e){     // 이벤트가 추가되면 발생하는 이벤트
-                console.log(e);
-            },
-            
-            events:[{title: 'Meeting', start: new Date() }] //test
-
-            });
-
-            
-            calendar.render();
-        });
-    
-        </script>
-        <!-- calendar 생성 script -->
-
-
-</head>
+  </script>
 
 
 </head>
@@ -73,13 +48,13 @@
            
                 
         <nav class="header_nav">
-
+			
             <div class="main_back" style="cursor: pointer;">
-                <a href=""><img src="../../../resources/img/common/뒤로가기.png" style="width: 50px; "></a>
+                <a href=""><img src="<%=contextPath %>/resources/img/common/뒤로가기.png" style="width: 50px; "></a>
                 </div>
            
             <div class="main_logo" >
-                <a href=""><img src="../../../resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
+                <a href=""><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
               </div>
 
             <div class="main_item">
@@ -97,7 +72,7 @@
         <div  class="side_menu">
 
             <div class="side_login">
-                <img src="../../../resources/img/common/profile_icon_512x512.png" style="width: 75px"> <br>
+                <img src="<%=contextPath %>/resources/img/common/profile_icon_512x512.png" style="width: 75px"> <br>
                 xxx 트레이너
             </div>
             <div class="side_list" >
@@ -148,7 +123,7 @@
                     </form>
                 </div>
         
-                <!-- Modal footer -->
+
                 <div class="modal-footer">
                 <button type="button" id= "modal-footer-btn"class="btn btn-danger" data-dismiss="modal">조회</button>
                 </div>
@@ -156,6 +131,8 @@
                     </div>
                 </div>
                 </div>  
+                
+                
             <!-- 회원별 조회 모달  end ----------------------------------------------------------------------- -->
     
             <!-- PT일정 추가 모달  start ------------------------------------------------------------------------>
@@ -173,17 +150,19 @@
             
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form action="<%= contextPath %>/insert.cal" method="post">
                             <table>
                                 <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
                                     <td>
                                         <label style="width: 100px;">회원이름</label>
                                     </td>
                                     <td>
-                                        <input type="text" required name="userName">
+                                        <input type="text" required name="ptUserName">
                                     </td>
-                                    <td colspan="2">
-                                        <input type="color" style="margin-bottom: 15px; margin-top: 15px;" required name="calColor">
+                                    <td>
+                                        <label style="width: 100px;">일정색상</label>
+                                    </td>
+                                    <td colspan="3">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="calColor" placeholder=" ex)red">
                                     </td> 
                                 </tr >
     
@@ -192,13 +171,13 @@
                                         <label>시작일</label>
                                     </td>
                                     <td>
-                                        <input type="text" required name="startDate">
+                                        <input type="text" required name="startDate" placeholder="ex)01/01/2024">
                                     </td>
                                     <td >
                                         <label style="width: 70px;">종료일</label>
                                     </td>
                                     <td>
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="endDate">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="endDate" placeholder="ex)12/31/2024">
                                     </td>
                                 </tr>
     
@@ -207,7 +186,7 @@
                                         <label>핸드폰번호</label>
                                     </td>
                                     <td colspan="3">
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="phone">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="userPhone" placeholder="ex)010-9999-9999(-포함)">
                                     </td>
                                 </tr>
 
@@ -216,12 +195,9 @@
                                         <label>작성자</label>
                                     </td>
                                     <td colspan="3">
+                                    	<input type="hidden" name="trNo">
                                         <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="writer">
                                         
-                                        <!-- 로그인한 트레이너 회원번호 넘기기 -->
-                                        <!--  
-                                        <input type="hidden" name="trNo" value="">
-                                        -->
                                     </td>
                                 </tr>
     
@@ -244,14 +220,13 @@
                                 </tr>
     
                             </table>
-                        </form>
+                            
+                            <div class="modal-footer">
+                                <button type="submit" id="insert_btn"class="btn btn-danger" data-dismiss="modal">추가</button>
+                            </div>
     
                     </div>
     
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="submit" id= "insert_btn"class="btn btn-danger" data-dismiss="modal">추가</button>
-                            </div>
                     
                                 </div>
                             </div>
@@ -370,33 +345,101 @@
         </div>
 
         <script>
+	$(function(){
+		ptCalendar();
+	})
+        
+     
+	// 캘린더 일정 조회 함수
+	function ptCalendar(){
+        $.ajax({
+        	url:"<%=contextPath%>/list.cal",
+        	data:{no:15},
+        	type:"post",
+        	success:function(clist){
+        		
+        		console.log(clist);
+        		// 매개변수에 담겨잇는 데이터들에 접근해서 
+        		// let 변수 =  [{title:"db로부터조회한일정의제목", start:"일정날짜"}, {title:"db로부터조회한일정의제목", start:"일정날짜"} .. ] 이런형태로 만들기
+        		
+        		
+        		let pt = [];
+        		for(let i=0; i<clist.length;i++){
+        			pt.push({
+        				//organizer : clist[i].cal_tr,   			// 작성자
+        				start : clist[i].startDate,					// 시작일
+        				end : clist[i].endDate,						// 종료일
+        				title : clist[i].calTitle,					// 제목
+        				//description : clist[i].cal_content, 		// 내용
+        				color : clist[i].calColor  					// 일정색상
+        				
+        			});
+        		}
+        		
+        		
+        		
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
 
+                headerToolbar : {
+                    start : 'prev, next today',
+                    center : 'title',
+                    end : 'dayGridMonth, timeGridWeek, timeGridDay'
+                },
+                locale : 'ko',
+                selectable : true,
+                selectMirror : true,
+                eventLimit : 'more',
+                initialView: 'dayGridMonth',
+               // eventAdd : function(e){     // 이벤트가 추가되면 발생하는 이벤트
+               //     console.log(e);
+               // },
+                
+                // [{}]안의 구문을 변수에 담아서 넣을 수 있음
+                events:pt //test
+                
+                });
 
-
+                
+                calendar.render();
+        		
+        	},
+        	error:function(){
+        		console.log("ajax통신실패");
+        	}
+        })
+ 	}	
+ 
             // 회원별 조회 모달창 조회 클릭시 실행될 이벤트
 
 
 
-            // PT일정등록 모달창 등록 클릭시 실행될 이벤트
-            /*
+            // PT일정등록 모달창 추가 버튼 클릭시 실행될 이벤트
             $("#insert_btn").on("click", function(){ 
-
-                var title = $('#title').val();
-
-                if(title){
-                    calendar.addEvent({
-                        organizer : '회원이름',                 // 보통은 일정작성자 이름
-                        backgroundColor : 'pink',              // 일정 배경색
-                        start : '2024-03-15',                  // 시작일 시간도 입력 가능 ex)'13:00' or 'T13:00'
-                        end : '2024-03-17',                    // 종료일
-                        location : '010-1111-1111',            // 보통은 장소 또는 위치
-                        title : title,                        // 제목
-                        description : '내용'
-                    });
-                }
+            	$.ajax({
+            		url:"<%=contextPath%>/insert.cal",
+            		data:{
+            			ptUserName:$("input[name='ptUserName']").val(),
+            			calColor:$("input[name='calColor']").val(),
+            			startDate:$("input[name='startDate']").val(),
+            			endDate:$("input[name='endDate']").val(),
+            			userPhone:$("input[name='userPhone']").val(),
+            			writer:$("input[name='writer']").val(),
+            			trNo:15, //$("input[name='trNo']").val(),
+            			title:$("input[name='title']").val(),
+            			content:$("textarea[name='content']").val()
+            		},
+            		type:"post",
+            		success:function(result){
+            			console.log("pt일정등록 성공");
+            		},
+            		error:function(){
+            			console.log("pt일정등록 ajax 통신실패");
+            		}
+            	})
             })
-
-           */
+            
+            
 
             // 기존에 등록된 일정 클릭후 수정, 삭제버튼 클릭시 실행될 이벤트  
            /*

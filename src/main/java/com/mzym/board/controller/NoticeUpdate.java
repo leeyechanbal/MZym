@@ -33,7 +33,9 @@ public class NoticeUpdate extends HttpServlet {
     }
 
 	/**
+	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -44,11 +46,11 @@ public class NoticeUpdate extends HttpServlet {
 			int max = 10 * 1024 *1024;
 			String path = request.getSession().getServletContext().getRealPath("/resources/upfile/");
 			
-			MultipartRequest multi = new MultipartRequest(request, path, max, "utf-8", new RenameFile());
+			MultipartRequest multi = new MultipartRequest(request, path, max, "UTF-8", new RenameFile());
 			
 			
 			// 변경 될 공지사항 데이터와, 추가로 들어온 참부파일 데이터
-			int No = Integer.parseInt(multi.getParameter("noticeNo"));
+			int no = Integer.parseInt(multi.getParameter("noticeNo"));
 			int writer = 2; // 추후 세션값의 트레이너 맴버 번호 가져옴
 			String title = multi.getParameter("noticeTitle");
 			String content = multi.getParameter("noticeContent");
@@ -60,7 +62,7 @@ public class NoticeUpdate extends HttpServlet {
 			String wasChange = multi.getParameter("wasChangeName");
 			
 			
-			Notice n = new Notice(No, writer, title, content, new Attachment(origin, change, "/resoureces/upfiles/", checkedFile));
+			Notice n = new Notice(no, writer, title, content, new Attachment(origin, change, "/resoureces/upfiles/", checkedFile));
 			
 			int outcome = new BoardService().updateNotice(n);
 			
@@ -69,9 +71,9 @@ public class NoticeUpdate extends HttpServlet {
 				if(origin != null) {
 					new File(path, wasChange).delete();
 				}
-				response.sendRedirect(request.getContextPath()+"/views/boardNotice.jsp");
-			}else {
-				
+				response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=2");
+			} else {
+				request.getSession().setAttribute("alert", "요청에 실패했습니다.");
 			}
 		}
 	}

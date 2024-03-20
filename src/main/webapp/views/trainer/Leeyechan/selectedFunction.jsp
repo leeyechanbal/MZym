@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.mzym.member.vo.Member" %>
+<%@ page import="com.mzym.member.model.vo.Member" %>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Date"%>
 <!--  
@@ -72,13 +72,13 @@
 
 	 <div id="background">
         <div id="home">
-            <div id="head"><img src="<%=mzymPath%>/resources/img/icon/logo-lg-300x150.png" alt="Myzm logo"></div>
+            <div id="head" style="margin-bottom: 50px;"><img src="<%=mzymPath%>/resources/img/icon/logo-lg-300x150.png" alt="Myzm logo"></div>
 
             <div id="react">
 
                 <div id="center">
-                    <div id="info">
-                        <img src="" alt="adminWho">
+                    <div id="info" style="text-align: -webkit-center;">
+                        <img src="<%=mzymPath%>/resources/img/icon/trainer_icon_100x100.png" alt="adminWho">
                         <p class="font"><%=currentDate%><br>안녕하세요. 관리자님</p>
                     </div>
 

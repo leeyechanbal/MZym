@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.common.paging.PageInfo"%>
+<%@ page import="com.mzym.mypage.model.vo.Payment"%>
+<%@ page import="java.util.List"%>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	List<Payment> list = (List<Payment>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,21 +37,23 @@ margin-left: 280px;
 margin-top: 60px;
 }
 
-/*페이징 style*/
-.page-link{
-    color: black;
+/*페이징 style*/ 
+
+
+.my.pagination > .active > a, 
+.my.pagination > .active > span, 
+.my.pagination > .active > a:hover, 
+.my.pagination > .active > span:hover, 
+.my.pagination > .active > a:focus, 
+.my.pagination > .active > span:focus {
+   background: #1abc9c;
+   border-color: #1abc9c;
+}
+        
+.page-item a.page-link {
+   color: #1abc9c;
 }
 
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color:#1ABC9C;
-    border-color:#1ABC9C;
-}
-
-.pagination{
-    margin-top: 40px;
-}
 </style>
 </head>
 <body>
@@ -61,7 +70,6 @@ margin-top: 60px;
           
         <h4>구매내역</h4>
         <div class="payment_content">
-            <form action="<%=contextPath%>/purchase.me" method="post">
                 <table class="table">
                     <thead>
                         <tr style="text-align: center;">
@@ -71,50 +79,56 @@ margin-top: 60px;
                         </tr>
                      </thead>
                      <tbody style="text-align: center;">
+                        <% if(list.isEmpty()) { %>
                         <!-- case1. 조회된 게시글이 없을 경우 -->
-                        <!--
+                        
                         <tr>
                             <td colspan="3" style="text-align: center;">구매내역이 없습니다.</td>
                         </tr>
-                        -->
+                        
+                        <% } else { %>
 
                         <!-- case2. 구매내역이 있을 경우 -->
-                        <tr>
-                            <td>2024-02-11</td>
-                            <td>PT10회권</td>
-                            <td>450.000원</td>
-                        </tr>
-                        <tr>
-                            <td>2024-01-10</td>
-                            <td>헬스장이용권 3개월</td>
-                            <td>150.000원</td>
-                        </tr>
-                        <tr>
-                            <td>2024-01-10</td>
-                            <td>헬스장이용권 3개월</td>
-                            <td>150.000원</td>
-                        </tr>
-                        <tr>
-                            <td>2024-01-10</td>
-                            <td>헬스장이용권 3개월</td>
-                            <td>150.000원</td>
-                        </tr>
+                        
+	                        <% for(Payment p : list) { %>
+	                        <tr>
+	                            <td><%= p.getPaymentDate()%></td>
+	                            <td><%= p.getProductName()%></td>
+	                            <td><%=p.getPaymentPrice() %></td>
+	                        </tr>
+	                        <% } %>
+	                   <% } %>
                      </tbody>
                 </table>
+                
+                <!-- 페이징바 영역 -->
 
                 <ul class="pagination justify-content-center">
-                    <li class="page-item disabled"><a class="page-link" href="#">&lsaquo;</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-                </ul>
                 
+                	<% if(pi.getCurrentPage() == 1) { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">&lsaquo;</a></li>
+                    <% }else { %>
+                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/purchase.me?page=<%=pi.getCurrentPage()-1%>">&lsaquo;</a></li>
+                    <% } %>
+                    
+                    
+                    <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+                    
+	                    <% if(p == pi.getCurrentPage()) { %>
+	                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>     
+	                    <% }else{ %>
+	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/purchase.me?page=<%= p %>"><%= p %></a></li>
+                        <% } %>  
+                        
+                   <% } %>
+                   
+                    <% if(pi.getCurrentPage() == pi.getMaxPage()) { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">&rsaquo;</a></li>
+                    <% }else { %>
+                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/purchase.me?page=<%=pi.getCurrentPage() + 1%>">&rsaquo;</a></li>
+                    <% } %>
+                </ul>
 
-            </form>
-            
         </div>
        
 

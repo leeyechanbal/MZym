@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mzym.member.vo.Member;
-import com.mzym.mypage.service.MyPageService;
+import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.service.MyPageService;
 
 /**
  * Servlet implementation class MyPageUpdatePwdController
@@ -49,7 +49,7 @@ public class MyPageUpdatePwdController extends HttpServlet {
     	  session.setAttribute("loginUser", updateMem);
     	  session.setAttribute("alertMsg", "성공적으로 비밀번호 변경되었습니다.");
 	    }
-	    response.sendRedirect(request.getContextPath() + "/myPageInfo.me");
+	    response.sendRedirect(request.getContextPath() + "/myPage.me");
 	}
 
 	/**

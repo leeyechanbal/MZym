@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.model.vo.Member" %>
+<%
+	String birth = (String)request.getAttribute("birth");
+	String gender = (String)request.getAttribute("gender");
+	String health =(String)request.getAttribute("health");
+	int PT = (int)request.getAttribute("PT");
+	int ptNum = (int)request.getAttribute("ptNum");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -134,43 +141,18 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>생년월일</th>
-                                    <td><input type="text" readonly name="birth" value="1999년 9월 13일"></td>
+                                    <td><input type="text" readonly name="birth" value="<%=birth%>"></td>
                                 </tr>
                                 <tr id="info">
                                     <th>성별</th>
                                     <td>
-                                        <input type="text" name="gender" readonly value="남성">
+                                        <input type="text" name="gender" readonly value="<%=gender%>">
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         
-                        <%
-                        String RRN = request.getParameter("RRN"); 
-                        
-                		String gStr = RRN.substring(7,8);
-                		int gender = Integer.parseInt(gStr);
-                		
-                		String sGender = null;
-                		if(gender % 2 == 0) {
-                			sGender = "여성";
-                		}else {
-                			sGender = "남성";
-                		}
-                		
-                		String frontYear = null;
-                		if(gender == 1 || gender == 2 || gender ==5 || gender == 6) {
-                			frontYear = "19";
-                		}else {
-                			frontYear= "20";
-                		}
-                		
-                		String year = frontYear + RRN.substring(0,2) + "년";
-                		String month = RRN.substring(2,4) + "월"; 
-                		String day = RRN.substring(4,6) + "일";
-                		String birth = year + month + day;
-                        
-                		%>
+                     
      
                      
                     <h4>연락처정보</h4>                   
@@ -182,15 +164,15 @@ margin-left: 230px;
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td><input type="text" readonly name="email" value="user01@gmail.com"></td>
+                                    <td><input type="text" readonly name="email" value="<%=loginUser.getEmail()%>"></td>
                                 </tr>
                                 <tr>
                                     <th>휴대전화</th>
-                                    <td><input type="text" readonly name="phone" value="010-1111-2222"></td>
+                                    <td><input type="text" readonly name="phone" value="<%=loginUser.getPhone()%>"></td>
                                 </tr>
                                 <tr>
                                     <th>주소</th>
-                                    <td><input type="text" name="address" readonly value="서울시"></td>
+                                    <td><input type="text" name="address" readonly value="<%=loginUser.getAddress()%>"></td>
                                 </tr>                       
                              </table>
 
@@ -208,12 +190,15 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>헬스장 이용권</th>
-                                    <td><input type="text" readonly value="24년 8월 22일 까지"></td>
+                                    <td><input type="text" name="health" readonly value="<%=health%> 까지"></td>
+                                	
                                 </tr>
-                                <tr id="info">
-                                    <th>PT 이용권</th>
-                                    <td><input type="text" readonly value="24년 3월 22일 까지"></td>
-                                </tr>                      
+                              
+	                                <tr id="info">
+	                                    <th>PT 이용권</th>
+	                                    <td><input type="text" name="PT" readonly value="<%=ptNum%> / <%=PT%> 회"></td>
+	                                </tr> 
+                                              
                              </table>
                         </div>   
 

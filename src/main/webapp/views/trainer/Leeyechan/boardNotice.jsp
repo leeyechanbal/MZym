@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- 알림창 넣는데 밑에 두면 옆에 매뉴 바의 display가 none처리 되버려요. -->
-<%@ include file="/views/trainer/Leeyechan/trainerFilter.jsp" %>
-
 <%@ page import="com.mzym.board.vo.Notice" %>
 <%@ page import="com.mzym.common.paging.PageInfo"%>
 <%@ page import="com.mzym.board.vo.Attachment" %>
@@ -11,7 +8,7 @@
 	PageInfo info = (PageInfo)request.getAttribute("info");
 	List<Notice> list = (List<Notice>)request.getAttribute("list");	
 %>
-
+<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,45 +48,7 @@
 
 </head>
 <body>       
-		
-		<table id="outTable">
-        
-        <thead>
-            <td class="section1" id="back" onclick="history.back();"><img src="<%=mzymPath %>/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
-            <td class="section2" id="logo"><img src="<%=mzymPath %>/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
-            <td class="section3"></td>
-        </thead>
-		
-		
-        <tr style="height: 30px;"></tr>
-		
-        <tbody>
-            <td class="section1" id="menu">
-                <div id="adi">관리자<br>xxx</div>
-                <div class="board-out">
-                    <div id="board">게시판</div>
-
-                    <div class="boardNav" style="margin-top: 0px;">
-                        <div class="boardNotice"><a href="<%=mzymPath%>/listNotice.trainer?page=1">공지사항</a></div>
-                        <div class="boardFree"><a href="">자유게시판</a></div>
-                        <div class="boardQuestion"><a href="">질문게시판</a></div>
-                        <div class="boardReview"><a href="">PT 및 헬스장 후기</a></div>
-                        <div class="boardClass"><a href="">운동 모임</a></div>
-                    </div>
-
-                    <div id="counseling"><a href="">상담예약</a></div>
-                    <div id="customer"><a href="">고객센터</a></div>
-                    <div id="accusation"><a href="">신고</a></div>
-                    <div class="suteOption" style="margin-top: 0;">
-                        <div class="suteBoard"><a href="">게시글</a></div>
-                        <div class="suteRrepeat"><a href="">답글</a></div>
-                    </div>
-
-                    <div id="calory"><a href="">인바디</a></div>
-
-                </div>
-            </td>
-
+			
             <td class="section2">
                 <div>
                     <table id="boardcontent" class="table">
@@ -107,27 +66,31 @@
 						String originName = nChecked ?  null : att.getOriginName();
 					%>
 					<!-- 추후 세션값에서 &noticeWriter=로그인된 트레이너아이돌 바꿀꺼임 -->
-                    <form action="<%=mzymPath%>/updateNotice.trainer" method="post" enctype="multipart/form-data">
                         <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
-                            <td class="table-number" name="noticeNo"><%=list.get(i).getNoticeNo()%></td>
-                            <td class="table-title" name="noticeTitle"><%=list.get(i).getTitle()%></td>
-                            <td name="noticeWriter"><%=list.get(i).getWriterName()%></td>
-                            <td name="noticeRegist"><%=list.get(i).getRegistDate()%></td>
+                            <td class="table-number"><%=list.get(i).getNoticeNo()%></td>
+                            <td class="table-title"><%=list.get(i).getTitle()%></td>
+                            <td><%=list.get(i).getWriterName()%></td>
+                            <td><%=list.get(i).getRegistDate()%></td>
                         </tr>
+
 
                         <tr id="context<%=i%>" class="collapse">
                             <td colspan="5">
+                   				<form action="<%=mzymPath%>/updateNotice.trainer" method="post" enctype="multipart/form-data">
                                 <div>
-                                    <p class="border" style="padding: 10px;" name="noticeContent"><%=list.get(i).getContent()%></p>
+                                    <textarea class="border" style="padding: 10px;" name="noticeContent"><%=list.get(i).getContent()%></textarea>
                                     <div class="formOut">
                                     	<div class="file">
                                     	<% if(nChecked) { %>
                                          	<div>다운로드: "현재 첨부파일이 없습니다."</div>
+                                         	
                                          <%} else { %>
                                             <div>다운로드: <a download="<%=originName%>" href="<%=mzymPath + "/" + att.getFilePath() + att.getChangeName()%>"><%=originName%></a></div>
-                                            <input type="hidden" name="wasOriginName" value="<%=att.getOriginName()%>">
-                                            <input type="hidden" name="wasChangeName" value="<%=att.getChangeName()%>">
+                                           	<input type="hidden" name="wasOriginName" value="<%=att.getOriginName()%>">
+                                            <input type="hidden" id="change" name="wasChangeName" value="<%=att.getChangeName()%>">
                                          <%} %>
+                                          	<input type="hidden" name="noticeNo" value="<%=list.get(i).getNoticeNo()%>">
+                                            <input type="hidden" name="noticeTitle" value="<%=list.get(i).getTitle()%>">
                                          	<div>수정: <input type="file" name="file"></div>
                                         </div>
                                         <div style="align-self: self-end;">
@@ -135,9 +98,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </td>
                         </tr>
-                    </form>
                     <%} %>
 
 
@@ -198,7 +161,20 @@
         </tfoot>
         <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
    </table>
-	
+	<Script>
+		$(function(){
+	        $("#boardcontent tr").click(function(){
+	            const boardNo = $(this).children(".table-number").text();
+	            /* console.log(boardNo); */
+	            $("#deletModal").find("#boardNum").val(boardNo);
+	            
+	            const changeName = $(this).next().find("#change").val();            
+				/* console.log(changeName) */
+	            $("#deletModal").find("#fileName").val(changeName);
+	             
+	        })
+	    })
+    </Script>
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
     <div class="modal-dialog">
@@ -209,14 +185,18 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
+    <form action="<%=mzymPath%>/deletedNotice.traniner" method="get">
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         </div>
+        <input type="hidden" id="boardNum" name="boardNum">
+        <input type="hidden" id="fileName" name="fileName">
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
+            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
         </div>
+    </form>
       </div>
     </div>
   </div>

@@ -39,4 +39,34 @@ public class MemberService {
 		return result;
 	}
 
+	public String findId(Member m) {
+		Connection conn = getConnection();
+		String id ="";
+		id= mDao.findId(conn, m);
+		close(conn);
+		return id;
+	}
+
+	public int findPwd(Member m) {
+		Connection conn = getConnection();
+		int result = 0;
+		result= mDao.findPwd(conn, m);
+		close(conn);
+		return result;
+	}
+
+	public int resetPwd(String userId, String findPwd) {
+		Connection conn = getConnection();
+		int result = mDao.resetPwd(conn, userId ,findPwd);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
 }

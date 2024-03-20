@@ -6,8 +6,6 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	List<Board> list = (List<Board>)request.getAttribute("list");
-	
-	System.out.println(pi);
 %>    
     
     
@@ -42,6 +40,10 @@
             padding:50px;
             border-radius:10px;
         }
+        
+        .board_content table>tbody>tr{
+ 		cursor:pointer
+ 		}
 
         .search {
             position: relative;
@@ -57,7 +59,7 @@
              font-size: 14px;
         }
 
-        img {
+        .icon {
              position : absolute;
              width: 17px;
              top: 10px;
@@ -107,19 +109,20 @@
             <br><br>
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
-
+			<% if(loginUser != null) { %>
             <div class="search">
                 <input type="text" placeholder="검색어를 입력하세요">
-                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <img class="icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
 
             <div align="right">
-                <button type="button" class="btn btn-secondary">글쓰기</button>
+                <a href="<%=contextPath %>/freeEnrollForm.bo" class="btn btn-secondary">글쓰기</a>
                 <br><br>
             </div>
+            <% } %>
 
             <br>
-            <table class="table">
+            <table class="table" id="board_list">
                 <thead>
                     <tr>
                         <th>글번호</th>
@@ -141,7 +144,7 @@
                     <tr>
                         <td><%= b.getBoardNo() %></td>
                         <td><%= b.getBoardTitle() %></td>
-                        <td><%= b.getBoardmember() %></td>
+                        <td><%= b.getBoardMember() %></td>
                         <td><%= b.getCount() %></td>
                         <td><%= b.getRegist_Date() %></td>
                     </tr>
@@ -149,7 +152,15 @@
                 <% } %>
                 </tbody>
             </table>
-
+            
+            <script>
+            $(function(){
+                $("#board_list>tbody>tr").click(function(){
+                	location.href = "<%=contextPath%>/freedetail.bo?no=" + $(this).children().eq(0).text();
+                })
+            })
+            </script>
+            
 				
             <br>
             

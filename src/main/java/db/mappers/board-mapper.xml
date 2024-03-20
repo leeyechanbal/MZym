@@ -16,10 +16,17 @@ from(
             , NOTICE_TITLE
             , NOTICE_CONTENT
             , TO_CHAR(n.REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+            , origin_name
+            , change_name
+            , file_path
         from MZYM_NOTICE n
         join mzym_member on (user_no = notice_writer)
-        where n.status = 'Y'
-        order by NOTICE_NO DESC       
+        left join attachment a 
+        on (a.status = 'Y' 
+        and ATT_CATEGORY ='N' 
+        and a.att_no = n.notice_no)
+        where n.status = 'Y' 
+        order by NOTICE_NO DESC 
     )n
 )
 where r BETWEEN ? and ?
@@ -32,6 +39,7 @@ where r BETWEEN ? and ?
 <entry key="selectNoticeCount">
 select count(*)
 from mzym_notice
+where STATUS = 'Y'
 </entry>
 
 <!-- 
@@ -70,7 +78,7 @@ into mzym_notice(
 	원본명, 수정명, 경로 ,
 	후기부분에서만 FILE_LEVEL(이미지 구분) 사용 하기고 나머지는 null 넣으면 됩니다.
  -->
-<entry key="insertAttachment">
+<entry key="insertNumAttachment">
 insert 
 into attachment
 (
@@ -85,17 +93,183 @@ into attachment
     , STATUS
 ) values (
     SEQ_ATTACHMENT.nextval
-    , SEQ_NOTICENO.currval
-    , ? <!-- 카테고리 N,B,P -->
-    , ? <!-- 원본명 -->
-    , ? <!-- 수정명 -->
-    , ? <!-- 경로 -->
+    , ?
+    , ? 
+    , ? 
+    , ? 
+    , ? 
     , sysdate
-    , ? <!-- number타입 -->
+    , ? 
     , DEFAULT
 )
 
 </entry>
+
+<!-- 
+	작성자 : 이예찬
+	공지사항 수정시 쿼리 
+ -->
+<entry key="updateNotice">
+update mzym_Notice
+set notice_Title = ? <!-- 공지사항 제목 -->
+   , notice_content = ? <!-- 공지사항 내용 -->
+   , Edit_date = sysdate 
+   , notice_writer = ? <!-- 변경한 작성자 -->
+where notice_no = ? <!-- 해당 공지사항 -->
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	해당 글번호의 첨부파일이 수정 되었을때 
+ -->
+<entry key="updateAttachment">
+update attachment
+set origin_name = ?
+,    change_name= ?
+,    UPLORD_DATE = sysdate
+where att_no = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	공지사항의 상태값을 'N'으로 변경하는 쿼리문
+ -->
+<entry key="deletedNotice">
+update mzym_Notice
+set STATUS =  'N'
+where NOTICE_NO = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	첨부파일의 상태값을 'N'으로 변경하는 쿼리문
+ -->
+<entry key="deletedAttachment">
+update Attachment
+set STATUS =  'N'
+where att_no = ?
+and ATT_CATEGORY = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 총 갯수 쿼리문
+ -->
+<entry key="selectCounselingCount">
+	select count(*)
+	from mzym_advice
+	where status = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
+ -->
+<entry key="adviceComplete">
+update mzym_advice
+set advice_tr = (
+    select user_no
+    from mzym_member
+    where user_id = ? <!-- 트레이너 아이디 -->
+)
+,   ADVICE_REPEAT = ? <!-- 보고서 내용 -->
+,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
+where ADVICE_NO = ? <!-- 상담글 번호 -->
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 총 갯수 쿼리문
+ -->
+<entry key="selectCounselingCount">
+	select count(*)
+	from mzym_advice
+	where status = ?
+</entry>
+
+
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 조회 후 데이터를 담아올 쿼리문
+ -->
+<entry key="selectAdvice">
+select *
+from(
+    select ROWNUM r , n.* 
+    from(
+        select
+            ADVICE_NO
+            , ADVICE_USER
+            , PHONE_NO
+            , CATEGORY_NAME
+            , ADVICE_DATE
+            , user_id
+            , ADVICE_CONTENT
+            , ADVICE_REPEAT
+            , TO_CHAR(REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+            , TO_CHAR(a.MODIFY_DATE, 'YY"년"MM"월"DD"일"') MODIFY_DATE
+            , a.status
+        from mzym_advice a
+        join service_category USING (CATEGORY_NO)
+        join mzym_member on (user_no = advice_tr)
+        where a.status = ? 
+        order by ADVICE_NO DESC 
+    )n
+)
+where r BETWEEN ? and ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
+ -->
+<entry key="adviceComplete">
+update mzym_advice
+set advice_tr = (
+    select user_no
+    from mzym_member
+    where user_id = ? <!-- 트레이너 아이디 -->
+)
+,   ADVICE_REPEAT = ? <!-- 보고서 내용 -->
+,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
+where ADVICE_NO = ? <!-- 상담글 번호 -->
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담이 완료된 글을 상담 대기로 변경하는 글
+ -->
+<entry key="adviceUpdate">
+update mzym_advice
+set MODIFY_DATE = sysdate
+, ADVICE_REPEAT = ? <!-- 변경된 보고서 내용 -->
+where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
+</entry>
+
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+
+
+<!-- ============================= 이예찬 leeyechan =========================== -->
+
 
 
 <!-- 
@@ -109,8 +283,10 @@ into attachment
 	AND		STATUS = 'Y'
 </entry>
 
-
-<!-- 작성자 : 황수림 -->
+<!-- 
+	작성자 : 황수림
+	자유게시판 글 목록 리스트 셀렉문
+ -->
 <entry key="selectFreeList">
 	SELECT *
 	    FROM (
@@ -136,18 +312,220 @@ into attachment
 	        )
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
+
+<!--
+	작성자 : 황수림
+	자유게시판 게시글 insert문
+ -->
+<entry key="insertFreeBoard">
+	INSERT
+	INTO MZYM_BOARD
+	(
+		BOARD_NO
+	,	BOARD_WRITER
+	,	BOARD_TYPE
+	,	BOARD_TITLE
+	,	BOARD_CONTENT
+	)
+	VALUES
+	(
+		SEQ_BOARDNO.NEXTVAL
+	,	?
+	,	1
+	,	?
+	,	?	
+	)
+</entry>
+
+
+<!--
+	작성자 : 황수림
+	자유게시판 첨부파일 insert문
+ -->
+<entry key="insertFreeAttachment">
+	INSERT
+	INTO ATTACHMENT
+	(
+		FILE_NO
+	,	ATT_NO
+	,	ATT_CATEGORY
+	,	ORIGIN_NAME
+	,	CHANGE_NAME
+	,	FILE_PATH
+	)
+	VALUES
+	(
+		SEQ_ATTACHMENT.NEXTVAL
+	,	SEQ_BOARDNO.CURRVAL
+	,	'B'
+	,	?
+	,	?
+	,	?
+	)
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 게시글 조회시 조회수 count 하는 sql
+-->
+<entry key="increaseFreeCount">
+	UPDATE
+			MZYM_BOARD
+	SET		COUNT = COUNT + 1
+	WHERE 	BOARD_NO = ?
+	AND		STATUS = 'Y'
+
+</entry>
+
+
+<!-- 
+	작성자 : 황수림
+	자유게시판의 게시글 조회하는 sql
+ -->
+<entry key="selectFreeBoard">
+	SELECT
+			BOARD_NO
+		,	BOARD_TITLE
+		,	BOARD_CONTENT
+		,	USER_NO
+	FROM	MZYM_BOARD
+	JOIN 	MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+	WHERE	BOARD_NO = ?
+	AND		MZYM_BOARD.STATUS = 'Y'
+</entry>
+
+
+<!-- 
+	작성자 : 황수림
+	자유게시판의 게시글의 첨부파일을 조회하는 sql
+ -->
+<entry key="selectFreeAttachment">
+	SELECT
+			FILE_NO
+		,	ORIGIN_NAME
+		,	CHANGE_NAME
+		,	FILE_PATH
+	FROM	ATTACHMENT
+	WHERE	ATT_NO = ?	
+	ORDER
+	BY 		FILE_LEVEL ASC
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 수정 쿼리
+-->
+<entry key="updateFreeBoard">
+	UPDATE
+			MZYM_BOARD
+	SET		BOARD_TITLE = ?
+		,	BOARD_CONTENT = ?
+	WHERE	BOARD_NO = ?
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 첨부파일 수정 쿼리
+-->
+<entry key="updateFreeAttachment">
+	UPDATE
+			ATTACHMENT
+	SET		ORIGIN_NAME = ?
+		,	CHANGE_NAME = ?
+		,	FILE_PATH = ?
+	WHERE	FILE_NO = ?
+
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 첨부파일 수정시 추가하는 쿼리
+-->
+<entry key="insertNewFreeAttachment">
+	INSERT
+		INTO ATTACHMENT
+		(
+			FILE_NO
+		,	ATT_NO
+		,	ATT_CATEGORY
+		,	ORIGIN_NAME
+		,	CHANGE_NAME
+		,	FILE_PATH
+		)
+		VALUES
+		(
+			SEQ_ATTACHMENT.NEXTVAL
+		,	?
+		,	'B'
+		,	?
+		,	?
+		,	?
+		)
+</entry>
+
+<!--  
+	작성자 : 황수림
+	댓글 조회하는 구문
+-->
+<entry key="selectCommentList">
+	SELECT
+			COMMENT_NO
+		,	BOARD_COMMENT.USER_NAME
+		,	COMMENT_CONTENT
+		,	TO_CHAR(COMMENT_DATE, 'YY/MM/DD HH:MI') COMMENT_DATE
+	FROM	BOARD_COMMENT
+	JOIN	MZYM_MEMBER ON (COMMENT_WRITER = USER_NO)
+	WHERE	BOARD_NO = ?
+	AND		BOARD_COMMENT.STATUS = 'Y'
+	ORDER
+	BY		COMMENT_NO DESC
+
+</entry>
+
 <!--  -->
 <entry key=""></entry>
+
 <!--  -->
 <entry key=""></entry>
+
+<!-- ===========================황수림================================= -->
+
+<!--
+	작성자 : 구성모
+	상담예약 추가하는 쿼리문
+-->
+<entry key="insertAdvice">
+	INSERT
+	  INTO MZYM_ADVICE
+	  (
+	    ADVICE_NO
+	  , CATEGORY_NO
+	  , ADVICE_USER
+	  , PHONE_NO
+	  , ADVICE_DATE
+	  , ADVICE_CONTENT
+	  )
+	  VALUES
+	  (
+	    SEQ_ADVICENO.NEXTVAL
+	  , ? <!-- 카테고리번호 -->
+	  , ? <!-- 상담신청자이름 -->
+	  , ? <!-- 상담신청자폰번호 -->
+	  , ? <!-- 희망상담일자 -->
+	  , ? <!-- 상담내용 -->
+	  )
+</entry>
+
+
 <!--  -->
 <entry key=""></entry>
+
 <!--  -->
 <entry key=""></entry>
+
 <!--  -->
 <entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+
 <!--  -->
 <entry key=""></entry>
 </properties>

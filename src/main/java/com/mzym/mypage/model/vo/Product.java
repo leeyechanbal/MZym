@@ -4,6 +4,10 @@ import java.sql.Date;
 
 public class Product {
 	
+	/**
+	 * @author 손수현
+	 */
+	
 	private int productNo;
 	private String productName; 
 	private String productContent;
@@ -19,6 +23,13 @@ public class Product {
 		this.productContent = productContent;
 		this.price = price;
 		this.registDate = registDate;
+	}
+
+	public Product(String productName, String productContent, int price) {
+		super();
+		this.productName = productName;
+		this.productContent = productContent;
+		this.price = price;
 	}
 
 	public int getProductNo() {

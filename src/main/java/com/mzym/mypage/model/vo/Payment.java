@@ -1,32 +1,43 @@
 package com.mzym.mypage.model.vo;
 
-import java.sql.Date;
-
 public class Payment {
 	
+	/**
+	 * @author 손수현
+	 */
+	
 	private int paymentNo;
-	private int productNo;
+	private String productName; //조회시 상품명 작성시 번호
 	private String paymentUser;  
 	private int paymentPrice;
-	private Date paymentDate;
+	private String paymentDate;
 	private String status;
 	
 	public Payment () {}
 
-	public Payment(int paymentNo, int productNo, String paymentUser, int paymentPrice, Date paymentDate,
+	public Payment(int paymentNo, String productName, String paymentUser, int paymentPrice, String paymentDate,
 			String status) {
 		super();
 		this.paymentNo = paymentNo;
-		this.productNo = productNo;
+		this.productName = productName;
 		this.paymentUser = paymentUser;
 		this.paymentPrice = paymentPrice;
 		this.paymentDate = paymentDate;
 		this.status = status;
 	}
 
-	public Payment(int productNo, int paymentPrice, Date paymentDate) {
+	public Payment(String paymentDate, String productName, int paymentPrice) {
 		super();
-		this.productNo = productNo;
+		this.paymentDate = paymentDate;
+		this.productName = productName;
+		this.paymentPrice = paymentPrice;
+		
+	}
+
+	public Payment(int paymentNo, String productName, int paymentPrice, String paymentDate) {
+		super();
+		this.paymentNo = paymentNo;
+		this.productName = productName;
 		this.paymentPrice = paymentPrice;
 		this.paymentDate = paymentDate;
 	}
@@ -39,12 +50,12 @@ public class Payment {
 		this.paymentNo = paymentNo;
 	}
 
-	public int getProductNo() {
-		return productNo;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setProductNo(int productNo) {
-		this.productNo = productNo;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public String getPaymentUser() {
@@ -63,11 +74,11 @@ public class Payment {
 		this.paymentPrice = paymentPrice;
 	}
 
-	public Date getPaymentDate() {
+	public String getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 
@@ -81,9 +92,17 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [paymentNo=" + paymentNo + ", productNo=" + productNo + ", paymentUser=" + paymentUser
+		return "Payment [paymentNo=" + paymentNo + ", productName=" + productName + ", paymentUser=" + paymentUser
 				+ ", paymentPrice=" + paymentPrice + ", paymentDate=" + paymentDate + ", status=" + status + "]";
 	}
+
+
+	
+
+	
+	
+
+	
 
 	
 	

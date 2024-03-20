@@ -76,7 +76,7 @@
 <entry key="selectListCount">
 	SELECT COUNT(*) COUNT
 	  FROM PAYMENT
-	 WHERE STATUS = 'S'
+	 WHERE PAYMENT_USER = ?
 </entry>
 
 <!-- 손수현 페이징 -->
@@ -87,7 +87,7 @@
 				  FROM (
 						SELECT 
 	                          TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') PAYMENT_DATE
-						     , RPODUCT_NAME
+						     , PRODUCT_NAME
 						     , PAYMENT_PRICE
 						  FROM PAYMENT 
 						  JOIN PRODUCT USING (PRODUCT_NO)
@@ -144,5 +144,46 @@
 	 WHERE USER_NO = ?
 </entry>
 
+<!-- 구성모 아이디찾기 -->
+<entry key="findId">
+ 	SELECT
+ 		USER_ID
+ 	 FROM MZYM_MEMBER
+ 	WHERE USER_NAME = ?
+ 	  AND PHONE = ?
+ 	  AND EMAIL = ?
+ 	  AND STATUS = 'Y'
+</entry>
 
+<!-- 비밀번호찾기 - 구성모 -->
+<entry key="findPwd">
+	SELECT
+		   COUNT(*) COUNT
+	 FROM MZYM_MEMBER
+	WHERE USER_ID = ?
+	  AND PHONE = ?
+	  AND EMAIL = ?
+	  AND STATUS = 'Y'
+</entry>
+
+<!-- 비밀번호 재설정 - 구성모 -->
+<entry key="updatePwdMember">
+		UPDATE
+			   MZYM_MEMBER
+		   SET USER_PWD = ?
+		     , MODIFY_DATE = SYSDATE
+		 WHERE USER_ID = ?
+		   AND STATUS = 'Y'
+</entry>
+
+<entry key="selectPayment">
+	SELECT
+		   PAYMENT_NO
+	     , PRODUCT_NAME
+	     , PAYMENT_PRICE
+	     , PAYMENT_DATE
+	  FROM PAYMENT
+	  JOIN PRODUCT USING (PRODUCT_NO)
+	 WHERE  PAYMENT_USER = ?
+</entry>
 </properties>
