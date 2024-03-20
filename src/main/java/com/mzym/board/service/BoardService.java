@@ -1,6 +1,9 @@
 package com.mzym.board.service;
 
-import static com.mzym.common.template.JDBCTemplate.*;
+import static com.mzym.common.template.JDBCTemplate.close;
+import static com.mzym.common.template.JDBCTemplate.commit;
+import static com.mzym.common.template.JDBCTemplate.getConnection;
+import static com.mzym.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -276,8 +279,12 @@ public class BoardService {
 		return list;
 	}
 	
-	public void adviceTuring() {
+	public int adviceTuring(Advice ad) {
+		Connection conn = getConnection();
+		int result = dao.adviceTuring(conn, ad);
+		close(conn);
 		
+		return result;
 	}
 
-}
+}// class END

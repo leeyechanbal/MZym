@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.mzym.member.vo.Member" %>
+<%@ page import="com.mzym.member.model.vo.Member" %>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Date"%>
 <!--  
@@ -78,7 +78,7 @@
 
                 <div id="center">
                     <div id="info">
-                        <img src="" alt="adminWho">
+                        <img src="<%=mzymPath%>/resources/img/" alt="adminWho">
                         <p class="font"><%=currentDate%><br>안녕하세요. 관리자님</p>
                     </div>
 

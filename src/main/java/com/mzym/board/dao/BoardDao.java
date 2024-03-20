@@ -649,7 +649,7 @@ public class BoardDao {
 		
 		try {
 			if(ad.getStatus().equals("N")) {
-				pst = conn.prepareStatement(prop.getProperty("adviceTuringY"));
+				pst = conn.prepareStatement(prop.getProperty("adviceComplete"));
 				pst.setString(1, ad.getTrainerId());
 				pst.setString(2, ad.getRepeat());
 				pst.setInt(1, ad.getAdviceNo());
@@ -657,8 +657,9 @@ public class BoardDao {
 				result = pst.executeUpdate();
 				
 			} else  {
-				pst = conn.prepareStatement(prop.getProperty("adviceTuringN"));
-				pst.setInt(1, ad.getAdviceNo());
+				pst = conn.prepareStatement(prop.getProperty("adviceUpdate"));
+				pst.setString(1, ad.getRepeat());
+				pst.setInt(2, ad.getAdviceNo());
 				
 				result = pst.executeUpdate();
 			}
