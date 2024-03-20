@@ -23,18 +23,6 @@ String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
 	justify-content: center;
 	align-items: center;
 }
-
-/* Section 관련 스타일 */
-.board_content {
-	border: 1px solid #1abc9c;
-	width: 80%;
-	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	min-height: 500px;
-	padding: 50px;
-	border-radius: 10px;
-}
 .hideContent{
 	    min-height: 150px;
     /* text-align: left; */
@@ -47,25 +35,37 @@ String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
     align-items: center;
 }
 
+/* Section 관련 스타일 */
+.board_content {
+	border: 1px solid #1abc9c;
+	width: 80%;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	min-height: 500px;
+	padding: 50px;
+	border-radius: 10px;
+}
+
 .sea {
 	position: relative;
 	width: 300px;
 	float: left;
 	margin-bottom: 30px;
-.sea img {
-     position : absolute;
-     width: 18px;
-     top: 14px;
-     right: 12px;
-     margin: 0;
-}
+
 	
 }
 .sea button{
 	display: flex;	
 	margin-top: 20px;
 }
-
+.sea img {
+             position : absolute;
+             width: 18px;
+             top: 14px;
+             right: 12px;
+              margin: 0;
+        }
 input {
 	width: 100%;
 	border: 1px solid #bbb;
@@ -79,6 +79,9 @@ input {
 h2 {
 	text-align: center;
 }
+
+
+
 
 
 hr {
@@ -153,26 +156,22 @@ border rounded>span {
 	text-align: left;
 }
 .page-item.disabled .page-link {
-    background-color: white; /* 비활성화된 버튼 배경색 */
-    color: black; /* 비활성화된 버튼 텍스트 색상 */
+    background-color: white; 
+    color: black; 
 }
-
 .page-item.active .page-link {
-    background-color: #1abc9c; /* 활성화된 버튼 배경색 */
-    color: wihte; /* 활성화된 버튼 텍스트 색상 */
+    background-color: #1abc9c; 
+    color: #ffffff; 
 }
-
 .page-item .page-link {
-    background-color: white; /* 기본 버튼 배경색 */
-    color: black; /* 기본 버튼 텍스트 색상 */
- 
+    background-color: white; 
+    color: black; 
 }
 
 .page-item .page-link:hover {
-    background-color: #1abc9c; /* 버튼에 마우스 호버시 배경색 */
+    background-color: #1abc9c; 
     color: white;
 }
-
 </style>
 </head>
 <body>
@@ -191,7 +190,6 @@ border rounded>span {
 				<!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 
 				<div class="sea">
-					
 					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
 					<div class="sea">
                		<input type="search" placeholder="검색어를 입력하세요" name="keyword" id="keyword">
@@ -202,14 +200,16 @@ border rounded>span {
 				</div>
 				<script>
 				    function enterForm() {
-				        var keyword = document.getElementById("keyword").value();
+				    	
+				        var keyword = document.getElementById("keyword").value;
+				        console.log(keyword);
 				        if (keyword === "") {
 				            alert("검색어를 입력해주세요.");
 				            return false; 
 				        }
-				        return true;
-				   	    }
-				</script>			
+				        //return true;
+				   	  }
+				</script>	
 
 				<%if(loginUser != null){ %>
 				<div align="right">
@@ -337,7 +337,7 @@ border rounded>span {
 			        	$(this).parent().siblings(".contentDiv").children(".borderDetailcontent").hide();
 			        	$(this).parent().siblings(".contentDiv").children(".note-editor").show();
 			    
-			        	$(this).html("저장");
+			        	$(this).html("수정하기");
 			        	$(this).attr("type", "submit");
 			        	$(this).removeClass("updateBtn");
 			        	return false;
@@ -380,15 +380,14 @@ border rounded>span {
 					<%if(pi.getCurrentPage()==1){ %>
 					<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 					<%}else{ %>
-					<li class="page-item"><a class="page-link"
-						href="<%=contextPath%>/list.service?page=<%=pi.getCurrentPage()-1 %>">Previous</a></li>
+					<li class="page-item">
+					<a class="page-link" href="<%=contextPath%>/search.me?page=<%=pi.getCurrentPage()-1 %>&keyword=<%=request.getParameter("keyword") %>">Previous</a></li>
 					<%} %>
 					<%for(int p = pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
 					<%if(p==pi.getCurrentPage()){ %>
 					<li class="page-item active"><a class="page-link" href="#"><%=p %></a></li>
 					<%}else{%>
-					<li class="page-item"><a class="page-link"
-						href="<%=contextPath%>/list.service?page=<%=p%>"><%=p %></a></li>
+					<li class="page-item"><a class="page-link" href="<%=contextPath%>/search.me?page=<%=p%>&keyword=<%=request.getParameter("keyword") %>"><%=p %></a></li>
 					<%} %>
 					<%} %>
 	
@@ -397,7 +396,7 @@ border rounded>span {
 					<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
 					<%}else{ %>
 					<li class="page-item"><a class="page-link"
-						href="<%=contextPath%>/list.service?page=<%=pi.getCurrentPage()+1%>">Next</a></li>
+						href="<%=contextPath%>/search.me?page=<%=pi.getCurrentPage()+1%>&keyword=<%=request.getParameter("keyword") %>">Next</a></li>
 					<%} %>
 				</ul>
 			</div>

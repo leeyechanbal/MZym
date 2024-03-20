@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.board.vo.Attachment;
 import com.mzym.common.paging.PageInfo;
 import com.mzym.serviceBoard.service.ServiceBoardService;
 import com.mzym.serviceBoard.vo.ServiceBoard;
 
 /**
- * Servlet implementation class ServiceEnrollFormController
+ * Servlet implementation class ServiceBoardSerchController
  */
-@WebServlet("/list.service")
-public class ServiceBoardListController extends HttpServlet {
+@WebServlet("/search.me")
+public class ServiceBoardSerchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServiceBoardListController() {
+    public ServiceBoardSerchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +32,6 @@ public class ServiceBoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
 		//------------------------- 페이징 처리 -------------------------------
 		int listCount; 	
@@ -44,8 +42,14 @@ public class ServiceBoardListController extends HttpServlet {
 		int startPage;
 		int endPage; 
 
+		String keyword = request.getParameter("keyword");
 		
-		listCount = new ServiceBoardService().selectListCount();
+		if(keyword instanceof String ) {
+			keyword.equalsIgnoreCase(keyword);
+
+		}
+		
+		listCount = new ServiceBoardService().selectSerchListCount(keyword);
 		
 		
 		try {
@@ -72,14 +76,14 @@ public class ServiceBoardListController extends HttpServlet {
 		
 		
 		PageInfo pi =  new PageInfo(listCount,currentPage,pagingLimit,boardLimit,maxPage,startPage,endPage);
-		
-		List<ServiceBoard> list = new ServiceBoardService().selectList(pi);
+		List<ServiceBoard> list = new ServiceBoardService().selectSerchList(pi ,keyword);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
 		
-		request.getRequestDispatcher("/views/board/serviceboard/serviceBoardList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/serviceboard/SerchServiceBoard.jsp").forward(request, response);
+	
 	}
 
 	/**

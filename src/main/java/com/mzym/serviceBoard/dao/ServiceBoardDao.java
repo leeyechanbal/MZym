@@ -199,4 +199,143 @@ public class ServiceBoardDao {
 		
 		return result;
 	}
+
+	public int updateServiceBoard(Connection conn, ServiceBoard sb) {
+		int result =  0; 
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateServiceBoard");
+		
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setString(1, sb.getServiceContent());
+			pstmt.setInt(2, sb.getServiceNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateAtt(Connection conn, Attachment at) {
+		int result =0; 
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNO());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int updatenewAtt(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getFileNO());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int selectSerchListCount(Connection conn, String keyword) {
+		int listCount = 0;
+	    PreparedStatement pstmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("selectSerchCount");
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,keyword);
+			pstmt.setString(2,keyword);
+			rset =pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public List<ServiceBoard> selectSerchList(Connection conn, PageInfo pi, String keyword) {
+		List<ServiceBoard> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("selectSerchList");
+		
+	    try {
+	    	int startRow = (pi.getCurrentPage()-1)* pi.getBoardLimit()+1;
+	    	int endRow = startRow + pi.getBoardLimit() -1 ;    	
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new ServiceBoard(rset.getInt("service_no"),
+								   rset.getString("USER_ID"),
+								   rset.getString("category_name"),
+								   rset.getString("service_title"),
+								   rset.getString("service_content"),
+								   rset.getString("REGIST_DATE"),
+								   rset.getString("SERVICE_TR"),
+								   rset.getString("SERVICE_REPEAT"),
+								   rset.getString("UPFILEURL")
+						)); 
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally { 
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+		
+	
 }

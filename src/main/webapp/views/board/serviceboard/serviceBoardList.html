@@ -105,6 +105,12 @@
             align-items: center;
             justify-content: space-between;
         }
+        .repeat b{
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+
+        }
         .repeat > *{
           margin: 0 5px;
         }
@@ -124,6 +130,26 @@
           border-top: 2px solid #e0e0e0;
           border-bottom: 2px solid #e0e0e0;
         }
+        .page-item.disabled .page-link {
+                background-color: white; /* 비활성화된 버튼 배경색 */
+                color: black; /* 비활성화된 버튼 텍스트 색상 */
+            }
+
+            .page-item.active .page-link {
+                background-color: #1abc9c; /* 활성화된 버튼 배경색 */
+                color: #ffffff; /* 활성화된 버튼 텍스트 색상 */
+            }
+
+            .page-item .page-link {
+                background-color: white; /* 기본 버튼 배경색 */
+                color: black; /* 기본 버튼 텍스트 색상 */
+             
+            }
+
+            .page-item .page-link:hover {
+                background-color: #1abc9c; /* 버튼에 마우스 호버시 배경색 */
+                color: white;
+              }
     </style>
 
 </head>
@@ -283,7 +309,7 @@
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 
             <div class="sea">
-                <input type="text" placeholder="검색어를 입력하세요">
+                <input type="search" placeholder="검색어를 입력하세요">
                 <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
 
@@ -335,13 +361,13 @@
                             <button type="button" class="btn btn-outline-danger btn-sm">삭제</button>
                             
                           </div>   
-                         <!--답글 내용이 있을 경우
+                        
                           <div class="repeat border mx-auto">
                               <div><b>관리자 xxx </b></div>
-                              <div style="width: 80%;"><input type="control" class="form-control" required></div>
+                              <div style="width: 80%;"><input type="control" class="form-control" required> 답변내용</div>
                               
                           </div>
-                        -->
+                        
                       </td>
                   </tr>
                     <tr>
