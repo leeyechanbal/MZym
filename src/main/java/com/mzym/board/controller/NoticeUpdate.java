@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -44,7 +45,7 @@ public class NoticeUpdate extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int max = 10 * 1024 *1024;
-			String path = request.getSession().getServletContext().getRealPath("/resources/upfile/");
+			String path = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/");
 			
 			MultipartRequest multi = new MultipartRequest(request, path, max, "UTF-8", new RenameFile());
 			
@@ -62,18 +63,22 @@ public class NoticeUpdate extends HttpServlet {
 			String wasChange = multi.getParameter("wasChangeName");
 			
 			
-			Notice n = new Notice(no, writer, title, content, new Attachment(origin, change, "/resoureces/upfiles/", checkedFile));
+			Notice n = new Notice(no, writer, title, content, new Attachment(origin, change, "/resoureces/serviceUpfile/", checkedFile));
 			
 			int outcome = new BoardService().updateNotice(n);
+//			int outcome = 0;
+			
+			HttpSession session = request.getSession();
 			
 			if (outcome > 0) {
 				// 기존의 첨부파일 삭제
-				if(origin != null) {
+				if(wasChange != null) {
 					new File(path, wasChange).delete();
 				}
-				response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=2");
+				session.setAttribute("alert", "요청에 성공 했습니다.");
+				response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=1");
 			} else {
-				request.getSession().setAttribute("alert", "요청에 실패했습니다.");
+				session.setAttribute("alert", "요청에 실패했습니다.");
 			}
 		}
 	}

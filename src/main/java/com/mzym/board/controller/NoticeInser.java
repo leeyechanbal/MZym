@@ -52,7 +52,7 @@ public class NoticeInser extends HttpServlet {
 			int maxFileSize = 10 * 1024 * 1024;
 			
 			// 물리적인 파일 경로
-			String filePath = request.getSession().getServletContext().getRealPath("/resources/upfile/");
+			String filePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/");
 //			System.out.println(filePath);
 			MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxFileSize, "UTF-8", new RenameFile());  
 			
@@ -63,7 +63,7 @@ public class NoticeInser extends HttpServlet {
 			Notice n = null;
 			
 			if(origin != null) {
-				Attachment att = new Attachment(origin, multiRequest.getFilesystemName("file"), "/resources/upfile/");
+				Attachment att = new Attachment(origin, multiRequest.getFilesystemName("file"), "/resources/serviceUpfile/");
 				/*
 				관리자 로그인 세션완료시 구현 회원번호 필요
 				int memberNo = request.getSession().getAttribute("loginuser").get();
