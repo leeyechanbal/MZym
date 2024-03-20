@@ -19,6 +19,7 @@ import java.util.Properties;
 import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
 
@@ -761,6 +762,37 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	public List<Comment> selectCommentList(Connection conn, int boardNo){
+		List<Comment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Comment(rset.getInt("comment_No"),
+									 rset.getString("user_name"),
+									 rset.getString("comment_Content"),
+									 rset.getString("comment_Date")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
 	
 /*	
 	=================================  황수림 a yellow forest ==================================

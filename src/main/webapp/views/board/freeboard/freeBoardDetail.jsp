@@ -155,32 +155,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>user01</th>
-                        <td>댓글하나</td>
-                        <td>2024/03/07</td>
-                        <td><button type="button" class="btn5 btn-outline-danger btn-sm">신고</button></td>
-                    </tr>
-                    <tr>
-                        <th>user02</th>
-                        <td>댓글이댱</td>
-                        <td>2024/03/12</td>
-                        <td><button type="button" class="btn5 btn-outline-danger btn-sm">신고</button></td>
-                    </tr>
-                    <tr>
-                        <th>user03</th>
-                        <td>댓글내용입니다~~~~~~</td>
-                        <td>2024/03/23</td>
-                        <td><button type="button" class="btn5 btn-outline-danger btn-sm">신고</button></td>
-                    </tr>
-                    <tr>
-                        <th>user04</th>
-                        <td>ㅎㅇㅎㅇ</td>
-                        <td>2024/04/11</td>
-                        <td><button type="button" class="btn5 btn-outline-danger btn-sm">신고</button></td>
-                    </tr>
+                    
                 </tbody>
             </table>
+            
+            <script>
+            
+            	$(function(){
+            		selectCommentList();
+            	})
+            
+            	function selectCommentList(){
+            		$.ajax({
+            			url:"<%= contextPath %>/rlist.bo",
+            			data:{no:<%= b.getBoardNo() %>},
+            			success:function(list){
+            				
+            				console.log(list);
+            				
+            			},
+            			error:function(){
+            				console.log("댓글 목록 조회용 ajax통신 실패")
+            			}
+            		})
+            	}
+            
+            </script>
             <div class="btn1">
                 <a href="<%= contextPath %>/freelist.bo?page=1" class="btnlist btn-outline-secondary btn-sm">목록</a>
             </div>
