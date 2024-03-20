@@ -103,7 +103,7 @@ tfoot {
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" name="" readonly><%=ad.getAdviceContent()%></textarea>
 								<h4>보고서</h4>
 								<%if(ad.getRepeat() != null){ %>
-<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name=""><%=ad.getRepeat()%></textarea>
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="" readonly><%=ad.getRepeat()%></textarea>
 								<%} else {%>
 								<div>조회되는 데이터가 없습니다. 관리자를 호출해 주세요.</div>
 								<% } %>
@@ -191,7 +191,7 @@ tfoot {
 									<legend>신청내용</legend>
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" name="" readonly><%=ad.getAdviceContent()%></textarea>
 									<h4>보고서</h4>
-<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name=""></textarea>
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="" placeholder="내용을 작성해 주세요."><%=ad.getRepeat()%></textarea>
 								</fieldset> <%if(ad.getStatus().equals("Y")) {%><input type="checkbox" checked> 완료여부
 							<%} else {%>
 								<input type="checkbox"> 완료여부

@@ -317,7 +317,7 @@ from(
             , ADVICE_DATE
             , user_id
             , ADVICE_CONTENT
-            , ADVICE_REPEAT 
+            , ADVICE_REPEAT
             , TO_CHAR(REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
             , a.status
         from mzym_advice a
