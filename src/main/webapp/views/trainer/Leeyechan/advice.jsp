@@ -83,6 +83,7 @@ tfoot {
 						<td class="table-number" name=""><%=ad.getAdviceNo()%></td>
 						<td class="table-name" name=""><%=ad.getAdviceName() %></td>
 						<td class="table-date" name=""><%=ad.getRegist() %></td>
+						<!-- 등록일을 수정일로 사용 하겠음 -->
 					</tr>
 
 					<tr id="complete<%=i %>" class="collapse">
@@ -102,7 +103,7 @@ tfoot {
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" name="" readonly><%=ad.getAdviceContent()%></textarea>
 								<h4>보고서</h4>
 								<%if(ad.getRepeat() != null){ %>
-<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name=""><%=ad.getRepeat()%></textarea>
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="" readonly><%=ad.getRepeat()%></textarea>
 								<%} else {%>
 								<div>조회되는 데이터가 없습니다. 관리자를 호출해 주세요.</div>
 								<% } %>
@@ -125,7 +126,7 @@ tfoot {
 						<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
 						<% } else {%>
 						<li class="page-item"><a class="page-link"
-							href=<%=mzymPath + "/counseling.trainer?pageN=1&pageY=" + (infoY.getCurrentPage()- 1) %>>이전</a></li>
+							href=<%=mzymPath + "/counseling.trainer?pageN="+infoN.getCurrentPage()+"&pageY=" + (infoY.getCurrentPage()- 1) %>>이전</a></li>
 						<%} %>
 
 						<!-- 페이징바 숫자 부분 -->
@@ -137,7 +138,7 @@ tfoot {
 						<li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
 						<%} else if (i <= infoY.getMaxPage()) { %>
 						<li class="page-item"><a class="page-link"
-							href="<%=mzymPath + "/counseling.trainer?pageN=1&pageY=" + i%>"><%=i%></a></li>
+							href="<%=mzymPath + "/counseling.trainer?pageN="+infoN.getCurrentPage()+"&pageY=" + i%>"><%=i%></a></li>
 						<%}else { %>
 						<li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
 						<%} %>
@@ -149,7 +150,7 @@ tfoot {
 						<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
 						<%} else { %>
 						<li class="page-item"><a class="page-link"
-							href="<%=mzymPath + "/counseling.trainer?pageN=1&pageY=" + (infoY.getCurrentPage()+ 1) %>">다음</a></li>
+							href="<%=mzymPath + "/counseling.trainer?pageN="+infoN.getCurrentPage()+"&pageY=" + (infoY.getCurrentPage()+ 1) %>">다음</a></li>
 						<%} %>
 					</ul>
 				</div>
@@ -166,7 +167,7 @@ tfoot {
 					<%for (int i =0; i< listN.size(); i++){ 
 						Advice ad = listN.get(i);
 					%>
-					<form action="" method="get">
+					<form action="<%=mzymPath %>/turnAdviceY.trainer" method="get">
 						<!--반복문 !! -->
 						<tr class="tr-title" data-toggle="collapse" data-target="#book<%=i%>">
 							<td class="table-number" name="adviceNo"><%=ad.getAdviceNo() %></td>
@@ -183,7 +184,6 @@ tfoot {
 										<li><div>번호: <%=ad.getPhone() %></div></li>
 										<li><div>분류: <%=ad.getCategoryName() %></div></li>
 										<li><div>신청 날짜: <%=ad.getAdviceDate() %></div></li>
-										<!-- 신청날짜은  -->
 										<li><div>담당자: 세션값</div></li>
 									</ul>
 								</fieldset> <br>
@@ -191,7 +191,7 @@ tfoot {
 									<legend>신청내용</legend>
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" name="" readonly><%=ad.getAdviceContent()%></textarea>
 									<h4>보고서</h4>
-<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name=""></textarea>
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="" placeholder="내용을 작성해 주세요."><%=ad.getRepeat()%></textarea>
 								</fieldset> <%if(ad.getStatus().equals("Y")) {%><input type="checkbox" checked> 완료여부
 							<%} else {%>
 								<input type="checkbox"> 완료여부
@@ -211,7 +211,7 @@ tfoot {
 						<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
 						<% } else {%>
 						<li class="page-item"><a class="page-link"
-							href=<%=mzymPath + "/counseling.trainer?pageY=1&pageN=" + (infoY.getCurrentPage()- 1) %>>이전</a></li>
+							href=<%=mzymPath + "/counseling.trainer?pageY="+infoY.getCurrentPage()+"&pageN=" + (infoN.getCurrentPage()- 1) %>>이전</a></li>
 						<%} %>
 
 						<!-- 페이징바 숫자 부분 -->
@@ -223,7 +223,7 @@ tfoot {
 						<li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
 						<%} else if (i <= infoN.getMaxPage()) { %>
 						<li class="page-item"><a class="page-link"
-							href="<%=mzymPath + "/counseling.trainer?pageY=1&pageN=" + i%>"><%=i%></a></li>
+							href="<%=mzymPath + "/counseling.trainer?pageY="+infoY.getCurrentPage()+"&pageN=" + i%>"><%=i%></a></li>
 						<%}else { %>
 						<li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
 						<%} %>
@@ -231,11 +231,11 @@ tfoot {
 						<%} %>
 
 						<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
-						<% if(infoY.getCurrentPage() >= infoY.getMaxPage()) {%>
+						<% if(infoN.getCurrentPage() >= infoN.getMaxPage()) {%>
 						<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
 						<%} else { %>
 						<li class="page-item"><a class="page-link"
-							href="<%=mzymPath + "/counseling.trainer?pageY=1&pageN=" + (infoY.getCurrentPage()+ 1) %>">다음</a></li>
+							href="<%=mzymPath + "/counseling.trainer?pageY="+infoY.getCurrentPage()+"&pageN=" + (infoN.getCurrentPage()+ 1) %>">다음</a></li>
 						<%} %>
 					</ul>
 

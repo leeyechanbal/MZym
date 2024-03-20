@@ -543,6 +543,7 @@ public class BoardDao {
 			rset = pst.executeQuery();
 			
 			while(rset.next()) {
+				// 버퍼을 이용해서 중복되는 매서드 처리하기
 				list.add(new Advice(
 							rset.getInt("ADVICE_NO")
 							, rset.getString("ADVICE_USER")
@@ -551,11 +552,11 @@ public class BoardDao {
 							, rset.getString("ADVICE_DATE")
 							, rset.getString("user_id")
 							, rset.getString("ADVICE_CONTENT")
-							, rset.getString("ADVICE_REPEAT")
-							, rset.getString("REGIST_DATE") // NULL값이 존재함
+							, (rset.getString("ADVICE_REPEAT") == null) ? "" : rset.getString("ADVICE_REPEAT")
+							, rset.getString("REGIST_DATE")
+							// NULL값이 존재함
 							, rset.getString("status")
 						));
-				
 			}
 		} catch (SQLException e) {
 			
@@ -634,4 +635,7 @@ public class BoardDao {
 		
 		return at;
 	}
-}
+	
+//	public void 
+	
+}// class END
