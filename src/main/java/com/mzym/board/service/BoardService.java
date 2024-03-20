@@ -340,8 +340,16 @@ public class BoardService {
 		return list;
 	}
 	
-	public void adviceTuring() {
-		
+	public int insertComment(Comment c) {
+		Connection conn = getConnection();
+		int result = dao.insertComment(conn, c);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 		
 	/*	

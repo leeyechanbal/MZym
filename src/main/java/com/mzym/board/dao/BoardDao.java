@@ -793,6 +793,29 @@ public class BoardDao {
 		
 	}
 	
+	public int insertComment(Connection conn, Comment c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, c.getCommentWriter());
+			pstmt.setInt(2, c.getBoardNo());
+			pstmt.setString(3, c.getCommentContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
 	
 /*	
 	=================================  황수림 a yellow forest ==================================

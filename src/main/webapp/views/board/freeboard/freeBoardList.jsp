@@ -45,7 +45,7 @@
  		cursor:pointer
  		}
 
-        .search {
+        .retrieve {
             position: relative;
             width: 300px;
             float: left;
@@ -110,7 +110,7 @@
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 			<% if(loginUser != null) { %>
-            <div class="search">
+            <div class="retrieve">
                 <input type="text" placeholder="검색어를 입력하세요">
                 <img class="icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>

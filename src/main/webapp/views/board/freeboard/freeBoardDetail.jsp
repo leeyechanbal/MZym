@@ -146,12 +146,27 @@
             <br><br>
 
             <!-- 댓글관련 영역 -->
-            <table class="table">
+            <table class="table" id="comment_area">
                 <thead>
                     <tr>
-                        <th>댓글작성</th>
-                        <th width="1000px"><textarea rows="3" class="form-control" style="resize:none"></textarea></th>
-                        <td style="vertical-align: bottom;"><button class="btn btn-secondary btn-sm">댓글등록</button></td>
+                        <th width="100px">댓글작성</th>
+                        
+                        <% if(loginUser == null) { %>
+                        <th width="900px">
+                        	<textarea rows="3" class="form-control" style="resize:none" readonly>로그인 후 이용 가능한 서비스입니다.</textarea>
+                        </th>
+                        <td style="vertical-align: bottom;">
+                        	<button class="btn btn-secondary btn-sm" disabled>댓글등록</button>
+                        </td>
+                        <% }else { %>
+                        <th width="900px">
+                        	<textarea rows="3" class="form-control" style="resize:none" id="comment_content"></textarea>
+                        </th>
+                        <td style="vertical-align: bottom;">
+                        	<button class="btn btn-secondary btn-sm" onclick="insertComment();">댓글등록</button>
+                        </td>
+                        <% } %>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -163,7 +178,28 @@
             
             	$(function(){
             		selectCommentList();
+            		setInterval(selectCommentList, 50000);
             	})
+            	
+            	function insertComment(){
+            		$.ajax({
+            			url:"<%=contextPath%>/rinsert.bo",
+            			data:{
+            				no:<%=b.getBoardNo()%>,
+            				content:$("#comment_content").val()
+            			},
+            			type:"post",
+            			success:function(result){
+            				if(result > 0){
+            					$("#comment_content").val("");
+            					selectCommentList();
+            				}
+            				
+            			},error:function(){
+            				console.log("댓글 등록 실패")
+            			}
+            		})
+            	}
             
             	function selectCommentList(){
             		$.ajax({
@@ -172,6 +208,23 @@
             			success:function(list){
             				
             				console.log(list);
+            				
+            				let value = "";
+            				
+            				if(list.length > 0){
+            					for (let i = 0; i < list.length; i++) {
+            					    value += "<tr>"
+            					        + "<td>" + list[i].commentWriter + "</td>"
+            					        + "<td>" + list[i].commentContent + "</td>"
+            					        + "<td>" + list[i].commentDate + "</td>"
+            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\">신고</button></td>"
+            					        + "</tr>";
+            					}
+            				}else{
+            					value += "<tr><td colspan='3'>존재하는 댓글이 없습니다.</td></tr>"
+            				}
+            				
+            				$("#comment_area tbody").html(value);
             				
             			},
             			error:function(){
@@ -209,7 +262,7 @@
                     <option value="1">도배/스팸</option>
                     <option value="2">욕설/차별/혐오</option>
                     <option value="3">음란물</option>
-                    <option value="4">홍보의심</option>
+                    <option value="4">홍보의심</option	>
                     <option value="5">기타</option>
                     <!-- 필요한 신고 사유 항목을 추가하세요 -->
                 </select>
@@ -248,62 +301,59 @@
         });
     </script>
 
-    <!-- 댓글 신고 모달 -->
-    <div class="modal" id="reportModal">
-        <div class="modal-dialog">
-        <div class="modal-content">
-    
-            <!-- 모달 헤더 -->
-            <div class="modal-header">
-            <h5 class="modal-title">댓글 신고</h5>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-    
-            <!-- 모달 본문 -->
-            <div class="modal-body">
-            <p>이 댓글을 신고하시겠습니까?</p>
-            <label for="reportReason">신고 사유 선택:</label>
-                <select class="form-control" id="reportReason">
-                    <option value="1">도배/스팸</option>
-                    <option value="2">욕설/차별/혐오</option>
-                    <option value="3">음란물</option>
-                    <option value="4">홍보의심</option>
-                    <option value="5">기타</option>
-                    <!-- 필요한 신고 사유 항목을 추가하세요 -->
-                </select>
-            </div>
-    
-            <!-- 모달 하단 -->
-            <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="confirmReport1">신고</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-            </div>
-    
-        </div>
-        </div>
-    </div>
-    
-    <!-- 스크립트 -->
-    <script>
-        // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
-        $(document).ready(function(){
-        $("#reportModal").modal('hide');
-        });
-    
-        // 신고 버튼 클릭 시 모달 띄우기
-        $(".btn5").click(function(){
-        $("#reportModal").modal('show');
-        });
-    
-        // 신고 확인 버튼 클릭 시 처리
-        $("#confirmReport1").click(function(){
-        // 여기에 신고 처리를 위한 로직을 추가할 수 있습니다.
-        // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
-        alert("댓글이 신고되었습니다.");
-        // 모달 닫기
-        $("#reportModal").modal('hide');
-        });
-    </script>
+   <!-- 댓글 신고 모달 -->
+	<div class="modal" id="reportModal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header">
+	                <h5 class="modal-title">댓글 신고</h5>
+	                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	            </div>
+	            <!-- 모달 본문 -->
+	            <div class="modal-body">
+	                <p>이 댓글을 신고하시겠습니까?</p>
+	                <label for="reportReason">신고 사유 선택:</label>
+	                <select class="form-control" id="reportReason">
+	                    <option value="1">도배/스팸</option>
+	                    <option value="2">욕설/차별/혐오</option>
+	                    <option value="3">음란물</option>
+	                    <option value="4">홍보의심</option>
+	                    <option value="5">기타</option>
+	                    <!-- 필요한 신고 사유 항목을 추가하세요 -->
+	                </select>
+	            </div>
+	            <!-- 모달 하단 -->
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-danger" id="confirmReport">신고</button>
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 스크립트 -->
+	<script>
+	    // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
+	    $(document).ready(function(){
+	        $("#reportModal").modal('hide');
+	    });
+	
+	    // 신고 버튼 클릭 시 모달 띄우기
+	    $(".btn5").click(function(){
+	        $("#reportModal").modal('show');
+	    });
+	
+	    // 신고 확인 버튼 클릭 시 처리
+	    $("#confirmReport").click(function(){
+	        // 여기에 신고 처리를 위한 로직을 추가할 수 있습니다.
+	        // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
+	        alert("댓글이 신고되었습니다.");
+	        // 모달 닫기
+	        $("#reportModal").modal('hide');
+	    });
+	</script>
+
     
     <%@ include file="/views/common/Mzym_footer.jsp" %>
 
