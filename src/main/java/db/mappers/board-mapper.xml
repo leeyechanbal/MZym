@@ -118,17 +118,6 @@ set notice_Title = ? <!-- 공지사항 제목 -->
 where notice_no = ? <!-- 해당 공지사항 -->
 </entry>
 
-
-<!-- 
-작성자 : 황수림
-페이징 처리 위한 자유게시판 갯수 가져오는 쿼리
- -->
-<entry key="selectFreeListCount">
-	SELECT	COUNT(*) COUNT
-	FROM	MZYM_BOARD
-	WHERE	BOARD_TYPE = 1
-	AND		STATUS = 'Y'
-</entry>
 <!-- 
 	작성자 : 이예찬
 	해당 글번호의 첨부파일이 수정 되었을때 
@@ -139,6 +128,159 @@ set origin_name = ?
 ,    change_name= ?
 ,    UPLORD_DATE = sysdate
 where att_no = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	공지사항의 상태값을 'N'으로 변경하는 쿼리문
+ -->
+<entry key="deletedNotice">
+update mzym_Notice
+set STATUS =  'N'
+where NOTICE_NO = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	첨부파일의 상태값을 'N'으로 변경하는 쿼리문
+ -->
+<entry key="deletedAttachment">
+update Attachment
+set STATUS =  'N'
+where att_no = ?
+and ATT_CATEGORY = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 총 갯수 쿼리문
+ -->
+<entry key="selectCounselingCount">
+	select count(*)
+	from mzym_advice
+	where status = ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
+ -->
+<entry key="adviceComplete">
+update mzym_advice
+set advice_tr = (
+    select user_no
+    from mzym_member
+    where user_id = ? <!-- 트레이너 아이디 -->
+)
+,   ADVICE_REPEAT = ? <!-- 보고서 내용 -->
+,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
+where ADVICE_NO = ? <!-- 상담글 번호 -->
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 총 갯수 쿼리문
+ -->
+<entry key="selectCounselingCount">
+	select count(*)
+	from mzym_advice
+	where status = ?
+</entry>
+
+
+<!-- 
+	작성자 : 이예찬
+	상담예약 게시물 조회 후 데이터를 담아올 쿼리문
+ -->
+<entry key="selectAdvice">
+select *
+from(
+    select ROWNUM r , n.* 
+    from(
+        select
+            ADVICE_NO
+            , ADVICE_USER
+            , PHONE_NO
+            , CATEGORY_NAME
+            , ADVICE_DATE
+            , user_id
+            , ADVICE_CONTENT
+            , ADVICE_REPEAT
+            , TO_CHAR(REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
+            , TO_CHAR(a.MODIFY_DATE, 'YY"년"MM"월"DD"일"') MODIFY_DATE
+            , a.status
+        from mzym_advice a
+        join service_category USING (CATEGORY_NO)
+        join mzym_member on (user_no = advice_tr)
+        where a.status = ? 
+        order by ADVICE_NO DESC 
+    )n
+)
+where r BETWEEN ? and ?
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
+ -->
+<entry key="adviceComplete">
+update mzym_advice
+set advice_tr = (
+    select user_no
+    from mzym_member
+    where user_id = ? <!-- 트레이너 아이디 -->
+)
+,   ADVICE_REPEAT = ? <!-- 보고서 내용 -->
+,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
+where ADVICE_NO = ? <!-- 상담글 번호 -->
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담이 완료된 글을 상담 대기로 변경하는 글
+ -->
+<entry key="adviceUpdate">
+update mzym_advice
+set MODIFY_DATE = sysdate
+, ADVICE_REPEAT = ? <!-- 변경된 보고서 내용 -->
+where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
+</entry>
+
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+
+
+<!-- ============================= 이예찬 leeyechan =========================== -->
+
+
+
+<!-- 
+작성자 : 황수림
+페이징 처리 위한 자유게시판 갯수 가져오는 쿼리
+ -->
+<entry key="selectFreeListCount">
+	SELECT	COUNT(*) COUNT
+	FROM	MZYM_BOARD
+	WHERE	BOARD_TYPE = 1
+	AND		STATUS = 'Y'
 </entry>
 
 <!-- 
@@ -194,27 +336,6 @@ where att_no = ?
 	,	?	
 	)
 </entry>
-<!-- 
-	작성자 : 이예찬
-	공지사항의 상태값을 'N'으로 변경하는 쿼리문
- -->
-<entry key="deletedNotice">
-update mzym_Notice
-set STATUS =  'N'
-where NOTICE_NO = ?
-</entry>
-
-<!-- 
-	작성자 : 이예찬
-	첨부파일의 상태값을 'N'으로 변경하는 쿼리문
- -->
-<entry key="deletedAttachment">
-update Attachment
-set STATUS =  'N'
-where att_no = ?
-and ATT_CATEGORY = ?
-</entry>
-
 
 
 <!--
@@ -289,106 +410,6 @@ and ATT_CATEGORY = ?
 	ORDER
 	BY 		FILE_LEVEL ASC
 </entry>
-<!-- 
-	작성자 : 이예찬
-	상담예약 게시물 총 갯수 쿼리문
- -->
-<entry key="selectCounselingCount">
-	select count(*)
-	from mzym_advice
-	where status = ?
-</entry>
-
-
-<!-- 
-	작성자 : 이예찬
-	상담예약 게시물 조회 후 데이터를 담아올 쿼리문
- -->
-<entry key="selectAdvice">
-select *
-from(
-    select ROWNUM r , n.* 
-    from(
-        select
-            ADVICE_NO
-            , ADVICE_USER
-            , PHONE_NO
-            , CATEGORY_NAME
-            , ADVICE_DATE
-            , user_id
-            , ADVICE_CONTENT
-            , ADVICE_REPEAT
-            , TO_CHAR(REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
-            , TO_CHAR(a.MODIFY_DATE, 'YY"년"MM"월"DD"일"') MODIFY_DATE
-            , a.status
-        from mzym_advice a
-        join service_category USING (CATEGORY_NO)
-        join mzym_member on (user_no = advice_tr)
-        where a.status = ? 
-        order by ADVICE_NO DESC 
-    )n
-)
-where r BETWEEN ? and ?
-</entry>
-
-<!-- 
-	작성자 : 이예찬
-	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
- -->
-<entry key="adviceComplete">
-update mzym_advice
-set advice_tr = (
-    select user_no
-    from mzym_member
-    where user_id = ? <!-- 트레이너 아이디 -->
-)
-,   ADVICE_REPEAT = ? <!-- 보고서 내용 -->
-,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
-where ADVICE_NO = ? <!-- 상담글 번호 -->
-</entry>
-
-<!-- 
-	작성자 : 이예찬
-	상담이 완료된 글을 상담 대기로 변경하는 글
- -->
-<entry key="adviceUpdate">
-update mzym_advice
-set MODIFY_DATE = sysdate
-, ADVICE_REPEAT = ? <!-- 변경된 보고서 내용 -->
-where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
-</entry>
-
-<!--
-	작성자 : 구성모
-	상담예약 추가하는 쿼리문
--->
-<entry key="insertAdvice">
-	INSERT
-	  INTO MZYM_ADVICE
-	  (
-	    ADVICE_NO
-	  , CATEGORY_NO
-	  , ADVICE_USER
-	  , PHONE_NO
-	  , ADVICE_DATE
-	  , ADVICE_CONTENT
-	  )
-	  VALUES
-	  (
-	    SEQ_ADVICENO.NEXTVAL
-	  , ? <!-- 카테고리번호 -->
-	  , ? <!-- 상담신청자이름 -->
-	  , ? <!-- 상담신청자폰번호 -->
-	  , ? <!-- 희망상담일자 -->
-	  , ? <!-- 상담내용 -->
-	  )
-</entry>
-<!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
-
-
 
 <!--  
 	작성자 : 황수림
@@ -466,6 +487,34 @@ where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
 
 <!--  -->
 <entry key=""></entry>
+
+<!-- ===========================황수림================================= -->
+<!--
+	작성자 : 구성모
+	상담예약 추가하는 쿼리문
+-->
+<entry key="insertAdvice">
+	INSERT
+	  INTO MZYM_ADVICE
+	  (
+	    ADVICE_NO
+	  , CATEGORY_NO
+	  , ADVICE_USER
+	  , PHONE_NO
+	  , ADVICE_DATE
+	  , ADVICE_CONTENT
+	  )
+	  VALUES
+	  (
+	    SEQ_ADVICENO.NEXTVAL
+	  , ? <!-- 카테고리번호 -->
+	  , ? <!-- 상담신청자이름 -->
+	  , ? <!-- 상담신청자폰번호 -->
+	  , ? <!-- 희망상담일자 -->
+	  , ? <!-- 상담내용 -->
+	  )
+</entry>
+
 
 <!--  -->
 <entry key=""></entry>
