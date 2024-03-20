@@ -303,6 +303,8 @@ public class BoardService {
 		close(conn);
 		
 		return result1 * result2;
+	public void adviceTuring() {
+		
 	}
 
 }

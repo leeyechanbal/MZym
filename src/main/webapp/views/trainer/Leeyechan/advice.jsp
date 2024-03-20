@@ -96,6 +96,7 @@ tfoot {
 									<li><div>분류: <%=ad.getCategoryName() %></div></li>
 									<li><div>신청 날짜: <%=ad.getAdviceDate()%></div></li>
 									<li><div>담당자: <%=ad.getTrainerId() %></div></li>
+									<li><div>수정일: <%=ad.getModifyDate() %></div></li>
 								</ul>
 							</fieldset> <br>
 							<fieldset>
@@ -191,7 +192,8 @@ tfoot {
 									<legend>신청내용</legend>
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" name="" readonly><%=ad.getAdviceContent()%></textarea>
 									<h4>보고서</h4>
-<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="" placeholder="내용을 작성해 주세요."><%=ad.getRepeat()%></textarea>
+									<% String content = ad.getRepeat(); %>
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="" placeholder="내용을 작성해 주세요."><%=(content == null)? "" : content%></textarea>
 								</fieldset> <%if(ad.getStatus().equals("Y")) {%><input type="checkbox" checked> 완료여부
 							<%} else {%>
 								<input type="checkbox"> 완료여부
