@@ -278,6 +278,7 @@ public class BoardDao {
 	 * @param n
 	 * @param conn
 	 * @return
+	 * 글번호에 따라서 첨부파일이 들어갈 수있도록 만든 매서드
 	 */
 	public int insertNumAttachment(Notice n, Connection conn) {
 		PreparedStatement pst = null;
@@ -312,6 +313,7 @@ public class BoardDao {
 	 * @param conn
 	 * @param num
 	 * @return 
+	 * 공지사항을 삭제시 상태를 변경시켜 화면에 보이지 않도록 하는 매서드
 	 */
 	public int deletedNotice(Connection conn, int num) {
 		int result = 0;
@@ -498,6 +500,13 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

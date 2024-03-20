@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신고 완료 페이지</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="/src/main/webapp/resources/css/leeyechan/trailnerLee.css" rel="stylesheet" type="text/css">
+    <script src="/src/main/webapp/resources/js/trailnerLee.js" rel="javascript"></script>
+
+    <style>
+
+        /* 신고 댓글 추가 스타일 */
+        .board-out>#accusation{
+            background-color: rgba(26, 188, 156, 0.2);
+        }
+        .suteOption{
+            display: block;
+        }
+        .suteOption>.suteRrepeat{
+            background-color: rgba(26, 188, 156, 0.2);
+        }
+        .collapseitem{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .collapseitem li{
+            padding: 5px;
+            font-size: 15px;
+        }
+        .collapseitem p{
+            font-size: 15px;
+            width: 100%;
+        }
+        .collapseitem input{
+            margin: 5px;
+        }
+        tfoot{
+            height: 100px;
+        }
+    </style>
+
+</head>
+<body>
+    <table id="outTable">
+        
+        <thead class="">
+            <td class="section1" id="back"><img src="/src/main/webapp/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
+            <td class="section2" id="logo"><img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
+            <td class="section3"></td>
+        </thead>
+        
+        <tr style="height: 30px;"></tr>
+
+        <tbody>
+            <td class="section1" id="menu">
+                <div id="adi">관리자<br>xxx</div>
+                <div class="board-out">
+                    <div id="board" onclick="unfold(this);">게시판</div>
+
+                    <div class="boardNav" style="margin-top: 0px;">
+                        <div class="boardNotice"><a href="">공지사항</a></div>
+                        <div class="boardFree"><a href="">자유게시판</a></div>
+                        <div class="boardQuestion"><a href="">질문게시판</a></div>
+                        <div class="boardReview"><a href="">PT 및 헬스장 후기</a></div>
+                        <div class="boardClass"><a href="">운동 모임</a></div>
+                    </div>
+
+                    <div id="counseling"><a href="">상담예약</a></div>
+                    <div id="customer"><a href="">고객센터</a></div>
+                    <div id="accusation">신고</div>
+                    <div class="suteOption" style="margin-top: 0;">
+                        <div class="suteBoard"><a href="">게시글</a></div>
+                        <div class="suteRrepeat"><a href="">답글</a></div>
+                    </div>
+                    <div id="calory"><a href="">인바디</a></div>
+
+                </div>
+            </td>
+
+            <td class="section2">
+                <div>
+                    <table id="boardcontent" class="table">
+                        <tr id="theader" style="background-color: rgb(224, 224, 224);">
+                            <th class="table-number">번호</th>
+                            <th class="table-title">제목</th>
+                            <th>신고자</th>
+                            <th>종류</th>
+                        </tr>
+
+
+                    <form action="" method="">
+                        <tr class="tr-title" data-toggle="collapse" data-target="#context1"> <!--반복문 !! -->
+                            <td class="table-number" name="">1</td>
+                            <td class="table-title" name="">여기서 똥싸도 되요.</td>
+                            <td name="">user0001</td>
+                            <td>댓글</td>
+                        </tr>
+
+                        <tr id="context1" class="collapse">
+                            <td colspan="5">
+                                <div class="collapseitem">
+                                    <fieldset>
+                                        <legend>세부사항</legend>
+                                        <ul>
+                                            <li>글번호: </li>
+                                            <li>카테고리: </li>
+                                            <li>작성자: </li>
+                                            <li>신고일: </li>
+                                        </ul>
+                                    </fieldset>
+                                    <p class="border"> 저희 집 안마당에서 강아지 똥 치워주 실 멍청이 구합니다.</p>
+                                    <img src="" alt="첨부파일 미리보기">
+                                    <div>
+                                        <input type="file" name="">
+                                        <button type="submit" style="margin-left: 650px;" class="btn btn-outline-warning btn-sm">수정</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
+                    
+
+
+                        <!-- 샘플데이터 -->
+                        <tr>
+                            <td class="table-number">2</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">3</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">4</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">5</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">6</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">7</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">8</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">9</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <tr>
+                            <td class="table-number">10</td>
+                            <td class="table-title">노래하지마세요</td>
+                            <td>머멍이</td>
+                        </tr>
+                        <!-- 샘플데이터 -->
+
+                    </table>
+                </div>
+            </td>
+            <td class="section3"></td>
+        </tbody>
+        <!-- tfoot : 페이징 바 및 작성 과 삭제 버튼 영역 -->
+        <tfoot>
+            <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
+            <td class="section2" id="paging" >
+                <ul class="pagination" >
+                    <li class="page-item"><a class="page-link" href="#">이전</a></li>
+
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                </ul>
+            </td>
+            
+            <td class="section3 ">
+                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
+            </td>
+        </tfoot>
+        <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
+   </table>
+   
+</body>
+
+
+<!-- 삭제용 모달 -->
+<div class="modal" id="deletModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">게시물 삭제</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center; font-size: 15px; ">
+            게시물을 정말로 삭제 하시겠습니까?
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+</html>
