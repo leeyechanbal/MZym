@@ -8,7 +8,7 @@
 <style>
 	 .FacilityPage_content{ /*메인 영역*/
 	    border: 2px solid #1ABC9C;
-	    width: 100%;
+	    width: 90%;
 	    height: 100%;
 	    margin: auto;
 	    margin-top: 50px;
