@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디찾기</title>
+<title>비밀번호찾기</title>
 <!-- 메인콘테트 관련 style -->
     <style>
     hr{
@@ -81,7 +81,7 @@
 	<div class="wrap">
 		<%@ include file="/views/common/Mzym_header.jsp" %>
 		<div class="main_header">
-	        <h1>아이디 찾기</h1>
+	        <h1>비밀번호 찾기</h1>
 	        <hr>
 	        <h5>회원정보 입력</h5>
       	</div>
@@ -91,7 +91,7 @@
                 <form id="myForm" action="" method="" style="width: 100%;">
                     <table class="table table-borderless">
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="이름" required id="input_name" name="userName"></td>
+                            <td><input type="text" class="form-control" placeholder="아이디" required id="input_id" name="userId"></td>
                         </tr>
                         <tr>
                             <td><input type="text" class="form-control" placeholder="전화번호(-포함해서 입력해주세요)" required id="input_phone" name="phone"></td>
@@ -102,7 +102,7 @@
 
                         <tr>
                             <th style="text-align: center; padding-top: 20px;">
-                                <button type="button" class="findId_btn" data-toggle="modal" id="submit_Btn">아이디찾기</button>
+                                <button type="button" class="findId_btn" data-toggle="modal" id="submit_Btn">비밀번호 찾기</button>
                             </th>
                         </tr>
                     </table>
@@ -130,28 +130,28 @@
       <script>
         $('#submit_Btn').click(function(event) {
             event.preventDefault(); // 기본 제출 동작을 막습니다.
-            var name = $('#input_name').val();
+            var id = $('#input_id').val();
             var phoneNumber = $('#input_phone').val();
             var input_email = $('#input_email').val();
             $.ajax({
-                url:"<%=contextPath%>/findId.me",
+                url:"<%=contextPath%>/findPwd.me",
                 data:{
-                    userName:name,
+                    userId:id,
                     phone:phoneNumber,
                     email:input_email
                 },
                 type:"post",
-                success:function(getId){
-                    if(getId === ""){
+                success:function(findPwd){
+                    if(findPwd === ""){
                     	alert("입력하신 정보와 일치하는 아이디가 없습니다");
                     }else{
                     	let value = ""
-                    	value = "안녕하세요 " + name +"님<br>회원님의 아이디는<br>" + getId +"입니다.";
+                    	value = "안녕하세요 " + id +"님<br>회원님의 초기비밀번호는<br>" + findPwd +"입니다.";
                     	$("#pFindId").html(value);
                     	$('#myModal').modal('show');
                     }
                 },error:function(){
-                    console.log("아이디찾기 ajax통신 실패")
+                    console.log("비밀번호찾기 ajax통신 실패")
                 }
             })
             

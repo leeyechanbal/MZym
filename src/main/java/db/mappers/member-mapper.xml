@@ -152,6 +152,28 @@
  	WHERE USER_NAME = ?
  	  AND PHONE = ?
  	  AND EMAIL = ?
+ 	  AND STATUS = 'Y'
+</entry>
+
+<!-- 비밀번호찾기 - 구성모 -->
+<entry key="findPwd">
+	SELECT
+		   COUNT(*) COUNT
+	 FROM MZYM_MEMBER
+	WHERE USER_ID = ?
+	  AND PHONE = ?
+	  AND EMAIL = ?
+	  AND STATUS = 'Y'
+</entry>
+
+<!-- 비밀번호 재설정 - 구성모 -->
+<entry key="updatePwdMember">
+		UPDATE
+			   MZYM_MEMBER
+		   SET USER_PWD = ?
+		     , MODIFY_DATE = SYSDATE
+		 WHERE USER_ID = ?
+		   AND STATUS = 'Y'
 </entry>
 
 <entry key="selectPayment">
