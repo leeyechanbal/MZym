@@ -80,6 +80,24 @@ public class Advice {
 		this.categoryName = categoryName;
 	}
 
+	
+	/**
+	 * @author 구성모
+	 * @param categoryNo
+	 * @param adviceName
+	 * @param phone
+	 * @param adviceDate
+	 * @param adviceContent
+	 */
+	public Advice(int categoryNo, String adviceName, String phone, String adviceDate, String adviceContent) {
+		super();
+		this.categoryNo = categoryNo;
+		this.adviceName = adviceName;
+		this.phone = phone;
+		this.adviceDate = adviceDate;
+		this.adviceContent = adviceContent;
+	}
+
 	public String getTrainerId() {
 		return trainerId;
 	}

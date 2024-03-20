@@ -635,6 +635,37 @@ public class BoardDao {
 		
 		return at;
 	}
+
+	/**
+	 * @author 구성모
+	 * @param conn
+	 * @param a
+	 * @return 상담예약 insert결과값 반환
+	 */
+	public int insertAdvice(Connection conn, Advice a) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAdvice");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a.getCategoryNo());
+			pstmt.setString(2, a.getAdviceName());
+			pstmt.setString(3, a.getPhone());
+			pstmt.setString(4, a.getAdviceDate());
+			pstmt.setString(5, a.getAdviceContent());
+			
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 //	public void 
 	

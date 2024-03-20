@@ -276,4 +276,20 @@ public class BoardService {
 		return list;
 	}
 
+	/**
+	 * @author 구성모
+	 * @return dao.insert결과값 반환
+	 */
+	public int insertAdvice(Advice a) {
+		Connection conn = getConnection();
+		int result = dao.insertAdvice(conn, a);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }
