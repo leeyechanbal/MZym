@@ -35,6 +35,7 @@ public class AjaxCalendarListController extends HttpServlet {
 		
 		int userNo = Integer.parseInt(request.getParameter("no"));
 		
+			
 		/*	clist와 mlist
 		// cal_tr, start_date, end_date, cal_title, cal_content, cal_color
 		List<Calendar> clist = new CalendarService().selectCalendarList(userId);

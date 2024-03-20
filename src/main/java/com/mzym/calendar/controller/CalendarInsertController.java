@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.mzym.calendar.service.CalendarService;
 import com.mzym.calendar.vo.Calendar;
 
@@ -32,14 +33,15 @@ public class CalendarInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userName = request.getParameter("userName");
+		String userName = request.getParameter("ptUserName");
 		String calColor = request.getParameter("calColor");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
-		String phone = request.getParameter("phone");
+		String phone = request.getParameter("userPhone");
 		String writer = request.getParameter("writer");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int trNo = Integer.parseInt(request.getParameter("trNo"));
 		
 		Calendar cal = new Calendar();
 		
@@ -49,15 +51,16 @@ public class CalendarInsertController extends HttpServlet {
 		cal.setCalTR(writer);
 		cal.setCalTitle(title);
 		cal.setCalContent(content);
+		cal.setCalUserNo(trNo);
 		
-		int result = new CalendarService().ptCalendarInsert(cal, userName, phone);
+		int result = new CalendarService().ptCalendarInsert(cal, phone);
 		
+		response.setContentType("application/json; charset=UTF-8");
 		HttpSession session = request.getSession();
 		
 		if(result>0) {
 			session.setAttribute("alert", "일정 등록에 성공하였습니다.");
-			response.sendRedirect(request.getContextPath() + "/list.cal");
-			
+			new Gson().toJson(result, response.getWriter());
 		}else {
 			//에러페이지
 		}

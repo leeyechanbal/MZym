@@ -16,19 +16,31 @@
 	</entry>
 
 	<entry key="ptCalendarInsert">
-		INSERT INTO MZYM_CALENDER
-		VALUES 
-				(
-				  SEQ_SEQ_CALNO.NEXTVAL
-				, (SELECT USER_NO FROM MEMBER WHERE USER_NAME = ? AND PHONE = ?)
-				, ? -- CAL_TR
-				, ? -- START_DATE
-				, ? -- END_DATE
-				, ? -- CAL_TITLE
-				, ? -- CAL_CONTENT
-				, ? -- CAL_COLOR
-				, 'Y'
-				)
+	INSERT
+	INTO MZYM_CALENDAR
+	(
+	  CAL_NO
+	, USER_NO
+	, CAL_TR
+	, START_DATE
+	, END_DATE
+	, CAL_TITLE
+	, CAL_CONTENT
+	, CAL_COLOR
+	, STATUS
+	)
+	VALUES 
+	(
+	  SEQ_CALNO.NEXTVAL
+	, ?
+	, ?
+	, ?
+	, ?
+	, ?
+	, ?
+	, ?
+	, 'Y'
+	)
 	</entry>
 
 
