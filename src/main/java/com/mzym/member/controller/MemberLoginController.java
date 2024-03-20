@@ -45,7 +45,11 @@ public class MemberLoginController extends HttpServlet {
 		} else {
 			HttpSession session = request.getSession(); // 세션객체 얻어오는 구문
 			session.setAttribute("loginUser", m);
-			response.sendRedirect(request.getContextPath());
+			if(userStatus.equals("Y")) {
+				response.sendRedirect(request.getContextPath());
+			}else if(userStatus.equals("T")) {
+				response.sendRedirect(request.getContextPath() + "/login.trainer");
+			}
 		}
 	}
 

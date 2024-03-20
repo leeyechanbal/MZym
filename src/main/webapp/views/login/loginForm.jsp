@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath(); // "/web"
@@ -12,10 +12,10 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>MZYM ·Î±×ÀÎ</title>
+<title>MZYM ë¡œê·¸ì¸</title>
 
-<!-- ½ºÅ¸ÀÏ -->
- <!-- ºÎÆ®½ºÆ®·¦ ±â´ÉÀ» À§ÇÑ CDN ¹æ½Ä ¿¬°á -->
+<!-- ìŠ¤íƒ€ì¼ -->
+ <!-- ë¶€íŠ¸ìŠ¤íŠ¸ë© ê¸°ëŠ¥ì„ ìœ„í•œ CDN ë°©ì‹ ì—°ê²° -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -30,7 +30,7 @@
       }
 
       body {
-          background-color: gray; /* ³ª¸ÓÁö ¿µ¿ªÀÇ ¹è°æ»ö È¸»öÀ¸·Î ¼³Á¤ */
+          background-color: gray; /* ë‚˜ë¨¸ì§€ ì˜ì—­ì˜ ë°°ê²½ìƒ‰ íšŒìƒ‰ìœ¼ë¡œ ì„¤ì • */
       }   
 
       a { color :black; }
@@ -47,7 +47,7 @@
           text-align: center;
       }
 
-      /* Section °ü·Ã ½ºÅ¸ÀÏ*/
+      /* Section ê´€ë ¨ ìŠ¤íƒ€ì¼*/
       .main_content {
           width: 70%;
           margin: auto;
@@ -66,8 +66,8 @@
           border: none;
           width: 100%;
           height: 1px;
-          background: black; /* ¹è°æ»öÀ» °ËÀº»öÀ¸·Î ¼³Á¤ */
-          margin: 0; /* °¡ÀåÀÚ¸®¿¡ ºó °ø°£ ¾øµµ·Ï ¼³Á¤ */
+          background: black; /* ë°°ê²½ìƒ‰ì„ ê²€ì€ìƒ‰ìœ¼ë¡œ ì„¤ì • */
+          margin: 0; /* ê°€ì¥ìë¦¬ì— ë¹ˆ ê³µê°„ ì—†ë„ë¡ ì„¤ì • */
           user-select: none;
       }
 
@@ -110,8 +110,8 @@
           border: none;
           width: 100%;
           height: 1px;
-          background: black; /* ¹è°æ»öÀ» °ËÀº»öÀ¸·Î ¼³Á¤ */
-          margin: 0; /* °¡ÀåÀÚ¸®¿¡ ºó °ø°£ ¾øµµ·Ï ¼³Á¤ */
+          background: black; /* ë°°ê²½ìƒ‰ì„ ê²€ì€ìƒ‰ìœ¼ë¡œ ì„¤ì • */
+          margin: 0; /* ê°€ì¥ìë¦¬ì— ë¹ˆ ê³µê°„ ì—†ë„ë¡ ì„¤ì • */
           user-select: none;
       }
 
@@ -193,14 +193,14 @@
           color: white;
       }
 
-      /* ±âº» Ä¿¼­ ¼³Á¤ */
+      /* ê¸°ë³¸ ì»¤ì„œ ì„¤ì • */
       .login_select_user h5,
       .login_select_trainer h5 {
           cursor: pointer;
           user-select: none;
       }
 
-      /* Å¬¸¯ Ä¿¼­ ¼³Á¤ */
+      /* í´ë¦­ ì»¤ì„œ ì„¤ì • */
       .login_select_user h5:hover,
       .login_select_trainer h5:hover {
           cursor: pointer;
@@ -228,7 +228,7 @@
 
             <div class="login_content">
                 
-                <!-- ·Î±×ÀÎ Çì´õ -->
+                <!-- ë¡œê·¸ì¸ í—¤ë” -->
                 <div class="login_header">
 
                     <div class="login_title">
@@ -238,7 +238,7 @@
                         </div>
 
                         <div class="login_title_center">
-                            <h2 style="text-align: center;">·Î±×ÀÎ</h2>
+                            <h2 style="text-align: center;">ë¡œê·¸ì¸</h2>
                         </div>
 
                         <div class="login_title_right"></div>
@@ -247,19 +247,19 @@
                     <div class="login_select">
 
                         <div class="login_select_user">
-                          <h5 id="selectUser">È¸¿ø ·Î±×ÀÎ</h5>
+                          <h5 id="selectUser">íšŒì› ë¡œê·¸ì¸</h5>
                         </div>
 
                         <div class="login_select_trainer">
-                          <h5 id="selectTrainer">Æ®·¹ÀÌ³Ê ·Î±×ÀÎ</h5>
+                          <h5 id="selectTrainer">íŠ¸ë ˆì´ë„ˆ ë¡œê·¸ì¸</h5>
                         </div>
                     </div>
                     <hr>
                 </div>
-                <!-- ·Î±×ÀÎ Çì´õ ³¡-->
+                <!-- ë¡œê·¸ì¸ í—¤ë” ë-->
 
 
-                <!-- ·Î±×ÀÎ ¹Ùµğ-->
+                <!-- ë¡œê·¸ì¸ ë°”ë””-->
                 <div class="login_body">
                     <div class="login_input">
                     
@@ -268,16 +268,16 @@
                                <input type="hidden" name="status" id="select_user">
                                
                                 <div class="login_input_id">
-                                    <input type="text" class="form-control" placeholder="¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä" required name="userId">
+                                    <input type="text" class="form-control" placeholder="ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”" required name="userId">
                                 </div>
 
                                 <div class="login_input_pwd">
-                                    <input type="password" class="form-control" placeholder="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä" required name="userPwd" id="passwordInput">
+                                    <input type="password" class="form-control" placeholder="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”" required name="userPwd" id="passwordInput">
                                     <button style="border: none;" id="showPasswordBtn"><img src="<%=contextPath %>/resources/img/icon/show_password_icon_50x50.png"></button>
                                 </div>
 
                                 <div class="login_input_btn">
-                                    <button type="submit" class="btn" style="font-size: larger;">·Î±×ÀÎ</button>
+                                    <button type="submit" class="btn" style="font-size: larger;">ë¡œê·¸ì¸</button>
                                 </div>
                                 
                             </form>
@@ -287,56 +287,56 @@
                     <div class="login_search">
                         
                         <div class="login_search_id" style="margin: auto; margin-top: 5%; font-size: larger">
-                            <a href="<%=contextPath %>/findIdForm.me">¾ÆÀÌµğ Ã£±â</a>
+                            <a href="<%=contextPath %>/findIdForm.me">ì•„ì´ë”” ì°¾ê¸°</a>
                         </div>
                         <div class="login_search_center" style="margin: auto; margin-top: 5%; font-size: larger;">
                             |
                         </div>
                         <div class="login_search_pwd" style="margin: auto; margin-top: 5%; font-size: larger">
-                            <a href="<%=contextPath %>/findPwdForm.me">ºñ¹Ğ¹øÈ£ Ã£±â</a>
+                            <a href="<%=contextPath %>/findPwdForm.me">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
                         </div>
                     </div>
                     <hr>
 
                 </div> 
 
-                <!-- ·Î±×ÀÎ ¹Ùµğ ³¡-->
+                <!-- ë¡œê·¸ì¸ ë°”ë”” ë-->
 
-                <!-- ·Î±×ÀÎ Ç²ÅÍ -->
+                <!-- ë¡œê·¸ì¸ í’‹í„° -->
                 <div class="login_footer" style="font-size: larger;">
-                    ¾ÆÁ÷ MZymÈ¸¿øÀÌ ¾Æ´Ï½Ã¶ó¸é, Áö±İ °¡ÀÔÇØ ÀÌ¿ëÇØ º¸¼¼¿ä!
+                    ì•„ì§ MZymíšŒì›ì´ ì•„ë‹ˆì‹œë¼ë©´, ì§€ê¸ˆ ê°€ì…í•´ ì´ìš©í•´ ë³´ì„¸ìš”!
                     <br><br>
-                    <button class="btn">È¸¿ø°¡ÀÔ</button>
+                    <button class="btn">íšŒì›ê°€ì…</button>
                 </div>
-                <!-- ·Î±×ÀÎ Ç²ÅÍ ³¡-->
+                <!-- ë¡œê·¸ì¸ í’‹í„° ë-->
             </div>
         </section>
 
         <script>
             
-            // È¸¿ø Æ®·¹ÀÌ³Ê ±¸º° ½ºÅ©¸³Æ® - ±¸¼º¸ğ
+            // íšŒì› íŠ¸ë ˆì´ë„ˆ êµ¬ë³„ ìŠ¤í¬ë¦½íŠ¸ - êµ¬ì„±ëª¨
             $(document).ready(function() {
-                // ÃÊ±â »óÅÂ ¼³Á¤
+                // ì´ˆê¸° ìƒíƒœ ì„¤ì •
                 $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
                 $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
                 $('#select_user').val("Y")
-                // È¸¿ø ·Î±×ÀÎ Å¬¸¯ ½Ã
+                // íšŒì› ë¡œê·¸ì¸ í´ë¦­ ì‹œ
                 $('#selectUser').click(function() {
                     $('.login_select_user h5').css({'color':'black', 'font-weight':'bold'});
                     $('.login_select_trainer h5').css({'color':'gray', 'font-weight':'normal'});
                     $('#select_user').val("Y")
-                   // $('form').attr('action', ); // È¸¿ø ·Î±×ÀÎ formÀÇ action º¯°æ
+                   // $('form').attr('action', ); // íšŒì› ë¡œê·¸ì¸ formì˜ action ë³€ê²½
                 });
         
-                // Æ®·¹ÀÌ³Ê ·Î±×ÀÎ Å¬¸¯ ½Ã
+                // íŠ¸ë ˆì´ë„ˆ ë¡œê·¸ì¸ í´ë¦­ ì‹œ
                 $('#selectTrainer').click(function() {
                     $('.login_select_user h5').css({'color':'gray', 'font-weight':'normal'});
                     $('.login_select_trainer h5').css({'color':'black', 'font-weight':'bold'});
                     $('#select_user').val("T")
                 });
             });
-            // input ºñ¹Ğ¹øÈ£ text Åä±Û ½ºÅ©¸³Æ® - ±¸¼º¸ğ
-            // ÀÌ¹ÌÁö ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ ½ÇÇàµÇ´Â ÇÔ¼ö
+            // input ë¹„ë°€ë²ˆí˜¸ text í† ê¸€ ìŠ¤í¬ë¦½íŠ¸ - êµ¬ì„±ëª¨
+            // ì´ë¯¸ì§€ ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
             document.getElementById('showPasswordBtn').addEventListener('click', function(event) {
 		        event.preventDefault();
 		        var passwordInput = document.getElementById('passwordInput');

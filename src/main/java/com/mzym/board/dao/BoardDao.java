@@ -634,6 +634,37 @@ public class BoardDao {
 		
 		return at;
 	}
+
+	/**
+	 * @author 구성모
+	 * @param conn
+	 * @param a
+	 * @return 상담예약 insert결과값 반환
+	 */
+	public int insertAdvice(Connection conn, Advice a) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAdvice");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a.getCategoryNo());
+			pstmt.setString(2, a.getAdviceName());
+			pstmt.setString(3, a.getPhone());
+			pstmt.setString(4, a.getAdviceDate());
+			pstmt.setString(5, a.getAdviceContent());
+			
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	/**
 	 * @author 이예찬
@@ -674,4 +705,80 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글 수정하는 메소드
+	 * 자유게시판의 첨부파일 수정하는 메소드
+	 * 자유게시판의 첨부파일 추가하는 메소드
+	 */
+	public int updateFreeBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateFreeAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNO());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertNewFreeAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getAttNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }// class END

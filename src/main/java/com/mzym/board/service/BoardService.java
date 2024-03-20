@@ -269,6 +269,13 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	public int adviceTuring(Advice ad) {
+		Connection conn = getConnection();
+		int result = dao.adviceTuring(conn, ad);
+		close(conn);
+		return result;
+	}
 
 	public List<Advice> selectAdvice(PageInfo info, String check) {
 		Connection conn = getConnection();
@@ -278,12 +285,47 @@ public class BoardService {
 		
 		return list;
 	}
-	
-	public int adviceTuring(Advice ad) {
+	/**
+	 * @author 황수림
+	 * @return 자유게시판 수정 갯수 반환
+	 */
+	public int updateFreeBoard(Board b, Attachment at) {
 		Connection conn = getConnection();
-		int result = dao.adviceTuring(conn, ad);
+		
+		int result1 = dao.updateFreeBoard(conn, b);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			if(at.getFileNO() != 0) {
+				result2 = dao.updateFreeAttachment(conn, at);	
+			}else {
+				result2 = dao.insertNewFreeAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		
+		return result1 * result2;
+	}
+	/**
+	 * @author 구성모
+	 * @return dao.insert결과값 반환
+	 */
+	public int insertAdvice(Advice a) {
+		Connection conn = getConnection();
+		int result = dao.insertAdvice(conn, a);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 
