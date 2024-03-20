@@ -78,6 +78,20 @@ public class Advice {
 		this.categoryName = categoryName;
 	}
 	
+
+	/**
+	 * @author 이예찬
+	 * @param adviceNo
+	 * @param repeat
+	 * @param status
+	 * 상담에 대한 보고서를 작성하거나 수정 할때 사용되는 매서드
+	 */
+	public Advice(int adviceNo, String repeat, String status) {
+		super();
+		this.adviceNo = adviceNo;
+		this.repeat = repeat;
+		this.status = status;
+	}
 	
 	public String getModifyDate() {
 		return modifyDate;
@@ -85,6 +99,24 @@ public class Advice {
 
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	
+	/**
+	 * @author 구성모
+	 * @param categoryNo
+	 * @param adviceName
+	 * @param phone
+	 * @param adviceDate
+	 * @param adviceContent
+	 */
+	public Advice(int categoryNo, String adviceName, String phone, String adviceDate, String adviceContent) {
+		super();
+		this.categoryNo = categoryNo;
+		this.adviceName = adviceName;
+		this.phone = phone;
+		this.adviceDate = adviceDate;
+		this.adviceContent = adviceContent;
 	}
 
 	public String getTrainerId() {

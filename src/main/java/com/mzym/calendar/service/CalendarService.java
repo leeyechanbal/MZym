@@ -30,11 +30,11 @@ public class CalendarService {
 	
 	
 	// 일정 추가 
-	public int ptCalendarInsert(Calendar cal, String userName, String phone) {
+	public int ptCalendarInsert(Calendar cal, String phone) {
 		
 		Connection conn = getConnection();
 		
-		int result = cDao.ptCalendarInsert(conn, cal, userName, phone);
+		int result = cDao.ptCalendarInsert(conn, cal, phone);
 		
 		if(result > 0) {
 			commit(conn);

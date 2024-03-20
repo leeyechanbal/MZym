@@ -215,78 +215,6 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
-	/**
-	 * @author 황수림
-	 * @param conn db연결을 위한 Connection 객체
-	 * @return 자유게시판의 총 갯수
-	 * 페이징 처리를 위한 자유게시판의 총 갯수 요청 
-	 */
-	public int selectFreeListCount(Connection conn) {
-		
-		int listCount = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectFreeListCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return listCount;
-	}
-	
-	/**
-	 * @author 황수림
-	 * @return
-	 * 자유게시판 목록 실행 및 결과값 반환
-	 */
-	public List<Board> selectFreeList(Connection conn, PageInfo pi){
-		List<Board> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectFreeList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Board(rset.getInt("board_no"),
-									rset.getString("board_title"),
-									rset.getString("user_name"),
-									rset.getInt("count"),
-									rset.getDate("regist_date")
-									));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-		
-	}
 
 	/**
 	 * @author 이예찬
@@ -378,55 +306,13 @@ public class BoardDao {
 		return result;
 	}
 	
-	/**
-	 * @author 황수림
-	 * @return
-	 * 자유게시판 게시글 insert
-	 */
-	public int insertFreeBoard(Connection conn, Board b){
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertFreeBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, b.getBoardWriter());
-			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardContent());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 	
-	public int insertFreeAttachment(Connection conn, Attachment at) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertFreeAttachment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-}
-
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param num
+	 * @return 
+	 */
 	public int deletedNotice(Connection conn, int num) {
 		int result = 0;
 		PreparedStatement pst = null;
@@ -471,27 +357,6 @@ public class BoardDao {
 		return result;
 	}
 	
-	/**
-	 * @author 황수림
-	 * 자유게시판 게시글 조회시 조회수 count 하는 메소드
-	 */
-	public int increaseFreeCount(Connection conn, int boardNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("increaseFreeCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
 	/**
 	 * @author 이예찬
@@ -568,6 +433,142 @@ public class BoardDao {
 		
 		return list;
 	}
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @param ad
+	 * @return update가 완료된 결과값
+	 * 넘어오는 글상태에 따라서 상담글을 변경해주는 매서드
+	 * 들옥되어야 하는 쿼리문이 달라서 상태값에따라 실행되게 제작
+	 */
+	public int adviceTuring(Connection conn, Advice ad) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			if(ad.getStatus().equals("N")) {
+				pst = conn.prepareStatement(prop.getProperty("adviceComplete"));
+				pst.setString(1, ad.getTrainerId());
+				pst.setString(2, ad.getRepeat());
+				pst.setInt(1, ad.getAdviceNo());
+				
+				result = pst.executeUpdate();
+				
+			} else  {
+				pst = conn.prepareStatement(prop.getProperty("adviceUpdate"));
+				pst.setString(1, ad.getRepeat());
+				pst.setInt(2, ad.getAdviceNo());
+				
+				result = pst.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
+/*	
+	=================================  이예찬 leeyechan ==================================
+*/
+	/**
+	 * @author 황수림
+	 * @param conn db연결을 위한 Connection 객체
+	 * @return 자유게시판의 총 갯수
+	 * 페이징 처리를 위한 자유게시판의 총 갯수 요청 
+	 */
+	public int selectFreeListCount(Connection conn) {
+		
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFreeListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	/**
+	 * @author 황수림
+	 * @return
+	 * 자유게시판 목록 실행 및 결과값 반환
+	 */
+	public List<Board> selectFreeList(Connection conn, PageInfo pi){
+		List<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFreeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_no"),
+									rset.getString("board_title"),
+									rset.getString("user_name"),
+									rset.getInt("count"),
+									rset.getDate("regist_date")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판 게시글 조회시 조회수 count 하는 메소드
+	 */
+	public int increaseFreeCount(Connection conn, int boardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseFreeCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	
 	/**
 	 * @author 황수림
@@ -636,43 +637,54 @@ public class BoardDao {
 		return at;
 	}
 	
-	/**
-	 * @author 이예찬
-	 * @param conn
-	 * @param ad
-	 * @return update가 완료된 결과값
-	 * 넘어오는 글상태에 따라서 상담글을 변경해주는 매서드
-	 * 들옥되어야 하는 쿼리문이 달라서 상태값에따라 실행되게 제작
-	 */
-	public int adviceTuring(Connection conn, Advice ad) {
-		PreparedStatement pst = null;
+	public int insertFreeAttachment(Connection conn, Attachment at) {
 		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFreeAttachment");
 		
 		try {
-			if(ad.getStatus().equals("N")) {
-				pst = conn.prepareStatement(prop.getProperty("adviceTuringY"));
-				pst.setString(1, ad.getTrainerId());
-				pst.setString(2, ad.getRepeat());
-				pst.setInt(1, ad.getAdviceNo());
-				
-				result = pst.executeUpdate();
-				
-			} else  {
-				pst = conn.prepareStatement(prop.getProperty("adviceTuringN"));
-				pst.setInt(1, ad.getAdviceNo());
-				
-				result = pst.executeUpdate();
-			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
-		}finally {
-			close(pst);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+}
+	/**
+	 * @author 황수림
+	 * @return
+	 * 자유게시판 게시글 insert
+	 */
+	public int insertFreeBoard(Connection conn, Board b){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getBoardWriter());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;
 	}
+	
 	
 	/**
 	 * @author 황수림
@@ -782,4 +794,39 @@ public class BoardDao {
 	}
 	
 	
+/*	
+	=================================  황수림 a yellow forest ==================================
+*/
+
+	/**
+	 * @author 구성모
+	 * @param conn
+	 * @param a
+	 * @return 상담예약 insert결과값 반환
+	 */
+	public int insertAdvice(Connection conn, Advice a) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAdvice");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a.getCategoryNo());
+			pstmt.setString(2, a.getAdviceName());
+			pstmt.setString(3, a.getPhone());
+			pstmt.setString(4, a.getAdviceDate());
+			pstmt.setString(5, a.getAdviceContent());
+			
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }// class END

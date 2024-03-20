@@ -1,6 +1,9 @@
 package com.mzym.board.service;
 
-import static com.mzym.common.template.JDBCTemplate.*;
+import static com.mzym.common.template.JDBCTemplate.close;
+import static com.mzym.common.template.JDBCTemplate.commit;
+import static com.mzym.common.template.JDBCTemplate.getConnection;
+import static com.mzym.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -85,32 +88,6 @@ public class BoardService {
 	}
 	
 	/**
-	 * @author 황수림
-	 * @return 페이징 처리된 List<Board> 반환
-	 * 자유게시판 리스트 반환하는 메소드
-	 */
-	public List<Board> selectFreeList(PageInfo pi) {
-		Connection conn = getConnection();
-		List<Board> list = dao.selectFreeList(conn, pi);
-		close(conn);
-		return list;
-		
-	}
-	
-	/**
-	 * @author 황수림
-	 * @return int 조회된 자유게시판의 총 갯수
-	 * 페이징 처리를 위한 자유게시판 총 갯수를 요청하는 매서드
-	 */
-	public int selectFreeListCount() {
-		Connection conn = getConnection();
-		int listCount = dao.selectFreeListCount(conn);
-		close(conn);
-		return listCount;
-		
-	}
-
-	/**
 	 * @author 이예찬
 	 * @param n
 	 * @return 업데이트된 후 결과
@@ -159,32 +136,6 @@ public class BoardService {
 	}
 	
 	/**
-	 * @author 황수림
-	 * 자유게시판의 게시글을 DB에 insert하는 메소드
-	 */
-	public int insertFreeBoard(Board b, Attachment at) {
-		Connection conn = getConnection();
-		
-		int result1 = dao.insertFreeBoard(conn, b);
-		
-		int result2 = 1;
-		if(at != null) {
-			result2 = dao.insertFreeAttachment(conn, at);
-		}
-		
-		if(result1 > 0 && result2 > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return result1 * result2;
-		
-	}
-
-	/**
 	 * @author 이예찬
 	 * @param change 첨부파일이 존재하는지 확인하는 매개변수
 	 * @param num 글번호
@@ -212,7 +163,111 @@ public class BoardService {
 		close(conn);
 		return total;
 	}
+	/**
+	 * @author 이예찬
+	 * @return 상담예약 게시판 갯수 반환
+	 */
+	public int selectCounselingCount(String check) {
+		Connection conn = getConnection();
+		int result = dao.selectCounselingCount(conn, check);
+		
+		close(conn);
+		
+		return result;
+	}
 	
+	/**
+	 * @author 이예찬
+	 * @param ad
+	 * @return 상담을 상태 변경 후 결과값 반환
+	 * 
+	 */
+	public int adviceTuring(Advice ad) {
+		Connection conn = getConnection();
+		int result = dao.adviceTuring(conn, ad);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	/**
+	 * @author 이예찬
+	 * @param info
+	 * @param check
+	 * @return
+	 */
+	public List<Advice> selectAdvice(PageInfo info, String check) {
+		Connection conn = getConnection();
+		List<Advice> list  = dao.selectAdvice(conn, info, check);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+/*	
+	=================================  이예찬 leeyechan ==================================
+*/
+	
+	/**
+	 * @author 황수림
+	 * @return 페이징 처리된 List<Board> 반환
+	 * 자유게시판 리스트 반환하는 메소드
+	 */
+	public List<Board> selectFreeList(PageInfo pi) {
+		Connection conn = getConnection();
+		List<Board> list = dao.selectFreeList(conn, pi);
+		close(conn);
+		return list;
+		
+	}
+	
+	/**
+	 * @author 황수림
+	 * @return int 조회된 자유게시판의 총 갯수
+	 * 페이징 처리를 위한 자유게시판 총 갯수를 요청하는 매서드
+	 */
+	public int selectFreeListCount() {
+		Connection conn = getConnection();
+		int listCount = dao.selectFreeListCount(conn);
+		close(conn);
+		return listCount;
+		
+	}
+
+	
+	/**
+	 * @author 황수림
+	 * 자유게시판의 게시글을 DB에 insert하는 메소드
+	 */
+	public int insertFreeBoard(Board b, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = dao.insertFreeBoard(conn, b);
+		
+		int result2 = 1;
+		if(at != null) {
+			result2 = dao.insertFreeAttachment(conn, at);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+		
+	}
+
 	/**
 	 * @author 황수림
 	 * 자유게시판 게시글 조회시 조회수 count 하는 메소드
@@ -256,28 +311,6 @@ public class BoardService {
 	}
 
 	/**
-	 * @author 이예찬
-	 * @return 상담예약 게시판 갯수 반환
-	 */
-	public int selectCounselingCount(String check) {
-		Connection conn = getConnection();
-		int result = dao.selectCounselingCount(conn, check);
-		
-		close(conn);
-		
-		return result;
-	}
-
-	public List<Advice> selectAdvice(PageInfo info, String check) {
-		Connection conn = getConnection();
-		List<Advice> list  = dao.selectAdvice(conn, info, check);
-		
-		close(conn);
-		
-		return list;
-	}
-	
-	/**
 	 * @author 황수림
 	 * @return 자유게시판 수정 갯수 반환
 	 */
@@ -315,6 +348,24 @@ public class BoardService {
 	
 	public void adviceTuring() {
 		
+	/*	
+	=================================  황수림 ==================================
+*/
+	
+	/**
+	 * @author 구성모
+	 * @return dao.insert결과값 반환
+	 */
+	public int insertAdvice(Advice a) {
+		Connection conn = getConnection();
+		int result = dao.insertAdvice(conn, a);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
-}
+}// class END

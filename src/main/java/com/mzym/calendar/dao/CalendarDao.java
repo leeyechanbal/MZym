@@ -62,21 +62,20 @@ public class CalendarDao {
 	
 	
 	// 일정 추가
-	public int ptCalendarInsert(Connection conn, Calendar cal, String userName, String phone) {
+	public int ptCalendarInsert(Connection conn, Calendar cal, String phone) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("ptCalendarInsert");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userName);
-			pstmt.setString(2, phone);
-			pstmt.setString(3, cal.getCalTR());
-			pstmt.setString(4, cal.getStartDate());
-			pstmt.setString(5, cal.getEndDate());
-			pstmt.setString(6, cal.getCalTitle());
-			pstmt.setString(7, cal.getCalContent());
-			pstmt.setString(8, cal.getCalColor());
+			pstmt.setInt(1, cal.getCalUserNo());
+			pstmt.setString(2, cal.getCalTR());
+			pstmt.setString(3, cal.getStartDate());
+			pstmt.setString(4, cal.getEndDate());
+			pstmt.setString(5, cal.getCalTitle());
+			pstmt.setString(6, cal.getCalContent());
+			pstmt.setString(7, cal.getCalColor());
 			
 			result = pstmt.executeUpdate();
 			

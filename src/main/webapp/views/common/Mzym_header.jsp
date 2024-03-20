@@ -131,7 +131,7 @@
               <a href="<%=contextPath %>/list.service" class="community">고객센터</a>
             </div>
             <div class="menu_item">
-              <a href="" class="community">상담예약</a>
+              <a href="<%=contextPath %>/consultingEnrollForm.bo" class="community">상담예약</a>
             </div>     
         </nav>
         <span class="main_text"><h1>MZYM</h1></span>

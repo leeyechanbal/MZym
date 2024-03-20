@@ -123,7 +123,7 @@
                     </form>
                 </div>
         
-                <!-- Modal footer -->
+
                 <div class="modal-footer">
                 <button type="button" id= "modal-footer-btn"class="btn btn-danger" data-dismiss="modal">조회</button>
                 </div>
@@ -131,6 +131,8 @@
                     </div>
                 </div>
                 </div>  
+                
+                
             <!-- 회원별 조회 모달  end ----------------------------------------------------------------------- -->
     
             <!-- PT일정 추가 모달  start ------------------------------------------------------------------------>
@@ -148,17 +150,19 @@
             
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form action="<%= contextPath %>/insert.cal" method="post">
                             <table>
                                 <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
                                     <td>
                                         <label style="width: 100px;">회원이름</label>
                                     </td>
                                     <td>
-                                        <input type="text" required name="userName">
+                                        <input type="text" required name="ptUserName">
                                     </td>
-                                    <td colspan="2">
-                                        <input type="color" style="margin-bottom: 15px; margin-top: 15px;" required name="calColor">
+                                    <td>
+                                        <label style="width: 100px;">일정색상</label>
+                                    </td>
+                                    <td colspan="3">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="calColor" placeholder=" ex)red">
                                     </td> 
                                 </tr >
     
@@ -167,13 +171,13 @@
                                         <label>시작일</label>
                                     </td>
                                     <td>
-                                        <input type="text" required name="startDate">
+                                        <input type="text" required name="startDate" placeholder="ex)01/01/2024">
                                     </td>
                                     <td >
                                         <label style="width: 70px;">종료일</label>
                                     </td>
                                     <td>
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="endDate">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="endDate" placeholder="ex)12/31/2024">
                                     </td>
                                 </tr>
     
@@ -182,7 +186,7 @@
                                         <label>핸드폰번호</label>
                                     </td>
                                     <td colspan="3">
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="phone">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="userPhone" placeholder="ex)010-9999-9999(-포함)">
                                     </td>
                                 </tr>
 
@@ -191,12 +195,9 @@
                                         <label>작성자</label>
                                     </td>
                                     <td colspan="3">
+                                    	<input type="hidden" name="trNo">
                                         <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="writer">
                                         
-                                        <!-- 로그인한 트레이너 회원번호 넘기기 -->
-                                        <!--  
-                                        <input type="hidden" name="trNo" value="">
-                                        -->
                                     </td>
                                 </tr>
     
@@ -219,15 +220,13 @@
                                 </tr>
     
                             </table>
-                       
-                         </form>
+                            
+                            <div class="modal-footer">
+                                <button type="submit" id="insert_btn"class="btn btn-danger" data-dismiss="modal">추가</button>
+                            </div>
     
                     </div>
     
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="submit" id= "insert_btn"class="btn btn-danger" data-dismiss="modal">추가</button>
-                            </div>
                     
                                 </div>
                             </div>
@@ -355,7 +354,7 @@
 	function ptCalendar(){
         $.ajax({
         	url:"<%=contextPath%>/list.cal",
-        	data:{no:15%>},
+        	data:{no:15},
         	type:"post",
         	success:function(clist){
         		
@@ -415,26 +414,32 @@
 
 
 
-            // PT일정등록 모달창 등록 클릭시 실행될 이벤트
-            /*
+            // PT일정등록 모달창 추가 버튼 클릭시 실행될 이벤트
             $("#insert_btn").on("click", function(){ 
-
-                var title = $('#title').val();
-
-                if(title){
-                    calendar.addEvent({
-                        organizer : '회원이름',                 // 보통은 일정작성자 이름
-                        backgroundColor : 'pink',              // 일정 배경색
-                        start : '2024-03-15',                  // 시작일 시간도 입력 가능 ex)'13:00' or 'T13:00'
-                        end : '2024-03-17',                    // 종료일
-                        location : '010-1111-1111',            // 보통은 장소 또는 위치
-                        title : title,                        // 제목
-                        description : '내용'
-                    });
-                }
+            	$.ajax({
+            		url:"<%=contextPath%>/insert.cal",
+            		data:{
+            			ptUserName:$("input[name='ptUserName']").val(),
+            			calColor:$("input[name='calColor']").val(),
+            			startDate:$("input[name='startDate']").val(),
+            			endDate:$("input[name='endDate']").val(),
+            			userPhone:$("input[name='userPhone']").val(),
+            			writer:$("input[name='writer']").val(),
+            			trNo:15, //$("input[name='trNo']").val(),
+            			title:$("input[name='title']").val(),
+            			content:$("textarea[name='content']").val()
+            		},
+            		type:"post",
+            		success:function(result){
+            			console.log("pt일정등록 성공");
+            		},
+            		error:function(){
+            			console.log("pt일정등록 ajax 통신실패");
+            		}
+            	})
             })
-
-           */
+            
+            
 
             // 기존에 등록된 일정 클릭후 수정, 삭제버튼 클릭시 실행될 이벤트  
            /*

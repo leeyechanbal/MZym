@@ -335,17 +335,59 @@ where r BETWEEN ? and ?
 	작성자 : 이예찬
 	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
  -->
-<entry key="adviceTuringY">
+<entry key="adviceComplete">
 update mzym_advice
 set advice_tr = (
     select user_no
     from mzym_member
     where user_id = ? <!-- 트레이너 아이디 -->
 )
-,   ADVICE_REPEAT = ? <!-- 보고서 -->
+,   ADVICE_REPEAT = ? <!-- 보고서 내용 -->
 ,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
 where ADVICE_NO = ? <!-- 상담글 번호 -->
 </entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담이 완료된 글을 상담 대기로 변경하는 글
+ -->
+<entry key="adviceUpdate">
+update mzym_advice
+set MODIFY_DATE = sysdate
+, ADVICE_REPEAT = ? <!-- 변경된 보고서 내용 -->
+where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
+</entry>
+
+<!--
+	작성자 : 구성모
+	상담예약 추가하는 쿼리문
+-->
+<entry key="insertAdvice">
+	INSERT
+	  INTO MZYM_ADVICE
+	  (
+	    ADVICE_NO
+	  , CATEGORY_NO
+	  , ADVICE_USER
+	  , PHONE_NO
+	  , ADVICE_DATE
+	  , ADVICE_CONTENT
+	  )
+	  VALUES
+	  (
+	    SEQ_ADVICENO.NEXTVAL
+	  , ? <!-- 카테고리번호 -->
+	  , ? <!-- 상담신청자이름 -->
+	  , ? <!-- 상담신청자폰번호 -->
+	  , ? <!-- 희망상담일자 -->
+	  , ? <!-- 상담내용 -->
+	  )
+</entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+
 
 
 <!--  
@@ -433,16 +475,7 @@ where ADVICE_NO = ? <!-- 상담글 번호 -->
 
 <!--  -->
 <entry key=""></entry>
-<!-- 
-	작성자 : 이예찬
-	상담이 완료된 글을 상담 대기로 변경하는 글
- -->
-<entry key="adviceTuringN">
-update mzym_advice
-set status = 'N'
-, MODIFY_DATE = sysdate
-where ADVICE_NO = ? <!-- 상담글 번호 -->
-</entry>
+
 <!--  -->
 <entry key=""></entry>
 </properties>
