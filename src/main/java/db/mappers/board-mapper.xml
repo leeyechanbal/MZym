@@ -400,7 +400,24 @@ where ADVICE_NO = ? <!-- 상담글 번호 -->
 		)
 </entry>
 
-<entry key=""></entry>
+<!--  
+	작성자 : 황수림
+	댓글 조회하는 구문
+-->
+<entry key="selectCommentList">
+	SELECT
+			COMMENT_NO
+		,	BOARD_COMMENT.USER_NAME
+		,	COMMENT_CONTENT
+		,	TO_CHAR(COMMENT_DATE, 'YY/MM/DD HH:MI') COMMENT_DATE
+	FROM	BOARD_COMMENT
+	JOIN	MZYM_MEMBER ON (COMMENT_WRITER = USER_NO)
+	WHERE	BOARD_NO = ?
+	AND		BOARD_COMMENT.STATUS = 'Y'
+	ORDER
+	BY		COMMENT_NO DESC
+
+</entry>
 
 <!--  -->
 <entry key=""></entry>

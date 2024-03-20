@@ -9,6 +9,7 @@ import com.mzym.board.dao.BoardDao;
 import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
 
@@ -303,6 +304,13 @@ public class BoardService {
 		close(conn);
 		
 		return result1 * result2;
+	}
+	
+	public List<Comment> selectCommentList(int boardNo){
+		Connection conn = getConnection();
+		List<Comment> list  = dao.selectCommentList(conn, boardNo);
+		close(conn);
+		return list;
 	}
 	
 	public void adviceTuring() {
