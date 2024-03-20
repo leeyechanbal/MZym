@@ -1,6 +1,5 @@
 package com.mzym.board.controller;
 
-import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,16 +18,16 @@ import com.mzym.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class BoardInsertController
+ * Servlet implementation class FreeBoardUpdateController
  */
-@WebServlet("/freeinsert.bo")
-public class BoardInsertController extends HttpServlet {
+@WebServlet("/freeUpdate.bo")
+public class FreeBoardUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertController() {
+    public FreeBoardUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,20 +40,19 @@ public class BoardInsertController extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 10 * 1024 * 1024;
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upfile/");
-
+			
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/");
+			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			int boardNo = Integer.parseInt(multiRequest.getParameter("no"));
 			String boardTitle = multiRequest.getParameter("title");
 			String boardContent = multiRequest.getParameter("content");
 			
-			HttpSession session = request.getSession();
-			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
-			
 			Board b = new Board();
+			b.setBoardNo(boardNo);
 			b.setBoardTitle(boardTitle);
 			b.setBoardContent(boardContent);
-			b.setBoardWriter(userNo);
 			
 			Attachment at = null;
 			
@@ -62,23 +60,24 @@ public class BoardInsertController extends HttpServlet {
 				at = new Attachment();
 				at.setOriginName(multiRequest.getOriginalFileName("upfile"));
 				at.setChangeName(multiRequest.getFilesystemName("upfile"));
-				at.setFilePath("/resources/upfile/");
-			}
-			
-			int result = new BoardService().insertFreeBoard(b, at);
-			
-			if(result > 0) { // 성공 
+				at.setFilePath("resources/serviceUpfile/");
 				
-				session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/freelist.bo?page=1");
-				
-			}else {
-				if(at != null) {
-					new File(savePath + at.getChangeName()).delete();
+				if(multiRequest.getParameter("originFileNo") != null) {
+					at.setFileNO(Integer.parseInt(multiRequest.getParameter("originFileNo")));					
+				}else {
+					at.setAttNo(boardNo);
 				}
-				session.setAttribute("alertMsg", "게시글 등록에 실패했습니다.");
 			}
-
+			
+			int result = new BoardService().updateFreeBoard(b, at);
+			
+			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+				response.sendRedirect(request.getContextPath() + "/freedetail.bo?no=" + boardNo);
+			}else {
+				
+			}
+			
 		}
 		
 	}

@@ -84,6 +84,11 @@
             overflow: hidden;
             width: 50px;
         }
+        
+        .btnlist{
+        	border: 1px solid #eee;
+            color: #000;
+        }
 
         .modal-content{
             border: 1px solid #1abc9c;
@@ -111,23 +116,21 @@
             <table class="table">
             	<thead>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자일 경우 보여지는 버튼 요소 -->
-                
+                <% if(loginUser != null && Integer.toString(loginUser.getUserNo()).equals(b.getBoardMember())) { %>
                 <button type="button" class="btn2 btn-outline-danger btn-sm">삭제</button>
-                <button type="button" class="btn3 btn-outline-secondary btn-sm">수정</button>
-                
+                <a href="<%= contextPath %>/freeUpdateForm.bo?no=<%= b.getBoardNo() %>" class="btn3 btn-outline-secondary btn-sm">수정</a>
+                <% }else {%>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자가 아닐 경우 보여지는 버튼 요소 -->
                 <button type="button" class="btn4 btn-outline-danger btn-sm">신고</button>
+                <% } %>
                 
                 <tr>
-                	<th>제목</th>
                     <td><h3><%= b.getBoardTitle() %></h3></td>
                 </tr>
                 <tr>
-                	<th>내용</th>
-                    <td><p style="min-height:200px; white-space:pre"><%= b.getBoardContent() %></p></td>
+                    <td><div style="min-height:200px; white-space:pre"><%= b.getBoardContent() %></div></td>
                 </tr>
                 <tr>
-                	<th>첨부파일</th>
                     <td>
                        <% if(at == null){ %>
                        <!-- case1. 해당 게시글에 첨부파일이 없을 경우 -->
@@ -179,7 +182,7 @@
                 </tbody>
             </table>
             <div class="btn1">
-                <a href="<%= contextPath %>/freelist.bo?page=1" class="btn1 btn-outline-secondary btn-sm">목록</a>
+                <a href="<%= contextPath %>/freelist.bo?page=1" class="btnlist btn-outline-secondary btn-sm">목록</a>
             </div>
         </div>
 

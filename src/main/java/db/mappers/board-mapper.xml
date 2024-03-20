@@ -329,6 +329,7 @@ from(
 )
 where r BETWEEN ? and ?
 </entry>
+
 <!-- 
 	작성자 : 이예찬
 	상담대기 중인 게시들에 대처사항을 작성후 상단완료로 너어가는 쿼리문
@@ -344,8 +345,78 @@ set advice_tr = (
 ,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
 where ADVICE_NO = ? <!-- 상담글 번호 -->
 </entry>
+
+
+<!--  
+	작성자 : 황수림
+	자유게시판 수정 쿼리
+-->
+<entry key="updateFreeBoard">
+	UPDATE
+			MZYM_BOARD
+	SET		BOARD_TITLE = ?
+		,	BOARD_CONTENT = ?
+	WHERE	BOARD_NO = ?
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 첨부파일 수정 쿼리
+-->
+<entry key="updateFreeAttachment">
+	UPDATE
+			ATTACHMENT
+	SET		ORIGIN_NAME = ?
+		,	CHANGE_NAME = ?
+		,	FILE_PATH = ?
+	WHERE	FILE_NO = ?
+
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 첨부파일 수정시 추가하는 쿼리
+-->
+<entry key="insertNewFreeAttachment">
+	INSERT
+		INTO ATTACHMENT
+		(
+			FILE_NO
+		,	ATT_NO
+		,	ATT_CATEGORY
+		,	ORIGIN_NAME
+		,	CHANGE_NAME
+		,	FILE_PATH
+		)
+		VALUES
+		(
+			SEQ_ATTACHMENT.NEXTVAL
+		,	?
+		,	'B'
+		,	?
+		,	?
+		,	?
+		)
+</entry>
+
+<!--  
+	작성자 : 황수림
+	자유게시판 수정 쿼리
+-->
+<entry key=""></entry>
+
 <!--  -->
 <entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
+<!--  -->
+<entry key=""></entry>
+
 <!--  -->
 <entry key=""></entry>
 </properties>

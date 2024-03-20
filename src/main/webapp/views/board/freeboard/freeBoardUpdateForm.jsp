@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.board.vo.*" %>
+    
+<%
+	Board b = (Board)request.getAttribute("b");  // 글번호, 제목, 내용, 작성자이름
+	Attachment at = (Attachment)request.getAttribute("at"); // 파일번호, 원본명, 수정파일명, 저장경로
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +16,7 @@
 <script src="../../../resources/js/summernote/summernote-lite.js"></script>
 <script src="../../../resources/js/summernote/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="../../../resources/css/summernote/summernote-lite.css">
+
 
     <style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -82,40 +90,44 @@
 </head>
 
 <body>
-	
-	<div class="wrap">
-	
-		<%@ include file="/views/common/Mzym_header.jsp" %>
 
-	<!-- Section start -->
+    <%@ include file="/views/common/Mzym_header.jsp" %>
+      
+       <!-- Section start -->
        <section class="main_content">
        <%@ include file="/views/common/Mzym_sidebar.jsp" %>
 
         <div class="board_content">
-            <h2>게시글 등록</h2>
+            <h2>게시글 수정</h2>
             <hr>
             <br><br>
 
-            <div class="backgray">      
-                   
-            <form  action="<%= contextPath %>/freeinsert.bo" method="post" enctype="multipart/form-data">
-                <input type="text" class="form-control" required placeholder="제목 입력" name="title">
+            <div class="backgray">             
+            <form  action="<%= contextPath %>/freeUpdate.bo" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="no" value="<%=b.getBoardNo()%>">
+              <input type="text" class="form-control" required name="title" value="<%= b.getBoardTitle() %>">
                 <table class="table">
                     <tr>
                         <form method="post">
-                            <textarea id="summernote" required name="content"></textarea>
+                            <textarea id="summernote" name="content" style="resize:none;" required><%= b.getBoardContent() %></textarea>
                         </form>
                     </tr>
                     <tr>
                         <td>
-                            <input type="file" class="form-control-file border" name="upfile">
+                            <!-- 기존에 첨부파일이 있었을 경우 보여지는 기존첨부파일명 -->
+                                <% if(at != null){ %>
+                                	<%= at.getOriginName() %>
+                                	<input type="hidden" name="originFileNo" value="<%= at.getFileNO() %>">
+                                <% } %>
+                                <!-- 새로운 첨부파일 업로드 가능하기 때문에 그 때의 input type=file -->
+                                <input type="file" class="form-control-file" name="upfile">
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <button type="button" class="btn1 btn-outline-secondary btn-sm" onclick="history.back();">목록</button>
                             <button type="reset" class="btn2 btn-outline-danger btn-sm">취소</button>
-                            <button type="submit" class="btn3 btn-outline-secondary btn-sm">등록</button>
+                            <button type="submit" class="btn3 btn-outline-secondary btn-sm">수정</button>
                         </td>
                     </tr>
                 </table>
@@ -126,20 +138,17 @@
     </section>
     <!-- Section end -->
 
-	    <script>
-	        $(document).ready(function () {
-	        $('#summernote').summernote({
-	            placeholder: '내용을 작성하세요',
-	            height: 400,
-	            maxHeight: 400
-	        });
-	    });
-	    </script>    
+    <script>
+        $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: 400
+        });
+    });
+    </script>    
     
     <%@ include file="/views/common/Mzym_footer.jsp" %>
-    
-    
-    </div>
 
 </body>
 </html>
