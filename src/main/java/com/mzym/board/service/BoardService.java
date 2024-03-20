@@ -19,12 +19,6 @@ public class BoardService {
 	
 	BoardDao dao = new BoardDao();
 
-	/*
-	 * selectNotice()은 
-	 * 페이징 처리가 된 후에 게시물을 보이게 되서
-	 * 사용할 일이 없어 졌습니다.
-	*/
-
 	/**
 	 * @author 이예찬
 	 * @return int 조회된 공지사항의 총 갯수
