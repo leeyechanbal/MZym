@@ -121,7 +121,7 @@
                 <a href="<%= contextPath %>/freeUpdateForm.bo?no=<%= b.getBoardNo() %>" class="btn3 btn-outline-secondary btn-sm">수정</a>
                 <% }else {%>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자가 아닐 경우 보여지는 버튼 요소 -->
-                <button type="button" class="btn4 btn-outline-danger btn-sm">신고</button>
+                <button type="button" class="btn4 btn-outline-danger btn-sm" id="report_board">신고</button>
                 <% } %>
                 
                 <tr>
@@ -217,7 +217,7 @@
             					        + "<td>" + list[i].commentWriter + "</td>"
             					        + "<td>" + list[i].commentContent + "</td>"
             					        + "<td>" + list[i].commentDate + "</td>"
-            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\">신고</button></td>"
+            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick();\">신고</button></td>"
             					        + "</tr>";
             					}
             				}else{
@@ -243,7 +243,7 @@
     <!-- Section end -->
 
      <!-- 글신고 모달 -->
-     <div class="modal" id="reportModal">
+     <div class="modal" id="reportBoardModal">
         <div class="modal-dialog">
         <div class="modal-content">
     
@@ -283,12 +283,12 @@
     <script>
         // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
         $(document).ready(function(){
-        $("#reportModal").modal('hide');
+        $("#reportBoardModal").modal('hide');
         });
     
         // 신고 버튼 클릭 시 모달 띄우기
-        $(".btn4").click(function(){
-        $("#reportModal").modal('show');
+        $("#report_board").click(function(){
+        	$("#reportBoardModal").modal('show');
         });
     
         // 신고 확인 버튼 클릭 시 처리
@@ -297,12 +297,12 @@
         // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
         alert("글이 신고되었습니다.");
         // 모달 닫기
-        $("#reportModal").modal('hide');
+        $("#reportBoardModal").modal('hide');
         });
     </script>
 
    <!-- 댓글 신고 모달 -->
-	<div class="modal" id="reportModal">
+	<div class="modal" id="reportCommentModal">
 	    <div class="modal-dialog">
 	        <div class="modal-content">
 	            <!-- 모달 헤더 -->
@@ -336,21 +336,27 @@
 	<script>
 	    // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
 	    $(document).ready(function(){
-	        $("#reportModal").modal('hide');
+	        $("#reportCommentModal").modal('hide');
 	    });
 	
 	    // 신고 버튼 클릭 시 모달 띄우기
-	    $(".btn5").click(function(){
-	        $("#reportModal").modal('show');
-	    });
-	
+	    function reportClick() {
+	    	$("#reportCommentModal").modal('show');
+	    }
+	    
+        // 버튼이 클릭되었을 때 실행할 동작을 정의합니다.
+       /* 	$("#report_Comment").click(function(){
+            console.log("댓글 신고 버튼이 클릭되었습니다.");
+            $("#reportCommentModal").modal('show');
+        });
+	 	*/
 	    // 신고 확인 버튼 클릭 시 처리
 	    $("#confirmReport").click(function(){
 	        // 여기에 신고 처리를 위한 로직을 추가할 수 있습니다.
 	        // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
 	        alert("댓글이 신고되었습니다.");
 	        // 모달 닫기
-	        $("#reportModal").modal('hide');
+	        $("#reportCommentModal").modal('hide');
 	    });
 	</script>
 
