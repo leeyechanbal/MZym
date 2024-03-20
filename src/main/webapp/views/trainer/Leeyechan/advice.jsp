@@ -82,7 +82,7 @@ tfoot {
 						Advice ad = listY.get(i);
 					%>
 					<tr class="tr-title" data-toggle="collapse"data-target="#complete<%=i%>">
-						<td class="table-number" name="adviceNo"><%=ad.getAdviceNo()%></td>
+						<td class="table-number"><%=ad.getAdviceNo()%></td>
 						<td class="table-name"><%=ad.getAdviceName() %></td>
 						<td class="table-date"><%=ad.getRegist() %></td>
 						<!-- 등록일을 수정일로 사용 하겠음 -->
@@ -109,7 +109,7 @@ tfoot {
 								<%if(ad.getRepeat() != null){ %>
 									<!-- 세션값을 받아와야함  -->
 									<%if(ad.getTrainerId().equals("tr04")){ %>
-<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="content"><%=ad.getRepeat()%></textarea>									
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="repeat"><%=ad.getRepeat()%></textarea>									
 									<%} else { %>
 <textarea cols="57" rows="5" style="resize: none; padding: 10px;"readonly><%=ad.getRepeat()%></textarea>									
 									<%} %>
@@ -117,6 +117,7 @@ tfoot {
 								<div>조회되는 데이터가 없습니다. 관리자를 호출해 주세요.</div>
 								<% } %>
 								<input type="hidden" name="adviceNo" value="<%=ad.getAdviceNo()%>">
+								<input type="hidden" name="status" value="<%=ad.getStatus()%>">
 								<!-- 트레이너 아이디 출력 -->
 								<input type="hidden" name="trainerId" value="tr04">
 							</fieldset>
@@ -189,8 +190,7 @@ tfoot {
 						</tr>
 
 						<tr id="book<%=i%>" class="collapse">
-							<td colspan="3" align="left" class="border">
-								style="font-size: 15px;">
+							<td colspan="3" align="left" class="border" style="font-size: 15px;">
 								<fieldset class="detail">
 									<legend>세부사항</legend>
 									<ul>
@@ -266,6 +266,18 @@ tfoot {
 	</td>
 	<td class="section3"></td>
 	</tbody>
+	
+	<Script>
+		$(function(){
+	        $(".section2 tr").click(function(){
+	            const adviceNo = $(this).children(".table-number").text();
+	            console.log(adviceNo);
+	            $("#deletModal").find("#adviceNo").val(adviceNo);
+	          	             
+	        })
+	    })
+    </Script>
+	
 	<!-- tfoot : 삭제 버튼 영역 -->
 	<tfoot>
 		<td class="section1" style="background-color: rgb(224, 224, 224);"></td>
@@ -291,13 +303,16 @@ tfoot {
 				<!-- Modal body -->
 				<div class="modal-body" style="text-align: center; font-size: 15px;">
 					게시물을 정말로 삭제 하시겠습니까?</div>
+				<div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
+				<br>
+				<form action="<%=mzymPath %>/deleteAdvice.trainer" method="get">
+				<input type="hidden" id="adviceNo" name="adviceNo">
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary btn-sm"
-						data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-outline-danger btn-sm"
-						data-dismiss="modal">확인</button>
+					<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
+					<button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

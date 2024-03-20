@@ -16,16 +16,7 @@
 <title>Insert title here</title>
 
  	<style>
-        .wrap, .wrap * {box-sizing: border-box;}
-
-        .wrap{
-            margin:auto;
-            width:100%;
-            max-width:1300px; 
-            display:flex;
-            flex-direction:column;
-        }
-        .main_content{min-height:500px;}
+   
 
         .center{display:flex; justify-content: center; align-items: center;}
 

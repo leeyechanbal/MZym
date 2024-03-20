@@ -86,9 +86,10 @@ public class Advice {
 	 * @param status
 	 * 상담에 대한 보고서를 작성하거나 수정 할때 사용되는 매서드
 	 */
-	public Advice(int adviceNo, String repeat, String status) {
+	public Advice(int adviceNo,String trainerId, String repeat, String status) {
 		super();
 		this.adviceNo = adviceNo;
+		this.trainerId = trainerId;
 		this.repeat = repeat;
 		this.status = status;
 	}
@@ -219,8 +220,8 @@ public class Advice {
 	public String toString() {
 		return "Advice [adviceNo=" + adviceNo + ", categoryNo=" + categoryNo + ", adviceTR=" + adviceTR
 				+ ", adviceName=" + adviceName + ", phone=" + phone + ", adviceDate=" + adviceDate + ", adviceContent="
-				+ adviceContent + ", regist=" + regist + ", repeat=" + repeat + ", status=" + status + "]";
-	} 
-	
+				+ adviceContent + ", regist=" + regist + ", repeat=" + repeat + ", status=" + status + ", modifyDate="
+				+ modifyDate + ", trainerId=" + trainerId + ", categoryName=" + categoryName + "]";
+	}
 	
 }

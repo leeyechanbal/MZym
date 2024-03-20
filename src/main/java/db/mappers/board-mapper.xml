@@ -246,7 +246,15 @@ set MODIFY_DATE = sysdate
 where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
 </entry>
 
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	상글 삭제 대신 화면에 안보이게 하는 쿼리
+ -->
+<entry key="deletedAdcie">
+update mzym_advice
+set status = 'X'
+where advice_no = ? <!-- 상담글 번호 -->
+</entry>
 
 <!--  -->
 <entry key=""></entry>
@@ -508,6 +516,7 @@ where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
 <entry key=""></entry>
 
 <!-- ===========================황수림================================= -->
+
 <!--
 	작성자 : 구성모
 	상담예약 추가하는 쿼리문

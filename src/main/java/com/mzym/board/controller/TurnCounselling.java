@@ -16,13 +16,13 @@ import com.mzym.board.vo.Advice;
  * Servlet implementation class TurnAdvice
  */
 @WebServlet("/turnAdvice.trainer")
-public class TurnAdvice extends HttpServlet {
+public class TurnCounselling extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TurnAdvice() {
+    public TurnCounselling() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,15 +31,17 @@ public class TurnAdvice extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		String a = request.getParameter("adviceNo");
 		String status = request.getParameter("status");
 		
 		if (a != null && status != null) {
 			int adviceNo =  Integer.parseInt(a);
+			String repeat = request.getParameter("repeat");
 			String trainerID = request.getParameter("trainerId");
 			
-			Advice ad = new Advice(adviceNo, trainerID, status);
+			Advice ad = new Advice(adviceNo, trainerID, repeat, status);
 			
 			int result = new BoardService().adviceTuring(ad);
 			

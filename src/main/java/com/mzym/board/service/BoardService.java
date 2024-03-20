@@ -170,6 +170,21 @@ public class BoardService {
 		return result;
 	}
 	
+
+	/**
+	 * @author 이예찬
+	 * @param info
+	 * @param check
+	 * @return
+	 */
+	public List<Advice> selectAdvice(PageInfo info, String check) {
+		Connection conn = getConnection();
+		List<Advice> list  = dao.selectAdvice(conn, info, check);
+		close(conn);
+		
+		return list;
+	}
+	
 	/**
 	 * @author 이예찬
 	 * @param ad
@@ -189,21 +204,36 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
 
 	/**
 	 * @author 이예찬
-	 * @param info
-	 * @param check
-	 * @return
+	 * @param adviceNo
+	 * @return 데이터의 상태를 변경후 결과값
+	 * 
 	 */
-	public List<Advice> selectAdvice(PageInfo info, String check) {
+	public int deletedAdvice(int adviceNo) {
 		Connection conn = getConnection();
-		List<Advice> list  = dao.selectAdvice(conn, info, check);
+		int result = dao.deletedAdcie(conn, adviceNo);
 		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
-		
-		return list;
+		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 /*	
 	=================================  이예찬 leeyechan ==================================
@@ -351,6 +381,8 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+		
+	
 		
 	/*	
 	=================================  황수림 ==================================
