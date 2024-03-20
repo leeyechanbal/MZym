@@ -348,6 +348,8 @@ public class BoardService {
 	
 	public void adviceTuring() {
 		
+	}
+		
 	/*	
 	=================================  황수림 ==================================
 */
