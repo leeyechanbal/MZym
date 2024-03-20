@@ -54,6 +54,9 @@ tfoot {
 /* legend{
 	margin-left: 25px;
 } */
+.buttonLo{
+    text-align: right;
+}
 </style>
 
 </head>
@@ -78,7 +81,6 @@ tfoot {
 					<% for (int i =0; i < listY.size(); i++){ 
 						Advice ad = listY.get(i);
 					%>
-					<form action="/turnAdvice.trainer" method="get">
 					<tr class="tr-title" data-toggle="collapse"data-target="#complete<%=i%>">
 						<td class="table-number" name="adviceNo"><%=ad.getAdviceNo()%></td>
 						<td class="table-name"><%=ad.getAdviceName() %></td>
@@ -99,17 +101,31 @@ tfoot {
 									<li>상담 완료일: <%=ad.getModifyDate() %></li>
 								</ul>
 							</fieldset> <br>
+					<form action="<%=mzymPath %>/turnAdvice.trainer" method="post">
 							<fieldset>
 								<legend>신청내용</legend>
-<textarea style="padding: 10px; resize: none;" cols="57" rows="5" name="" readonly><%=ad.getAdviceContent()%></textarea>
+<textarea style="padding: 10px; resize: none;" cols="57" rows="5" readonly><%=ad.getAdviceContent()%></textarea>
 								<h4>보고서</h4>
 								<%if(ad.getRepeat() != null){ %>
-<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="" readonly><%=ad.getRepeat()%></textarea>
+									<!-- 세션값을 받아와야함  -->
+									<%if(ad.getTrainerId().equals("tr04")){ %>
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="content"><%=ad.getRepeat()%></textarea>									
+									<%} else { %>
+<textarea cols="57" rows="5" style="resize: none; padding: 10px;"readonly><%=ad.getRepeat()%></textarea>									
+									<%} %>
 								<%} else {%>
 								<div>조회되는 데이터가 없습니다. 관리자를 호출해 주세요.</div>
 								<% } %>
+								<input type="hidden" name="adviceNo" value="<%=ad.getAdviceNo()%>">
+								<!-- 트레이너 아이디 출력 -->
+								<input type="hidden" name="trainerId" value="tr04">
 							</fieldset>
+							<!-- 세션값을 받아와야함  -->
+							<%if(ad.getTrainerId().equals("tr04")){ %>
+							<div class="buttonLo">
 							<button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
+							</div>
+							<%} %>
 						</td>
 					</tr>
 					</form>
@@ -165,16 +181,15 @@ tfoot {
 					<%for (int i =0; i< listN.size(); i++){ 
 						Advice ad = listN.get(i);
 					%>
-					<form action="<%=mzymPath %>/turnAdviceY.trainer" method="get">
 						<!--반복문 !! -->
 						<tr class="tr-title" data-toggle="collapse" data-target="#book<%=i%>">
-							<td class="table-number" name="adviceNo"><%=ad.getAdviceNo() %></td>
+							<td class="table-number"><%=ad.getAdviceNo() %></td>
 							<td class="table-name"><%=ad.getAdviceName() %></td>
 							<td class="table-date"><%=ad.getRegist()%></td>
 						</tr>
 
 						<tr id="book<%=i%>" class="collapse">
-							<td colspan="3" align="left" class="border"
+							<td colspan="3" align="left" class="border">
 								style="font-size: 15px;">
 								<fieldset class="detail">
 									<legend>세부사항</legend>
@@ -182,16 +197,24 @@ tfoot {
 										<li>핸드폰 번호: <%=ad.getPhone() %></li>
 										<li>분류: <%=ad.getCategoryName() %></li>
 										<li>신청 날짜: <%=ad.getAdviceDate() %></li>
-										<li>담당자: 세션값</li>
+										<!-- 접속중인 트레이너 아이디 출력 -->
+										<li>담당자: tr04</li>
 									</ul>
 								</fieldset> <br>
+					<form action="<%=mzymPath %>/turnAdvice.trainer" method="post">
 								<fieldset>
 									<legend>신청내용</legend>
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" readonly><%=ad.getAdviceContent()%></textarea>
 									<h4>보고서</h4>
 <textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="repeat" placeholder="내용을 작성해 주세요."></textarea>
+								<input type="hidden" name="adviceNo" value="<%=ad.getAdviceNo()%>">
+								<input type="hidden" name="status" value="<%=ad.getStatus()%>">
+								<!-- 트레이너 아이디 출력 -->
+								<input type="hidden" name="trainerId" value="tr04">
 								</fieldset> 
+								<div class="buttonLo">
 								<button type="submit" class="btn btn-outline-success btn-sm">작성</button>
+								</div>
 							</td>
 						</tr>
 						<!--반복문 !! -->

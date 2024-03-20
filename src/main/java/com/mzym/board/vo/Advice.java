@@ -78,6 +78,20 @@ public class Advice {
 		this.categoryName = categoryName;
 	}
 	
+
+	/**
+	 * @author 이예찬
+	 * @param adviceNo
+	 * @param repeat
+	 * @param status
+	 * 상담에 대한 보고서를 작성하거나 수정 할때 사용되는 매서드
+	 */
+	public Advice(int adviceNo, String repeat, String status) {
+		super();
+		this.adviceNo = adviceNo;
+		this.repeat = repeat;
+		this.status = status;
+	}
 	
 	public String getModifyDate() {
 		return modifyDate;

@@ -342,10 +342,22 @@ set advice_tr = (
     from mzym_member
     where user_id = ? <!-- 트레이너 아이디 -->
 )
-,   ADVICE_REPEAT = ? <!-- 보고서 -->
+,   ADVICE_REPEAT = ? <!-- 보고서 내용 -->
 ,   STATUS = 'Y' <!-- 상담 완료 여부 Y-->
 where ADVICE_NO = ? <!-- 상담글 번호 -->
 </entry>
+
+<!-- 
+	작성자 : 이예찬
+	상담이 완료된 글을 상담 대기로 변경하는 글
+ -->
+<entry key="adviceUpdate">
+update mzym_advice
+set MODIFY_DATE = sysdate
+, ADVICE_REPEAT = ? <!-- 변경된 보고서 내용 -->
+where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
+</entry>
+
 <!--
 	작성자 : 구성모
 	상담예약 추가하는 쿼리문
@@ -446,16 +458,7 @@ where ADVICE_NO = ? <!-- 상담글 번호 -->
 
 <!--  -->
 <entry key=""></entry>
-<!-- 
-	작성자 : 이예찬
-	상담이 완료된 글을 상담 대기로 변경하는 글
- -->
-<entry key="adviceUpdate">
-update mzym_advice
-set MODIFY_DATE = sysdate
-, ADVICE_REPEAT = ? <!-- 변경된 상담글 내용 -->
-where ADVICE_NO = ? <!-- 변경된 상담글 번호 -->
-</entry>
+
 <!--  -->
 <entry key=""></entry>
 </properties>
