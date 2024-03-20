@@ -14,8 +14,8 @@ public class ServiceBoard {
 	private String serviceRepeat; // 답변 내용
 	private String repeatDate;
 	private String status;
-	private String upfileUrl;
-	
+	private String upfileUrl; // 파일 
+	private String keyward;
 	
 	public ServiceBoard() {
 		
@@ -24,7 +24,7 @@ public class ServiceBoard {
 
 	public ServiceBoard(int serviceNo, String serviceUser, String categoryNo, String serviceTitle,
 			String serviceContent, String registDate, String editDate, String serviceTr, String serviceRepeat,
-			String repeatDate, String status, String upfileUrl) {
+			String repeatDate, String status, String upfileUrl, String keyward) {
 		super();
 		this.serviceNo = serviceNo;
 		this.serviceUser = serviceUser;
@@ -38,6 +38,17 @@ public class ServiceBoard {
 		this.repeatDate = repeatDate;
 		this.status = status;
 		this.upfileUrl = upfileUrl;
+		this.keyward = keyward;
+	}
+
+
+	public String getKeyward() {
+		return keyward;
+	}
+
+
+	public void setKeyward(String keyward) {
+		this.keyward = keyward;
 	}
 
 
