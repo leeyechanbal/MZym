@@ -61,10 +61,6 @@ String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
 }
 	
 }
-.sea button{
-	display: flex;	
-	margin-top: 20px;
-}
 
 input {
 	width: 100%;
@@ -189,7 +185,7 @@ border rounded>span {
 				<br> <br>
 
 				<!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
-
+				<%if(loginUser != null){ %>
 				<div class="sea">
 					
 					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
@@ -200,6 +196,7 @@ border rounded>span {
 					
 					</form>
 				</div>
+				<%} %>
 				<script>
 				    function enterForm() {
 				        var keyword = document.getElementById("keyword").value();
@@ -210,7 +207,7 @@ border rounded>span {
 				        return true;
 				   	    }
 				</script>			
-
+			
 				<%if(loginUser != null){ %>
 				<div align="right">
 					<a href="<%=contextPath %>/enroll.service"

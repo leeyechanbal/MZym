@@ -22,6 +22,7 @@ import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
+import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardDao {
 	

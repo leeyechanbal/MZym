@@ -52,13 +52,9 @@ String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
 	width: 300px;
 	float: left;
 	margin-bottom: 30px;
-
+}
 	
-}
-.sea button{
-	display: flex;	
-	margin-top: 20px;
-}
+
 .sea img {
              position : absolute;
              width: 18px;
@@ -66,6 +62,7 @@ String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
              right: 12px;
               margin: 0;
         }
+        
 input {
 	width: 100%;
 	border: 1px solid #bbb;
@@ -74,16 +71,9 @@ input {
 	font-size: 14px;
 }
 
-
-
 h2 {
 	text-align: center;
 }
-
-
-
-
-
 hr {
 	width: 200px;
 	text-align: center;
@@ -188,7 +178,7 @@ border rounded>span {
 				<br> <br>
 
 				<!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
-
+				<%if(loginUser != null){ %>
 				<div class="sea">
 					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
 					<div class="sea">
@@ -198,6 +188,7 @@ border rounded>span {
 					
 					</form>
 				</div>
+				<%} %>
 				<script>
 				    function enterForm() {
 				    	
