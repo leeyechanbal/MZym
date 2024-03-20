@@ -170,6 +170,21 @@ public class BoardService {
 		return result;
 	}
 	
+
+	/**
+	 * @author 이예찬
+	 * @param info
+	 * @param check
+	 * @return
+	 */
+	public List<Advice> selectAdvice(PageInfo info, String check) {
+		Connection conn = getConnection();
+		List<Advice> list  = dao.selectAdvice(conn, info, check);
+		close(conn);
+		
+		return list;
+	}
+	
 	/**
 	 * @author 이예찬
 	 * @param ad
@@ -189,21 +204,16 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
-
-	/**
-	 * @author 이예찬
-	 * @param info
-	 * @param check
-	 * @return
-	 */
-	public List<Advice> selectAdvice(PageInfo info, String check) {
-		Connection conn = getConnection();
-		List<Advice> list  = dao.selectAdvice(conn, info, check);
-		
-		close(conn);
-		
-		return list;
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 /*	
 	=================================  이예찬 leeyechan ==================================
@@ -340,7 +350,6 @@ public class BoardService {
 		return list;
 	}
 	
-	public void adviceTuring() {
 		
 	/*	
 	=================================  황수림 ==================================

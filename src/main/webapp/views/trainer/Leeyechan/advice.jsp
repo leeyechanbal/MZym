@@ -117,6 +117,7 @@ tfoot {
 								<div>조회되는 데이터가 없습니다. 관리자를 호출해 주세요.</div>
 								<% } %>
 								<input type="hidden" name="adviceNo" value="<%=ad.getAdviceNo()%>">
+								<input type="hidden" name="status" value="<%=ad.getStatus()%>">
 								<!-- 트레이너 아이디 출력 -->
 								<input type="hidden" name="trainerId" value="tr04">
 							</fieldset>
@@ -189,8 +190,7 @@ tfoot {
 						</tr>
 
 						<tr id="book<%=i%>" class="collapse">
-							<td colspan="3" align="left" class="border">
-								style="font-size: 15px;">
+							<td colspan="3" align="left" class="border" style="font-size: 15px;">
 								<fieldset class="detail">
 									<legend>세부사항</legend>
 									<ul>

@@ -31,15 +31,18 @@ public class TurnAdvice extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		String a = request.getParameter("adviceNo");
 		String status = request.getParameter("status");
+		System.out.println("서블릿 실행");
 		
 		if (a != null && status != null) {
 			int adviceNo =  Integer.parseInt(a);
+			String repeat = request.getParameter("repeat");
 			String trainerID = request.getParameter("trainerId");
 			
-			Advice ad = new Advice(adviceNo, trainerID, status);
+			Advice ad = new Advice(adviceNo, trainerID, repeat, status);
 			
 			int result = new BoardService().adviceTuring(ad);
 			

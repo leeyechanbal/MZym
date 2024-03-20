@@ -448,9 +448,13 @@ public class BoardDao {
 		try {
 			if(ad.getStatus().equals("N")) {
 				pst = conn.prepareStatement(prop.getProperty("adviceComplete"));
+				System.out.println(ad.getTrainerId());
+				
 				pst.setString(1, ad.getTrainerId());
+				System.out.println(ad.getRepeat());
+				
 				pst.setString(2, ad.getRepeat());
-				pst.setInt(1, ad.getAdviceNo());
+				pst.setInt(3, ad.getAdviceNo());
 				
 				result = pst.executeUpdate();
 				
