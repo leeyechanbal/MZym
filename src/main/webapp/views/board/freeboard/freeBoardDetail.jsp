@@ -162,7 +162,7 @@
                         <th width="900px">
                         	<textarea rows="3" class="form-control" style="resize:none" id="comment_content"></textarea>
                         </th>
-                        <td style="vertical-align: bottom;">
+                        <td width="100px"style="vertical-align: bottom;">
                         	<button class="btn btn-secondary btn-sm" onclick="insertComment();">댓글등록</button>
                         </td>
                         <% } %>
