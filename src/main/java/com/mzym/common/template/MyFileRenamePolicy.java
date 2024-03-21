@@ -21,7 +21,7 @@ public class MyFileRenamePolicy implements FileRenamePolicy {
 		String ext = originName.substring(originName.lastIndexOf("."));
 		
 		
-		String changeName = currentTime + "_" + ranNum + ext;
+		String changeName = "mzym_" + currentTime + "_" + ranNum + "_" + ext;
 		
 		
 		return new File(originFile.getParent(), changeName); 
