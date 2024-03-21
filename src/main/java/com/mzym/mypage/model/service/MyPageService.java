@@ -10,10 +10,10 @@ import java.util.List;
 
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
+import com.mzym.member.model.vo.ReprePayment;
 import com.mzym.mypage.model.dao.MyPageDao;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
-import com.mzym.mypage.model.vo.Product;
 
 public class MyPageService {
 
@@ -89,6 +89,13 @@ public class MyPageService {
 		close(conn);
 		return list;
 	}
+	// 관리자페이지 매출조회 - 구성모
+	public List<ReprePayment> selectList(PageInfo pi, String paymentDate){
+		Connection conn = getConnection();
+		List<ReprePayment> list = myDao.selectList(conn, pi, paymentDate);
+		close(conn);
+		return list;
+	}
 	
 	public Inbody selectInbody(int userNo) {
 		Connection conn = getConnection();
@@ -105,6 +112,13 @@ public class MyPageService {
 	}
 	
 	
+	// 구성모 결제내역 전체 조회
+	public int selectListCount(String paymentDate) {
+		Connection conn = /*JDBCTemplate.*/getConnection();
+		int listCount = myDao.selectListCount(conn, paymentDate);
+		close(conn);
+		return listCount;
+	}
 	
 	
 	

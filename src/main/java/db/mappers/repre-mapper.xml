@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="selectPaymentDate">
+	SELECT YEAR_MONTH
+FROM (
+    SELECT TO_CHAR(PAYMENT_DATE, 'YYYY-MM') AS YEAR_MONTH,
+           ROW_NUMBER() OVER (PARTITION BY TO_CHAR(PAYMENT_DATE, 'YYYY-MM') ORDER BY PAYMENT_DATE DESC) AS rn
+    FROM PAYMENT
+) t
+WHERE rn = 1
+ORDER BY YEAR_MONTH DESC
+</entry>
+
+
+</properties>

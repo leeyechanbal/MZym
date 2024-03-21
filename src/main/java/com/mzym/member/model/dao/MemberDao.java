@@ -167,7 +167,7 @@ public class MemberDao {
 	public int resetPwd(Connection conn, String userId, String findPwd) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updatePwdMember");
+		String sql = prop.getProperty("resetPwdMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

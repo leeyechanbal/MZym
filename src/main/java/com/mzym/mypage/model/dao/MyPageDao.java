@@ -14,9 +14,9 @@ import java.util.Properties;
 
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
+import com.mzym.member.model.vo.ReprePayment;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
-import com.mzym.mypage.model.vo.Product;
 
 public class MyPageDao {
 	
@@ -187,6 +187,45 @@ public class MyPageDao {
 		return list;
 	}
 	
+	// 관리자 페이지 매출조회 페이지 - 구성모
+public List<ReprePayment> selectList(Connection conn, PageInfo pi, String paymentDate){
+		
+		List<ReprePayment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("repreSaleSelect");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, paymentDate);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new ReprePayment(rset.getString("user_name"),
+							         rset.getString("product_name"),
+							         rset.getInt("payment_price"),
+							         rset.getString("payment_date")
+							         ));
+							         
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 	public Inbody selectInbody(Connection conn, int userNo) {
 		Inbody body  = null;
 		PreparedStatement pstmt = null;
@@ -238,6 +277,32 @@ public class MyPageDao {
 			close(pstmt);
 		}
 		return pay;
+	}
+
+	
+	// 결제내역 전체 조회 - 구성모
+	public int selectListCount(Connection conn ,String paymentDate) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("repreSelectPayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paymentDate);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 	
 	

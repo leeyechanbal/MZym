@@ -167,7 +167,7 @@
 </entry>
 
 <!-- 비밀번호 재설정 - 구성모 -->
-<entry key="updatePwdMember">
+<entry key="resetPwdMember">
 		UPDATE
 			   MZYM_MEMBER
 		   SET USER_PWD = ?
@@ -186,4 +186,38 @@
 	  JOIN PRODUCT USING (PRODUCT_NO)
 	 WHERE  PAYMENT_USER = ?
 </entry>
+
+<!-- 결제내역페이징처리 - 구성모 -->
+<entry key="repreSelectPayment">
+	SELECT
+		COUNT(*) COUNT
+	FROM PAYMENT
+	WHERE TO_CHAR(PAYMENT_DATE, 'YYYY-MM') = ?
+</entry>
+
+<!-- 매출조회 - 구성모 -->
+<entry key="repreSaleSelect">
+SELECT 
+        USER_NAME
+      , PRODUCT_NAME
+      , PAYMENT_PRICE
+      , PAYMENT_DATE
+		  FROM (
+				SELECT ROWNUM RNUM, A.*
+				  FROM (
+						SELECT
+							PAYMENT_NO
+						  , PRODUCT_NO
+						  , PAYMENT_USER
+                          , PAYMENT_PRICE
+						  , TO_CHAR(PAYMENT_DATE, 'YY-MM-DD') AS PAYMENT_DATE
+						FROM PAYMENT
+						WHERE TO_CHAR(PAYMENT_DATE, 'YYYY-MM') = ?
+				 		) A
+			)
+	 JOIN MZYM_MEMBER ON (PAYMENT_USER = USER_NO)
+     JOIN PRODUCT USING (PRODUCT_NO)
+     WHERE RNUM BETWEEN ? AND ?
+</entry>
+
 </properties>
