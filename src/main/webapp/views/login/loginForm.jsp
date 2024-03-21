@@ -4,10 +4,9 @@
 <%
 	String contextPath = request.getContextPath(); // "/web"
 
-	Member loginUser = (Member)session.getAttribute("loginUser");
+	//Member loginUser = (Member)session.getAttribute("loginUser");
  %>
  
- /views/trainer/Leeyechan/trainerFilter.jsp
 <!DOCTYPE html>
 <html>
 <head>

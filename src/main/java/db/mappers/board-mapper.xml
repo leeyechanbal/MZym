@@ -582,6 +582,17 @@ where status = ?
 	)
 </entry>
 
+<!--
+	작성자 : 황수림
+	글 삭제 구문
+-->
+<entry key="deleteFreeBoard">
+	UPDATE
+			MZYM_BOARD
+	SET		STATUS = 'N'
+	WHERE	BOARD_NO = ?
+</entry>
+
 <!--  -->
 <entry key=""></entry>
 

@@ -1,4 +1,4 @@
-package com.mzym.mypage.controller;
+package com.mzym.member.controller.representative;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,23 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.mzym.member.model.vo.Member;
+import com.mzym.common.paging.PageInfo;
+import com.mzym.member.model.service.RepreService;
+import com.mzym.member.model.vo.RepreDate;
 import com.mzym.mypage.model.service.MyPageService;
-import com.mzym.mypage.model.vo.Food;
 
 /**
- * Servlet implementation class MypageDietMenuSelectController
+ * Servlet implementation class RepreSaleController
  */
-@WebServlet("/dietmenu.me")
-public class MypageDietMenuSelectController extends HttpServlet {
+@WebServlet("/selectDate.re")
+public class RepreSaleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageDietMenuSelectController() {
+    public RepreSaleController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,20 +34,11 @@ public class MypageDietMenuSelectController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// select 조회------------------------------
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		int foodUser = loginUser.getUserNo();
+		List<RepreDate> dateList = new RepreService().selectPaymentDate();
 		
-		List<Food> list = new MyPageService().selectListFood(foodUser);
-		Food o = new MyPageService().selectFood(foodUser);
+		request.setAttribute("dateList", dateList);
 		
-		request.setAttribute("o", o);
-		request.setAttribute("list", list);
-		//----------------------------------------
-		
-		
-		request.getRequestDispatcher("/views/mypage/dietMenu.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/representative/repreSales.jsp").forward(request, response);
 		
 	}
 
@@ -58,5 +49,5 @@ public class MypageDietMenuSelectController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
 }

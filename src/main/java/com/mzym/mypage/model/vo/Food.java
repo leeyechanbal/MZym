@@ -13,11 +13,11 @@ public class Food {
 	private String foodCategory;
 	private String foodName;
 	private int foodCal;
-	private Date registDate;
+	private String registDate;
 	private String status; 
 
 	public Food(int foodNo, int foodUser, String foodDate, String foodCategory, String foodName, int foodCal,
-			Date registDate, String status) {
+			String registDate, String status) {
 		super();
 		this.foodNo = foodNo;
 		this.foodUser = foodUser;
@@ -36,7 +36,7 @@ public class Food {
 	}
 
 	public Food(int foodNo, int foodUser, String foodDate, String foodCategory, String foodName, int foodCal,
-			Date registDate) {
+			String registDate) {
 		super();
 		this.foodNo = foodNo;
 		this.foodUser = foodUser;
@@ -95,11 +95,11 @@ public class Food {
 		this.foodCal = foodCal;
 	}
 
-	public Date getRegistDate() {
+	public String getRegistDate() {
 		return registDate;
 	}
 
-	public void setRegistDate(Date registDate) {
+	public void setRegistDate(String registDate) {
 		this.registDate = registDate;
 	}
 
@@ -117,6 +117,8 @@ public class Food {
 				+ foodCategory + ", foodName=" + foodName + ", foodCal=" + foodCal + ", registDate=" + registDate
 				+ ", status=" + status + "]";
 	}
+
+	
 	
 	
 	

@@ -36,12 +36,17 @@ public class MemberLoginController extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		String userStatus = request.getParameter("status");
 		
+		
 		Member m = new MemberService().loginMember(userId, userPwd, userStatus);
 		
 		if(m == null) { // 로그인 실패(조회 결과가 없음)
 			// 에러페이지
-			request.setAttribute("alertMsg", "로그인이 실패했습니다.");
-			request.getRequestDispatcher("/views/login/loginForm.jsp").forward(request, response);
+			request.setAttribute("alertMsg", "로그인에 실패했습니다.");
+			if(userStatus.equals("A")) {
+				request.getRequestDispatcher("/views/representative/repreLogin.jsp").forward(request, response);
+			}else {
+				request.getRequestDispatcher("/views/login/loginForm.jsp").forward(request, response);				
+			}
 		} else {
 			HttpSession session = request.getSession(); // 세션객체 얻어오는 구문
 			session.setAttribute("loginUser", m);
@@ -49,6 +54,8 @@ public class MemberLoginController extends HttpServlet {
 				response.sendRedirect(request.getContextPath());
 			}else if(userStatus.equals("T")) {
 				response.sendRedirect(request.getContextPath() + "/login.trainer");
+			}else if(userStatus.equals("A")) {
+				response.sendRedirect(request.getContextPath() + "/selectDate.re");
 			}
 		}
 	}
