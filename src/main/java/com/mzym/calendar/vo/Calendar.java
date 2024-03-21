@@ -25,9 +25,10 @@ public class Calendar {
 	public Calendar() {}
 	
 
-	public Calendar(String calUserName, String startDate, String endDate, String calPhone, String writer,
+	public Calendar(int calNo, String calUserName, String startDate, String endDate, String calPhone, String writer,
 			String calTitle, String calContent, String calColor) {
 		super();
+		this.calNo = calNo;
 		this.calUserName = calUserName;
 		this.startDate = startDate;
 		this.endDate = endDate;

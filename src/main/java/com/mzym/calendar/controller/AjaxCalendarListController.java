@@ -54,6 +54,9 @@ public class AjaxCalendarListController extends HttpServlet {
 		*/
 		List<Calendar> clist = new CalendarService().selectCalendarList(trNo);
 		
+		request.setAttribute("clist", clist);
+		// 일정번호, 회원번호, 시작일, 종료일, 회원폰번호 작성자, 제목, 내용, 일정색상
+		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(clist, response.getWriter());
 		

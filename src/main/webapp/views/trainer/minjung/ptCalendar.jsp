@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.model.vo.Member" %>
+<%@ page import="com.mzym.calendar.vo.Calendar" %>
 <%
 	String contextPath = request.getContextPath();
-	Member loginUser = (Member)request.getAttribute("longinUser");
+//	Member loginUser = (Member)request.getSession().getAttribute("longinUser");
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	Calendar clist = (Calendar)request.getAttribute("clist");
+	System.out.println(loginUser);
 
 %>
 <!DOCTYPE html>
@@ -150,7 +154,7 @@
             
                     <!-- Modal body -->
                     <div class="modal-body">
-                    	<input type="hidden" id="calNo">
+                    	<input type="hidden" id="calNo"> 
                             <table>
                                 <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
                                     <td>
@@ -196,7 +200,7 @@
                                         <label>작성자</label>
                                     </td>
                                     <td colspan="3">
-                                    	<input type="hidden" name="trNo">
+                                    	<input type="hidden" name="trNo" value="">
                                         <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="writer">
                                         
                                     </td>
@@ -325,7 +329,7 @@
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
                                     <button type="submit" id= "update_btn"class="btn btn-outline-success" data-dismiss="modal" onclick="calendarUpdate();">수정</button>
-                                    <button type="submit" id= "delete_btn"class="btn btn-outline-danger" data-dismiss="modal">삭제</button>
+                                    <button type="submit" id= "delete_btn"class="btn btn-outline-danger" data-dismiss="modal" onclick="calendarDelete();">삭제</button>
                                 </div>
                         
                                     </div>
@@ -358,7 +362,7 @@
 	function ptCalendar(){
         $.ajax({
         	url:"<%=contextPath%>/list.cal",
-        	data:{$("#trNo").val()}, //no:15
+        	data:{trNo:<%=loginUser.getUserNo()%>},//{$("#trNo").val()}, //no:15
         	type:"post",
         	success:function(clist){
         		
@@ -479,12 +483,13 @@
             })
 
 
-            // 수정클릭시 실행될 함수
+            // 수정버튼 클릭시 실행될 함수
             function calendarUpdate(){
+            	
             	$.ajax({
             		url:"<%=contextPath%>/update.cal",
             		data:{
-            			calNo: $("#calNo").val(), // 166
+            			calNo:$("#calNo").val(), // 166
             			calUserName:$("#calUserName").val(),
             			calColor:$("#calColor").val(),
             			startDate:$("#startDate").val(),
@@ -500,21 +505,32 @@
             			alert("일정을 수정하였습니다.");
             		},
             		error:function(){
-            			console.log("수정 ajax 통신 실패");
+            			console.log("일정수정 ajax 통신 실패");
             		}
             	})
             	
             }
             
             
-
-            // 기존에 등록된 일정 클릭후 수정, 삭제버튼 클릭시 실행될 이벤트  
-           /*
-            eventClick : function(plan){
-                // 삭제확인 모달창 or alert창 띄우기
-                plan.event.remove();
-            }
-            */
+            
+            // 삭제 버튼 클릭시 실행될 함수
+				function calendarDelete(){
+		            if(confirm("정말로 삭제하시겠습니까?")){
+		            	$.ajax({
+		            		url:"<%=contextPath%>/delete.cal",
+		            		data:{calNo:171}, //{calNo:$("#calNo").val()},  
+		            		type:"get",
+		            		success:function(result){
+		            			console.log(result);
+		            				arlet("일정을 삭제하였습니다.");
+		            		},
+		            		error:function(){
+		            			console.log("일정삭제 ajax 통신 실패");
+		            			alert("일정 삭제에 실패하였습니다.");
+		            		}
+		            	})
+	            }
+            } 
 
 </script>
 

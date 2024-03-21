@@ -57,13 +57,29 @@ public class CalendarService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
+		
 		return result;
 		
 		
 	}
 	
 	
-	
+	// 일정 삭제
+	public int calendarDelete(int calNo) {
+		Connection conn = getConnection();
+		int result = cDao.calendarDelete(conn, calNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
 	
 	
 	

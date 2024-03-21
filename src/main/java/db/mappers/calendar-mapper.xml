@@ -4,7 +4,8 @@
 
 	<entry key="selectCalendarList">
 	SELECT 
-	       USER_NAME
+	       CAL_NO
+	     , USER_NAME
 	     , TO_CHAR(TO_DATE(START_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')START_DATE
 	     , TO_CHAR(TO_DATE(END_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')END_DATE
 	     , PHONE
@@ -67,6 +68,16 @@
 	       MODIFY_DATE = SYSDATE
 	 WHERE CAL_NO = ?
 	</entry>
+
+
+	<entry key="calendarDelete">
+	UPDATE
+	        MZYM_CALENDAR
+	   SET STATUS = 'N'
+	 WHERE CAL_NO = ?
+	</entry>
+
+
 
 
 

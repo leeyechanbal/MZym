@@ -13,6 +13,11 @@
 	String currentDate = new SimpleDateFormat("YYYY년 MM월 dd일").format(new Date());
 	String mzymPath = request.getContextPath();
 %>
+<%
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+System.out.println(loginUser);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +92,7 @@
                         <div class="font">게시물</div>
                     </a>
 
-                    <a id="dateManagment" href="">
+                    <a id="dateManagment" href="<%=mzymPath%>/calendarForm.cal">
                         <img src="<%=mzymPath%>/resources/img/icon/galender-100x100.png" alt="clanderPage">
                         <div class="font">PT일정</div>
                     </a>

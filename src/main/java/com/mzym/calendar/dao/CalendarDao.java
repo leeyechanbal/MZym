@@ -43,7 +43,8 @@ public class CalendarDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				clist.add(new Calendar(rset.getString("USER_NAME"),
+				clist.add(new Calendar(rset.getInt("CAL_NO"),
+									   rset.getString("USER_NAME"),
 									   rset.getString("START_DATE"),
 									   rset.getString("END_DATE"),
 									   rset.getString("PHONE"),
@@ -123,7 +124,28 @@ public class CalendarDao {
 	}
 	
 	
-	
+	public int calendarDelete(Connection conn, int calNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("calendarDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, calNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+		
+	}
 	
 	
 	
