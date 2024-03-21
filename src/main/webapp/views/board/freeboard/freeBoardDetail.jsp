@@ -264,7 +264,6 @@
                     <option value="3">음란물</option>
                     <option value="4">홍보의심</option	>
                     <option value="5">기타</option>
-                    <!-- 필요한 신고 사유 항목을 추가하세요 -->
                 </select>
             </div>
             </div>
@@ -293,15 +292,36 @@
     
         // 신고 확인 버튼 클릭 시 처리
         $("#confirmReport").click(function(){
-        // 여기에 신고 처리를 위한 로직을 추가할 수 있습니다.
-        // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
-        alert("글이 신고되었습니다.");
-        // 모달 닫기
-        $("#reportBoardModal").modal('hide');
-        });
+	    var reportReason = $("#reportReason").val(); // 신고 사유
+	    var postId = <%=b.getBoardNo() %>;
+	    var reporterId = <%= loginUser.getUserNo() %>
+	
+	    // AJAX를 사용하여 서버에 데이터 전송
+	    $.ajax({
+	        url: "<%=contextPath%>/report.bo",
+	        type: "POST",
+	        data: {
+	            postId: postId,
+	            reporterId: reporterId,
+	            reportReason: reportReason
+	        },
+	        success: function(response) {
+	            // 서버로부터 응답을 받았을 때 처리
+	            alert("글이 신고되었습니다.");
+	            // 모달 닫기
+	            $("#reportBoardModal").modal('hide');
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버 통신에 오류가 발생했을 때 처리
+	            alert("신고 처리 중 오류가 발생했습니다.");
+	            console.error(xhr, status, error);
+	        }
+	    });
+	});
+
     </script>
 
-   <!-- 댓글 신고 모달 -->
+  <!-- 댓글 신고 모달 -->
 	<div class="modal" id="reportCommentModal">
 	    <div class="modal-dialog">
 	        <div class="modal-content">
@@ -313,8 +333,8 @@
 	            <!-- 모달 본문 -->
 	            <div class="modal-body">
 	                <p>이 댓글을 신고하시겠습니까?</p>
-	                <label for="reportReason">신고 사유 선택:</label>
-	                <select class="form-control" id="reportReason">
+	                <label for="reportReasonComment">신고 사유 선택:</label>
+	                <select class="form-control" id="reportReasonComment">
 	                    <option value="1">도배/스팸</option>
 	                    <option value="2">욕설/차별/혐오</option>
 	                    <option value="3">음란물</option>
@@ -325,42 +345,56 @@
 	            </div>
 	            <!-- 모달 하단 -->
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-danger" id="confirmReport">신고</button>
+	                <button type="button" class="btn btn-danger" id="confirmReportComment">신고</button>
 	                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 	            </div>
 	        </div>
 	    </div>
 	</div>
 	
-	<!-- 스크립트 -->
-	<script>
-	    // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
-	    $(document).ready(function(){
-	        $("#reportCommentModal").modal('hide');
-	    });
-	
-	    // 신고 버튼 클릭 시 모달 띄우기
-	    function reportClick() {
-	    	$("#reportCommentModal").modal('show');
-	    }
-	    
-        // 버튼이 클릭되었을 때 실행할 동작을 정의합니다.
-       /* 	$("#report_Comment").click(function(){
-            console.log("댓글 신고 버튼이 클릭되었습니다.");
-            $("#reportCommentModal").modal('show');
-        });
-	 	*/
-	    // 신고 확인 버튼 클릭 시 처리
-	    $("#confirmReport").click(function(){
-	        // 여기에 신고 처리를 위한 로직을 추가할 수 있습니다.
-	        // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
-	        alert("댓글이 신고되었습니다.");
-	        // 모달 닫기
-	        $("#reportCommentModal").modal('hide');
-	    });
+		<!-- 스크립트 -->
+		<script>
+		    // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
+		    $(document).ready(function(){
+		        $("#reportCommentModal").modal('hide');
+		    });
+		
+		    // 신고 버튼 클릭 시 모달 띄우기
+		    function reportClick() {
+		        $("#reportCommentModal").modal('show');
+		    }
+		
+		    // 신고 확인 버튼 클릭 시 처리
+		    $("#confirmReportComment").click(function(){
+		        var reportReason = $("#reportReasonComment").val(); // 신고 사유
+		        var commentId = <%=  %>
+		        var reporterId = <%= loginUser.getUserNo() %>
+		
+		        // AJAX를 사용하여 서버에 데이터 전송
+		        $.ajax({
+		            url: "<%=contextPath%>/report.co",
+		            type: "POST",
+		            data: {
+		            	commentId: commentId,
+		                reporterId: reporterId,
+		                reportReason: reportReason
+		            },
+		            success: function(response) {
+		                // 서버로부터 응답을 받았을 때 처리
+		                alert("댓글이 신고되었습니다.");
+		                // 모달 닫기
+		                $("#reportCommentModal").modal('hide');
+		            },
+		            error: function(xhr, status, error) {
+		                // 서버 통신에 오류가 발생했을 때 처리
+		                alert("신고 처리 중 오류가 발생했습니다.");
+		                console.error(xhr, status, error);
+		            }
+		        });
+		    });
 	</script>
 
-    
+
     <%@ include file="/views/common/Mzym_footer.jsp" %>
 
 </body>

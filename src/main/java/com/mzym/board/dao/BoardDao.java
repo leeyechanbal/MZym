@@ -21,6 +21,7 @@ import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
+import com.mzym.board.vo.Report;
 import com.mzym.common.paging.PageInfo;
 import com.mzym.serviceBoard.vo.ServiceBoard;
 
@@ -853,7 +854,28 @@ public class BoardDao {
 		}
 		
 		return result;
+	}
+	
+	public int insertReport(Connection conn, Report r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReport");
 		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getBoardNo());
+			pstmt.setInt(2, r.getCategoryNo());
+			pstmt.setInt(3, r.getReportUser());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

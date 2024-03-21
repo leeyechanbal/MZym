@@ -14,6 +14,7 @@ import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
+import com.mzym.board.vo.Report;
 import com.mzym.common.paging.PageInfo;
 
 public class BoardService {
@@ -373,6 +374,18 @@ public class BoardService {
 	public int insertComment(Comment c) {
 		Connection conn = getConnection();
 		int result = dao.insertComment(conn, c);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertReport(Report r) {
+		Connection conn = getConnection();
+		int result = dao.insertReport(conn, r);
 		if(result>0) {
 			commit(conn);
 		}else {
