@@ -418,6 +418,18 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
+	public int deleteFreeBoard(Board b) {
+		Connection conn = getConnection();
+		int result = dao.deleteFreeBoard(conn, b);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 		
 	
 		
