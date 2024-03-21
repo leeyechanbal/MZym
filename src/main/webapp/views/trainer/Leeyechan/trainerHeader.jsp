@@ -36,7 +36,7 @@
                     <div id="customer"><a href="">고객센터</a></div>
                     <div id="accusation">신고</div>
                     <div class="suteOption" style="margin-top: 0;">
-                        <div class="suteBoard"><a href="">게시글</a></div>
+                        <div class="suteBoard"><a href="<%=mzymPath%>/reportStandby.trainer?page=1">게시글</a></div>
                         <div class="suteRrepeat"><a href="">답글</a></div>
                     </div>
 

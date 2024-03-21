@@ -8,7 +8,6 @@
 	PageInfo info = (PageInfo)request.getAttribute("info");
 	List<Notice> list = (List<Notice>)request.getAttribute("list");	
 %>
-<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +15,7 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 
+<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 <style>
         /* 공지사항 추가 스타일 */
         .board-out>#board{

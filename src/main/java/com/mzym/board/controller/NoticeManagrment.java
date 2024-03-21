@@ -19,13 +19,13 @@ import com.mzym.common.paging.PageInfo;
  * Servlet implementation class NoticeManigrment
  */
 @WebServlet("/listNotice.trainer")
-public class NoticeManigrment extends HttpServlet {
+public class NoticeManagrment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeManigrment() {
+    public NoticeManagrment() {
         super();
         // TODO Auto-generated constructor stub
     }

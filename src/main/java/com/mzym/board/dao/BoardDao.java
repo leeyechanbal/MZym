@@ -1,11 +1,7 @@
 package com.mzym.board.dao;
 
 import static com.mzym.common.template.JDBCTemplate.close;
-import static com.mzym.common.template.JDBCTemplate.commit;
-import static com.mzym.common.template.JDBCTemplate.getConnection;
-import static com.mzym.common.template.JDBCTemplate.rollback;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +18,6 @@ import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.common.paging.PageInfo;
-import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardDao {
 	
@@ -502,7 +497,34 @@ public class BoardDao {
 		return result;
 	}
 	
-	
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @return 신고 대기글 총 갯수 반환
+	 */
+	public int reportCount(Connection conn, String status) {
+		PreparedStatement pst = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("reportCount"));
+			pst.setString(1, status);
+			rset = pst.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
+		}
+		
+		return count;
+	}
 	
 	
 	
@@ -891,6 +913,8 @@ public class BoardDao {
 		
 		return result;
 	}
+
+
 
 
 }// class END
