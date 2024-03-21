@@ -1,5 +1,7 @@
 package com.mzym.calendar.dao;
 
+import static com.mzym.common.template.JDBCTemplate.close;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +13,6 @@ import java.util.List;
 import java.util.Properties;
 
 import com.mzym.calendar.vo.Calendar;
-import com.mzym.member.model.vo.Member;
-import static com.mzym.common.template.JDBCTemplate.*;
 
 public class CalendarDao {
 
@@ -94,7 +94,33 @@ public class CalendarDao {
 	}
 	
 
-	
+	public int calendarUpdate(Connection conn, Calendar cal, String calUserName, String calPhone) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("calendarUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, calUserName);
+			pstmt.setString(2, calPhone);
+			pstmt.setString(3, cal.getStartDate());
+			pstmt.setString(4, cal.getEndDate());
+			pstmt.setString(5, cal.getCalTitle());
+			pstmt.setString(6, cal.getCalContent());
+			pstmt.setString(7, cal.getCalColor());
+			pstmt.setInt(8, cal.getCalNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
+	}
 	
 	
 	

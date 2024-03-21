@@ -14,9 +14,9 @@ import java.util.Properties;
 
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.vo.Food;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
-import com.mzym.mypage.model.vo.Product;
 
 public class MyPageDao {
 	
@@ -240,7 +240,109 @@ public class MyPageDao {
 		return pay;
 	}
 	
+	public List<Food> selectListFood(Connection conn, int foodUser) {
+		
+		List<Food> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListFood");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, foodUser);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Food(rset.getInt("food_no"),
+						          rset.getInt("food_user"),
+						          rset.getString("food_date"),
+						          rset.getString("food_category"),
+						          rset.getString("food_name"),
+						          rset.getInt("food_cal"),
+						          rset.getDate("regist_date")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
+	public Food selectFood(Connection conn, int foodUser) {
+		Food o = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListFood");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, foodUser);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				o = new Food(rset.getInt("food_no")
+						   , rset.getInt("food_user")
+						   , rset.getString("food_date")
+						   , rset.getString("food_category")
+						   , rset.getString("food_name")
+						   , rset.getInt("food_cal")
+						   , rset.getDate("regist_date"));	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return o;	
+	}
+	
+	public int insertFood(Connection conn, int foodUser, String category, String menu, int kcal) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFood");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, foodUser);
+			pstmt.setString(2, category);
+			pstmt.setString(3, menu);
+			pstmt.setInt(4, kcal);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteFood(Connection conn, int foodUser, int foodNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteFood");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, foodUser);
+			pstmt.setInt(2, foodNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	
