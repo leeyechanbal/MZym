@@ -176,6 +176,7 @@
 		   AND STATUS = 'Y'
 </entry>
 
+<!-- 손수현 결제 조회 -->
 <entry key="selectPayment">
 	SELECT
 		   PAYMENT_NO
@@ -185,5 +186,54 @@
 	  FROM PAYMENT
 	  JOIN PRODUCT USING (PRODUCT_NO)
 	 WHERE  PAYMENT_USER = ?
+</entry>
+
+<!-- 손수현 식단관리 여러행조회 -->
+<entry key="selectListFood">
+	 SELECT
+	      FOOD_NO
+	    , FOOD_USER
+	    , FOOD_DATE
+	    , FOOD_CATEGORY
+	    , FOOD_NAME
+	    , FOOD_CAL
+	    , REGIST_DATE
+	 FROM FOOD F
+	 JOIN MZYM_MEMBER ON (FOOD_USER = USER_NO)
+	WHERE FOOD_DATE = '20240318'
+	  AND FOOD_USER = ?
+      AND F.STATUS = 'Y'
+</entry>
+
+<!-- 손수현 식단관리 추가 -->
+<entry key="insertFood">
+INSERT
+      INTO FOOD
+      (
+         FOOD_NO
+       , FOOD_USER
+       , FOOD_DATE
+       , FOOD_CATEGORY
+       , FOOD_NAME
+       , FOOD_CAL
+       )
+       VALUES
+       (
+         SEQ_FOODNO.NEXTVAL
+       , ? 
+       , '20240318'
+       , ? 
+       , ? 
+       , ? 
+       )
+</entry>
+
+<!-- 손수현 식단관리 삭제 -->
+<entry key="deleteFood">
+	UPDATE
+	      FOOD
+	  SET STATUS = 'N'
+	WHERE FOOD_USER = ?
+      AND FOOD_NO = ?
 </entry>
 </properties>
