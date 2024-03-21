@@ -62,11 +62,11 @@ public class ServiceBoardUpdateController extends HttpServlet {
 				at.setFilePath("/resources/serviceUpfile/");
 				
 				if(multiRequest.getParameter("originFileNo") !=null) {
-			
+					System.out.println(multiRequest.getParameter("originFileNo"));
 				at.setFileNO((Integer.parseInt(multiRequest.getParameter("originFileNo"))));
 				}else {	
 				
-				at.setFileNO(serviceNo);
+				at.setAttNo(serviceNo);
 				}
 				
 			}
@@ -75,7 +75,7 @@ public class ServiceBoardUpdateController extends HttpServlet {
 			if (result > 0) {
 				request.getSession().setAttribute("alertMsg", "글 수정이 완료되었습니다.");
 				response.sendRedirect(request.getContextPath() + "/list.service");
-				System.out.println("성공 확인용");
+				
 			} 
 		
 		}

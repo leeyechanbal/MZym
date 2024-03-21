@@ -162,7 +162,7 @@
                         <th width="900px">
                         	<textarea rows="3" class="form-control" style="resize:none" id="comment_content"></textarea>
                         </th>
-                        <td style="vertical-align: bottom;">
+                        <td width="100px"style="vertical-align: bottom;">
                         	<button class="btn btn-secondary btn-sm" onclick="insertComment();">댓글등록</button>
                         </td>
                         <% } %>
@@ -217,9 +217,10 @@
             					        + "<td>" + list[i].commentWriter + "</td>"
             					        + "<td>" + list[i].commentContent + "</td>"
             					        + "<td>" + list[i].commentDate + "</td>"
-            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick();\">신고</button></td>"
+            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>"
             					        + "</tr>";
             					}
+            				value = "<table id=\"comment_list\">" + value + "</table>";
             				}else{
             					value += "<tr><td colspan='3'>존재하는 댓글이 없습니다.</td></tr>"
             				}
@@ -264,11 +265,10 @@
                     <option value="3">음란물</option>
                     <option value="4">홍보의심</option	>
                     <option value="5">기타</option>
-                    <!-- 필요한 신고 사유 항목을 추가하세요 -->
                 </select>
             </div>
-            </div>
-    
+            </div>    
+
             <!-- 모달 하단 -->
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" id="confirmReport">신고</button>
@@ -293,74 +293,117 @@
     
         // 신고 확인 버튼 클릭 시 처리
         $("#confirmReport").click(function(){
-        // 여기에 신고 처리를 위한 로직을 추가할 수 있습니다.
-        // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
-        alert("글이 신고되었습니다.");
-        // 모달 닫기
-        $("#reportBoardModal").modal('hide');
-        });
+	    var reportReason = $("#reportReason").val(); // 신고 사유
+	    var postId = <%=b.getBoardNo() %>;
+	    var reporterId = <%= loginUser.getUserNo() %>
+	
+	    // AJAX를 사용하여 서버에 데이터 전송
+	    $.ajax({
+	        url: "<%=contextPath%>/report.bo",
+	        type: "POST",
+	        data: {
+	            postId: postId,
+	            reporterId: reporterId,
+	            reportReason: reportReason
+	        },
+	        success: function(response) {
+	            // 서버로부터 응답을 받았을 때 처리
+	            alert("글이 신고되었습니다.");
+	            // 모달 닫기
+	            $("#reportBoardModal").modal('hide');
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버 통신에 오류가 발생했을 때 처리
+	            alert("신고 처리 중 오류가 발생했습니다.");
+	            console.error(xhr, status, error);
+	        }
+	    });
+	});
+
     </script>
 
-   <!-- 댓글 신고 모달 -->
-	<div class="modal" id="reportCommentModal">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <!-- 모달 헤더 -->
-	            <div class="modal-header">
-	                <h5 class="modal-title">댓글 신고</h5>
-	                <button type="button" class="close" data-dismiss="modal">&times;</button>
-	            </div>
-	            <!-- 모달 본문 -->
-	            <div class="modal-body">
-	                <p>이 댓글을 신고하시겠습니까?</p>
-	                <label for="reportReason">신고 사유 선택:</label>
-	                <select class="form-control" id="reportReason">
-	                    <option value="1">도배/스팸</option>
-	                    <option value="2">욕설/차별/혐오</option>
-	                    <option value="3">음란물</option>
-	                    <option value="4">홍보의심</option>
-	                    <option value="5">기타</option>
-	                    <!-- 필요한 신고 사유 항목을 추가하세요 -->
-	                </select>
-	            </div>
-	            <!-- 모달 하단 -->
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-danger" id="confirmReport">신고</button>
-	                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+  <!-- 댓글 신고 모달 -->
+	  <form action="<%=contextPath%>/report.co" method="post">
+		<div class="modal" id="reportCommentModal">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <!-- 모달 헤더 -->
+		            <div class="modal-header">
+		                <h5 class="modal-title">댓글 신고</h5>
+		                <button type="button" class="close" data-dismiss="modal">&times;</button>
+		            </div>
+		            <!-- 모달 본문 -->
+		            <div class="modal-body">
+		                <p>이 댓글을 신고하시겠습니까?</p>
+		                <div class="form-group">
+			                <label for="reportReasonComment">신고 사유 선택:</label>
+			                <select class="form-control" id="reportReasonComment" name="reportReasonComment">
+			                    <option value="1">도배/스팸</option>
+	                    		<option value="2">욕설/차별/혐오</option>
+	                    		<option value="3">음란물</option>
+	                    		<option value="4">홍보의심</option	>
+	                    		<option value="5">기타</option>
+			                    <!-- 필요한 신고 사유 항목을 추가하세요 -->
+			                </select>
+			                <input type="hidden" id="reportCommentNo" name="reportCommentNo" value="">
+			                <input type="hidden" id="reportCommentUser" name="reportCommentUser" value="<%= loginUser.getUserNo() %>">
+		            	</div>
+		            </div>
+		            <!-- 모달 하단 -->
+		            <div class="modal-footer">
+		                <button type="submit" class="btn btn-danger" id="confirmReportComment">신고</button>
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</form>
 	
-	<!-- 스크립트 -->
-	<script>
-	    // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
-	    $(document).ready(function(){
-	        $("#reportCommentModal").modal('hide');
-	    });
-	
-	    // 신고 버튼 클릭 시 모달 띄우기
-	    function reportClick() {
-	    	$("#reportCommentModal").modal('show');
-	    }
-	    
-        // 버튼이 클릭되었을 때 실행할 동작을 정의합니다.
-       /* 	$("#report_Comment").click(function(){
-            console.log("댓글 신고 버튼이 클릭되었습니다.");
-            $("#reportCommentModal").modal('show');
-        });
-	 	*/
-	    // 신고 확인 버튼 클릭 시 처리
-	    $("#confirmReport").click(function(){
-	        // 여기에 신고 처리를 위한 로직을 추가할 수 있습니다.
-	        // 예를 들어, AJAX를 사용하여 서버에 신고 요청을 보낼 수 있습니다.
-	        alert("댓글이 신고되었습니다.");
-	        // 모달 닫기
-	        $("#reportCommentModal").modal('hide');
-	    });
-	</script>
+		<!-- 스크립트 -->
+		<script>
+		    // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
+		    $(document).ready(function(){
+		        $("#reportCommentModal").modal('hide');
+		    });
+		
+		    // 신고 버튼 클릭 시 모달 띄우기
+		    function reportClick(commentNo) {
+		        $("#reportCommentModal").modal('show');
+		        //window.commentNo = commentNo;
+		        $("#reportCommentNo").val(commentNo);
+		    }
+		    
+		</script>
+		
+		<script>
+		    // 삭제 버튼 클릭 시 confirm 창 띄우기
+		    $(".btn2").click(function() {
+		        var result = confirm("정말 삭제하시겠습니까?");
+		        
+		        // 사용자가 "확인"을 선택한 경우에만 AJAX 요청을 실행합니다.
+		        if (result) {
+		            $.ajax({
+		                url: "<%=contextPath%>/deleteFree.bo",
+		                type: "POST",
+		                data: {
+		                    boardNo: <%=b.getBoardNo() %>
+		                },
+		                success: function(response) {
+		                    alert("삭제되었습니다.");
+		                    window.location.reload();
+		                  	window.location.href = "<%= contextPath %>/freelist.bo?page=1";
+		                },
+		                error: function(xhr, status, error) {
+		                    alert("삭제에 실패했습니다. 다시 시도해주세요.");
+		                    console.error(xhr, status, error);
+		                }
+		            });
+		        }
+		    });
+		</script>
 
-    
+
+
     <%@ include file="/views/common/Mzym_footer.jsp" %>
 
 </body>

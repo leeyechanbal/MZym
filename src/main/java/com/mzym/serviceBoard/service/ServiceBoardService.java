@@ -4,7 +4,7 @@ package com.mzym.serviceBoard.service;
 
 import static com.mzym.common.template.JDBCTemplate.*;
 
-import static com.mzym.common.template.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.util.List;
 
@@ -85,10 +85,12 @@ public class ServiceBoardService {
 		int result2 = 1;
 		
 		if(at != null) {
-			if(at.getFileNO()!=0) {
+			if(at.getFileNO() !=0) {
 				result2 = sDao.updateAtt(conn, at);
+				
 			}else {
-				result2 = sDao.updatenewAtt(conn, at);
+				result2 = sDao.insertNewAtt(conn, at);
+				
 			}
 		}
 		if(result1>0&&result2>0) {

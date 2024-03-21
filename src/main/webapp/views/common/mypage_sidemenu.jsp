@@ -20,7 +20,7 @@
     width: 140px;
     height: 40px;
     margin-top: 45px;
-    margin-left: 15%;
+    margin-left: 20%;
 }
 
 .user_data:hover a {
@@ -38,7 +38,7 @@ color: white;
              <a href="<%=contextPath%>/myPage.me" class="btn btn-light" style="font-weight: bold;">회원정보</a>
          </div>
          <div class="user_data">
-             <a href="" class="btn btn-light" style="font-weight: bold;">나의 식단 정보</a>
+             <a href="<%=contextPath%>/dietmenu.me" class="btn btn-light" style="font-weight: bold;">나의 식단 정보</a>
          </div>
          <div class="user_data">
              <a href="<%=contextPath%>/inbody.me" class="btn btn-light" style="font-weight: bold;">나의 인바디</a>

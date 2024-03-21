@@ -51,7 +51,22 @@
 	</entry>
 
 
-
+	<entry key="calendarUpdate">
+	UPDATE 
+	       MZYM_CALENDAR
+	   SET 
+	       USER_NO = (SELECT USER_NO
+	                    FROM MZYM_MEMBER
+	                   WHERE USER_NAME = ?
+	                     AND PHONE = ?),
+	       START_DATE = ?,
+	       END_DATE = ?,
+	       CAL_TITLE = ?,
+	       CAL_CONTENT = ?,
+	       CAL_COLOR = ?,
+	       MODIFY_DATE = SYSDATE
+	 WHERE CAL_NO = ?
+	</entry>
 
 
 

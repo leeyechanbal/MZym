@@ -86,7 +86,10 @@ hr {
 .boardNav {
 	display: block;
 }
-
+.answer{
+	width: 80%; 
+	max-height: 200px;
+}
 .boardNav>.boardFree {
 	background-color: rgba(26, 188, 156, 0.2);
 }
@@ -95,6 +98,9 @@ border rounded>span {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+.contentDiv{
+	min-height:250px;
 }
 /* 답변 작성 쪽 최소 높이 및 정렬 , 박스모양 */
 .repeat {
@@ -116,8 +122,6 @@ border rounded>span {
 }
 
 .border {
-	min-height: 250px;
-	
 	overflow: auto;
 }
 
@@ -126,7 +130,24 @@ border rounded>span {
 	justify-content: flex-end;
 	margin: 20px;
 }
-
+.fileimgarea{
+	height:120px;
+	width: 120px;
+    margin: 20px;
+}
+.fileimgareaButton{
+ display: flex;
+ margin-right: 20px;
+ justify-content: space-between;
+}
+.fileimgareaButton input{
+      width: 50%;
+}
+.fileimgareaButton a{
+    margin-top: 10px;
+    width: 100px;
+    height: 30px;
+}
 
 .buttonArea > *{
 	width: 70px; 
@@ -135,15 +156,27 @@ border rounded>span {
 }
 
 .upfileArea {
-	min-height: 200px;
+	min-height: 100px;
 	border-top: 2px solid #e0e0e0;
 	border-bottom: 2px solid #e0e0e0;
 	margin: 20px;
 }
-
+.upNewfileArea{
+	min-height: 100px;
+	border-top: 2px solid #e0e0e0;
+	border-bottom: 2px solid #e0e0e0;
+	margin: 20px;
+	display: flex;
+    flex-direction: column;
+}
+.upNewfileArea input {
+    width: 50%;
+    margin: 20px;
+}
 .borderDetailcontent {
 	margin: 20px;
 	text-align: left;
+	min-height: 200px;
 }
 .my.pagination > .active > a, 
  .my.pagination > .active > span, 
@@ -255,20 +288,56 @@ border rounded>span {
 										</div>
 
 										<textarea class="contentTextarea summernote" style="display: none" name="newcontent"><%=sb.getServiceContent() %></textarea>
-									</div>
-
-									<div class="upfileArea ">
+										
+										<div class="upfileArea ">
 
 										<%if(sb.getUpfileUrl() != null){ %>
+										<div class=fileimgarea>
 										<img src="<%= contextPath + "/" + sb.getUpfileUrl() %>"
-											style="max-width: 100%; height: auto;"> <br> <a
-											href="<%= contextPath + "/" + sb.getUpfileUrl() %>"
-											download="<%= contextPath + "/" + sb.getUpfileUrl() %>">다운로드</a>
+											style="max-width: 100%; height: auto;"> 
+										</div>	
+										<div class="fileimgareaButton">
+										<a href="<%= contextPath + "/" + sb.getUpfileUrl() %>" download="<%= contextPath + "/" + sb.getUpfileUrl() %>" class="btn btn-outline-secondary btn-sm">다운로드</a>
+										</div>
 										<% }else{ %>
 										첨부파일이 없습니다.
 										<%} %>
 
+										</div>
+									
+									<div class="upNewfileArea ">
+
+										<%if(sb.getUpfileUrl() != null){ %>
+										<div class=fileimgarea>
+										<img src="<%= contextPath + "/" + sb.getUpfileUrl() %>"
+											style="max-width: 100%; height: auto;"> 
+										<input type="hidden" name="originFileNo" value="<%= sb.getFileNo() %>">	
+										</div>	
+										<div class="fileimgareaButton">
+										<input type="file" value="파일추가" name="upfile">
+										<a  class="btn btn-outline-secondary btn-sm">파일삭제</a>
+										</div>
+										<% }else{ %>
+										첨부파일이 없습니다. 추가 하시겠습니까??
+										
+										<input type="file" value="파일추가" name="upfile">
+										<%} %>
+
 									</div>
+									
+									</div>
+										<%if(sb.getServiceTr()!=null){ %>
+									<div class="repeat border mx-auto">
+										<div>
+											<b>관리자 <%=sb.getServiceTr() %>
+											</b>
+										</div>
+										<textarea class="answer"><%=sb.getServiceRepeat() %>
+										</textarea>
+
+									</div>
+									<%} %>
+									
 									<div class="buttonArea">
 
 										<button type="button" class="btn btn-outline-secondary btn-sm updateBtn"
@@ -278,17 +347,7 @@ border rounded>span {
 											onclick="deleteService(<%= sb.getServiceNo() %>);">삭제</a>
 
 									</div>
-									<%if(sb.getServiceTr()!=null){ %>
-									<div class="repeat border mx-auto">
-										<div>
-											<b>관리자 <%=sb.getServiceTr() %>
-											</b>
-										</div>
-										<div style="width: 80%; max-height: 200px;"><%=sb.getServiceRepeat() %>
-										</div>
-
-									</div>
-									<%} %>
+									
 								</form>
 							</td>
 						</tr>
@@ -318,13 +377,15 @@ border rounded>span {
 			        });
 			        
 			        $('.note-editor').hide();
-			        
+			        $('.upNewfileArea').hide();
 			        $(document).on("click", '.updateBtn', function(){
 			        
 			        	$(this).parent().siblings(".contentDiv").children(".borderDetailcontent").hide();
 			        	$(this).parent().siblings(".contentDiv").children(".note-editor").show();
-			    
-			        	$(this).html("저장하기");
+			    		$(this).parent().siblings(".contentDiv").children(".upfileArea").hide();
+			    		$(this).parent().siblings(".contentDiv").children(".upNewfileArea").show();
+			        	
+			        	$(this).html("저장");
 			        	$(this).attr("type", "submit");
 			        	$(this).removeClass("updateBtn");
 			        	return false;

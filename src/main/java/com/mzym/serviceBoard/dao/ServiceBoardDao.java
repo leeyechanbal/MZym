@@ -90,7 +90,8 @@ public class ServiceBoardDao {
 								   rset.getString("REGIST_DATE"),
 								   rset.getString("SERVICE_TR"),
 								   rset.getString("SERVICE_REPEAT"),
-								   rset.getString("UPFILEURL")
+								   rset.getString("UPFILEURL"),
+								   rset.getInt("file_no")
 						)); 
 			}
 			
@@ -246,14 +247,15 @@ public class ServiceBoardDao {
 		return result;
 	}
 
-	public int updatenewAtt(Connection conn, Attachment at) {
+	public int insertNewAtt(Connection conn, Attachment at) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertNewAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, at.getFileNO());
+			
+			pstmt.setInt(1, at.getAttNo());
 			pstmt.setString(2, at.getOriginName());
 			pstmt.setString(3, at.getChangeName());
 			pstmt.setString(4, at.getFilePath());
@@ -323,7 +325,8 @@ public class ServiceBoardDao {
 								   rset.getString("REGIST_DATE"),
 								   rset.getString("SERVICE_TR"),
 								   rset.getString("SERVICE_REPEAT"),
-								   rset.getString("UPFILEURL")
+								   rset.getString("UPFILEURL"),
+								   rset.getInt("file_no")
 						)); 
 			}
 			

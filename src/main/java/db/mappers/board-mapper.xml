@@ -256,8 +256,15 @@ set status = 'X'
 where advice_no = ? <!-- 상담글 번호 -->
 </entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	신고대기 글 총 갯수 쿼리문
+ -->
+<entry key="reportCount">
+select count(*)
+from report
+where status = ?
+</entry>
 
 <!--  -->
 <entry key=""></entry>
@@ -510,6 +517,61 @@ where advice_no = ? <!-- 상담글 번호 -->
 	,	?
 	,	?
 	)
+</entry>
+
+<!--
+	작성자 : 황수림
+	글 신고 구문
+-->
+<entry key="insertReport">
+	INSERT
+	INTO	REPORT
+	(
+		REPORT_NO
+	,	BOARD_NO
+	,	CATEGORY_NO
+	,	REPORT_USER
+	)
+	VALUES
+	(
+		SEQ_REPORTNO.NEXTVAL
+	,	?
+	,	?
+	,	?
+	)
+</entry>
+
+<!--
+	작성자 : 황수림
+	댓글 신고 구문
+-->
+<entry key="insertCommentReport">
+	INSERT
+	INTO	REPORT
+	(
+		REPORT_NO
+	,	COMMENT_NO
+	,	REPORT_USER
+	,	CATEGORY_NO
+	)
+	VALUES
+	(
+		SEQ_REPORTNO.NEXTVAL
+	,	?
+	,	?
+	,	?
+	)
+</entry>
+
+<!--
+	작성자 : 황수림
+	글 삭제 구문
+-->
+<entry key="deleteFreeBoard">
+	UPDATE
+			MZYM_BOARD
+	SET		STATUS = 'N'
+	WHERE	BOARD_NO = ?
 </entry>
 
 <!--  -->

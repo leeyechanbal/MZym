@@ -14,6 +14,7 @@ import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
+import com.mzym.board.vo.Report;
 import com.mzym.common.paging.PageInfo;
 
 public class BoardService {
@@ -225,8 +226,40 @@ public class BoardService {
 		return result;
 	}
 	
+	/**
+	 * @author 이예찬
+	 * @return 신고 대기 중인 게시글 총 갯수 반환
+	 * 신고글을 N, Y에 따라 총 갯수 요청 매서드
+	 */
+	public int reportCount(String status) {
+		Connection conn = getConnection();
+		
+		int count = dao.reportCount(conn, status);
+		
+		close(conn);
+		
+		return count;
+	}
 	
 	
+	/**
+	 *	status을 이용해서 페이징 처리된 신고 게시글을 가져오는 매서드
+	 * @author 이예찬
+	 * @param info 페이징 처리된 숫자을 담고 있는 객체
+	 * @param status 현재 글이 신고 완료인지 대기인지 구분
+	 * @return 원하는 게시글 갯수만큼의 신고리스트 반환
+	 */
+	public List<Report> selectedBoard(PageInfo info, String status) {
+		Connection conn = getConnection();
+		List<Report> list = dao.selectedBoard(info, status);
+		
+		if(list != null) {
+			
+		}
+		
+		
+		return null;
+	}
 	
 	
 	
@@ -381,6 +414,42 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
+	public int insertReport(Report r) {
+		Connection conn = getConnection();
+		int result = dao.insertReport(conn, r);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertCommentReport(Report r) {
+		Connection conn = getConnection();
+		int result = dao.insertCommentReport(conn, r);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int deleteFreeBoard(Board b) {
+		Connection conn = getConnection();
+		int result = dao.deleteFreeBoard(conn, b);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 		
 	
 		
@@ -403,5 +472,6 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+
 
 }// class END

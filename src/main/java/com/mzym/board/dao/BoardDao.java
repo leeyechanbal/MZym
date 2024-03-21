@@ -1,11 +1,7 @@
 package com.mzym.board.dao;
 
 import static com.mzym.common.template.JDBCTemplate.close;
-import static com.mzym.common.template.JDBCTemplate.commit;
-import static com.mzym.common.template.JDBCTemplate.getConnection;
-import static com.mzym.common.template.JDBCTemplate.rollback;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,8 +17,8 @@ import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
+import com.mzym.board.vo.Report;
 import com.mzym.common.paging.PageInfo;
-import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardDao {
 	
@@ -502,8 +498,50 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * @author 이예찬
+	 * @param conn
+	 * @return 신고 대기글 총 갯수 반환
+	 */
+	public int reportCount(Connection conn, String status) {
+		PreparedStatement pst = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("reportCount"));
+			pst.setString(1, status);
+			rset = pst.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pst);
+		}
+		
+		return count;
+	}
 	
-	
+	/**
+	 * @author 이예찬
+	 * @param info 현재 페이지와 입력받은 데이터로 페이징처리된 객체
+	 * @param status 현재 신고 대기인지 완료인지를 구별
+	 * @return 구별된 신고 게시글을 반환
+	 */
+	public List<Report> selectedBoard(PageInfo info, String status) {
+		PreparedStatement pst = null;
+		ResultSet rset = null;
+		
+		
+		
+		return null;
+	}
+
 	
 	
 	
@@ -853,7 +891,71 @@ public class BoardDao {
 		}
 		
 		return result;
+	}
+	
+	public int insertReport(Connection conn, Report r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReport");
 		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getBoardNo());
+			pstmt.setInt(2, r.getCategoryNo());
+			pstmt.setInt(3, r.getReportUser());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertCommentReport(Connection conn, Report r) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCommentReport");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getCommentNo());
+			pstmt.setInt(2, r.getReportUser());
+			pstmt.setInt(3, r.getCategoryNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteFreeBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteFreeBoard");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	
@@ -891,6 +993,9 @@ public class BoardDao {
 		
 		return result;
 	}
+
+
+
 
 
 }// class END

@@ -1,6 +1,7 @@
-package com.mzym.board.controller;
+package com.mzym.mypage.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,50 +10,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mzym.board.service.BoardService;
+import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.service.MyPageService;
+import com.mzym.mypage.model.vo.Food;
 
 /**
- * Servlet implementation class NoticeDelete
+ * Servlet implementation class MypageDietMenuSelectController
  */
-@WebServlet("/deletedNotice.traniner")
-public class NoticeDelete extends HttpServlet {
+@WebServlet("/dietmenu.me")
+public class MypageDietMenuSelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDelete() {
+    public MypageDietMenuSelectController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// select 조회------------------------------
 		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int foodUser = loginUser.getUserNo();
 		
-		if(request.getParameter("boardNum") != null) {
-			
-			int  boardNum= Integer.parseInt(request.getParameter("boardNum"));
-			String change = request.getParameter("fileName");
-			
-			String type = "N"; // 카테고리 처리 (N 공지사항일경우)
-	
-			int result = new BoardService().deletedNotice(boardNum, change, type);
-			
-			if(result > 0) {
-				session.setAttribute("alert", "삭제 되었습니다.");
-				response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=1");
-			}else {
-				session.setAttribute("alert", "요청에 실패 했습니다.");
-			}
-		} else {
-			session.setAttribute("alert", "요청에 실패 했습니다.");
-		}
+		List<Food> list = new MyPageService().selectListFood(foodUser);
+		Food o = new MyPageService().selectFood(foodUser);
 		
+		request.setAttribute("o", o);
+		request.setAttribute("list", list);
+		//----------------------------------------
+		
+		
+		request.getRequestDispatcher("/views/mypage/dietMenu.jsp").forward(request, response);
 		
 	}
 

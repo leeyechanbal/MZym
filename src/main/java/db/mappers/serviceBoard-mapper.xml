@@ -23,8 +23,9 @@
             TO_CHAR(sb.REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE,
             sb.SERVICE_TR,
             sb.SERVICE_REPEAT,
-            at.FILE_PATH || at.CHANGE_NAME UPFILEURL
-        
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
+        	at.FILE_NO
+        	
         FROM MZYM_SERVICE sb
         JOIN SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
         JOIN MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO
@@ -132,16 +133,21 @@
 		INSERT INTO ATTACHMENT
 		(
 			FILE_NO,
+			ATT_NO,
+			ATT_CATEGORY,
 			ORIGIN_NAME,
 			CHANGE_NAME,
 			FILE_PATH
 		)
 		VALUES
 		(
-		SEQ_FNO.NEXTVAL,
-	   	?,
+		SEQ_ATTACHMENT.nextval,
+		?,
+		'B',
+		?,
 	   	?,
 	   	?
+	   	
 		)
 </entry>
 
@@ -159,8 +165,9 @@
             TO_CHAR(sb.REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE,
             sb.SERVICE_TR,
             sb.SERVICE_REPEAT,
-            at.FILE_PATH || at.CHANGE_NAME UPFILEURL
-        
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
+        	at.FILE_NO
+        	
         FROM MZYM_SERVICE sb
         JOIN SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
         JOIN MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO

@@ -16,6 +16,8 @@ public class ServiceBoard {
 	private String status;
 	private String upfileUrl; // 파일 
 	private String keyward;
+	private int fileNo;
+	
 	
 	public ServiceBoard() {
 		
@@ -24,7 +26,7 @@ public class ServiceBoard {
 
 	public ServiceBoard(int serviceNo, String serviceUser, String categoryNo, String serviceTitle,
 			String serviceContent, String registDate, String editDate, String serviceTr, String serviceRepeat,
-			String repeatDate, String status, String upfileUrl, String keyward) {
+			String repeatDate, String status, String upfileUrl, String keyward, int fileNo) {
 		super();
 		this.serviceNo = serviceNo;
 		this.serviceUser = serviceUser;
@@ -39,6 +41,17 @@ public class ServiceBoard {
 		this.status = status;
 		this.upfileUrl = upfileUrl;
 		this.keyward = keyward;
+		this.fileNo = fileNo;
+	}
+
+
+	public int getFileNo() {
+		return fileNo;
+	}
+
+
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
 	}
 
 
@@ -182,7 +195,7 @@ public class ServiceBoard {
 
 
 	public ServiceBoard(int serviceNo, String serviceUser, String categoryNo, String serviceTitle,
-			String serviceContent, String registDate, String serviceTr, String serviceRepeat, String upfileUrl) {
+			String serviceContent, String registDate, String serviceTr, String serviceRepeat, String upfileUrl, int fileNo) {
 		super();
 		this.serviceNo = serviceNo;
 		this.categoryNo = categoryNo;
@@ -193,6 +206,7 @@ public class ServiceBoard {
 		this.serviceTr = serviceTr;
 		this.serviceRepeat = serviceRepeat;
 		this.upfileUrl = upfileUrl;
+		this.fileNo = fileNo;
 	}
 	
 	

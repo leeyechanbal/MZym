@@ -66,7 +66,7 @@
 	            <br>
 	
 	            <div class="inbody_list">
-	                <p>신장<span class="list_etc" name="height"><%=body.getBodyHeight()%></span></p>
+	                <p>신장<span class="list_etc" name="height"><%=body.getBodyHeight()%> cm</span></p>
 	                <p>나이<span class="list_etc" name="age"><%=age%></span></p>
 	                <p>성별<span class="list_etc" name="gender"><%=gender%></span></p>
 	            </div>

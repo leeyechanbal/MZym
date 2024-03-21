@@ -1,7 +1,6 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,50 +9,47 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Report;
 
 /**
- * Servlet implementation class NoticeDelete
+ * Servlet implementation class AjaxReportCommentInsertController
  */
-@WebServlet("/deletedNotice.traniner")
-public class NoticeDelete extends HttpServlet {
+@WebServlet("/report.co")
+public class AjaxReportCommentInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDelete() {
+    public AjaxReportCommentInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int commentNo = Integer.parseInt(request.getParameter("reportCommentNo"));
+		int reportUser = Integer.parseInt(request.getParameter("reportCommentUser"));
+		int CategoryNo = Integer.parseInt(request.getParameter("reportReasonComment"));
+		
 		HttpSession session = request.getSession();
 		
-		if(request.getParameter("boardNum") != null) {
-			
-			int  boardNum= Integer.parseInt(request.getParameter("boardNum"));
-			String change = request.getParameter("fileName");
-			
-			String type = "N"; // 카테고리 처리 (N 공지사항일경우)
-	
-			int result = new BoardService().deletedNotice(boardNum, change, type);
-			
-			if(result > 0) {
-				session.setAttribute("alert", "삭제 되었습니다.");
-				response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=1");
-			}else {
-				session.setAttribute("alert", "요청에 실패 했습니다.");
-			}
-		} else {
-			session.setAttribute("alert", "요청에 실패 했습니다.");
+		Report r = new Report();
+		r.setCommentNo(commentNo);
+		r.setReportUser(reportUser);
+		r.setCategoryNo(CategoryNo);
+		
+		int result = new BoardService().insertCommentReport(r);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "신고 성공.");
+			response.sendRedirect(request.getContextPath() + "/freelist.bo?page=1");
+		}else {
+			session.setAttribute("alertMsg", "신고 실패.");
 		}
-		
-		
 	}
 
 	/**
