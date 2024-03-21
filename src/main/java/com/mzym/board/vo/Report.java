@@ -13,12 +13,13 @@ public class Report {
 	private int reportUser; // 신고한 회원 번호
 	private String reportDate; // 신고한 날짜
 	private String status;
-	private Attachment at; // 신고 글에 담기는 첨부파일 객체
 	
-	public Report() {
-		super();
-		
-	}
+	private Attachment att; // 신고 글에 담기는 첨부파일 객체
+	private Board board; // 게시글 정보를 담은 객체
+	private Comment comment; // 댓글 정보를 담을 객체
+	private String UserID; // 조회된 유저 아이디를 담을 변수
+	
+	public Report() {}
 
 	public Report(int reportNo, int boardNO, int commentNo, int categoryNO, int repoertUser, String reportDate,
 			String status, Attachment at) {
@@ -96,6 +97,38 @@ public class Report {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Attachment getAtt() {
+		return att;
+	}
+
+	public void setAtt(Attachment att) {
+		this.att = att;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+
+	public String getUserID() {
+		return UserID;
+	}
+
+	public void setUserID(String userID) {
+		UserID = userID;
 	}
 
 	@Override
