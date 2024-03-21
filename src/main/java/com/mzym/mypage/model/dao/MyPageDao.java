@@ -258,7 +258,7 @@ public class MyPageDao {
 						          rset.getString("food_category"),
 						          rset.getString("food_name"),
 						          rset.getInt("food_cal"),
-						          rset.getDate("regist_date")));
+						          rset.getString("regist_date")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -288,7 +288,7 @@ public class MyPageDao {
 						   , rset.getString("food_category")
 						   , rset.getString("food_name")
 						   , rset.getInt("food_cal")
-						   , rset.getDate("regist_date"));	
+						   , rset.getString("regist_date"));	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

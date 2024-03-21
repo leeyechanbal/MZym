@@ -40,7 +40,9 @@ public class MypageDietMenuSelectController extends HttpServlet {
 		int foodUser = loginUser.getUserNo();
 		
 		List<Food> list = new MyPageService().selectListFood(foodUser);
+		Food o = new MyPageService().selectFood(foodUser);
 		
+		request.setAttribute("o", o);
 		request.setAttribute("list", list);
 		//----------------------------------------
 		

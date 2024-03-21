@@ -4,6 +4,7 @@
 <%@ page import="com.mzym.mypage.model.vo.Food" %>
 <%
 	List<Food> list = (List<Food>)request.getAttribute("list");
+	Food o = (Food)request.getAttribute("o");
 %>
 <!DOCTYPE html>
 <html>
@@ -121,12 +122,46 @@
 
                 <div class="food_date">   
                     <h3>
-                        <button type="button" class="fas fa-angle-left" id="icon"></button>
-                        24년 3월 18일 (금)
-                        <button type="button" class="fas fa-angle-right" id="icon"></button>
+                        <button type="button" class="fas fa-angle-left" id="icon" onclick="before();"></button>
+                        <span id="today"><%=o.getRegistDate()%></span>
+                        <button type="button" class="fas fa-angle-right" id="icon" onclick="after();"></button>
                     </h3>
                 </div>
+                
+                <script>
+                function before(){
+                	 
 
+                	let b = new Date();
+                	let sel_day = -1;
+                	b.setDate(b.getDate() + sel_day );
+
+
+                	let year    = b.getFullYear();
+                	let month   = ('0' + (b.getMonth() +  1 )).slice(-2);
+                	let day     = ('0' + b.getDate()).slice(-2);
+                	dt = year+"년 "+month+"월 "+day+"일";
+                	
+                	 document.getElementById("today").innerText = dt;
+                }
+                
+                function after(){
+                	 
+
+                	let a = new Date();
+                	let sel_day = +1; 
+                	a.setDate(a.getDate() + sel_day );
+
+
+                	let year    = a.getFullYear();
+                	let month   = ('0' + (a.getMonth() +  1 )).slice(-2);
+                	let day     = ('0' + a.getDate()).slice(-2);
+                	dt = year+"년 "+month+"월 "+day+"일";
+                	
+                	document.getElementById("today").innerText = dt;
+                }
+                </script>
+               
                 <div class="food_list">
 
                     <div class="food1">
@@ -313,7 +348,6 @@
                             totalTodayKcal += kcal;
                         });
 
-                        // 오늘 섭취한 총 칼로리를 화면에 나타냄
                         document.getElementById('todayKcal').value = totalTodayKcal + ' kcal';
                     }
                     
