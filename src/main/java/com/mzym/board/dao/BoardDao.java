@@ -998,7 +998,4 @@ public class BoardDao {
 	}
 
 
-
-
-
 }// class END
