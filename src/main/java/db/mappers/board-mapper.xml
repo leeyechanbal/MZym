@@ -709,11 +709,41 @@ where seq BETWEEN ? and ?
 </entry>
 
 
-<!--  -->
-<entry key=""></entry>
+<!--
+	작성자 : 손수현
+	영상게시판 페이징 갯수 쿼리문
+-->
+<entry key="selectVideoListCount">
+	SELECT	COUNT(*) COUNT
+	  FROM	MZYM_VIDEO
+	 WHERE	STATUS = 'Y'
+</entry>
 
-<!--  -->
-<entry key=""></entry>
+<!--
+	작성자 : 손수현
+	영상게시판 페이징 리스트 쿼리문
+-->
+<entry key="selectVideoList">
+	SELECT *
+		    FROM (
+		            SELECT ROWNUM RNUM, A.*
+		                FROM (
+		                        SELECT
+	                                  VIDEO_NO
+		                            , VIDEO_TITLE
+		                            , LINK
+		                            , COUNT
+		                            , VIDEO_LEVEL
+		                        FROM
+		                            MZYM_VIDEO 
+		                        WHERE
+		                            STATUS = 'Y'
+		                        ORDER
+		                            BY VIDEO_NO DESC
+		                    ) A
+		        )
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
 
 <!--  -->
 <entry key=""></entry>

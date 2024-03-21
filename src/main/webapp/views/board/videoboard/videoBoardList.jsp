@@ -6,7 +6,6 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	List<Video> list = (List<Video>)request.getAttribute("list");
-	System.out.println(list);
 %>
 <!DOCTYPE html>
 <html>
