@@ -17,6 +17,7 @@ import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
+import com.mzym.board.vo.Report;
 import com.mzym.common.paging.PageInfo;
 
 public class BoardDao {
@@ -526,6 +527,21 @@ public class BoardDao {
 		return count;
 	}
 	
+	/**
+	 * @author 이예찬
+	 * @param info 현재 페이지와 입력받은 데이터로 페이징처리된 객체
+	 * @param status 현재 신고 대기인지 완료인지를 구별
+	 * @return 구별된 신고 게시글을 반환
+	 */
+	public List<Report> selectedBoard(PageInfo info, String status) {
+		PreparedStatement pst = null;
+		ResultSet rset = null;
+		
+		
+		
+		return null;
+	}
+
 	
 	
 	
@@ -913,6 +929,7 @@ public class BoardDao {
 		
 		return result;
 	}
+
 
 
 

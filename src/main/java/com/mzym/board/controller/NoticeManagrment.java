@@ -39,22 +39,26 @@ public class NoticeManagrment extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int currantPage =   Integer.parseInt(request.getParameter("page"));
+		String num = request.getParameter("page");
 		
-		int listCount = new BoardService().selectNoticeCount();
+		if(num != null) {
 		
-		PageInfo info = new PageHandler().getPaging(listCount, currantPage, 10, 10);
+			int currantPage =   Integer.parseInt(num);
 			
-		if (info != null) {
-			List<Notice> list = new BoardService().selectNotice(info);
-
-			request.setAttribute("info", info);
-			request.setAttribute("list", list);
+			int listCount = new BoardService().selectNoticeCount();
 			
-			request.getRequestDispatcher("/views/trainer/Leeyechan/boardNotice.jsp").forward(request, response);
-			
+			PageInfo info = new PageHandler().getPaging(listCount, currantPage, 10, 10);
+				
+			if (listCount > 0 && info != null) {
+				List<Notice> list = new BoardService().selectNotice(info);
+	
+				request.setAttribute("info", info);
+				request.setAttribute("list", list);
+				
+				request.getRequestDispatcher("/views/trainer/Leeyechan/boardNotice.jsp").forward(request, response);
+				
+			}
 		}
-		
 	}
 
 	/**

@@ -14,6 +14,7 @@ import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
+import com.mzym.board.vo.Report;
 import com.mzym.common.paging.PageInfo;
 
 public class BoardService {
@@ -238,6 +239,26 @@ public class BoardService {
 		close(conn);
 		
 		return count;
+	}
+	
+	
+	/**
+	 *	status을 이용해서 페이징 처리된 신고 게시글을 가져오는 매서드
+	 * @author 이예찬
+	 * @param info 페이징 처리된 숫자을 담고 있는 객체
+	 * @param status 현재 글이 신고 완료인지 대기인지 구분
+	 * @return 원하는 게시글 갯수만큼의 신고리스트 반환
+	 */
+	public List<Report> selectedBoard(PageInfo info, String status) {
+		Connection conn = getConnection();
+		List<Report> list = dao.selectedBoard(info, status);
+		
+		if(list != null) {
+			
+		}
+		
+		
+		return null;
 	}
 	
 	
