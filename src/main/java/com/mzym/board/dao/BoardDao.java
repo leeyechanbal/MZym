@@ -900,6 +900,29 @@ public class BoardDao {
 		return result;
 	}
 	
+	public int insertCommentReport(Connection conn, Report r) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCommentReport");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getCommentNo());
+			pstmt.setInt(2, r.getReportUser());
+			pstmt.setInt(3, r.getCategoryNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	
 /*	
 	=================================  황수림 a yellow forest ==================================
