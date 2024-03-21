@@ -15,6 +15,7 @@ import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
+import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
 
 public class BoardService {
@@ -468,5 +469,29 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
+	/**
+	 * @author 손수현
+	 * @return 비디오게시판
+	 */
+	
+	
+	public int selectVideoListCount() {
+		Connection conn = getConnection();
+		int listCount = dao.selectVideoListCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
+	public List<Video> selectVideoList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Video> list = dao.selectVideoList(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+/*	
+	================================= 손수현 ==================================
+*/
 
 }// class END

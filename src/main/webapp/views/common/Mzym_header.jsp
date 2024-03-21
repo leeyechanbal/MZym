@@ -125,7 +125,7 @@
               
             </div>
             <div class="menu_item">
-              <a href="" class="community">추천운동영상</a>
+              <a href="<%=contextPath %>/video.bo" class="community">추천운동영상</a>
             </div>
             <div class="menu_item">
               <a href="<%=contextPath %>/list.service" class="community">고객센터</a>

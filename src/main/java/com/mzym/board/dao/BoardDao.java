@@ -18,6 +18,7 @@ import com.mzym.board.vo.Board;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
+import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
 
 public class BoardDao {
@@ -1052,6 +1053,79 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	/**
+	 * 
+	 * @author 손수현
+	 * @return 비디오게시판 
+	 */
+	
+	public int selectVideoListCount(Connection conn) {
+		// select문 => 무조건 한행이면서 한개의 숫자 => int
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVideoListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public List<Video> selectVideoList(Connection conn, PageInfo pi){
+		
+		List<Video> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVideoList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1; 
+ 			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Video( rset.getInt("video_no"),
+									rset.getString("video_title"),
+									rset.getString("link"),
+									rset.getInt("video_level"),
+									rset.getInt("count")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+/*	
+	================================= 손수현 videoBoard ==================================
+*/
 
 
 }// class END
