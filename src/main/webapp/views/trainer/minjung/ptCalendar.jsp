@@ -150,6 +150,7 @@
             
                     <!-- Modal body -->
                     <div class="modal-body">
+                    	<input type="hidden" id="calNo">
                             <table>
                                 <tr style="border-bottom: 1px solid rgb(224, 224, 224);">
                                     <td>
@@ -293,7 +294,8 @@
                                             <label>작성자</label>
                                         </td>
                                         <td colspan="3">
-                                            <input type="text" id="writer" style="margin-bottom: 15px; margin-top: 15px;" required>
+                                        	<input type="hidden" id="trNo">
+                                            <input type="text" id="writer" style="margin-bottom: 15px; margin-top: 15px;" readonly required>
                                         </td>
                                     </tr>
         
@@ -322,8 +324,8 @@
         
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="submit" id= "update_btn"class="btn btn-danger" data-dismiss="modal">수정</button>
-                                    <button type="submit" id= "delete_btn"class="btn btn-danger" data-dismiss="modal">삭제</button>
+                                    <button type="submit" id= "update_btn"class="btn btn-outline-success" data-dismiss="modal" onclick="calendarUpdate();">수정</button>
+                                    <button type="submit" id= "delete_btn"class="btn btn-outline-danger" data-dismiss="modal">삭제</button>
                                 </div>
                         
                                     </div>
@@ -346,17 +348,17 @@
             <div id='calendar' ></div>
         </div>
 
-        <script>
+<script>
 	$(function(){
 		ptCalendar();
 	})
-        
      
 	// 캘린더 일정 조회 함수
+        
 	function ptCalendar(){
         $.ajax({
         	url:"<%=contextPath%>/list.cal",
-        	data:{trNo:15},
+        	data:{$("#trNo").val()}, //no:15
         	type:"post",
         	success:function(clist){
         		
@@ -460,22 +462,49 @@
             			endDate:$("input[name='endDate']").val(),
             			userPhone:$("input[name='userPhone']").val(),
             			writer:$("input[name='writer']").val(),
-            			trNo:15, //$("input[name='trNo']").val(),
+            			trNo:$("input[name='trNo']").val(),
             			title:$("input[name='title']").val(),
             			content:$("textarea[name='content']").val()
             		},
             		type:"post",
             		success:function(result){
             			console.log("pt일정등록 성공");
+            			alert("일정 추가 완료되었습니다.");
             		},
             		error:function(){
             			console.log("pt일정등록 ajax 통신실패");
+            			alert("일정 추가가 실패하였습니다.");
             		}
             	})
             })
-            
-            
-            // 날짜 클릭시 모달창 나타나는 함수
+
+
+            // 수정클릭시 실행될 함수
+            function calendarUpdate(){
+            	$.ajax({
+            		url:"<%=contextPath%>/update.cal",
+            		data:{
+            			calNo: $("#calNo").val(), // 166
+            			calUserName:$("#calUserName").val(),
+            			calColor:$("#calColor").val(),
+            			startDate:$("#startDate").val(),
+            			endDate:$("#endDate").val(),
+            			calPhone:$("#calPhone").val(),
+            			title:$("#title").val(),
+            			contnet:$("#content").val(),
+            			trNo:$("#trNo").val()  // 15
+            		},
+            		type:"post",
+            		success:function(result){
+            			console.log(result);
+            			alert("일정을 수정하였습니다.");
+            		},
+            		error:function(){
+            			console.log("수정 ajax 통신 실패");
+            		}
+            	})
+            	
+            }
             
             
 
@@ -487,7 +516,7 @@
             }
             */
 
-        </script>
+</script>
 
         <!-- content end -->
 
