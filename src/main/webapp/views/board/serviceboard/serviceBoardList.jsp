@@ -23,18 +23,6 @@ String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
 	justify-content: center;
 	align-items: center;
 }
-
-/* Section 관련 스타일 */
-.board_content {
-	border: 1px solid #1abc9c;
-	width: 80%;
-	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	min-height: 500px;
-	padding: 50px;
-	border-radius: 10px;
-}
 .hideContent{
 	    min-height: 150px;
     /* text-align: left; */
@@ -47,21 +35,34 @@ String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
     align-items: center;
 }
 
+/* Section 관련 스타일 */
+.board_content {
+	border: 1px solid #1abc9c;
+	width: 80%;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	min-height: 500px;
+	padding: 50px;
+	border-radius: 10px;
+}
+
 .sea {
 	position: relative;
 	width: 300px;
 	float: left;
 	margin-bottom: 30px;
-.sea img {
-     position : absolute;
-     width: 18px;
-     top: 14px;
-     right: 12px;
-     margin: 0;
 }
 	
-}
 
+.sea img {
+             position : absolute;
+             width: 18px;
+             top: 14px;
+             right: 12px;
+              margin: 0;
+        }
+        
 input {
 	width: 100%;
 	border: 1px solid #bbb;
@@ -70,13 +71,9 @@ input {
 	font-size: 14px;
 }
 
-
-
 h2 {
 	text-align: center;
 }
-
-
 hr {
 	width: 200px;
 	text-align: center;
@@ -120,16 +117,18 @@ border rounded>span {
 
 .border {
 	min-height: 250px;
-	text-align: left;
-	white-space: pre;
+	
 	overflow: auto;
 }
 
 .buttonArea {
 	display: flex;
 	justify-content: flex-end;
+	margin: 20px;
 }
-
+.fileimgarea{
+	width: 120px;
+}
 
 .buttonArea > *{
 	width: 70px; 
@@ -143,32 +142,29 @@ border rounded>span {
 	border-bottom: 2px solid #e0e0e0;
 	margin: 20px;
 }
-
+.upNewfileArea{
+	min-height: 200px;
+	border-top: 2px solid #e0e0e0;
+	border-bottom: 2px solid #e0e0e0;
+	margin: 20px;
+}
 .borderDetailcontent {
 	margin: 20px;
 	text-align: left;
 }
-.page-item.disabled .page-link {
-    background-color: white; /* 비활성화된 버튼 배경색 */
-    color: black; /* 비활성화된 버튼 텍스트 색상 */
-}
-
-.page-item.active .page-link {
-    background-color: #1abc9c; /* 활성화된 버튼 배경색 */
-    color: wihte; /* 활성화된 버튼 텍스트 색상 */
-}
-
-.page-item .page-link {
-    background-color: white; /* 기본 버튼 배경색 */
-    color: black; /* 기본 버튼 텍스트 색상 */
+.my.pagination > .active > a, 
+ .my.pagination > .active > span, 
+ .my.pagination > .active > a:hover, 
+ .my.pagination > .active > span:hover, 
+ .my.pagination > .active > a:focus, 
+ .my.pagination > .active > span:focus {
+     background: #1abc9c;
+     border-color: #1abc9c;
+ }
  
+ .page-item a.page-link {
+ color: #1abc9c;
 }
-
-.page-item .page-link:hover {
-    background-color: #1abc9c; /* 버튼에 마우스 호버시 배경색 */
-    color: white;
-}
-
 </style>
 </head>
 <body>
@@ -187,7 +183,6 @@ border rounded>span {
 				<!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 				<%if(loginUser != null){ %>
 				<div class="sea">
-					
 					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
 					<div class="sea">
                		<input type="search" placeholder="검색어를 입력하세요" name="keyword" id="keyword">
@@ -199,15 +194,17 @@ border rounded>span {
 				<%} %>
 				<script>
 				    function enterForm() {
-				        var keyword = document.getElementById("keyword").value();
+				    	
+				        var keyword = document.getElementById("keyword").value;
+				        console.log(keyword);
 				        if (keyword === "") {
 				            alert("검색어를 입력해주세요.");
 				            return false; 
 				        }
-				        return true;
-				   	    }
-				</script>			
-			
+				        //return true;
+				   	  }
+				</script>	
+
 				<%if(loginUser != null){ %>
 				<div align="right">
 					<a href="<%=contextPath %>/enroll.service"
@@ -265,20 +262,39 @@ border rounded>span {
 										</div>
 
 										<textarea class="contentTextarea summernote" style="display: none" name="newcontent"><%=sb.getServiceContent() %></textarea>
-									</div>
-
-									<div class="upfileArea ">
+										
+										<div class="upfileArea ">
 
 										<%if(sb.getUpfileUrl() != null){ %>
+										<div class=fileimgarea>
 										<img src="<%= contextPath + "/" + sb.getUpfileUrl() %>"
-											style="max-width: 100%; height: auto;"> <br> <a
-											href="<%= contextPath + "/" + sb.getUpfileUrl() %>"
-											download="<%= contextPath + "/" + sb.getUpfileUrl() %>">다운로드</a>
+											style="max-width: 100%; height: auto;"> 
+										</div>	
+										<a href="<%= contextPath + "/" + sb.getUpfileUrl() %>" download="<%= contextPath + "/" + sb.getUpfileUrl() %>" class="btn btn-outline-secondary btn-sm" style="float: right;">다운로드</a>
 										<% }else{ %>
 										첨부파일이 없습니다.
 										<%} %>
 
+										</div>
+									
+									<div class="upNewfileArea ">
+
+										<%if(sb.getUpfileUrl() != null){ %>
+										<div class=fileimgarea>
+										<img src="<%= contextPath + "/" + sb.getUpfileUrl() %>"
+											style="max-width: 100%; height: auto;"> 
+										</div>	<a href="<%= contextPath + "/" + sb.getUpfileUrl() %>" download="<%= contextPath + "/" + sb.getUpfileUrl() %>" class="btn btn-outline-secondary btn-sm" style="float: right;">다운로드</a>
+										<% }else{ %>
+										첨부파일이 없습니다. 추가 하시겠습니까??
+										
+										<input type="file" value="파일추가">
+										<%} %>
+
 									</div>
+									
+									</div>
+
+									
 									<div class="buttonArea">
 
 										<button type="button" class="btn btn-outline-secondary btn-sm updateBtn"
@@ -328,12 +344,14 @@ border rounded>span {
 			        });
 			        
 			        $('.note-editor').hide();
-			        
+			        $('.upNewfileArea').hide();
 			        $(document).on("click", '.updateBtn', function(){
 			        
 			        	$(this).parent().siblings(".contentDiv").children(".borderDetailcontent").hide();
 			        	$(this).parent().siblings(".contentDiv").children(".note-editor").show();
-			    
+			    		$(this).parent().siblings(".contentDiv").children(".upfileArea").hide();
+			    		$(this).parent().siblings(".contentDiv").children(".upNewfileArea").show();
+			        	
 			        	$(this).html("저장");
 			        	$(this).attr("type", "submit");
 			        	$(this).removeClass("updateBtn");

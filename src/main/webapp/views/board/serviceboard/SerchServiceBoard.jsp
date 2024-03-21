@@ -117,14 +117,14 @@ border rounded>span {
 
 .border {
 	min-height: 250px;
-	text-align: left;
-	white-space: pre;
+	
 	overflow: auto;
 }
 
 .buttonArea {
 	display: flex;
 	justify-content: flex-end;
+	margin: 20px;
 }
 
 
@@ -145,22 +145,18 @@ border rounded>span {
 	margin: 20px;
 	text-align: left;
 }
-.page-item.disabled .page-link {
-    background-color: white; 
-    color: black; 
-}
-.page-item.active .page-link {
-    background-color: #1abc9c; 
-    color: #ffffff; 
-}
-.page-item .page-link {
-    background-color: white; 
-    color: black; 
-}
-
-.page-item .page-link:hover {
-    background-color: #1abc9c; 
-    color: white;
+.my.pagination > .active > a, 
+ .my.pagination > .active > span, 
+ .my.pagination > .active > a:hover, 
+ .my.pagination > .active > span:hover, 
+ .my.pagination > .active > a:focus, 
+ .my.pagination > .active > span:focus {
+     background: #1abc9c;
+     border-color: #1abc9c;
+ }
+ 
+ .page-item a.page-link {
+ color: #1abc9c;
 }
 </style>
 </head>
@@ -328,7 +324,7 @@ border rounded>span {
 			        	$(this).parent().siblings(".contentDiv").children(".borderDetailcontent").hide();
 			        	$(this).parent().siblings(".contentDiv").children(".note-editor").show();
 			    
-			        	$(this).html("수정하기");
+			        	$(this).html("저장하기");
 			        	$(this).attr("type", "submit");
 			        	$(this).removeClass("updateBtn");
 			        	return false;
