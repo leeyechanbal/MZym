@@ -241,7 +241,8 @@
                     </div>
                 
                 </div>
-
+                
+                <!-- 식단 삭제, 각 총합칼로리 조회와 삭제/추가시 칼로리 업데이트 -->
                 <script>
                     function deleteMenu(){
                     	var parentLi = event.target.parentElement;  
@@ -257,6 +258,7 @@
                             	console.log("성공");
                             	parentLi.remove();
                             	calculateTotalKcal();
+                            	calculateTodayTotalKcal();
                             },
                             error:function(){
                                 console.log("실패");
@@ -293,20 +295,43 @@
                             var inputId = 'totalKcal' + ulId.substr(2);
                             document.getElementById(inputId).value = totalKcal + ' kcal';
                         });
+                        
+                        
                     }
+                    
+                    window.onload = function() {
+                        calculateTotalKcal(); // 페이지가 로드될 때 총 칼로리 계산
+                        calculateTodayTotalKcal(); // 페이지가 로드될 때 오늘 섭취한 총 칼로리 계산
+                    };
+
+                    function calculateTodayTotalKcal() {
+                        var totalTodayKcal = 0; // 오늘 섭취한 총 칼로리
+
+                        // 각 ul의 총 칼로리를 가져와 더하기
+                        document.querySelectorAll('input[id^="totalKcal"]').forEach(function(input) {
+                            var kcal = parseInt(input.value.replace(/\D/g, ""));
+                            totalTodayKcal += kcal;
+                        });
+
+                        // 오늘 섭취한 총 칼로리를 화면에 나타냄
+                        document.getElementById('todayKcal').value = totalTodayKcal + ' kcal';
+                    }
+                    
                 </script>
+                
+             
 
                 <div class="kcal">
                     <table>
                         <tr>
                             <th>오늘의 섭취 칼로리 : </th>
-                            <td><input type="text" readonly></td>
+                            <td><input type="text" id="todayKcal" readonly></td>
                         </tr>
                     </table>
                 </div>
 
             </form>
-
+            
 
             <!-- 추가하기 모달창 -->
             <div class="modal" id="plusKcal">

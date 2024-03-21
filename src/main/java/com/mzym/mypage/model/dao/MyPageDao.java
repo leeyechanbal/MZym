@@ -94,7 +94,6 @@ public class MyPageDao {
 			pstmt.setString(1, newPwd);
 			pstmt.setString(2, userId);
 			pstmt.setString(3, userPwd);
-			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
