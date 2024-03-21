@@ -10,6 +10,8 @@ public class Comment {
 	private String commentContent;
 	private String status;
 	
+	private Board board; // 신고글 조회시 필요한 객체
+	
 	public Comment() {}
 
 	public Comment(int commentNo, int boardNo, String commentWriter, String userName, String commentDate,
@@ -88,6 +90,14 @@ public class Comment {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
 	@Override
