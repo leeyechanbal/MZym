@@ -31,7 +31,7 @@ public class Report {
 		this.reportUser = repoertUser;
 		this.reportDate = reportDate;
 		this.status = status;
-		this.at = at;
+		this.att = at;
 	}
 
 
