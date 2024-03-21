@@ -2,10 +2,6 @@ package com.mzym.board.vo;
 
 import java.sql.Date;
 
-/**
- * @author 이예찬
- *	게시글 정보관리 클래스
- */
 public class Board {
 	private int boardNo; // 글번호 
 	private int boardWriter; // 작성자 = 회원 맴버번호
@@ -18,6 +14,9 @@ public class Board {
 	private String status; 
 	private int reviewRate; // null 0 
 	private int count;  // 기본값 0
+	
+	private String category; // 게시판 카테고리명을 담기 위한 변수
+	private Attachment att; // 게시글의 첨부파일을 담기 위한 객체
 	
 	public Board() {
 		super();
@@ -111,6 +110,22 @@ public class Board {
 		this.count = count;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Attachment getAtt() {
+		return att;
+	}
+
+	public void setAtt(Attachment att) {
+		this.att = att;
+	}
+
 	public Board(int boardNo, int boardWriter, int boardType, String boardTitle, String boardContent, Date regist_Date,
 			Date modify_date, String status, int reviewRate, int count) {
 		super();
@@ -142,6 +157,32 @@ public class Board {
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 	}
+
+	/**
+	 * @author 이예찬
+	 * @param boardNo 글번호
+	 * @param boardMember 글쓴이
+	 * @param boardTitle 글 제목
+	 * @param boardContent 글 내용
+	 * @param category 글 유형에 맞는 카테고리
+	 * @param att 각 글에 맞는 첨부파일
+	 * 지우면 나 프로젝트 안해
+	 */
+	public Board(int boardNo, String boardMember, String boardTitle, String boardContent, String category, Attachment att) {
+		super();
+		this.boardNo = boardNo;
+		this.boardMember = boardMember;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.category = category;
+		this.att = att;
+	}
+
+	public Board(int boardNo, String category) {
+		this.boardNo = boardNo;
+		this.category = category;
+	}
+
 	
 	
 

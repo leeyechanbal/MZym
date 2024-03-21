@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.mzym.common.paging.PageInfo" %>
+<%@ page import="com.mzym.board.vo.Report" %>
+<%
+	PageInfo info = (PageInfo)request.getAttribute("info");
+	List<Report> list = (List<Report>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,15 +63,77 @@
                            <th>종류</th>
                        </tr>
 
+					<%for (int i =0; i < list.size(); i++){ 
+						/* 반복되는 변수 선언 */
+						Report re = list.get(i);
+						// 신고된 종류
+						String type = re.getType();
+					%>
+						<%if (type.equals("board")) {
+							// 게시글인 경우 반복된는 변수
+						%>
 
-                       <tr class="tr-title" data-toggle="collapse" data-target="#context1"> <!--반복문 !! -->
+									<tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
+			                           <td class="table-number"><%= %></td>
+			                           <td class="table-title">여기서 똥싸도 되요.</td>
+			                           <td>user0001</td>
+			                           <td>댓글</td>
+			                       </tr>
+			
+			                       <tr id="context<%=i%>" class="collapse">
+			                   <form action="" method="get">
+			                           <td colspan="5">
+			                               <div class="collapseitem">
+			                                   <fieldset>
+			                                       <legend>세부사항</legend>
+			                                       <ul>
+			                                           <li>글번호: </li>
+			                                           <li>카테고리: </li>
+			                                           <li>작성자: </li>
+			                                           <li>신고일: </li>
+			                                       </ul>
+			                                   </fieldset>
+			                                   <p class="border"> 저희 집 안마당에서 강아지 똥 치워주 실 멍청이 구합니다.</p>
+			                                   <div>
+			                                       <button type="submit" style="margin-left: 600px;" class="btn btn-outline-warning btn-sm">신고취소</button>
+			                                       <button type="submit" style="margin-left: 50px;" class="btn btn-outline-warning btn-sm">신고확인</button>
+			                                   </div>
+			                               </div>
+			                           </td>
+			                   </form>
+			                       </tr>
+						
+						
+						<%} else {   
+							// 댓글인 경우 반복되는 변수
+						%>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<%} %>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+                       <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>"> <!--반복문 !! -->
                            <td class="table-number">1</td>
                            <td class="table-title">여기서 똥싸도 되요.</td>
-                           <td name="">user0001</td>
+                           <td>user0001</td>
                            <td>댓글</td>
                        </tr>
 
-                       <tr id="context1" class="collapse">
+                       <tr id="context<%=i%>" class="collapse">
                    <form action="" method="get">
                            <td colspan="5">
                                <div class="collapseitem">
@@ -78,16 +147,15 @@
                                        </ul>
                                    </fieldset>
                                    <p class="border"> 저희 집 안마당에서 강아지 똥 치워주 실 멍청이 구합니다.</p>
-                                   <img src="" alt="첨부파일 미리보기">
                                    <div>
-                                       <input type="file" name="">
-                                       <button type="submit" style="margin-left: 650px;" class="btn btn-outline-warning btn-sm">수정</button>
+                                       <button type="submit" style="margin-left: 600px;" class="btn btn-outline-warning btn-sm">신고취소</button>
+                                       <button type="submit" style="margin-left: 50px;" class="btn btn-outline-warning btn-sm">신고확인</button>
                                    </div>
                                </div>
                            </td>
                    </form>
                        </tr>
-                   
+                   <%} %>
 
 
                 
@@ -111,39 +179,10 @@
                </ul>
            </td>
            
-           <td class="section3 ">
-               <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
-           </td>
+           <td class="section3 "></td>
        </tfoot>
        <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
   </table>
-
-
-<!-- 삭제용 모달 -->
-<div class="modal" id="deletModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3 class="modal-title">게시물 삭제</h3>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center; font-size: 15px; ">
-            게시물을 정말로 삭제 하시겠습니까?
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
 
    
 </body>

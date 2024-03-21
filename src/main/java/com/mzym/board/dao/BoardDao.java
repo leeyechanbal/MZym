@@ -529,20 +529,76 @@ public class BoardDao {
 	
 	/**
 	 * @author 이예찬
+	 * @param conn db에 연결하기 위한 객체
 	 * @param info 현재 페이지와 입력받은 데이터로 페이징처리된 객체
 	 * @param status 현재 신고 대기인지 완료인지를 구별
 	 * @return 구별된 신고 게시글을 반환
 	 */
-	public List<Report> selectedBoard(PageInfo info, String status) {
+	public List<Report> selectedBoard(Connection conn ,PageInfo info, String status) {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
+		List<Report> list = new ArrayList<>();
 		
-		String sql = prop.getProperty("");
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectReport"));
+			pst.setString(1, status);
+			pst.setString(2, status);
+			rset = pst.executeQuery();
+			
+			for(;rset.next();) {
+				String type = rset.getString("type");
+				
+				if(type.equals("board")) {
+					list.add(new Report(
+								rset.getInt("REPORT_NO")
+								, rset.getString("reportID")
+								, rset.getString("REPORT_DATE")
+								, rset.getString("reportCategory")
+								, new Board(rset.getInt("BOARD_NO")
+										, rset.getString("boardID")
+											, rset.getString("title_comment")
+											, rset.getString("content")
+											, rset.getString("boardCategory")
+											, new Attachment(
+														rset.getString("orgin_date")
+														, rset.getString("CHANGE_NAME")
+														, rset.getString("FILE_PATH")
+													) // attachment
+										)// board
+								, type
+							));	// list
+				}else {
+					list.add(new Report(
+							rset.getInt("REPORT_NO")
+							, rset.getString("reportID")
+							, rset.getString("REPORT_DATE")
+							, rset.getString("reportCategory")
+							, new Board(
+									rset.getInt("BOARD_NO")
+									, rset.getString("boardCategory")
+									)// board
+							, new Comment(
+									Integer.parseInt(rset.getString("title_comment"))
+									, rset.getString("content")
+									, rset.getString("boardID")
+									)// comment
+							,type
+							));// list
+				}// else문
+				
+			}// for문
+			
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pst);
+		}
 		
-		
-		
-		
-		return null;
+		return list;
 	}
 
 	

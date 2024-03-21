@@ -10,19 +10,20 @@ public class Report {
 	private int boardNo;
 	private int commentNo;
 	private int categoryNo;
+	private String categoryName; // 신고 카테고리이름을 담는 객체
 	private int reportUser; // 신고한 회원 번호
 	private String reportDate; // 신고한 날짜
 	private String status;
 	
-	private Attachment att; // 신고 글에 담기는 첨부파일 객체
 	private Board board; // 게시글 정보를 담은 객체
 	private Comment comment; // 댓글 정보를 담을 객체
 	private String UserID; // 조회된 유저 아이디를 담을 변수
+	private String type; // 댓글인지 게시판인지 판단하는 변수 
 	
 	public Report() {}
 
 	public Report(int reportNo, int boardNO, int commentNo, int categoryNO, int repoertUser, String reportDate,
-			String status, Attachment at) {
+			String status) {
 		super();
 		this.reportNo = reportNo;
 		this.boardNo = boardNO;
@@ -31,7 +32,6 @@ public class Report {
 		this.reportUser = repoertUser;
 		this.reportDate = reportDate;
 		this.status = status;
-		this.att = at;
 	}
 
 
@@ -41,6 +41,56 @@ public class Report {
 		this.boardNo = boardNo;
 		this.categoryNo = categoryNo;
 		this.reportUser = reportUser;
+	}
+	
+	/**
+	 * @author 이예찬
+	 * @param reportNo 신고글 번호
+	 * @param UserID 신고한 사람
+	 * @param reportDate 신고 날짜
+	 * @param categoryName 신고 카테고리
+	 * @param board 신고된 게시글의 정보 (Attachment을 포함)
+	 * @param type "board" 구분을 위한 문자열
+	 */
+	public Report(int reportNo, String UserID, String reportDate, String categoryName, Board board, String type) {
+		super();
+		this.reportNo = reportNo;
+		this.UserID = UserID;
+		this.categoryName = categoryName;
+		this.reportDate = reportDate;
+		this.board = board;
+		this.type = type;
+	}
+	
+	
+	/**
+	 * 신고 댓글을 받아오기 위한  생성자
+	 * @author 이예찬
+	 * @param reportNo 신고 번호
+	 * @param UserID 신고자의 아이디
+	 * @param reportDate 신고 날짜
+	 * @param categoryName 신고 카테고리명
+	 * @param board 신고된 댓글이 갖는 게시물 정보
+	 * @param comment 신고된 댓글의 정보
+	 * @param type "comment" 구분을 위한 문자열
+	 */
+	public Report(int reportNo, String UserID, String reportDate, String categoryName,Board board, Comment comment, String type) {
+		super();
+		this.reportNo = reportNo;
+		this.UserID = UserID;
+		this.categoryName = categoryName;
+		this.board = board;
+		this.reportDate = reportDate;
+		this.comment = comment;
+		this.type = type;
+	}
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public int getReportNo() {
@@ -99,14 +149,6 @@ public class Report {
 		this.status = status;
 	}
 
-	public Attachment getAtt() {
-		return att;
-	}
-
-	public void setAtt(Attachment att) {
-		this.att = att;
-	}
-
 	public Board getBoard() {
 		return board;
 	}
@@ -130,6 +172,16 @@ public class Report {
 	public void setUserID(String userID) {
 		UserID = userID;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	
 
 	@Override
 	public String toString() {
