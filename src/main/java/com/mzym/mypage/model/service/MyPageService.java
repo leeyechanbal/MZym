@@ -6,14 +6,15 @@ import static com.mzym.common.template.JDBCTemplate.getConnection;
 import static com.mzym.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
 import com.mzym.mypage.model.dao.MyPageDao;
+import com.mzym.mypage.model.vo.Food;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
-import com.mzym.mypage.model.vo.Product;
 
 public class MyPageService {
 
@@ -102,6 +103,51 @@ public class MyPageService {
 		Payment pay = myDao.selectPayment(conn, userNo);
 		close(conn);
 		return pay;
+	}
+	
+	public List<Food> selectListFood(int foodUser){
+		Connection conn = getConnection();
+		List<Food> list = myDao.selectListFood(conn, foodUser);
+		close(conn);
+		return list;
+	}
+	
+	public Food selectFood(int foodUser) {
+		Connection conn = getConnection();
+		Food o = myDao.selectFood(conn, foodUser);
+		close(conn);
+		return o;
+	}
+	
+	public int insertFood(int foodUser, String category, String menu, int kcal) {
+		Connection conn = getConnection();
+		int result = myDao.insertFood(conn, foodUser, category, menu, kcal);
+		
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+		
+	}
+	
+	public List<Food> deleteFood(int foodUser, int foodNo) {
+		Connection conn = getConnection();
+		int result = myDao.deleteFood(conn, foodUser, foodNo);
+		
+		List<Food> list = new ArrayList<>();
+		if(result > 0 ) {
+			commit(conn);
+			list = myDao.selectListFood(conn, foodUser);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return list;
 	}
 	
 	

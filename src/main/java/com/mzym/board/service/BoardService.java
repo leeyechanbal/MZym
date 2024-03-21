@@ -414,6 +414,30 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+	
+	public int insertReport(Report r) {
+		Connection conn = getConnection();
+		int result = dao.insertReport(conn, r);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertCommentReport(Report r) {
+		Connection conn = getConnection();
+		int result = dao.insertCommentReport(conn, r);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 		
 	
 		

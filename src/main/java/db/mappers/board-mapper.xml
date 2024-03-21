@@ -519,6 +519,50 @@ where status = ?
 	)
 </entry>
 
+<!--
+	작성자 : 황수림
+	글 신고 구문
+-->
+<entry key="insertReport">
+	INSERT
+	INTO	REPORT
+	(
+		REPORT_NO
+	,	BOARD_NO
+	,	CATEGORY_NO
+	,	REPORT_USER
+	)
+	VALUES
+	(
+		SEQ_REPORTNO.NEXTVAL
+	,	?
+	,	?
+	,	?
+	)
+</entry>
+
+<!--
+	작성자 : 황수림
+	댓글 신고 구문
+-->
+<entry key="insertCommentReport">
+	INSERT
+	INTO	REPORT
+	(
+		REPORT_NO
+	,	COMMENT_NO
+	,	REPORT_USER
+	,	CATEGORY_NO
+	)
+	VALUES
+	(
+		SEQ_REPORTNO.NEXTVAL
+	,	?
+	,	?
+	,	?
+	)
+</entry>
+
 <!--  -->
 <entry key=""></entry>
 

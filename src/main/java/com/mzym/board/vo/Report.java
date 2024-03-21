@@ -7,10 +7,10 @@ package com.mzym.board.vo;
  */
 public class Report {
 	private int reportNo;
-	private int boardNO;
+	private int boardNo;
 	private int commentNo;
-	private int categoryNO;
-	private int repoertUser; // 신고한 회원 번호
+	private int categoryNo;
+	private int reportUser; // 신고한 회원 번호
 	private String reportDate; // 신고한 날짜
 	private String status;
 	private Attachment at; // 신고 글에 담기는 첨부파일 객체
@@ -24,13 +24,22 @@ public class Report {
 			String status, Attachment at) {
 		super();
 		this.reportNo = reportNo;
-		this.boardNO = boardNO;
+		this.boardNo = boardNO;
 		this.commentNo = commentNo;
-		this.categoryNO = categoryNO;
-		this.repoertUser = repoertUser;
+		this.categoryNo = categoryNO;
+		this.reportUser = repoertUser;
 		this.reportDate = reportDate;
 		this.status = status;
 		this.at = at;
+	}
+
+
+	public Report(int reportNo, int boardNo, int categoryNo, int reportUser) {
+		super();
+		this.reportNo = reportNo;
+		this.boardNo = boardNo;
+		this.categoryNo = categoryNo;
+		this.reportUser = reportUser;
 	}
 
 	public int getReportNo() {
@@ -41,12 +50,12 @@ public class Report {
 		this.reportNo = reportNo;
 	}
 
-	public int getBoardNO() {
-		return boardNO;
+	public int getBoardNo() {
+		return boardNo;
 	}
 
-	public void setBoardNO(int boardNO) {
-		this.boardNO = boardNO;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
 	public int getCommentNo() {
@@ -57,20 +66,20 @@ public class Report {
 		this.commentNo = commentNo;
 	}
 
-	public int getCategoryNO() {
-		return categoryNO;
+	public int getCategoryNo() {
+		return categoryNo;
 	}
 
-	public void setCategoryNO(int categoryNO) {
-		this.categoryNO = categoryNO;
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 
-	public int getRepoertUser() {
-		return repoertUser;
+	public int getReportUser() {
+		return reportUser;
 	}
 
-	public void setRepoertUser(int repoertUser) {
-		this.repoertUser = repoertUser;
+	public void setReportUser(int reportUser) {
+		this.reportUser = reportUser;
 	}
 
 	public String getReportDate() {
@@ -89,20 +98,14 @@ public class Report {
 		this.status = status;
 	}
 
-	public Attachment getAt() {
-		return at;
-	}
-
-	public void setAt(Attachment at) {
-		this.at = at;
-	}
-
 	@Override
 	public String toString() {
-		return "Report [reportNo=" + reportNo + ", boardNO=" + boardNO + ", commentNo=" + commentNo + ", categoryNO="
-				+ categoryNO + ", repoertUser=" + repoertUser + ", reportDate=" + reportDate + ", status=" + status
-				+ ", at=" + at + "]";
+		return "Report [reportNo=" + reportNo + ", boardNo=" + boardNo + ", commentNo=" + commentNo + ", categoryNo="
+				+ categoryNo + ", reportUser=" + reportUser + ", reportDate=" + reportDate + ", status=" + status + "]";
 	}
-
 	
+	
+
 }
+
+

@@ -44,6 +44,29 @@ public class CalendarService {
 		close(conn);
 		return result;
 	}
+	
+	
+	// 일정 수정
+	public int calendarUpdate(Calendar cal, String calUserName, String calPhone) {
+		Connection conn = getConnection();
+		
+		int result = cDao.calendarUpdate(conn, cal, calUserName, calPhone);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 
 
 }
