@@ -268,17 +268,101 @@ where status = ?
 
 <!-- 
 	작성자 : 이예찬
-	신고된 게시글을 조회 하는 매서드
+	신고된 게시글(첨부파일) 및 댓글을 조회 하는 쿼리문
+	진짜 이거 지워지면 나 안할 꺼야
  -->
-<entry key="selectBoard">
+<entry key="selectReport">
+select *
+from(
+    select ROWNUM seq, port.*
+    from(
+        select * 
+        from(
+             select
+                REPORT_NO
+                , mzym_member.USER_ID reportID -- 신고자 아이디
+                , REPORT_DATE -- 신고일
+                , report_category.CATEGORY_NAME reportCategory -- 신고 카테고리
+                , BOARD_NO
+                , board.CATEGORY_NAME boardCategory -- 게시글 카테고리
+                
+                , BOARD_TITLE title_comment -- 게시글 제목
+                , board_content content -- 게시글 내용
+                , board.USER_ID boardID -- 게시글 작성자
+                , ORIGIN_NAME orgin_date
+                , CHANGE_NAME 
+                , FILE_PATH 
+                , 'board' type
+            from report
+             -- 게시물 조회
+            join (
+                select 
+                    BOARD_NO
+                    , BOARD_TITLE
+                    , board_content
+                    , USER_ID
+                    , CATEGORY_NAME
+                    , ORIGIN_NAME
+                    , CHANGE_NAME
+                    , FILE_PATH
+                from mzym_board 
+                join board_category on (BOARD_TYPE = CATEGORY_NO)
+                join mzym_member on(BOARD_WRITER = USER_NO)
+                left join Attachment on (att_no = BOARD_NO and ATT_CATEGORY != 'N')
+                where mzym_board.status = 'N'
+                    )board using (BOARD_NO)
+            join report_category using (CATEGORY_NO)
+            join mzym_member on (REPORT_USER = USER_NO)
+            where report.status = ? <!-- 신고글이 Y 신고됨 N 신고 완료 -->  
+        )
+        union
+        select * 
+        from(
+            select
+               REPORT_NO -- 신고 번호
+               , USER_ID -- 신고자 아이디
+               , REPORT_DATE -- 신고 날짜
+               , report_category.CATEGORY_NAME reportCategory -- 신고 카테고리
+               , com.board_No
+               , com.CATEGORY_NAME boardCategory -- 게시판 카테고리
+               
+               , to_char(comment_no)
+               , comment_content
+               , com.USER_NAME -- 댓글 작성자
+               , null null3
+               , null null1
+               , null null2
+               , 'comment'
+            from report 
+            -- 답글 조회
+               join (
+                    select 
+                        COMMENT_NO
+                        , BOARD_NO
+                        , CATEGORY_NAME
+                        , USER_NAME
+                        , COMMENT_DATE
+                        , COMMENT_CONTENT
+                    from board_comment
+                    join mzym_board using (BOARD_NO)
+                    join board_category on (BOARD_TYPE = CATEGORY_NO)
+                    where board_comment.status = 'N'
+                ) com using (COMMENT_NO)
+            
+            join mzym_member on (REPORT_USER = USER_NO)
+            join report_category using(CATEGORY_NO)
+            where report.STATUS = ? <!-- 신고글이 Y 신고됨 N 신고 완료 --> 
+        )
+    )port
+    order by REPORT_NO DESC   
+)
+where seq BETWEEN ? and ?
 
 </entry>
 
 <!-- 
-	작성자 : 이예찬
-	신고된 댓글을 조회하는 쿼리문
  -->
-<entry key="selectComment">
+<entry key="">
 
 </entry>
 

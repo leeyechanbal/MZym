@@ -251,14 +251,10 @@ public class BoardService {
 	 */
 	public List<Report> selectedBoard(PageInfo info, String status) {
 		Connection conn = getConnection();
-		List<Report> list = dao.selectedBoard(info, status);
+		List<Report> list = dao.selectedBoard(conn, info, status);
+		close(conn);
 		
-		if(list != null) {
-			
-		}
-		
-		
-		return null;
+		return list;
 	}
 	
 	

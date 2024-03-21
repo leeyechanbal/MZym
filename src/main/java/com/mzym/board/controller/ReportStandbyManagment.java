@@ -49,9 +49,12 @@ public class ReportStandbyManagment extends HttpServlet {
 			
 			if(listCount > 0 && info != null) {
 				List<Report> list = new BoardService().selectedBoard(info, status);
+				
+				request.setAttribute("info", info);
+				request.setAttribute("list", list);
+				
+				request.getRequestDispatcher("/views/trainer/Leeyechane/reportStandBy.jsp").forward(request, response);
 			}
-			
-		
 		}
 	}
 
