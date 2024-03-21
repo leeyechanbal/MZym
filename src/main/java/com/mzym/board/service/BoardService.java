@@ -226,8 +226,20 @@ public class BoardService {
 		return result;
 	}
 	
-	
-	
+	/**
+	 * @author 이예찬
+	 * @return 신고 대기 중인 게시글 총 갯수 반환
+	 * 신고글을 N, Y에 따라 총 갯수 요청 매서드
+	 */
+	public int reportCount(String status) {
+		Connection conn = getConnection();
+		
+		int count = dao.reportCount(conn, status);
+		
+		close(conn);
+		
+		return count;
+	}
 	
 	
 	
@@ -416,5 +428,6 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+
 
 }// class END

@@ -7,21 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.mzym.board.service.BoardService;
 
 /**
- * Servlet implementation class NoticeDelete
+ * Servlet implementation class ReportStandby
  */
-@WebServlet("/deletedNotice.traniner")
-public class NoticeDelete extends HttpServlet {
+@WebServlet("/reportStandby.trainer")
+public class ReportStandbyManagment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDelete() {
+    public ReportStandbyManagment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,29 +28,15 @@ public class NoticeDelete extends HttpServlet {
 	/**
 	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 페이징 처리, 글 첨부파일 확인, PageInfo랑 List객체 생성 후 전달
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+		int currentPage = Integer.parseInt(request.getParameter("page"));
+		String status = "Y"; // 신고가 된 개시글 갯수만 조회
 		
-		if(request.getParameter("boardNum") != null) {
-			
-			int  boardNum= Integer.parseInt(request.getParameter("boardNum"));
-			String change = request.getParameter("fileName");
-			
-			String type = "N"; // 카테고리 처리 (N 공지사항일경우)
-	
-			int result = new BoardService().deletedNotice(boardNum, change, type);
-			
-			if(result > 0) {
-				session.setAttribute("alert", "삭제 되었습니다.");
-				response.sendRedirect(request.getContextPath()+"/listNotice.trainer?page=1");
-			}else {
-				session.setAttribute("alert", "요청에 실패 했습니다.");
-			}
-		} else {
-			session.setAttribute("alert", "요청에 실패 했습니다.");
-		}
+		int listCount = new BoardService().reportCount(status);
+		
 		
 		
 	}

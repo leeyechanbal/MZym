@@ -18,13 +18,13 @@ import com.mzym.common.paging.PageInfo;
  * Servlet implementation class CounselingManigment
  */
 @WebServlet("/counseling.trainer")
-public class CounselingManigment extends HttpServlet {
+public class CounselingManagment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CounselingManigment() {
+    public CounselingManagment() {
         super();
         // TODO Auto-generated constructor stub
     }
