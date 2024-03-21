@@ -1,0 +1,62 @@
+package com.mzym.mypage.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.service.MyPageService;
+import com.mzym.mypage.model.vo.Food;
+
+/**
+ * Servlet implementation class MypageDietMenuSelectController
+ */
+@WebServlet("/dietmenu.me")
+public class MypageDietMenuSelectController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MypageDietMenuSelectController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// select 조회------------------------------
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int foodUser = loginUser.getUserNo();
+		
+		List<Food> list = new MyPageService().selectListFood(foodUser);
+		Food o = new MyPageService().selectFood(foodUser);
+		
+		request.setAttribute("o", o);
+		request.setAttribute("list", list);
+		//----------------------------------------
+		
+		
+		request.getRequestDispatcher("/views/mypage/dietMenu.jsp").forward(request, response);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
