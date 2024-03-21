@@ -7,7 +7,7 @@
 //	Member loginUser = (Member)request.getSession().getAttribute("longinUser");
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	Calendar clist = (Calendar)request.getAttribute("clist");
-	System.out.println(loginUser);
+
 
 %>
 <!DOCTYPE html>
@@ -77,7 +77,7 @@
 
             <div class="side_login">
                 <img src="<%=contextPath %>/resources/img/common/profile_icon_512x512.png" style="width: 75px"> <br>
-                xxx 트레이너
+                <%=loginUser.getUserName() %> 트레이너
             </div>
             <div class="side_list" >
                 
@@ -260,6 +260,7 @@
                                             <label style="width: 100px;">회원이름</label>
                                         </td>
                                         <td>
+                                        	<input type="hidden" id="calNo">
                                             <input type="text" required id="calUserName">
                                         </td>
                                         <td>
@@ -298,7 +299,7 @@
                                             <label>작성자</label>
                                         </td>
                                         <td colspan="3">
-                                        	<input type="hidden" id="trNo">
+                                        	<input type="hidden" >
                                             <input type="text" id="writer" style="margin-bottom: 15px; margin-top: 15px;" readonly required>
                                         </td>
                                     </tr>
@@ -374,6 +375,7 @@
         		let pt = [];
         		for(let i=0; i<clist.length;i++){
         			pt.push({
+        				id : clist[i].calNo,						// 일정번호
         				title : clist[i].calTitle,					// 제목
         				start : clist[i].startDate,					// 시작일
         				end : clist[i].endDate,						// 종료일
@@ -418,6 +420,7 @@
                 	let start = event.start;
                 	let end = event.end;
                 	let phoneNumber = event.phoneNumber; // calPhone
+                	let id = event.id;                   // calNo
                 	let organizer = event.organizer;     // writer
                 	let title = event.title;
                 	let description = event.description;  // content
@@ -432,6 +435,7 @@
 	                	$("#myModal3 input[id='calPhone']").val(event.extendedProps.phoneNumber);
 	                	$("#myModal3 input[id='writer']").val(event.extendedProps.organizer);
 	                	$("#myModal3 input[id='title']").val(title);
+	                	$("#myModal3 input[id='calNo']").val(id);
 	                	$("#myModal3 textarea[id='content']").val(event.extendedProps.description);
 	
 	                	// 모달창 띄우기
@@ -466,7 +470,7 @@
             			endDate:$("input[name='endDate']").val(),
             			userPhone:$("input[name='userPhone']").val(),
             			writer:$("input[name='writer']").val(),
-            			trNo:$("input[name='trNo']").val(),
+            			trNo:"<%=loginUser.getUserNo()%>",
             			title:$("input[name='title']").val(),
             			content:$("textarea[name='content']").val()
             		},
@@ -489,7 +493,7 @@
             	$.ajax({
             		url:"<%=contextPath%>/update.cal",
             		data:{
-            			calNo:$("#calNo").val(), // 166
+            			calNo:$("#myModal3 input[id='calNo']").val(), // 166
             			calUserName:$("#calUserName").val(),
             			calColor:$("#calColor").val(),
             			startDate:$("#startDate").val(),
@@ -497,7 +501,7 @@
             			calPhone:$("#calPhone").val(),
             			title:$("#title").val(),
             			contnet:$("#content").val(),
-            			trNo:$("#trNo").val()  // 15
+            			trNo:"<%=loginUser.getUserNo()%>"  // 15
             		},
             		type:"post",
             		success:function(result){
@@ -518,11 +522,11 @@
 		            if(confirm("정말로 삭제하시겠습니까?")){
 		            	$.ajax({
 		            		url:"<%=contextPath%>/delete.cal",
-		            		data:{calNo:171}, //{calNo:$("#calNo").val()},  
+		            		data:{calNo:$("#myModal3 input[id='calNo']").val()}, //{calNo:$("#calNo").val()},  
 		            		type:"get",
 		            		success:function(result){
 		            			console.log(result);
-		            				arlet("일정을 삭제하였습니다.");
+		            			alert("일정을 삭제하였습니다.");
 		            		},
 		            		error:function(){
 		            			console.log("일정삭제 ajax 통신 실패");
