@@ -537,6 +537,9 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		
+		String sql = prop.getProperty("");
+		
+		
 		
 		
 		return null;

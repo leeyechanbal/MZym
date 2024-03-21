@@ -266,8 +266,21 @@ from report
 where status = ?
 </entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	신고된 게시글을 조회 하는 매서드
+ -->
+<entry key="selectBoard">
+
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	신고된 댓글을 조회하는 쿼리문
+ -->
+<entry key="selectComment">
+
+</entry>
 
 <!--  -->
 <entry key=""></entry>
@@ -280,8 +293,14 @@ where status = ?
 
 <!--  -->
 <entry key=""></entry>
-
-
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
+<!--  -->
+<entry key=""></entry>
 
 <!-- ============================= 이예찬 leeyechan =========================== -->
 
