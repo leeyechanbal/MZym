@@ -60,8 +60,6 @@ public class FreeBoardListController extends HttpServlet {
 		// 페이징바 데이터 객체
 		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
 		
-		System.out.println(pi);
-		
 		List<Board> list = new BoardService().selectFreeList(pi);
 		
 		request.setAttribute("pi", pi);
