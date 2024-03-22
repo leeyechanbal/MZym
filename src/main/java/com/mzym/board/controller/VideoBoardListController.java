@@ -48,7 +48,7 @@ public class VideoBoardListController extends HttpServlet {
 	          currentPage = 1;
 	      }
 		pagingLimit = 5;
-		boardLimit = 10;
+		boardLimit = 6;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		startPage = (currentPage-1) / pagingLimit * pagingLimit + 1;
@@ -59,9 +59,11 @@ public class VideoBoardListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Video>list = new BoardService().selectVideoList(pi);
+		List<Video> listBegin = new BoardService(). selectBeginnerVideoList();
+		List<Video> list = new BoardService(). selectVideoList(pi);
 		
 		request.setAttribute("pi", pi);
+		request.setAttribute("listBegin", listBegin);
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("/views/board/videoboard/videoBoardList.jsp").forward(request, response);

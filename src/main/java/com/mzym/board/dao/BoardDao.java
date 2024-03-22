@@ -1085,6 +1085,39 @@ public class BoardDao {
 		return listCount;
 	}
 	
+	public List<Video> selectBeginnerVideoList(Connection conn){
+		
+		List<Video> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBeginnerVideoList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Video( rset.getInt("video_no"),
+									rset.getString("video_title"),
+									rset.getString("link"),
+									rset.getInt("video_level")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	
 	public List<Video> selectVideoList(Connection conn, PageInfo pi){
 		
 		List<Video> list = new ArrayList<>();
@@ -1107,8 +1140,7 @@ public class BoardDao {
 				list.add(new Video( rset.getInt("video_no"),
 									rset.getString("video_title"),
 									rset.getString("link"),
-									rset.getInt("video_level"),
-									rset.getInt("count")
+									rset.getInt("video_level")
 						));
 			}
 			
@@ -1122,7 +1154,6 @@ public class BoardDao {
 		return list;
 		
 	}
-	
 /*	
 	================================= 손수현 videoBoard ==================================
 */

@@ -483,9 +483,16 @@ public class BoardService {
 		return listCount;
 	}
 	
-	public List<Video> selectVideoList(PageInfo pi){
+	public List<Video>  selectBeginnerVideoList(){
 		Connection conn = getConnection();
-		List<Video> list = dao.selectVideoList(conn, pi);
+		List<Video> list = dao. selectBeginnerVideoList(conn);
+		close(conn);
+		return list;
+	}
+	
+	public List<Video>  selectVideoList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Video> list = dao. selectVideoList(conn, pi);
 		close(conn);
 		return list;
 	}

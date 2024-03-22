@@ -6,6 +6,7 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	List<Video> list = (List<Video>)request.getAttribute("list");
+	List<Video> listBegin = (List<Video>)request.getAttribute("listBegin");
 %>
 <!DOCTYPE html>
 <html>
@@ -117,7 +118,8 @@
      
        <!-- Section start -->
        <section class="main_content">
-
+		
+		
         <div class="board_content">
 
             <h4>초보 추천 영상</h4>
@@ -125,17 +127,13 @@
             <br>
 
             <div class="board_list">
-				<% for(Video v : list) { %>
-					<% if(v.getVideoLevel() == 1) { %>
+				<% for(Video v : listBegin) { %>
 		                <div class="video">
 		                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" title="운동할 시간이 없다는 사람에게 보여주세요... 제발" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 		                    <div class="video_title"><%=v.getVideoTitle() %></div>
 		                    <div class="video_etc">
-		                    	<div class="video_writter"></div>
-		                        <div class="video_count"><%=v.getCount()%></div>
 		                    </div>
 		                </div>
-	                <% } %>
                  <% } %>
 
                 
@@ -148,26 +146,16 @@
 
             <div class="board_list">
             	<% for(Video v : list) { %>
-					<% if(v.getVideoLevel() == 2) { %>
                 <div class="video">
                     <iframe width="300px" height="200px" src="<%=v.getLink()%>" title="운동할 시간이 없다는 사람에게 보여주세요... 제발" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <div class="video_title"><%=v.getVideoTitle() %></div>
                     <div class="video_etc">
-                        <div class="video_writter"></div>
-                        <div class="video_count"><%=v.getCount()%></div>
                     </div>
                 </div>
-                	<% } %>
                 <% } %>
 
             </div>
             <br><br>
-
-            <div class="search">
-                <input type="text" placeholder="검색어를 입력하세요">
-                <img class="searchimg" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-            </div>
-            <br>
 
             <ul class="pagination my justify-content-center">
                <% if(pi.getCurrentPage() == 1) { %>

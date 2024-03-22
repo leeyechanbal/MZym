@@ -723,6 +723,25 @@ where seq BETWEEN ? and ?
 	작성자 : 손수현
 	영상게시판 페이징 리스트 쿼리문
 -->
+<entry key="selectBeginnerVideoList">
+	SELECT *
+		    FROM (
+		            SELECT ROWNUM RNUM, A.*
+		                FROM (
+		                        SELECT
+	                                  VIDEO_NO
+		                            , VIDEO_TITLE
+		                            , LINK
+		                            , VIDEO_LEVEL
+		                        FROM MZYM_VIDEO 
+		                        WHERE STATUS = 'Y'
+		                          AND VIDEO_LEVEL = 1
+		                        ORDER
+		                            BY VIDEO_NO DESC
+		                    ) A
+		        )
+</entry>
+
 <entry key="selectVideoList">
 	SELECT *
 		    FROM (
@@ -732,12 +751,10 @@ where seq BETWEEN ? and ?
 	                                  VIDEO_NO
 		                            , VIDEO_TITLE
 		                            , LINK
-		                            , COUNT
 		                            , VIDEO_LEVEL
-		                        FROM
-		                            MZYM_VIDEO 
-		                        WHERE
-		                            STATUS = 'Y'
+		                        FROM MZYM_VIDEO 
+		                        WHERE STATUS = 'Y'
+		                          AND VIDEO_LEVEL = 2
 		                        ORDER
 		                            BY VIDEO_NO DESC
 		                    ) A
