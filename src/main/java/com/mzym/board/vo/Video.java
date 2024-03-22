@@ -7,7 +7,8 @@ public class Video {
 	private String link;
 	private String staus;
 	private int videoLevel;
-	
+			
+			
 	public Video(int videoNo, String videoTitle, String link, String staus, int videoLevel) {
 		super();
 		this.videoNo = videoNo;

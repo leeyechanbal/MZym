@@ -177,7 +177,7 @@
     </Script>
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <!-- Modal Header -->
         <div class="modal-header">
@@ -185,11 +185,15 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
-    <form action="<%=mzymPath%>/deletedNotice.traniner" method="get">
-        <div class="modal-body" style="text-align: center; font-size: 15px; ">
-            게시물을 정말로 삭제 하시겠습니까?
+    <form action="<%=mzymPath%>/deletedNotice.traniner" method="post">
+        <div class="in-line" style="text-align: center;">
+            <h5>현재 선택된 게시글</h5> 
+            <div style="font-size: 15px;"><input type="text" class="board-data" value="152" id="boardNum" name="boardNum">번</div>
+            <div class="modal-body" style="text-align: center; font-size: 15px; ">
+                게시물을 정말로 삭제 하시겠습니까?
+            </div>
         </div>
-        <input type="hidden" id="boardNum" name="boardNum">
+        <!-- <input type="hidden" id="boardNum" name="boardNum"> -->
         <input type="hidden" id="fileName" name="fileName">
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -204,7 +208,7 @@
   
 <!-- 작성용 모달 -->
 <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-create">
                 <!-- Modal Header -->

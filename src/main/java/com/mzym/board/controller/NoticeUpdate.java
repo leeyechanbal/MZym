@@ -47,6 +47,8 @@ public class NoticeUpdate extends HttpServlet {
 			int max = 10 * 1024 *1024;
 			String path = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/");
 			
+			
+			// 빨간 줄 뜨면 clean을 합시다.
 			MultipartRequest multi = new MultipartRequest(request, path, max, "UTF-8", new RenameFile());
 			
 			

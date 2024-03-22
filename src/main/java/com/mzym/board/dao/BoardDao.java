@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
@@ -505,14 +506,14 @@ public class BoardDao {
 	 * @param conn
 	 * @return 신고 대기글 총 갯수 반환
 	 */
-	public int reportCount(Connection conn, String status) {
+	public int reportCount(Connection conn, HashMap<String, String> hash) {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		int count = 0;
 		
 		try {
 			pst = conn.prepareStatement(prop.getProperty("reportCount"));
-			pst.setString(1, status);
+			pst.setString(1, hash.get("status"));
 			rset = pst.executeQuery();
 			
 			if(rset.next()) {

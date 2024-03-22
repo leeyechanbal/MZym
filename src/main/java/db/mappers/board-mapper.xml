@@ -268,102 +268,98 @@ where status = ?
 
 <!-- 
 	작성자 : 이예찬
-	신고된 게시글(첨부파일) 및 댓글을 조회 하는 쿼리문
-	진짜 이거 지워지면 나 안할 꺼야
+	신고 게시판을 카테고리에 따라 조회하는 쿼리문
  -->
-<entry key="selectReport">
+<entry key="selectBoardReport">
 select *
 from(
-    select ROWNUM seq, port.*
+    select ROWNUM seq , report.* 
     from(
-        select * 
-        from(
-             select
-                REPORT_NO
-                , mzym_member.USER_ID reportID -- 신고자 아이디
-                , REPORT_DATE -- 신고일
-                , report_category.CATEGORY_NAME reportCategory -- 신고 카테고리
-                , BOARD_NO
-                , board.CATEGORY_NAME boardCategory -- 게시글 카테고리
-                
-                , BOARD_TITLE title_comment -- 게시글 제목
-                , board_content content -- 게시글 내용
-                , board.USER_ID boardID -- 게시글 작성자
-                , ORIGIN_NAME orgin_date
-                , CHANGE_NAME 
-                , FILE_PATH 
-                , 'board' type
-            from report
-             -- 게시물 조회
-            join (
-                select 
-                    BOARD_NO
-                    , BOARD_TITLE
-                    , board_content
-                    , USER_ID
-                    , CATEGORY_NAME
-                    , ORIGIN_NAME
-                    , CHANGE_NAME
-                    , FILE_PATH
-                from mzym_board 
-                join board_category on (BOARD_TYPE = CATEGORY_NO)
-                join mzym_member on(BOARD_WRITER = USER_NO)
-                left join Attachment on (att_no = BOARD_NO and ATT_CATEGORY != 'N')
-                where mzym_board.status = 'N'
-                    )board using (BOARD_NO)
-            join report_category using (CATEGORY_NO)
-            join mzym_member on (REPORT_USER = USER_NO)
-            where report.status = ? <!-- 신고글이 Y 신고됨 N 신고 완료 -->  
-        )
-        union
-        select * 
-        from(
-            select
-               REPORT_NO -- 신고 번호
-               , USER_ID -- 신고자 아이디
-               , REPORT_DATE -- 신고 날짜
-               , report_category.CATEGORY_NAME reportCategory -- 신고 카테고리
-               , com.board_No
-               , com.CATEGORY_NAME boardCategory -- 게시판 카테고리
-               
-               , to_char(comment_no)
-               , comment_content
-               , com.USER_NAME -- 댓글 작성자
-               , null null3
-               , null null1
-               , null null2
-               , 'comment'
-            from report 
-            -- 답글 조회
-               join (
-                    select 
-                        COMMENT_NO
-                        , BOARD_NO
-                        , CATEGORY_NAME
-                        , USER_NAME
-                        , COMMENT_DATE
-                        , COMMENT_CONTENT
-                    from board_comment
-                    join mzym_board using (BOARD_NO)
-                    join board_category on (BOARD_TYPE = CATEGORY_NO)
-                    where board_comment.status = 'N'
-                ) com using (COMMENT_NO)
-            
-            join mzym_member on (REPORT_USER = USER_NO)
-            join report_category using(CATEGORY_NO)
-            where report.STATUS = ? <!-- 신고글이 Y 신고됨 N 신고 완료 --> 
-        )
-    )port
-    order by REPORT_NO DESC   
+         select
+            REPORT_NO -- report영역
+            , mzym_member.USER_ID reportID -- 신고자 아이디
+            , REPORT_DATE -- 신고일
+            , rc.CATEGORY_NAME reportCategory -- 신고 카테고리
+            , BOARD_NO -- 게시글 번호
+            , board.CATEGORY_NAME boardCategory -- 게시글 카테고리 이름
+            , BOARD_TITLE -- 게시글 제목
+            , board.USER_ID boardID -- 게시글 작성자
+            , ORIGIN_NAME
+            , CHANGE_NAME
+            , FILE_PATH
+            , FILE_LEVEL
+            , BOARD_TYPE
+        from report
+         -- 게시물 조회
+        join (
+            select 
+                BOARD_NO
+                , BOARD_TITLE
+                , USER_ID
+                , CATEGORY_NAME
+                , ORIGIN_NAME
+                , CHANGE_NAME
+                , FILE_PATH
+                , FILE_LEVEL
+                , BOARD_TYPE
+            from mzym_board 
+            join board_category on (BOARD_TYPE = CATEGORY_NO and BOARD_TYPE = ?)<!-- 넘어오는 카테고리 번호 -->
+            join mzym_member on(BOARD_WRITER = USER_NO)
+            left join Attachment on (att_no = BOARD_NO and ATT_CATEGORY != 'N')
+                ) board using (BOARD_NO)
+        join report_category rc using (CATEGORY_NO)
+        join mzym_member on (REPORT_USER = USER_NO)
+        where report.status = ? <!-- 신고된 상태 N 처리완료 Y 신고대기 -->
+        order by REPORT_NO DESC 
+    )report
 )
-where seq BETWEEN ? and ?
+where seq BETWEEN ? and ? <!-- 페이징 처리된 숫자 -->
 
 </entry>
 
 <!-- 
+	작성자 : 이예찬
+	신고 댓글을 카테고리 따라 조회하는 쿼리문
  -->
-<entry key="">
-
+<entry key="selectCommnetReport">
+select *
+from(
+    select ROWNUM r , n.* 
+    from(
+        select
+           REPORT_NO 
+           , USER_ID -- 신고자 아이디
+           , REPORT_DATE -- 신고 날짜
+           , report_category.CATEGORY_NAME reportCategory -- 신고 카테고리
+           , com.board_No
+           , com.CATEGORY_NAME boardCategory -- 게시판 카테고리
+           , com.USER_NAME -- 댓글 작성자    
+           , comment_no
+           , comment_date
+           , comment_content
+        from report 
+        -- 답글 조회
+            join (
+                select 
+                    COMMENT_NO
+                    , BOARD_NO
+                    , CATEGORY_NAME
+                    , USER_NAME
+                    , COMMENT_DATE
+                    , COMMENT_CONTENT
+                from board_comment
+                join mzym_board using (BOARD_NO)
+                join board_category on (BOARD_TYPE = CATEGORY_NO AND BOARD_TYPE = ?)<!-- 게시물 타입 번호 -->
+			<!-- 신고 처리가 될때 게시물의 상태를 'N'으로 바꾸어야만 조회가 됨 -->
+            ) com using (COMMENT_NO)
+        
+        join mzym_member on (REPORT_USER = USER_NO)
+        join report_category using(CATEGORY_NO)
+        where report.STATUS = ? <!-- 신고된 상태 N 처리완료 Y 신고대기 -->
+        order by REPORT_NO DESC 
+    )n
+)
+where r BETWEEN ? and ? <!-- 페이징 된 댓글 숫자 -->
 </entry>
 
 <!--  -->

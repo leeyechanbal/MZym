@@ -6,6 +6,7 @@ import static com.mzym.common.template.JDBCTemplate.getConnection;
 import static com.mzym.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 
 import com.mzym.board.dao.BoardDao;
@@ -233,10 +234,10 @@ public class BoardService {
 	 * @return 신고 대기 중인 게시글 총 갯수 반환
 	 * 신고글을 N, Y에 따라 총 갯수 요청 매서드
 	 */
-	public int reportCount(String status) {
+	public int reportCount(HashMap<String, String> hash) {
 		Connection conn = getConnection();
 		
-		int count = dao.reportCount(conn, status);
+		int count = dao.reportCount(conn, hash);
 		
 		close(conn);
 		
@@ -251,12 +252,12 @@ public class BoardService {
 	 * @param status 현재 글이 신고 완료인지 대기인지 구분
 	 * @return 원하는 게시글 갯수만큼의 신고리스트 반환
 	 */
-	public List<Report> selectedBoard(PageInfo info, String status) {
+	public List<Report> selectedBoard(PageInfo info, String status, String category) {
 		Connection conn = getConnection();
-		List<Report> list = dao.selectedBoard(conn, info, status);
+//		List<Report> list = dao.selectedBoard(conn, info, status, category);
 		close(conn);
 		
-		return list;
+		return null;
 	}
 	
 	

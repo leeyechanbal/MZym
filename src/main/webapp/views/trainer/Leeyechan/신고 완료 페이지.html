@@ -29,38 +29,6 @@
         .suteOption>.suteRrepeat{
             background-color: rgba(26, 188, 156, 0.2);
         }
-        .collapsePicture{
-            display: flex;
-            padding-left: 20px;
-        }
-        .collapseitem{
-            text-align: start;
-            padding-left: 20px;
-        }
-        .collapsePicture li ,
-        .collapseitem li{
-            padding: 5px;
-            font-size: 15px;
-        }
-        .collapsePicture li ,
-        .collapseitem p{
-            font-size: 15px;
-            width: 100%;
-        }
-        tfoot{
-            height: 100px;
-        }
-        #boardcontent{
-            margin-top: 20px;
-        }
-        .nav-link{
-            color: #1abc9cc7;
-        }
-        #demo{
-            width: 50%;
-            align-content: center;
-            margin-left: 15px;
-        }
     </style>
 
 </head>
@@ -98,12 +66,13 @@
                 <div style="display: grid">
                     <div class="dropdown" style="text-align: -webkit-right;">
                         <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" style="margin-bottom: 10px;">
-                          카테고리
+                          자유게시판
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">전체</a>
                           <a class="dropdown-item" href="#">자유게시판</a>
-                          <a class="dropdown-item" href="#">PT 후기</a>
+                          <a class="dropdown-item" href="#">질문게시판</a>
+                          <a class="dropdown-item" href="#">PT및헬스장후기</a>
+                          <a class="dropdown-item" href="#">운동모임</a>
                         </div>
                       </div>
 
@@ -292,8 +261,24 @@
         <!-- tfoot : 페이징 바 및 작성 과 삭제 버튼 영역 -->
         <tfoot>
             <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
+            
+
             <td class="section2" id="paging" >
-                <ul class="pagination" >
+
+                <ul class="pagination paging-board" >
+                    <li class="page-item"><a class="page-link" href="#">이전</a></li>
+
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+
+                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                </ul>
+   
+        
+                <ul class="pagination paging-commnet" style="content-visibility:hidden" >
                     <li class="page-item"><a class="page-link" href="#">이전</a></li>
 
                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -302,21 +287,43 @@
 
                     <li class="page-item"><a class="page-link" href="#">다음</a></li>
                 </ul>
+
             </td>
-            
+
+
+            <script>
+                $(function(){
+                    $(".nav-item a").click(function(){
+                        const type = $(this).text()
+                        console.log(type);
+
+                        if(type == '게시글'){
+                            const $paging = $('.paging-board');
+                            $paging.css('content-visibility', 'visible');
+                            console.log($paging.next())
+                            $paging.next().css('content-visibility', 'hidden');
+                        } else {
+                            const $paging = $('.paging-commnet');
+                            $paging.css('content-visibility', 'visible');
+                            console.log($paging.prev())
+                            $paging.prev().css('content-visibility', 'hidden');
+                        }
+
+                    })
+                })
+            </script>
+
+
             <td class="section3 ">
+                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                 <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
             </td>
         </tfoot>
         <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
-   </table>
-   
-</body>
 
-
-<!-- 삭제용 모달 -->
+        <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <!-- Modal Header -->
         <div class="modal-header">
@@ -324,8 +331,12 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
-        <div class="modal-body" style="text-align: center; font-size: 15px; ">
-            게시물을 정말로 삭제 하시겠습니까?
+        <div class="in-line" style="text-align: center;">
+            <h5>현재 선택된 게시글</h5> 
+            <div style="font-size: 15px;"><input type="text" class="board-data" value="152">번</div>
+            <div class="modal-body" style="text-align: center; font-size: 15px; ">
+                게시물을 정말로 삭제 하시겠습니까?
+            </div>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -337,5 +348,65 @@
 </div>
 
 
+<!-- 이동용 모달 -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="outline">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">게시물 이동</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+    <form action="">
+        <div class="modal-body">
+        <div class="in-line">
+            <h5>현재 선택된 게시글</h5> 
+            <div style="font-size: 15px;"><input type="text" class="board-data" value="152">번</div>
+            <div style="font-size: 20px;">현재 위치 : 자유 게시판</div>
+            <br>
+            <div style="font-size: 20px; display: flex"> 이동 위치 선택
+                <ul class="moving-category" style="font-size: 15px;">
+                    <li>공지사항</li>
+                    <li>자유게시판</li>
+                    <li>질문게시판</li>
+                    <li>PT 및 헬스장 후기</li>
+                    <li>운동 모임</li>
+                </ul>
+            </div>
+            <input type="text" class="outmove">
+        </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">이동</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
+        </div>
+    </div>
+    </form>
+
+    <script>
+        $(function(){
+            $(".moving-category>li").click(function(){
+                const $move = $(this).text();
+                console.log($move)
+                $(".outmove").val($move);
+            })
+        })
+
+    </script>
+  
+      </div>
+    </div>
+  </div>
+
+
+
+   </table>
+   
+</body>
 
 </html>
