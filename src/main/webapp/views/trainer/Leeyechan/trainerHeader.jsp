@@ -22,22 +22,14 @@
             <td class="section1" id="menu">
                 <div id="adi">관리자<br>xxx</div>
                 <div class="board-out">
-                    <div id="board">게시판</div>
-
-                    <div class="boardNav" style="margin-top: 0px;">
-                        <div class="boardNotice"><a href="<%=mzymPath%>/listNotice.trainer?page=1">공지사항</a></div>
-                        <div class="boardFree"><a href="">자유게시판</a></div>
-                        <div class="boardQuestion"><a href="">질문게시판</a></div>
-                        <div class="boardReview"><a href="">PT 및 헬스장 후기</a></div>
-                        <div class="boardClass"><a href="">운동 모임</a></div>
-                    </div>
+                    <div id="board"><a href="<%=mzymPath%>/listNotice.trainer?page=1">공지사항</a></div>
 
                     <div id="counseling"><a href="<%=mzymPath%>/counseling.trainer?pageY=1&pageN=1">상담예약</a></div>
                     <div id="customer"><a href="">고객센터</a></div>
                     <div id="accusation">신고</div>
                     <div class="suteOption" style="margin-top: 0;">
-                        <div class="suteBoard"><a href="<%=mzymPath%>/reportStandby.trainer?page=1">게시글</a></div>
-                        <div class="suteRrepeat"><a href="">답글</a></div>
+                        <div class="suteBoard"><a href="<%=mzymPath%>/reportStandby.trainer?page=1&status=Y&categoryNum=1">신고대기</a></div>
+                        <div class="suteRrepeat"><a href="">신고완료</a></div>
                     </div>
 
                     <div id="inbody"><a href="<%=mzymPath%>/indobyForm.trainar">인바디</a></div>

@@ -1,6 +1,7 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,19 +39,31 @@ public class ReportStandbyManagment extends HttpServlet {
 		
 		String num = request.getParameter("page");
 		if(num != null) {
-		
 			int currentPage = Integer.parseInt(num);
 			
-			String status = "Y"; // 신고가 된 개시글 갯수만 조회
+			String categoryNum = request.getParameter("categoryNum");
+			String status = "Y";
+			String type = "board";
 			
-			int listCount = new BoardService().reportCount(status);
+			HashMap<String, String> hash = new HashMap<>();
+			hash.put("categoryNum", categoryNum);
+			hash.put("status", status);
+			hash.put("type", type);
 			
-			PageInfo info = new PageHandler().getPaging(listCount, currentPage, 10, 10);
+			int listCount = new BoardService().reportCount(hash);
+			PageInfo infoBoard = new PageHandler().getPaging(listCount, currentPage, 10, 10);
+			
+//			type = "comment";  해쉬 맵에서는 바뀌지 않는다.
+			listCount = new BoardService().reportCount(hash);
+			PageInfo infoComment = new PageHandler().getPaging(listCount, currentPage, 10, 10);
+			
+			
+			
 			
 			if(listCount > 0 && info != null) {
-				List<Report> list = new BoardService().selectedBoard(info, status);
+				List<Report> list = new BoardService().selectedBoard(infoComment, hash);
 				
-				request.setAttribute("info", info);
+				request.setAttribute("info", infoComment);
 				request.setAttribute("list", list);
 				
 				request.getRequestDispatcher("/views/trainer/Leeyechane/reportStandBy.jsp").forward(request, response);
