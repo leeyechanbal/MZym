@@ -21,6 +21,15 @@ public class Board {
 	public Board() {
 		super();
 	}
+	
+	
+
+	public Board(int boardType) {
+		super();
+		this.boardType = boardType;
+	}
+
+
 
 	public int getBoardNo() {
 		return boardNo;

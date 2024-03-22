@@ -16,6 +16,7 @@ import java.util.Properties;
 import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.BoardCategory;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
@@ -605,7 +606,7 @@ public class BoardDao {
 	 * @return 자유게시판의 총 갯수
 	 * 페이징 처리를 위한 자유게시판의 총 갯수 요청 
 	 */
-	public int selectFreeListCount(Connection conn) {
+	public int selectFreeListCount(Connection conn, int type) {
 		
 		int listCount = 0;
 		
@@ -615,6 +616,7 @@ public class BoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, type);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -634,7 +636,7 @@ public class BoardDao {
 	 * @return
 	 * 자유게시판 목록 실행 및 결과값 반환
 	 */
-	public List<Board> selectFreeList(Connection conn, PageInfo pi){
+	public List<Board> selectFreeList(Connection conn, PageInfo pi, int type){
 		List<Board> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -646,8 +648,9 @@ public class BoardDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, type);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -787,7 +790,7 @@ public class BoardDao {
 	 * @return
 	 * 자유게시판 게시글 insert
 	 */
-	public int insertFreeBoard(Connection conn, Board b){
+	public int insertFreeBoard(Connection conn, Board b, int type){
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertFreeBoard");
@@ -795,8 +798,9 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, b.getBoardWriter());
-			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardContent());
+			pstmt.setInt(2, type);
+			pstmt.setString(3, b.getBoardTitle());
+			pstmt.setString(4, b.getBoardContent());
 			
 			result = pstmt.executeUpdate();
 			
@@ -1004,6 +1008,30 @@ public class BoardDao {
 		return result;
 	}
 	
+	public BoardCategory selectBoardName(Connection conn, int type) {
+		BoardCategory bc = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBoardName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, type);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bc = new BoardCategory(rset.getInt("category_no")
+									 , rset.getString("category_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bc;
+	}
 	
 /*	
 	=================================  황수림 a yellow forest ==================================

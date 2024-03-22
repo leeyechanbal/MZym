@@ -3,9 +3,12 @@
 <%@ page import="com.mzym.common.paging.PageInfo" %>
 <%@ page import="com.mzym.board.vo.Board" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.mzym.board.vo.BoardCategory" %>
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	List<Board> list = (List<Board>)request.getAttribute("list");
+	BoardCategory bc = (BoardCategory)request.getAttribute("bc");
+	int type = (int)request.getAttribute("type");
 %>    
     
     
@@ -98,7 +101,9 @@
        <%@ include file="/views/common/Mzym_sidebar.jsp" %>
 
         <div class="board_content">
-            <h2>자유게시판</h2>
+           
+            <h2><%= bc.getCategoryName()%></h2>
+            
             <hr>
             <br><br>
 
@@ -115,7 +120,7 @@
 			</div>
 	
             <div align="right">
-                <a href="<%=contextPath %>/freeEnrollForm.bo" class="btn btn-secondary">글쓰기</a>
+                <a href="<%=contextPath %>/freeEnrollForm.bo?type=<%=bc.getCategoryNo()%>" class="btn btn-secondary">글쓰기</a>
                 <br><br>
             </div>
             <% } %>
