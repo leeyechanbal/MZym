@@ -54,11 +54,11 @@
         <nav class="header_nav">
 			
             <div class="main_back" style="cursor: pointer;">
-                <a href=""><img src="<%=contextPath %>/resources/img/common/뒤로가기.png" style="width: 50px; " onclick="history.back();"></a>
+                <a href="#" onclick="history.back(); return false;"><img src="<%=contextPath %>/resources/img/common/뒤로가기.png" style="width: 50px; "></a>
                 </div>
            
             <div class="main_logo" >
-                <a href=""><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;" onclick="history.back();"></a>
+                <a href=""><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
               </div>
 
             <div class="main_item">
@@ -537,7 +537,7 @@
             // 회원조회 실행 함수
             $("#modal-footer-btn").on("click", function(){
             	$.ajax({
-            		url:"<%=contextPath%>/cearchList.cal",
+            		url:"<%=contextPath%>/searchList.cal",
             		data:{
             			searchPhone:$("input[name='searchPhone']").val(),
             			searchUserName:$("input[name='searchUserName']").val(),

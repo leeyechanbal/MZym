@@ -40,7 +40,7 @@
                         <div class="suteRrepeat"><a href="">답글</a></div>
                     </div>
 
-                    <div id="calory"><a href="">칼로리</a></div>
+                    <div id="inbody"><a href="<%=mzymPath%>/indobyForm.trainar">인바디</a></div>
 
                 </div>
                 

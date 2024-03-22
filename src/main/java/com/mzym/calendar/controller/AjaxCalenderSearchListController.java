@@ -16,7 +16,7 @@ import com.mzym.calendar.vo.Calendar;
 /**
  * Servlet implementation class AjaxCalenderSearchListController
  */
-@WebServlet("/cearchList.cal")
+@WebServlet("/searchList.cal")
 public class AjaxCalenderSearchListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

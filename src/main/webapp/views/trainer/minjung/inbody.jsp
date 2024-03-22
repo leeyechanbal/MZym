@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.member.model.vo.Member" %>
+<%
+	String contextPath = request.getContextPath();
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +92,7 @@
                         <div class="suteRrepeat"><a href="">답글</a></div>
                     </div>
 
-                    <div id="calory"><a href="">칼로리</a></div>
+                    <div id="inbody"><a href="">인바디</a></div>
 
                 </div>
             </td>

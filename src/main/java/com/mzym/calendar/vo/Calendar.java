@@ -2,6 +2,10 @@ package com.mzym.calendar.vo;
 
 import java.sql.Date;
 
+/**
+ * @author 김민정
+ */
+
 public class Calendar {
 	
 	private int calNo;
