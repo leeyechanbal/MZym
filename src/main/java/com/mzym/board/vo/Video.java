@@ -7,30 +7,23 @@ public class Video {
 	private String link;
 	private String staus;
 	private int videoLevel;
-	private int count;
 	
-	
-
-	public Video(int videoNo, String videoTitle, String link, String staus, int videoLevel, int count) {
+	public Video(int videoNo, String videoTitle, String link, String staus, int videoLevel) {
 		super();
 		this.videoNo = videoNo;
 		this.videoTitle = videoTitle;
 		this.link = link;
 		this.staus = staus;
 		this.videoLevel = videoLevel;
-		this.count = count;
 	}
 
-	public Video(int videoNo, String videoTitle, String link, int videoLevel, int count) {
+	public Video(int videoNo, String videoTitle, String link, int videoLevel) {
 		super();
 		this.videoNo = videoNo;
 		this.videoTitle = videoTitle;
 		this.link = link;
 		this.videoLevel = videoLevel;
-		this.count = count;
 	}
-
-
 
 	public int getVideoNo() {
 		return videoNo;
@@ -72,21 +65,16 @@ public class Video {
 		this.videoLevel = videoLevel;
 	}
 
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 	@Override
 	public String toString() {
 		return "Video [videoNo=" + videoNo + ", videoTitle=" + videoTitle + ", link=" + link + ", staus=" + staus
-				+ ", videoLevel=" + videoLevel + ", count=" + count + "]";
+				+ ", videoLevel=" + videoLevel + "]";
 	}
+	
+	
+	
 
-
+	
 	
 	
 	
