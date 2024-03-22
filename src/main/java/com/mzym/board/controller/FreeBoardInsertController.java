@@ -67,17 +67,15 @@ public class FreeBoardInsertController extends HttpServlet {
 			}
 			
 			int type = Integer.parseInt(request.getParameter("type"));
-			System.out.println(type);
+			
 			int result = new BoardService().insertFreeBoard(b, at, type);
 			
 			BoardCategory bc = new BoardService().selectBoardName(type);
 			request.setAttribute("bc", bc);
-			
-			
 			if(result > 0) { // 성공 
 				
 				session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/freelist.bo?page=1");
+				response.sendRedirect(request.getContextPath() + "/freelist.bo?type="+ bc.getCategoryNo());
 				
 			}else {
 				if(at != null) {

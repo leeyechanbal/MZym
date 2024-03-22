@@ -8,6 +8,7 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	List<Board> list = (List<Board>)request.getAttribute("list");
 	BoardCategory bc = (BoardCategory)request.getAttribute("bc");
+	int type = (int)request.getAttribute("type");
 %>    
     
     
@@ -119,7 +120,7 @@
 			</div>
 	
             <div align="right">
-                <a href="<%=contextPath %>/freeEnrollForm.bo?type=<%=bc.getCategoryNo() %>" class="btn btn-secondary">글쓰기</a>
+                <a href="<%=contextPath %>/freeEnrollForm.bo?type=<%=bc.getCategoryNo()%>" class="btn btn-secondary">글쓰기</a>
                 <br><br>
             </div>
             <% } %>

@@ -103,7 +103,7 @@
 
             <div class="backgray">      
                    
-            <form  action="<%= contextPath %>/freeinsert.bo" method="post" enctype="multipart/form-data">
+            <form  action="<%= contextPath %>/freeinsert.bo?type=<%=bc.getCategoryNo() %>" method="post" enctype="multipart/form-data">
                 <input type="text" class="form-control" required placeholder="제목 입력" name="title">
                 <table class="table">
                     <tr>
