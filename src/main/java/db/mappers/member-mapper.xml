@@ -269,4 +269,24 @@ INSERT
 	WHERE FOOD_USER = ?
       AND FOOD_NO = ?
 </entry>
+
+
+<!-- 김민정 회원 인바디 조회(관리자페이지) -->
+<entry key="selectInbody">
+SELECT
+       USER_NAME
+     , BODY_HEIGHT
+     , BODY_WEIGHT
+     , BODY_METABOLISM
+     , BODY_FAT
+  FROM INBODY I
+  JOIN MZYM_MEMBER USING(USER_NO)
+ WHERE PHONE = ?
+</entry>
+
+
+
+
+
+
 </properties>

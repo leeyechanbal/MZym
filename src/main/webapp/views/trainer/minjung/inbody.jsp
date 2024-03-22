@@ -25,13 +25,15 @@
     <link href="/src/main/webapp/resources/css/leeyechan/trailnerLee.css" rel="stylesheet" type="text/css">
     <script src="/src/main/webapp/resources/js/trailnerLee.js" rel="javascript"></script>
 
+	<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
+
     <style>
         /* 인바디 추가 스타일 */
         .board-out>#inbody{
             background-color: rgba(26, 188, 156, 0.2);
         }
         .boardNav{
-            display: none;
+            display: block;
         }
         .section2{
             display: flex;
@@ -49,84 +51,68 @@
             height: 500px;
         }
         .inbody table{
-           margin: 90px;
+           margin: 0 auto;
            font-size: 20px;
         }
         .calory>*{
-            margin-right: 50px;
+            margin-right: 20px;
+            
         }
+        #searchbtn{
+	        border: none;
+	        background: #1ABC9C;
+	        color: white;
+	        font-weight: bold;
+        	border-radius: 5px;      	
+        	width:60px;
+	    }
+	    /*
+	    .section2 input[type="text"],
+	    .section2 input[type="number"]{
+	    	text-align : right;
+	    } 
+        */
 
     </style>
 </head>
 <body>
 
-   <table id="outTable">
         
-        <thead class="">
-            <td class="section1" id="back"><img src="/src/main/webapp/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
-            <td class="section2" id="logo"><img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
-            <td class="section3"></td>
-        </thead>
-        
-        <tr style="height: 30px;"></tr>
-
-        <tbody>
-            <td class="section1" id="menu">
-                <div id="adi">관리자<br>xxx</div>
-                <div class="board-out">
-                    <div id="board">게시판</div>
-
-                    <div class="boardNav" style="margin-top: 0px;">
-                        <div class="boardNotice"><a href="">공지사항</a></div>
-                        <div class="boardFree"><a href="">자유게시판</a></div>
-                        <div class="boardQuestion"><a href="">질문게시판</a></div>
-                        <div class="boardReview"><a href="">PT 및 헬스장 후기</a></div>
-                        <div class="boardClass"><a href="">운동 모임</a></div>
-                    </div>
-
-                    <div id="counseling"><a href="">상담예약</a></div>
-                    <div id="customer"><a href="">고객센터</a></div>
-                    <div id="accusation"><a href="">신고</a></div>
-                    <div class="suteOption" style="margin-top: 0;">
-                        <div class="suteBoard"><a href="">게시글</a></div>
-                        <div class="suteRrepeat"><a href="">답글</a></div>
-                    </div>
-
-                    <div id="inbody"><a href="">인바디</a></div>
-
-                </div>
-            </td>
 
             <td class="section2">
+            <br>
                 <div class="calory">
-                    <h4>검색: </h4>&nbsp;<input type="tel" style="width: 400px;" placeholder="회원의 전화번호를 입력해 주세요.">
-                    <button >검색</button>
+                    <h4></h4>&nbsp;<input type="text" name="userPhone" style="width: 400px; text-align:left;" placeholder="회원의 전화번호를 입력해 주세요.">
+                    <button id="searchbtn">검색</button>
                 </div>
-                <div class="inbody">
+                <br>
+                <div class="inbody" id="inbody">
                     <table>
+                    	<tr>
+                            <td width="150px">이름  </td>
+                            <td><input type="text" name="userName"></td>
+                        </tr>
                         <tr>
                             <td width="150px">신장  </td>
-                            <td><input type="number" style="margin-bottom: 10px;"> cm</td>
+                            <td><input type="number" name="height"> cm</td>
                         </tr>
                         <tr>
                             <td>체중  </td>
-                            <td><input type="number" style="margin-bottom: 10px;"> kg</td>
+                            <td><input type="number" name="weight"> kg</td>
                         </tr>
                         <tr>
                             <td>기초대사량  </td>
-                            <td><input type="number" style="margin-bottom: 10px;"> kcal</td>
+                            <td><input type="number" name="metabolism"> kcal</td>
                         </tr> 
                         <tr>
                             <td>체지방량  </td>
-                            <td><input type="number" style="margin-bottom: 10px;"> bmi</td>
+                            <td><input type="number" name="fat"> bmi</td>
                         </tr>
-                        <tr>
-                            <td>등록일 </td>
-                            <td><input type="date" style="margin-bottom: 10px;"></td>
-                        </tr>
+
                     </table>
+                    <br>
                     <div style="display: flex; align-items: end;">
-                        <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">확인</button>
+                        <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal" style="margin-right:6px" onclick="">수정</button>
                         <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
                     </div>
                 </div>
@@ -168,6 +154,36 @@
     </div>
   </div>
 
+
+	<script>
+	
+		// 회원의 인바디 조회 
+		$("#searchbtn").on("click", function(){
+			$.ajax({
+				url: "<%=contextPath%>/inbody.trainar",
+				data:{userPhone:$("input[name='userPhone']").val()},
+				type:"get",
+				success:function(ib){
+					console.log(ib);
+					
+					$("#inbody input[name='userName']").val(ib.userName);
+					$("#inbody input[name='height']").val(ib.bodyHeight);
+					$("#inbody input[name='weight']").val(ib.bodyWeight);
+					$("#inbody input[name='metabolism']").val(ib.badyMetabolism);
+					$("#inbody input[name='fat']").val(ib.bodyFat);
+					
+				},
+				error:function(){
+					console.log("인바디 조회 ajax 통신 실패");
+					alert("조회에 실패하였습니다.");
+				}
+			})
+			
+		})
+		
+		
+		
+	</script>
 
 
 
