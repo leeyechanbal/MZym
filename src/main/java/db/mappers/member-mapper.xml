@@ -230,7 +230,7 @@ SELECT
 	    , FOOD_CATEGORY
 	    , FOOD_NAME
 	    , FOOD_CAL
-	    , REGIST_DATE
+	    , TO_CHAR(REGIST_DATE,  'YYYY"년" MM"월" DD"일"') REGIST_DATE
 	 FROM FOOD F
 	 JOIN MZYM_MEMBER ON (FOOD_USER = USER_NO)
 	WHERE FOOD_DATE = '20240318'
@@ -279,12 +279,24 @@ SELECT
      , BODY_WEIGHT
      , BODY_METABOLISM
      , BODY_FAT
-  FROM INBODY I
+  FROM INBODY
   JOIN MZYM_MEMBER USING(USER_NO)
  WHERE PHONE = ?
 </entry>
 
 
+<!-- 김민정 회원 인바디 수정 -->
+<entry key="updateInbody">
+UPDATE INBODY
+   SET BODY_HEIGHT = ?
+     , BODY_WEIGHT = ?
+     , BODY_METABOLISM = ?
+     , BODY_FAT = ?
+     , REGIST_DATE = SYSDATE
+ WHERE USER_NO = (SELECT USER_NO 
+                    FROM MZYM_MEMBER 
+                   WHERE PHONE = ?)
+</entry>
 
 
 
