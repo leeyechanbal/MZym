@@ -10,8 +10,6 @@ public class Comment {
 	private String commentContent;
 	private String status;
 	
-	private Board board; // 신고글 조회시 필요한 객체
-	
 	public Comment() {}
 
 	public Comment(int commentNo, int boardNo, String commentWriter, String userName, String commentDate,
@@ -90,29 +88,6 @@ public class Comment {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-	
-	/**
-	 * 신고 댓글 정보을 받아오는 생성자
-	 * @author 이예찬
-	 * @param commentNo 댓글 번호
-	 * @param commentContent 댓글 내용
-	 * @param commentWriter 댓글 작성자
-	 * 
-	 */
-	public Comment(int commentNo, String commentContent, String commentWriter) {
-		super();
-		this.commentNo = commentNo;
-		this.commentWriter = commentWriter;
-		this.commentContent = commentContent;
 	}
 
 	

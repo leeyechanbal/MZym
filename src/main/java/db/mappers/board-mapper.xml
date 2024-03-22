@@ -258,13 +258,27 @@ where advice_no = ? <!-- 상담글 번호 -->
 
 <!-- 
 	작성자 : 이예찬
-	신고대기 글 총 갯수 쿼리문
+	신고 게시글 총 갯수 쿼리문
  -->
-<entry key="reportCount">
+<entry key="reportBoardCount">
 select count(*)
 from report
 where status = ?
+and BOARD_NO is not null
 </entry>
+
+<!-- 
+	작성자 : 이예찬
+	신고 댓글 총 갯수 쿼리문
+ -->
+<entry key="reportCommentCount">
+select count(*)
+from report
+where status = ?
+and COMMENT_NO is not null
+</entry>
+
+
 
 <!-- 
 	작성자 : 이예찬
@@ -280,10 +294,12 @@ from(
             , mzym_member.USER_ID reportID -- 신고자 아이디
             , REPORT_DATE -- 신고일
             , rc.CATEGORY_NAME reportCategory -- 신고 카테고리
+            <!-- board -->
             , BOARD_NO -- 게시글 번호
             , board.CATEGORY_NAME boardCategory -- 게시글 카테고리 이름
             , BOARD_TITLE -- 게시글 제목
             , board.USER_ID boardID -- 게시글 작성자
+            <!-- attachment -->
             , ORIGIN_NAME
             , CHANGE_NAME
             , FILE_PATH
@@ -331,8 +347,10 @@ from(
            , USER_ID -- 신고자 아이디
            , REPORT_DATE -- 신고 날짜
            , report_category.CATEGORY_NAME reportCategory -- 신고 카테고리
+           <!-- board -->
            , com.board_No
            , com.CATEGORY_NAME boardCategory -- 게시판 카테고리
+           <!-- comment -->
            , com.USER_NAME -- 댓글 작성자    
            , comment_no
            , comment_date

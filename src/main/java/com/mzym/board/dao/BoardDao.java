@@ -319,7 +319,7 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		
 		try {
-			System.out.println(num);
+		
 			pst = conn.prepareStatement(prop.getProperty("deletedNotice"));
 			pst.setInt(1, num);
 			result = pst.executeUpdate();
@@ -501,19 +501,27 @@ public class BoardDao {
 	}
 	
 	/**
+	 * 현재 받아온 데이터에 따라 신고 대기인지 신고 완료인지를 반환 하는 매서드
 	 * @author 이예찬
 	 * @param conn
-	 * @return 신고 대기글 총 갯수 반환
+	 * @param hash 현재 들어온 게시글이 (Y 신고대기, N 신고완료), type(board : 게시글 정보, comment : 댓글 정보)
+	 * @return 변수에 따라 게시불이 반환 대는 갯수 반환
 	 */
-	public int reportCount(Connection conn, HashMap<String, String> hash) {
+	public int reportCount(Connection conn, HashMap<String, Object> hash) {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		int count = 0;
 		
 		try {
-			pst = conn.prepareStatement(prop.getProperty("reportCount"));
-			pst.setString(1, hash.get("status"));
-			rset = pst.executeQuery();
+			if (hash.get("type").equals("board")) {
+				pst = conn.prepareStatement(prop.getProperty("reportBoardCount"));
+				pst.setString(1, (String)hash.get("status"));
+				rset = pst.executeQuery();				
+			} else {
+				pst = conn.prepareStatement(prop.getProperty("reportCommentCount"));
+				pst.setString(1, (String)hash.get("status"));
+				rset = pst.executeQuery();		
+			}
 			
 			if(rset.next()) {
 				count = rset.getInt(1);
@@ -536,61 +544,38 @@ public class BoardDao {
 	 * @param status 현재 신고 대기인지 완료인지를 구별
 	 * @return 구별된 신고 게시글을 반환
 	 */
-	public List<Report> selectedBoard(Connection conn ,PageInfo info, String status) {
+	public List<Report> selectedBoard(Connection conn ,PageInfo info, HashMap<String, Object> hash) {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		List<Report> list = new ArrayList<>();
 		
 		try {
-			pst = conn.prepareStatement(prop.getProperty("selectReport"));
-			pst.setString(1, status);
-			pst.setString(2, status);
-			rset = pst.executeQuery();
-			
-			for(;rset.next();) {
-				String type = rset.getString("type");
+			// 신고 게시판 불러오기
+			if(hash.get("type").equals("board")) {
+				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
+				pst.setInt(1,(int)hash.get("categoryNum"));
+				pst.setString(2,(String)hash.get("status"));
+				pst.setInt(3, info.getStartBoard());
+				pst.setInt(4, info.getEndBoard());
 				
-				if(type.equals("board")) {
-					list.add(new Report(
-								rset.getInt("REPORT_NO")
-								, rset.getString("reportID")
-								, rset.getString("REPORT_DATE")
-								, rset.getString("reportCategory")
-								, new Board(rset.getInt("BOARD_NO")
-										, rset.getString("boardID")
-											, rset.getString("title_comment")
-											, rset.getString("content")
-											, rset.getString("boardCategory")
-											, new Attachment(
-														rset.getString("orgin_date")
-														, rset.getString("CHANGE_NAME")
-														, rset.getString("FILE_PATH")
-													) // attachment
-										)// board
-								, type
-							));	// list
-				}else {
-					list.add(new Report(
-							rset.getInt("REPORT_NO")
-							, rset.getString("reportID")
-							, rset.getString("REPORT_DATE")
-							, rset.getString("reportCategory")
-							, new Board(
-									rset.getInt("BOARD_NO")
-									, rset.getString("boardCategory")
-									)// board
-							, new Comment(
-									Integer.parseInt(rset.getString("title_comment"))
-									, rset.getString("content")
-									, rset.getString("boardID")
-									)// comment
-							,type
-							));// list
-				}// else문
+				rset = pst.executeQuery();
 				
-			}// for문
-			
-			
+				
+				while(rset.next()) {
+					
+				}
+				
+			} else {
+			// 신고 댓글 불러오기	
+				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
+				pst.setInt(1, (int)hash.get("categoryNum"));
+				pst.setString(2, (String)hash.get("status"));
+				pst.setInt(3, info.getStartBoard());
+				pst.setInt(4, info.getEndBoard());
+				
+				rset = pst.executeQuery();
+				
+			}
 			
 		} catch (SQLException e) {
 			

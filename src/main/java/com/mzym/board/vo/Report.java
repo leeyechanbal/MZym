@@ -43,48 +43,6 @@ public class Report {
 		this.reportUser = reportUser;
 	}
 	
-	/**
-	 * @author 이예찬
-	 * @param reportNo 신고글 번호
-	 * @param UserID 신고한 사람
-	 * @param reportDate 신고 날짜
-	 * @param categoryName 신고 카테고리
-	 * @param board 신고된 게시글의 정보 (Attachment을 포함)
-	 * @param type "board" 구분을 위한 문자열
-	 */
-	public Report(int reportNo, String UserID, String reportDate, String categoryName, Board board, String type) {
-		super();
-		this.reportNo = reportNo;
-		this.UserID = UserID;
-		this.categoryName = categoryName;
-		this.reportDate = reportDate;
-		this.board = board;
-		this.type = type;
-	}
-	
-	
-	/**
-	 * 신고 댓글을 받아오기 위한  생성자
-	 * @author 이예찬
-	 * @param reportNo 신고 번호
-	 * @param UserID 신고자의 아이디
-	 * @param reportDate 신고 날짜
-	 * @param categoryName 신고 카테고리명
-	 * @param board 신고된 댓글이 갖는 게시물 정보
-	 * @param comment 신고된 댓글의 정보
-	 * @param type "comment" 구분을 위한 문자열
-	 */
-	public Report(int reportNo, String UserID, String reportDate, String categoryName,Board board, Comment comment, String type) {
-		super();
-		this.reportNo = reportNo;
-		this.UserID = UserID;
-		this.categoryName = categoryName;
-		this.board = board;
-		this.reportDate = reportDate;
-		this.comment = comment;
-		this.type = type;
-	}
-	
 	public String getCategoryName() {
 		return categoryName;
 	}

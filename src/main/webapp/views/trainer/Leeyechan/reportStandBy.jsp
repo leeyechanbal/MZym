@@ -6,6 +6,7 @@
 <%
 	PageInfo info = (PageInfo)request.getAttribute("info");
 	List<Report> list = (List<Report>)request.getAttribute("list");
+	// 페이지 단에서 리스트가 비어 있지 않는지 isEmpty 확인 그리고 로그아웃 구현, 로그 클릭시 selectedFuntion 가기
 %>
 <!DOCTYPE html>
 <html>
