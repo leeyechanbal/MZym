@@ -110,7 +110,7 @@
        <%@ include file="/views/common/Mzym_sidebar.jsp" %>
 
         <div class="board_content">
-            <h2>자유게시판</h2>
+            <h2>게시글조회</h2>
             <hr>
 
             <table class="table">

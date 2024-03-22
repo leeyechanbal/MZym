@@ -397,7 +397,7 @@ where seq BETWEEN ? and ?
 <entry key="selectFreeListCount">
 	SELECT	COUNT(*) COUNT
 	FROM	MZYM_BOARD
-	WHERE	BOARD_TYPE = 1
+	WHERE	BOARD_TYPE = ?
 	AND		STATUS = 'Y'
 </entry>
 
@@ -421,7 +421,7 @@ where seq BETWEEN ? and ?
 	                        JOIN
 	                            MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
 	                        WHERE
-	                            BOARD_TYPE = 1
+	                            BOARD_TYPE = ?
 	                        AND
 	                            B.STATUS = 'Y'
 	                        ORDER
@@ -449,7 +449,7 @@ where seq BETWEEN ? and ?
 	(
 		SEQ_BOARDNO.NEXTVAL
 	,	?
-	,	1
+	,	?
 	,	?
 	,	?	
 	)
@@ -678,7 +678,13 @@ where seq BETWEEN ? and ?
 </entry>
 
 <!--  -->
-<entry key=""></entry>
+<entry key="selectBoardName">
+SELECT
+	   CATEGORY_NO
+     , CATEGORY_NAME
+  FROM BOARD_CATEGORY
+ WHERE CATEGORY_NO = ?
+</entry>
 
 <!-- ===========================황수림================================= -->
 

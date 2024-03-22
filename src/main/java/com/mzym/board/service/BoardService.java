@@ -12,6 +12,7 @@ import com.mzym.board.dao.BoardDao;
 import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.BoardCategory;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
@@ -274,9 +275,9 @@ public class BoardService {
 	 * @return 페이징 처리된 List<Board> 반환
 	 * 자유게시판 리스트 반환하는 메소드
 	 */
-	public List<Board> selectFreeList(PageInfo pi) {
+	public List<Board> selectFreeList(PageInfo pi, int type) {
 		Connection conn = getConnection();
-		List<Board> list = dao.selectFreeList(conn, pi);
+		List<Board> list = dao.selectFreeList(conn, pi, type);
 		close(conn);
 		return list;
 		
@@ -287,9 +288,9 @@ public class BoardService {
 	 * @return int 조회된 자유게시판의 총 갯수
 	 * 페이징 처리를 위한 자유게시판 총 갯수를 요청하는 매서드
 	 */
-	public int selectFreeListCount() {
+	public int selectFreeListCount(int type) {
 		Connection conn = getConnection();
-		int listCount = dao.selectFreeListCount(conn);
+		int listCount = dao.selectFreeListCount(conn, type);
 		close(conn);
 		return listCount;
 		
@@ -300,10 +301,10 @@ public class BoardService {
 	 * @author 황수림
 	 * 자유게시판의 게시글을 DB에 insert하는 메소드
 	 */
-	public int insertFreeBoard(Board b, Attachment at) {
+	public int insertFreeBoard(Board b, Attachment at, int type) {
 		Connection conn = getConnection();
 		
-		int result1 = dao.insertFreeBoard(conn, b);
+		int result1 = dao.insertFreeBoard(conn, b, type);
 		
 		int result2 = 1;
 		if(at != null) {
@@ -447,8 +448,14 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
-		
 	
+	public BoardCategory selectBoardName(int type) {
+		Connection conn = getConnection();
+		BoardCategory bc = dao.selectBoardName(conn, type);
+		close(conn);
+		return bc;
+	}
+		
 		
 	/*	
 	=================================  황수림 ==================================
@@ -496,6 +503,8 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+	
+	
 	
 /*	
 	================================= 손수현 ==================================
