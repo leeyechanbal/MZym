@@ -81,6 +81,12 @@ public class CalendarService {
 		
 	}
 	
+	public List<Calendar> selectSearchList(String phone, String userName, String startDate, String endDate, int trNo){
+		Connection conn = getConnection();
+		List<Calendar> searchList = cDao.selectSearchList(conn, phone, userName, startDate, endDate, trNo);
+		close(conn);
+		return searchList;
+	}
 	
 	
 

@@ -78,6 +78,27 @@
 	</entry>
 
 
+	<entry key="selectSearchList">
+	SELECT 
+	       CAL_NO
+	     , USER_NAME
+	     , TO_CHAR(TO_DATE(START_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')START_DATE
+	     , TO_CHAR(TO_DATE(END_DATE,'MM/DD/YYYY'),'YYYY-MM-DD')END_DATE
+	     , PHONE
+	     , (SELECT USER_NAME FROM MZYM_MEMBER WHERE USER_NO = ?)WRITER
+	     , CAL_TITLE
+	     , CAL_CONTENT
+	     , CAL_COLOR
+	  FROM MZYM_CALENDAR C
+	  JOIN MZYM_MEMBER USING (USER_NO)
+	 WHERE CAL_TR = ?
+	   AND PHONE = ?
+	   AND USER_NAME = ?
+	   AND START_DATE BETWEEN ? AND ?
+	   AND C.STATUS = 'Y'
+	</entry>
+
+
 
 
 

@@ -142,9 +142,46 @@ public class CalendarDao {
 		}
 		
 		return result;
+
+	}
+	
+	
+	public List<Calendar> selectSearchList(Connection conn, String phone, String userName, String startDate, String endDate, int trNo){
+		List<Calendar> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchList");
 		
-		
-		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trNo);
+			pstmt.setInt(2, trNo);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, userName);
+			pstmt.setString(5, startDate);
+			pstmt.setString(6, endDate);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Calendar(rset.getInt("CAL_NO"),
+									  rset.getString("USER_NAME"),
+									  rset.getString("START_DATE"),
+									  rset.getString("END_DATE"),
+									  rset.getString("PHONE"),
+									  rset.getString("WRITER"),
+									  rset.getString("CAL_TITLE"),
+									  rset.getString("CAL_CONTENT"),
+									  rset.getString("CAL_COLOR")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	

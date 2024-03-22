@@ -54,11 +54,11 @@
         <nav class="header_nav">
 			
             <div class="main_back" style="cursor: pointer;">
-                <a href=""><img src="<%=contextPath %>/resources/img/common/뒤로가기.png" style="width: 50px; "></a>
+                <a href=""><img src="<%=contextPath %>/resources/img/common/뒤로가기.png" style="width: 50px; " onclick="history.back();"></a>
                 </div>
            
             <div class="main_logo" >
-                <a href=""><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
+                <a href=""><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;" onclick="history.back();"></a>
               </div>
 
             <div class="main_item">
@@ -112,16 +112,17 @@
                     <form action="" name="">
                         <ul>
                             <li>
-                                <label >조회할 회원 핸드폰 번호</label> <br>
-                                <input type="text" name="phone" style="width: 325px;" required> 
+                                <label >조회할 회원 핸드폰 번호(-포함)</label> <br>
+                                <input type="text" name="searchPhone" style="width: 325px;" required> 
                             </li><br>
                             <li>
                                 <label>조회할 회원 이름</label> <br>
-                                <input type="text" name="userName" style="width: 325px;" required>
+                                <input type="text" name="searchUserName" style="width: 325px;" required>
                             </li><br>
                             <li>
                                 <label>조회할 기간</label> <br>
-                                <input type="text" name="period" style="width: 325px;" required>
+                                <input type="text" name="searchStartDate" style="width: 150px;" required placeholder=" ex) 01/01/2024"> ~ 
+                                <input type="text" name="searchEndDate" style="width: 150px;" required placeholder=" ex) 01/31/2024">
                             </li>
                         </ul>
                     </form>
@@ -201,7 +202,7 @@
                                     </td>
                                     <td colspan="3">
                                     	<input type="hidden" name="trNo" value="">
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="writer">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="writer" value="<%=loginUser.getUserName()%>">
                                         
                                     </td>
                                 </tr>
@@ -455,9 +456,6 @@
         })
  	}	
  
-            // 회원별 조회 모달창 조회 클릭시 실행될 이벤트
-
-
 
             // PT일정등록 모달창 추가 버튼 클릭시 실행될 이벤트
             $("#insert_btn").on("click", function(){ 
@@ -469,7 +467,7 @@
             			startDate:$("input[name='startDate']").val(),
             			endDate:$("input[name='endDate']").val(),
             			userPhone:$("input[name='userPhone']").val(),
-            			writer:$("input[name='writer']").val(),
+            			writer:"<%=loginUser.getUserName()%>",
             			trNo:"<%=loginUser.getUserNo()%>",
             			title:$("input[name='title']").val(),
             			content:$("textarea[name='content']").val()
@@ -526,7 +524,7 @@
 		            		type:"get",
 		            		success:function(result){
 		            			console.log(result);
-		            			alert("일정을 삭제하였습니다.");
+		            				alert("일정을 삭제하였습니다.");
 		            		},
 		            		error:function(){
 		            			console.log("일정삭제 ajax 통신 실패");
@@ -535,6 +533,109 @@
 		            	})
 	            }
             } 
+            
+            // 회원조회 실행 함수
+            $("#modal-footer-btn").on("click", function(){
+            	$.ajax({
+            		url:"<%=contextPath%>/cearchList.cal",
+            		data:{
+            			searchPhone:$("input[name='searchPhone']").val(),
+            			searchUserName:$("input[name='searchUserName']").val(),
+            			searchStartDate:$("input[name='searchStartDate']").val(),
+            			searchEndDate:$("input[name='searchEndDate']").val(),
+            			trNo:"<%=loginUser.getUserNo()%>"
+            		},
+            		type:"post",
+            		success:function(searchList){
+            			console.log(searchList);
+            			
+                		let pt = [];
+                		for(let i=0; i<searchList.length;i++){
+                			pt.push({
+                				id : searchList[i].calNo,						// 일정번호
+                				title : searchList[i].calTitle,					// 제목
+                				start : searchList[i].startDate,				// 시작일
+                				end : searchList[i].endDate,					// 종료일
+                				color : searchList[i].calColor,  				// 일정색상
+                				phoneNumber : searchList[i].calPhone,			// 회원 핸드폰번호
+                				organizer : searchList[i].writer,   			// 작성자(로그인한트레이너이름)
+                				name : searchList[i].calUserName,				// pt회원이름 
+                				description : searchList[i].calContent			// 내용
+                				
+                			});
+                		}
+                		
+                		
+                		
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+
+                        headerToolbar : {
+                            start : 'prev, next today',
+                            center : 'title',
+                            end : 'dayGridMonth, timeGridWeek, timeGridDay'
+                        },
+                        locale : 'ko',
+                        selectable : true,
+                        selectMirror : true,
+                        eventLimit : 'more',
+                        initialView: 'dayGridMonth',
+
+                        events:pt,
+                        
+                        
+                        eventClick:function(info){
+                        	let event = info.event; 
+                        	
+                        	console.log(event);
+                        	let name = event.name; // calUserName
+                        	let color = event.color;    
+                        	let start = event.start;
+                        	let end = event.end;
+                        	let phoneNumber = event.phoneNumber; // calPhone
+                        	let id = event.id;                   // calNo
+                        	let organizer = event.organizer;     // writer
+                        	let title = event.title;
+                        	let description = event.description;  // content
+                        	
+                        	console.log(calUserName , color , start, end, calPhone, writer, title,content);
+                        	
+                        	//if(start != null && end != null){
+                        		$("#myModal3 input[id='calUserName']").val(event.extendedProps.name);
+        	                	$("#myModal3 input[id='calColor']").val(event.extendedProps.color);
+        	                	$("#myModal3 input[id='startDate']").val(start.toLocaleDateString());
+        	                	$("#myModal3 input[id='endDate']").val(end == null ? start.toLocaleDateString() : end.toLocaleDateString());
+        	                	$("#myModal3 input[id='calPhone']").val(event.extendedProps.phoneNumber);
+        	                	$("#myModal3 input[id='writer']").val(event.extendedProps.organizer);
+        	                	$("#myModal3 input[id='title']").val(title);
+        	                	$("#myModal3 input[id='calNo']").val(id);
+        	                	$("#myModal3 textarea[id='content']").val(event.extendedProps.description);
+        	
+        	                	// 모달창 띄우기
+        	                	$("#myModal3").modal("show");
+                        	//}
+                        }
+                        
+                        });
+                        calendar.render();
+            			
+            		},
+            		error:function(){
+            			console.log("회원조회 ajax통신 실패");
+            		}
+            	})
+            	
+            	
+            })
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
 </script>
 
