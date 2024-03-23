@@ -1,4 +1,4 @@
-package com.mzym.member.controller.representative;
+package com.mzym.member.controller.representative.sale;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.service.RepreService;
 import com.mzym.member.model.vo.RepreDate;
 import com.mzym.mypage.model.service.MyPageService;
+import com.mzym.mypage.model.vo.Product;
 
 /**
  * Servlet implementation class RepreSaleController
@@ -35,8 +35,10 @@ public class RepreSaleController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		List<RepreDate> dateList = new RepreService().selectPaymentDate();
+		List<Product> pList = new MyPageService().selectProdcut();
 		
 		request.setAttribute("dateList", dateList);
+		request.setAttribute("pList", pList);
 		
 		request.getRequestDispatcher("/views/representative/repreSales.jsp").forward(request, response);
 		

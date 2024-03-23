@@ -1,4 +1,4 @@
-package com.mzym.member.controller.representative;
+package com.mzym.member.controller.representative.sale;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,11 +40,14 @@ public class AjaxSelectRepreSaleController extends HttpServlet {
 		
 		PageInfo pi = pagingBar(request, response, paymentDate);
 		List<ReprePayment> list = new MyPageService().selectList(pi, paymentDate);
+		String totalPrice = new MyPageService().selectTotalPrice(paymentDate);
 		
+
 		HashMap<String, Object> saleMap = new HashMap<>();
 		saleMap.put("pi", pi);
 		saleMap.put("list", list);
-		
+		saleMap.put("totalPrice", totalPrice);
+
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(saleMap, response.getWriter());
 	}

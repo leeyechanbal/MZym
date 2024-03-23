@@ -32,7 +32,7 @@ public class RepreDao {
         String month = inputDate.substring(5, 7); // 월 추출
         
         // 년도와 월을 조합하여 원하는 형식으로 변환합니다.
-        String formattedDate = year + "년" + month + "월";
+        String formattedDate = year + "년 " + month + "월";
         
         return formattedDate;
     }

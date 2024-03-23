@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -18,6 +19,7 @@ import com.mzym.member.model.vo.ReprePayment;
 import com.mzym.mypage.model.vo.Food;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
+import com.mzym.mypage.model.vo.Product;
 
 public class MyPageDao {
 	
@@ -188,7 +190,7 @@ public class MyPageDao {
 	}
 	
 	// 관리자 페이지 매출조회 페이지 - 구성모
-public List<ReprePayment> selectList(Connection conn, PageInfo pi, String paymentDate){
+	public List<ReprePayment> selectList(Connection conn, PageInfo pi, String paymentDate){
 		
 		List<ReprePayment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -208,12 +210,23 @@ public List<ReprePayment> selectList(Connection conn, PageInfo pi, String paymen
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new ReprePayment(rset.getString("user_name"),
-							         rset.getString("product_name"),
-							         rset.getInt("payment_price"),
-							         rset.getString("payment_date")
-							         ));
-							         
+				if(rset.getString("user_name") == null) {
+					list.add(new ReprePayment(
+							 rset.getInt("payment_no"),
+							 rset.getString("payment_name"),
+					         rset.getString("product_name"),
+					         rset.getInt("payment_price"),
+					         rset.getString("payment_date")
+					         ));
+				}else {
+					list.add(new ReprePayment(
+							 rset.getInt("payment_no"),
+							 rset.getString("user_name"),
+					         rset.getString("product_name"),
+					         rset.getInt("payment_price"),
+					         rset.getString("payment_date")
+					         ));
+				}		         
 			}
 			
 		} catch (SQLException e) {
@@ -408,13 +421,137 @@ public List<ReprePayment> selectList(Connection conn, PageInfo pi, String paymen
 		}
 		return result;
 	}
+
+	public List<Product> selectProduct(Connection conn) {
+		
+		List<Product> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
 	
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Product p = new Product();
+				p.setProductNo(rset.getInt("product_No"));
+				p.setProductName(rset.getString("product_name"));
+				p.setPrice(rset.getInt("product_price"));
+				list.add(p);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int insertPayment(Connection conn, Payment p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertRepreSale");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, p.getProductNo());
+			pstmt.setInt(2, p.getPaymentPrice());
+			pstmt.setString(3, p.getPaymentDate());
+			pstmt.setString(4, p.getPaymentName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	// 관리자페이지 금액 총합 조회
+	public String selectTotalPrice(Connection conn, String paymentDate) {
+		
+		String totalPrice = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTotalPrice");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paymentDate);	
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalPrice = convertToKoreanWon(rset.getInt("TOTAL_PAYMENT_PRICE"));
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return totalPrice;
+	}
+	// 원단위로 변경
+	public String convertToKoreanWon(int amount) {
+        if (amount < 1000) {
+            return amount + "원";
+        } else {
+            DecimalFormat decimalFormat = new DecimalFormat("#,###");
+            return decimalFormat.format(amount) + "원";
+        }
+    }
+
 	
+	// 구성모 결제내역 업데이트
+	public int updatePaymentMethod(Connection conn, Payment payment) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, payment.getProductNo());
+			pstmt.setInt(2, payment.getPaymentPrice());
+			pstmt.setString(3, payment.getPaymentDate());
+			pstmt.setInt(4, payment.getPaymentNo());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
-	
-	
-	
-	
-	
+	// 구성모 결제내역 삭제
+	public int deletePayment(Connection conn, int paymentNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deletePayment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paymentNo);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }
