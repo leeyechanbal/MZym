@@ -193,8 +193,6 @@
                 var input_email = $('#input_email').val();
 				var input_address =$('#input_address').val();                
                 
-                console.log(id);
-                console.log(idCheck);
 
                 if (id !== idCheck) {
                     alert("아이디 중복확인 안되었습니다 중복확인 버튼을 눌려주세요");

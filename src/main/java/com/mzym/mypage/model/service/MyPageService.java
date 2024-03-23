@@ -16,6 +16,7 @@ import com.mzym.mypage.model.dao.MyPageDao;
 import com.mzym.mypage.model.vo.Food;
 import com.mzym.mypage.model.vo.Inbody;
 import com.mzym.mypage.model.vo.Payment;
+import com.mzym.mypage.model.vo.Product;
 
 public class MyPageService {
 
@@ -166,7 +167,59 @@ public class MyPageService {
 		close(conn);
 		return listCount;
 	}
+
+	public List<Product> selectProdcut() {
+		Connection conn = getConnection();
+		List<Product> list = myDao.selectProduct(conn);
+		close(conn);
+		return list;
+	}
+
+	public int insertPayment(Payment p) {
+		Connection conn = getConnection();
+		int result = myDao.insertPayment(conn, p);
 	
-	
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public String selectTotalPrice(String paymentDate) {
+		Connection conn = getConnection();
+		String totalPrice = myDao.selectTotalPrice(conn, paymentDate);
+		close(conn);
+		return totalPrice;
+	}
+
+	public int updatePaymentMethod(Payment payment) {
+		Connection conn = getConnection();
+		int result = myDao.updatePaymentMethod(conn, payment);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deletePayment(int paymentNo) {
+		Connection conn = getConnection();
+		int result = myDao.deletePayment(conn, paymentNo);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 }

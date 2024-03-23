@@ -1,28 +1,26 @@
-package com.mzym.board.controller;
+package com.mzym.member.controller.representative.sale;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.mzym.board.service.BoardService;
-import com.mzym.board.vo.Attachment;
-import com.mzym.board.vo.Board;
+import com.mzym.mypage.model.service.MyPageService;
 
 /**
- * Servlet implementation class FreeBoardDetailController
+ * Servlet implementation class RepreSaleDeleteController
  */
-@WebServlet("/freedetail.bo")
-public class FreeBoardDetailController extends HttpServlet {
+@WebServlet("/deletePayment.re")
+public class RepreSaleDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardDetailController() {
+    public RepreSaleDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +30,17 @@ public class FreeBoardDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNo = Integer.parseInt(request.getParameter("no"));
+		int paymentNo = Integer.parseInt(request.getParameter("paymentNo"));
 		
-		BoardService bService = new BoardService();
 		
-		int result = bService.increaseFreeCount(boardNo);
+		int result = new MyPageService().deletePayment(paymentNo);	
 		
-		if(result > 0) {
-			Board b = bService.selectFreeBoard(boardNo);
-			Attachment at = bService.selectFreeAttachment(boardNo);
-			
-			request.setAttribute("b", b);
-			request.setAttribute("at", at);
-			
-			System.out.println(b.getBoardNo());
-			System.out.println(at);
-			request.getRequestDispatcher("/views/board/freeboard/freeBoardDetail.jsp").forward(request, response);		
+		if(result > 0 ) {
+			request.getSession().setAttribute("alertMsg", "매출삭제 완료했습니다");
+			response.sendRedirect(request.getContextPath() + "/selectDate.re");
 		}else {
-			
+			request.getSession().setAttribute("alertMsg", "매출삭제가 실패했습니다 다시 시도해주세요");
 		}
-		
 	}
 
 	/**

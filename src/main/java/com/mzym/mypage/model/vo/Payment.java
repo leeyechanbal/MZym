@@ -12,7 +12,34 @@ public class Payment {
 	private int paymentPrice;
 	private String paymentDate;
 	private String status;
-	
+	private int productNo;
+	private String paymentName;
+
+	public Payment(int paymentNo, String productName, String paymentUser, int paymentPrice, String paymentDate,
+			String status, int productNo, String paymentName) {
+		super();
+		this.paymentNo = paymentNo;
+		this.productName = productName;
+		this.paymentUser = paymentUser;
+		this.paymentPrice = paymentPrice;
+		this.paymentDate = paymentDate;
+		this.status = status;
+		this.productNo = productNo;
+		this.paymentName = paymentName;
+	}
+
+	public Payment(int paymentNo, String productName, String paymentUser, int paymentPrice, String paymentDate,
+			String status, int productNo) {
+		super();
+		this.paymentNo = paymentNo;
+		this.productName = productName;
+		this.paymentUser = paymentUser;
+		this.paymentPrice = paymentPrice;
+		this.paymentDate = paymentDate;
+		this.status = status;
+		this.productNo = productNo;
+	}
+
 	public Payment () {}
 
 	public Payment(int paymentNo, String productName, String paymentUser, int paymentPrice, String paymentDate,
@@ -40,6 +67,15 @@ public class Payment {
 		this.productName = productName;
 		this.paymentPrice = paymentPrice;
 		this.paymentDate = paymentDate;
+	}
+	
+	
+	public String getPaymentName() {
+		return paymentName;
+	}
+
+	public void setPaymentName(String paymentName) {
+		this.paymentName = paymentName;
 	}
 
 	public int getPaymentNo() {
@@ -88,6 +124,14 @@ public class Payment {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
 	}
 
 	@Override
