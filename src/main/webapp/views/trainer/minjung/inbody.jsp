@@ -78,6 +78,26 @@
 		    /* hover 효과를 없애는 스타일 */
 		    background-color: none;
 		}
+		
+		/* 등록 모달 스타일 */
+		#insertContent{
+        border: 2px solid rgba(26, 188, 156, 0.78);
+        border-radius: 10px;
+        padding: 10px;
+        width : 550px;
+
+         
+        }
+        .modal-body ul{
+        list-style: none;
+        padding-left: 1px ;       
+        background-color: none;
+        }
+    	/* li 요소에 hover 스타일이 없도록 재정의 */
+	    .modal-body ul li:hover {
+	        background-color: transparent !important; /* 배경색 투명으로 설정 */
+	        color: inherit !important; /* 글자색 상속 */
+	    }
 
     </style>
 </head>
@@ -99,7 +119,7 @@
                     <button type="button" id="searchbtn">검색</button>
                 </div>
                 <br>
-                <div class="inbody">
+                <div class="inbody" id="userInbody">
                     <table>
                     	<tr>
                             <td width="150px">이름  </td>
@@ -131,8 +151,9 @@
                     </table>
                     <br>
                     <div style="display: flex; align-items: end;">
-                        <button type="submit" class="btn btn-outline-success btn-sm" data-dismiss="modal" style="margin-right:6px">수정</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm" id="deletebtn" data-toggle="modal" data-target="#deletModal" >삭제</button>
+                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#insertModal" style="margin-right:6px">등록</button>
+                        <button type="submit" class="btn btn-outline-warning btn-sm" data-dismiss="modal" style="margin-right:6px">수정</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
                     </div>
                 </div>
 		        </form>
@@ -151,13 +172,69 @@
 
 </body>
 
-<!-- 삭제용 모달 -->
-<div class="modal" id="deletModal">
+<!-- 등록용 모달 -->
+<div class="modal" id="insertModal" >
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" id="insertContent" style="border: 3px solid #1abc9cc7;">
         <!-- Modal Header -->
-        <div class="modal-header">
-          <h3 class="modal-title">게시물 삭제</h3>
+        <div class="modal-header" >
+          <h4 class="modal-title">인바디 등록</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body" style=font-size: 15px; ">
+            <form action="<%=contextPath%>/insertInbody.trainar" method="post">
+                <ul>
+                    <li>
+                        <label >이름</label> <br>
+                        <input type="text" name="insertName" style="width: 325px; margin-bottom: 15px;" required> 
+                    </li>
+                    <li>
+                        <label>전화번호</label> <br>
+                        <input type="text" name="insertPhone" style="width: 325px; margin-bottom: 15px;" required placeholder=" ex) 010-xxxx-xxxx(-포함)">
+                    </li>
+                    <li>
+                        <label>신장</label> <br>
+                        <input type="text" name="insertHeight" style="width: 325px; margin-bottom: 15px;" required> cm
+
+                    </li>
+                    <li>
+                        <label>체중</label> <br>
+                        <input type="text" name="insertWeight" style="width: 325px; margin-bottom: 15px;" required> kg
+
+                    </li>
+                    <li>
+                        <label>기초대사량</label> <br>
+                        <input type="text" name="insertMetabolism" style="width: 325px; margin-bottom: 15px;" required> kcal
+
+                    </li>
+                    <li>
+                        <label>체지방량</label> <br>
+                        <input type="text" name="insertFat" style="width: 325px; margin-bottom: 15px;" required> bmi
+
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success btn-sm" id="deletebtn" data-dismiss="modal">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- 삭제용 모달 -->
+<div class="modal" id="deletModal" >
+    <div class="modal-dialog">
+      <div class="modal-content" style="border: 3px solid #1abc9cc7;">
+        <!-- Modal Header -->
+        <div class="modal-header" >
+          <h4 class="modal-title">게시물 삭제</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
@@ -167,7 +244,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
+            <a href="" class="btn btn-outline-danger btn-sm" id="deletebtn" data-dismiss="modal">확인</a>
         </div>
       </div>
     </div>
@@ -185,11 +262,11 @@
 				success:function(ib){
 					console.log(ib);
 					
-					$("#inbody input[name='userName']").val(ib.userName).prop("readonly",true);
-					$("#inbody input[name='height']").val(ib.bodyHeight);
-					$("#inbody input[name='weight']").val(ib.bodyWeight);
-					$("#inbody input[name='metabolism']").val(ib.badyMetabolism);
-					$("#inbody input[name='fat']").val(ib.bodyFat);
+					$("#userInbody input[name='userName']").val(ib.userName).prop("readonly",true);
+					$("#userInbody input[name='height']").val(ib.bodyHeight);
+					$("#userInbody input[name='weight']").val(ib.bodyWeight);
+					$("#userInbody input[name='metabolism']").val(ib.badyMetabolism);
+					$("#userInbody input[name='fat']").val(ib.bodyFat);
 					//$("#inbody input[name='registDate']").val(ib.registDate);
 					
 					
@@ -203,12 +280,7 @@
 		})
 		
 		
-		// 회원 인바디 삭제버튼 클릭시 나올 모달창
-		$(document).ready(function(){
-			$("#deletebtn").click(function(){
-				$("#deletModal").modal("show");
-			})
-		});
+			
 		
 		
 		
