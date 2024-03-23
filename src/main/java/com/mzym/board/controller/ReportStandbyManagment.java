@@ -1,6 +1,7 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -37,23 +38,52 @@ public class ReportStandbyManagment extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String num = request.getParameter("page");
-		if(num != null) {
-		
+		// 해쉬맵에 담을 거기 때문에 뒤에 서 사용할 예정
+		String num2 = request.getParameter("categoryNum");
+		// 위의 두 파라매터가 null 체크
+		if(num != null && num2 != null) {
 			int currentPage = Integer.parseInt(num);
+			int categoryNum = Integer.parseInt(num2);
 			
-			String status = "Y"; // 신고가 된 개시글 갯수만 조회
+			String status = request.getParameter("status");
+			String type = "board";
 			
-			int listCount = new BoardService().reportCount(status);
+			HashMap<String, Object> hash = new HashMap<>();
+			hash.put("categoryNum", categoryNum);
+			hash.put("status", status);
+			hash.put("type", type);
 			
-			PageInfo info = new PageHandler().getPaging(listCount, currentPage, 10, 10);
+			// 게시글인 경우에 반환되는 페이징
+			int listCount = new BoardService().reportCount(hash);
+			PageInfo infoBoard = new PageHandler().getPaging(listCount, currentPage, 10, 10);
 			
-			if(listCount > 0 && info != null) {
-				List<Report> list = new BoardService().selectedBoard(info, status);
+//			type = "comment";  해쉬 맵에서는 문자열은 기존이 변경되도 바뀌지 않는다.
+//			
+			hash.replace("type", "comment");
+			// 댓글인 경우에 반환 되는 페이징
+			listCount = new BoardService().reportCount(hash);
+			PageInfo infoComment = new PageHandler().getPaging(listCount, currentPage, 10, 10);
+			
+			
+			
+			
+			if(listCount > 0 && infoBoard != null && infoComment != null) {
+				// 게시글인 경우 반호나 대는 신고 리스트
+				hash.replace("type", "board");
+				List<Report> listBoard = new BoardService().selectedBoard(infoBoard, hash);
 				
-				request.setAttribute("info", info);
-				request.setAttribute("list", list);
+				// 댓글인 경우 반호나 대는 신고 리스트
+				hash.replace("type", "comment");
+				List<Report> listComment = new BoardService().selectedBoard(infoComment, hash);
+				
+				
+				request.setAttribute("infoBoard", infoBoard);
+				request.setAttribute("listBoard", listBoard);
+				request.setAttribute("infoComment", infoComment);
+				request.setAttribute("listComment", listComment);
 				
 				request.getRequestDispatcher("/views/trainer/Leeyechane/reportStandBy.jsp").forward(request, response);
+			
 			}
 		}
 	}

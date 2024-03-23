@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
@@ -15,6 +16,7 @@ import java.util.Properties;
 import com.mzym.board.vo.Advice;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.BoardCategory;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
@@ -318,7 +320,7 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		
 		try {
-			System.out.println(num);
+		
 			pst = conn.prepareStatement(prop.getProperty("deletedNotice"));
 			pst.setInt(1, num);
 			result = pst.executeUpdate();
@@ -500,19 +502,27 @@ public class BoardDao {
 	}
 	
 	/**
+	 * 현재 받아온 데이터에 따라 신고 대기인지 신고 완료인지를 반환 하는 매서드
 	 * @author 이예찬
 	 * @param conn
-	 * @return 신고 대기글 총 갯수 반환
+	 * @param hash 현재 들어온 게시글이 (Y 신고대기, N 신고완료), type(board : 게시글 정보, comment : 댓글 정보)
+	 * @return 변수에 따라 게시불이 반환 대는 갯수 반환
 	 */
-	public int reportCount(Connection conn, String status) {
+	public int reportCount(Connection conn, HashMap<String, Object> hash) {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		int count = 0;
 		
 		try {
-			pst = conn.prepareStatement(prop.getProperty("reportCount"));
-			pst.setString(1, status);
-			rset = pst.executeQuery();
+			if (hash.get("type").equals("board")) {
+				pst = conn.prepareStatement(prop.getProperty("reportBoardCount"));
+				pst.setString(1, (String)hash.get("status"));
+				rset = pst.executeQuery();				
+			} else {
+				pst = conn.prepareStatement(prop.getProperty("reportCommentCount"));
+				pst.setString(1, (String)hash.get("status"));
+				rset = pst.executeQuery();		
+			}
 			
 			if(rset.next()) {
 				count = rset.getInt(1);
@@ -535,61 +545,38 @@ public class BoardDao {
 	 * @param status 현재 신고 대기인지 완료인지를 구별
 	 * @return 구별된 신고 게시글을 반환
 	 */
-	public List<Report> selectedBoard(Connection conn ,PageInfo info, String status) {
+	public List<Report> selectedBoard(Connection conn ,PageInfo info, HashMap<String, Object> hash) {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		List<Report> list = new ArrayList<>();
 		
 		try {
-			pst = conn.prepareStatement(prop.getProperty("selectReport"));
-			pst.setString(1, status);
-			pst.setString(2, status);
-			rset = pst.executeQuery();
-			
-			for(;rset.next();) {
-				String type = rset.getString("type");
+			// 신고 게시판 불러오기
+			if(hash.get("type").equals("board")) {
+				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
+				pst.setInt(1,(int)hash.get("categoryNum"));
+				pst.setString(2,(String)hash.get("status"));
+				pst.setInt(3, info.getStartBoard());
+				pst.setInt(4, info.getEndBoard());
 				
-				if(type.equals("board")) {
-					list.add(new Report(
-								rset.getInt("REPORT_NO")
-								, rset.getString("reportID")
-								, rset.getString("REPORT_DATE")
-								, rset.getString("reportCategory")
-								, new Board(rset.getInt("BOARD_NO")
-										, rset.getString("boardID")
-											, rset.getString("title_comment")
-											, rset.getString("content")
-											, rset.getString("boardCategory")
-											, new Attachment(
-														rset.getString("orgin_date")
-														, rset.getString("CHANGE_NAME")
-														, rset.getString("FILE_PATH")
-													) // attachment
-										)// board
-								, type
-							));	// list
-				}else {
-					list.add(new Report(
-							rset.getInt("REPORT_NO")
-							, rset.getString("reportID")
-							, rset.getString("REPORT_DATE")
-							, rset.getString("reportCategory")
-							, new Board(
-									rset.getInt("BOARD_NO")
-									, rset.getString("boardCategory")
-									)// board
-							, new Comment(
-									Integer.parseInt(rset.getString("title_comment"))
-									, rset.getString("content")
-									, rset.getString("boardID")
-									)// comment
-							,type
-							));// list
-				}// else문
+				rset = pst.executeQuery();
 				
-			}// for문
-			
-			
+				
+				while(rset.next()) {
+					
+				}
+				
+			} else {
+			// 신고 댓글 불러오기	
+				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
+				pst.setInt(1, (int)hash.get("categoryNum"));
+				pst.setString(2, (String)hash.get("status"));
+				pst.setInt(3, info.getStartBoard());
+				pst.setInt(4, info.getEndBoard());
+				
+				rset = pst.executeQuery();
+				
+			}
 			
 		} catch (SQLException e) {
 			
@@ -619,7 +606,7 @@ public class BoardDao {
 	 * @return 자유게시판의 총 갯수
 	 * 페이징 처리를 위한 자유게시판의 총 갯수 요청 
 	 */
-	public int selectFreeListCount(Connection conn) {
+	public int selectFreeListCount(Connection conn, int type) {
 		
 		int listCount = 0;
 		
@@ -629,6 +616,7 @@ public class BoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, type);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -648,7 +636,7 @@ public class BoardDao {
 	 * @return
 	 * 자유게시판 목록 실행 및 결과값 반환
 	 */
-	public List<Board> selectFreeList(Connection conn, PageInfo pi){
+	public List<Board> selectFreeList(Connection conn, PageInfo pi, int type){
 		List<Board> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -660,8 +648,9 @@ public class BoardDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, type);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -801,7 +790,7 @@ public class BoardDao {
 	 * @return
 	 * 자유게시판 게시글 insert
 	 */
-	public int insertFreeBoard(Connection conn, Board b){
+	public int insertFreeBoard(Connection conn, Board b, int type){
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertFreeBoard");
@@ -809,8 +798,9 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, b.getBoardWriter());
-			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardContent());
+			pstmt.setInt(2, type);
+			pstmt.setString(3, b.getBoardTitle());
+			pstmt.setString(4, b.getBoardContent());
 			
 			result = pstmt.executeUpdate();
 			
@@ -1018,6 +1008,30 @@ public class BoardDao {
 		return result;
 	}
 	
+	public BoardCategory selectBoardName(Connection conn, int type) {
+		BoardCategory bc = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBoardName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, type);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bc = new BoardCategory(rset.getInt("category_no")
+									 , rset.getString("category_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bc;
+	}
 	
 /*	
 	=================================  황수림 a yellow forest ==================================

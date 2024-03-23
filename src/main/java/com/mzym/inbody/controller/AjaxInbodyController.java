@@ -1,26 +1,28 @@
-package com.mzym.board.controller;
+package com.mzym.inbody.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.board.service.BoardService;
-import com.mzym.board.vo.BoardCategory;
+import com.google.gson.Gson;
+import com.mzym.inbody.service.InbodyService;
+import com.mzym.mypage.model.vo.Inbody;
 
 /**
- * Servlet implementation class FreeBoardEnrollFormController
+ * Servlet implementation class AjaxInbodyController
  */
-@WebServlet("/freeEnrollForm.bo")
-public class FreeBoardEnrollFormController extends HttpServlet {
+@WebServlet("/inbody.trainar")
+public class AjaxInbodyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardEnrollFormController() {
+    public AjaxInbodyController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,12 +31,15 @@ public class FreeBoardEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String userPhone = request.getParameter("userPhone");
 		
-		int type = Integer.parseInt(request.getParameter("type"));
-		BoardCategory bc = new BoardService().selectBoardName(type);
-		request.setAttribute("bc", bc);
+		Inbody ib = new InbodyService().selectInbody(userPhone);
+		response.setContentType("application/json; charset=utf-8");
 		
-		request.getRequestDispatcher("/views/board/freeboard/freeBoardInsert.jsp").forward(request, response);
+		if(ib != null) {
+			new Gson().toJson(ib, response.getWriter());
+		}
 		
 	}
 

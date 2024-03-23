@@ -70,7 +70,7 @@
         #counseling:hover,
         #customer:hover,
         #accusation:hover,
-        #calory:hover,
+        #inbody:hover,
         .boardNav>div:hover,
         .suteOption>div:hover{
             background-color: rgba(26, 188, 156, 0.2);
@@ -100,7 +100,7 @@
         #counseling>a,
         #customer>a, 
         #accusation>a, 
-        #calory>a{
+        #inbody>a{
             color: black;
         }
 
@@ -210,7 +210,7 @@
             border-radius: 10px;
         }
         /* 모달 안의 li요소 호버시 배경색 변경 */
-        .modal-body>div>ul>li:hover{
+        .modal-body li:hover{
             background-color: rgba(26, 188, 156, 0.2);
         }
 
@@ -276,4 +276,51 @@
         }
         tfoot{
             height: 100px;
+        }
+
+        .collapsePicture{
+            display: flex;
+            padding-left: 20px;
+        }
+        .collapseitem{
+            text-align: start;
+            padding-left: 20px;
+        }
+        .collapsePicture li ,
+        .collapseitem li{
+            padding: 5px;
+            font-size: 15px;
+        }
+        .collapsePicture li ,
+        .collapseitem p{
+            font-size: 15px;
+            width: 100%;
+        }
+        #boardcontent{
+            margin-top: 20px;
+        }
+        .nav-link{
+            color: #1abc9cc7;
+        }
+        #demo{
+            width: 50%;
+            align-content: center;
+            margin-left: 15px;
+        }
+        .in-line{
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            border: inset;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .out-line{
+            border: outset;
+            border-radius: 10px;
+        }
+        .board-data{
+            width: 140px;
+            border: 0;
+            text-align: center;
         }

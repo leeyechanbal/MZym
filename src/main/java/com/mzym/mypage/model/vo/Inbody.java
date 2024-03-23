@@ -15,6 +15,13 @@ public class Inbody {
 	private int bodyFat;
 	private Date registDate;
 	
+	
+	/**
+	 * @author 김민정
+	 */
+	private String userName;
+	
+
 	public Inbody() {}
 
 	public Inbody(int userNo, int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat, Date registDate) {
@@ -33,6 +40,15 @@ public class Inbody {
 		this.bodyWeight = bodyWeight;
 		this.bodyFat = bodyFat;
 		this.registDate = registDate;
+	}
+
+	public Inbody(String userName, int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat) {
+		super();
+		this.userName = userName;
+		this.bodyHeight = bodyHeight;
+		this.bodyWeight = bodyWeight;
+		this.badyMetabolism = badyMetabolism;
+		this.bodyFat = bodyFat;
 	}
 
 	public int getUserNo() {
@@ -81,6 +97,14 @@ public class Inbody {
 
 	public void setRegistDate(Date registDate) {
 		this.registDate = registDate;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@Override
