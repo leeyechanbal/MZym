@@ -4,6 +4,8 @@
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>    
 <!DOCTYPE html>
 <html>
@@ -72,54 +74,71 @@
 	    	text-align : right;
 	    } 
         */
+        .inbody:hover {
+		    /* hover 효과를 없애는 스타일 */
+		    background-color: none;
+		}
 
     </style>
 </head>
 <body>
+		<%if(alertMsg != null){ %>
+			<script>
+				alert('<%=alertMsg%>');
+			</script>
+        <%
+        	session.removeAttribute("alertMsg");
+		} 
+		%>
 
-        
-
-            <td class="section2">
+            <td class="section2" >
             <br>
-                <div class="calory">
+                <div class="calory" >
+                <form action="<%=contextPath%>/updateInbody.trainar" method="post">
                     <h4></h4>&nbsp;<input type="text" name="userPhone" style="width: 400px; text-align:left;" placeholder="회원의 전화번호를 입력해 주세요.">
-                    <button id="searchbtn">검색</button>
+                    <button type="button" id="searchbtn">검색</button>
                 </div>
                 <br>
-                <div class="inbody" id="inbody">
+                <div class="inbody">
                     <table>
                     	<tr>
                             <td width="150px">이름  </td>
-                            <td><input type="text" name="userName"></td>
+                            <td><input type="text" name="userName" readonly></td>
                         </tr>
                         <tr>
                             <td width="150px">신장  </td>
-                            <td><input type="number" name="height"> cm</td>
+                            <td><input type="text" name="height"> cm</td>
                         </tr>
                         <tr>
                             <td>체중  </td>
-                            <td><input type="number" name="weight"> kg</td>
+                            <td><input type="text" name="weight"> kg</td>
                         </tr>
                         <tr>
                             <td>기초대사량  </td>
-                            <td><input type="number" name="metabolism"> kcal</td>
+                            <td><input type="text" name="metabolism"> kcal</td>
                         </tr> 
                         <tr>
                             <td>체지방량  </td>
-                            <td><input type="number" name="fat"> bmi</td>
+                            <td><input type="text" name="fat"> bmi</td>
                         </tr>
+                        <tr>
+                        <!-- 
+                            <td>등록일 </td>
+                            <td><input type="date" name="registDate" style="margin-bottom: 10px;"></td>
+                        </tr>
+                         -->
 
                     </table>
                     <br>
                     <div style="display: flex; align-items: end;">
-                        <button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal" style="margin-right:6px" onclick="">수정</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
+                        <button type="submit" class="btn btn-outline-success btn-sm" data-dismiss="modal" style="margin-right:6px">수정</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" id="deletebtn" data-toggle="modal" data-target="#deletModal" >삭제</button>
                     </div>
                 </div>
+		        </form>
             </td>
-        </form>
+        
             <td class="section3"></td>
-        </tbody>
         <!-- tfoot : 페이징 바 및 작성 과 삭제 버튼 영역 -->
         <tfoot>
             <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
@@ -166,11 +185,13 @@
 				success:function(ib){
 					console.log(ib);
 					
-					$("#inbody input[name='userName']").val(ib.userName);
+					$("#inbody input[name='userName']").val(ib.userName).prop("readonly",true);
 					$("#inbody input[name='height']").val(ib.bodyHeight);
 					$("#inbody input[name='weight']").val(ib.bodyWeight);
 					$("#inbody input[name='metabolism']").val(ib.badyMetabolism);
 					$("#inbody input[name='fat']").val(ib.bodyFat);
+					//$("#inbody input[name='registDate']").val(ib.registDate);
+					
 					
 				},
 				error:function(){
@@ -180,6 +201,16 @@
 			})
 			
 		})
+		
+		
+		// 회원 인바디 삭제버튼 클릭시 나올 모달창
+		$(document).ready(function(){
+			$("#deletebtn").click(function(){
+				$("#deletModal").modal("show");
+			})
+		});
+		
+		
 		
 		
 		

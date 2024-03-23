@@ -59,7 +59,31 @@ public class InbodyDao {
 	}
 	
 	
-	
+	public int updateInbody(Connection conn, Inbody ib, String userPhone) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInbody");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ib.getBodyHeight());
+			pstmt.setInt(2, ib.getBodyWeight());
+			pstmt.setInt(3, ib.getBadyMetabolism());
+			pstmt.setInt(4, ib.getBodyFat());
+			pstmt.setString(5, userPhone);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
 	
 	
 

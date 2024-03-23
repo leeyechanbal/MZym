@@ -294,8 +294,8 @@ UPDATE INBODY
      , BODY_FAT = ?
      , REGIST_DATE = SYSDATE
  WHERE USER_NO = (SELECT USER_NO 
-                    FROM MZYM_MEMBER 
-                   WHERE PHONE = ?)
+                  FROM MZYM_MEMBER 
+                 WHERE PHONE = ?)
 </entry>
 
 

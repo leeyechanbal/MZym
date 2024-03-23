@@ -51,6 +51,16 @@ public class Inbody {
 		this.bodyFat = bodyFat;
 	}
 
+
+	public Inbody(int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat, Date registDate) {
+		super();
+		this.bodyHeight = bodyHeight;
+		this.bodyWeight = bodyWeight;
+		this.badyMetabolism = badyMetabolism;
+		this.bodyFat = bodyFat;
+		this.registDate = registDate;
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}
