@@ -12,7 +12,7 @@
 	
 	<thead>
           <td class="section1" id="back" onclick="history.back();"><img src="<%=mzymPath %>/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
-          <td class="section2" id="logo"><img src="<%=mzymPath %>/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
+          <td class="section2" id="logo"><a href="<%=mzymPath%>/login.trainer"><img src="<%=mzymPath %>/resources/img/icon/logo-sm-170x100.png"></a></td>
           <td class="section3"></td>
      </thead>
       
@@ -28,8 +28,8 @@
                     <div id="customer"><a href="">고객센터</a></div>
                     <div id="accusation">신고</div>
                     <div class="suteOption" style="margin-top: 0;">
-                        <div class="suteBoard"><a href="<%=mzymPath%>/reportStandby.trainer?page=1&status=Y&categoryNum=1">신고대기</a></div>
-                        <div class="suteRrepeat"><a href="">신고완료</a></div>
+                        <div class="suteBoard"><a href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&cate=1&status=Y">신고대기</a></div>
+                        <div class="suteRrepeat"><a href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&cate=1&status=N">신고완료</a></div>
                     </div>
 
                     <div id="inbody"><a href="<%=mzymPath%>/indobyForm.trainar">인바디</a></div>

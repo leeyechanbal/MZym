@@ -254,7 +254,7 @@
             min-height: 100px;
         }
         textarea:hover{
-            border-color: #1abc9cc7;
+            border-color:#1abc9cc7;
         }
         :focus-visible {
             outline-color: rgba(26, 188, 156, 0.78);
@@ -323,4 +323,11 @@
             width: 140px;
             border: 0;
             text-align: center;
+        }
+        .modal-body ul>li {
+            margin: 5px;
+        }
+
+        tbody> .section2 {
+            height: 500px;
         }
