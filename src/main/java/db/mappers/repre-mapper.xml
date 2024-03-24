@@ -13,5 +13,48 @@ WHERE rn = 1
 ORDER BY YEAR_MONTH DESC
 </entry>
 
+<entry key="selectlistMember">
+	SELECT
+		COUNT(*) COUNT
+	FROM MZYM_MEMBER
+	WHERE STATUS = 'Y'
+</entry>
+
+<entry key="selectMember">
+	SELECT M.*, M2.USER_NAME AS ASSIGN_NAME
+FROM (
+    SELECT t.*, ROWNUM AS rnum
+    FROM (
+        SELECT *
+        FROM MZYM_MEMBER
+        WHERE STATUS = 'Y'
+        ORDER BY USER_NO DESC
+    ) t
+) M
+LEFT JOIN MZYM_MEMBER M2 ON M2.USER_NO = M.ASSIGN_TR
+WHERE M.RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="updateMember">
+UPDATE
+		  MZYM_MEMBER
+	   SET 
+	   	   USER_PWD = ?
+	     , USER_NAME = ?
+	     , PHONE = ?
+	     , RRN = ?
+	     , EMAIL =?
+	     , ADDRESS = ?
+	     , MODIFY_DATE= SYSDATE
+	 WHERE USER_NO = ?
+</entry>
+
+<entry key="deleteMember">
+UPDATE
+		  MZYM_MEMBER
+	   SET 
+	   	   STATUS = 'N'
+	 WHERE USER_NO = ?
+</entry>
 
 </properties>

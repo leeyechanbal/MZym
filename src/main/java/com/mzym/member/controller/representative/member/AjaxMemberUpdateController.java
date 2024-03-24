@@ -1,4 +1,4 @@
-package com.mzym.member.controller;
+package com.mzym.member.controller.representative.member;
 
 import java.io.IOException;
 
@@ -7,22 +7,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.mzym.member.model.service.MemberService;
+import com.mzym.member.model.service.RepreService;
 import com.mzym.member.model.vo.Member;
+import com.mzym.mypage.model.service.MyPageService;
 
 /**
- * Servlet implementation class MemberSignupController
+ * Servlet implementation class AjaxMemberUpdateController
  */
-@WebServlet("/signup.me")
-public class AjaxMemberSignupController extends HttpServlet {
+@WebServlet("/updateMember.re")
+public class AjaxMemberUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxMemberSignupController() {
+    public AjaxMemberUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +31,27 @@ public class AjaxMemberSignupController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		String userName = request.getParameter("userName");
+      	
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		String userId = request.getParameter("id");
+		String userPwd = request.getParameter("pwd");
+		String userName = request.getParameter("name");
 		String phone = request.getParameter("phone");
-		String rRN = request.getParameter("rRN");
+		String rRN = request.getParameter("rrn");
 		String email = request.getParameter("email");
-		String address = request.getParameter("address");		
-		
+		String address = request.getParameter("addreess");
 		
 		Member m = new Member(userId, userPwd, userName, phone, rRN, email, address);
-
+		m.setUserNo(userNo);
 		
-		int result = new MemberService().insertMember(m);
+		int result = new RepreService().updateMember(m);
 		
-		response.getWriter().print(result);
+		System.out.println("실행했나?");
+		if(result > 0) {
+			response.getWriter().write("success");
+		}else {
+			response.getWriter().write("failure");
+		}
 	}
 
 	/**
