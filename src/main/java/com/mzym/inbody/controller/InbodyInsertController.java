@@ -39,9 +39,15 @@ public class InbodyInsertController extends HttpServlet {
 		int insertMetabolism = Integer.parseInt(request.getParameter("insertMetabolism"));
 		int insertFat = Integer.parseInt(request.getParameter("insertFat"));
 		
-		Inbody ib = new Inbody(insertName, insertHeight, insertWeight, insertMetabolism, insertFat);
+		Inbody ib = new Inbody();
 		
-		int result = new InbodyService().insertInbody(ib, insertPhone);
+		//ib.setUserName(insertName);
+		ib.setBodyHeight(insertHeight);
+		ib.setBodyWeight(insertWeight);
+		ib.setBadyMetabolism(insertMetabolism);
+		ib.setBodyFat(insertFat);
+		
+		int result = new InbodyService().insertInbody(ib,insertName, insertPhone);
 		response.setContentType("application/json; charset=utf-8");
 		
 		if(result > 0) {

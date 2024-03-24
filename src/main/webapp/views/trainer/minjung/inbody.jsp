@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.model.vo.Member" %>
 <%
-	String contextPath = request.getContextPath();
-	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-	
-	String alertMsg = (String)session.getAttribute("alertMsg");
+   String contextPath = request.getContextPath();
+   Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+   
+   String alertMsg = (String)session.getAttribute("alertMsg");
 %>    
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@
     <link href="/src/main/webapp/resources/css/leeyechan/trailnerLee.css" rel="stylesheet" type="text/css">
     <script src="/src/main/webapp/resources/js/trailnerLee.js" rel="javascript"></script>
 
-	<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
+   <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 
     <style>
         /* 인바디 추가 스타일 */
@@ -61,26 +61,26 @@
             
         }
         #searchbtn{
-	        border: none;
-	        background: #1ABC9C;
-	        color: white;
-	        font-weight: bold;
-        	border-radius: 5px;      	
-        	width:60px;
-	    }
-	    /*
-	    .section2 input[type="text"],
-	    .section2 input[type="number"]{
-	    	text-align : right;
-	    } 
+           border: none;
+           background: #1ABC9C;
+           color: white;
+           font-weight: bold;
+           border-radius: 5px;         
+           width:60px;
+       }
+       /*
+       .section2 input[type="text"],
+       .section2 input[type="number"]{
+          text-align : right;
+       } 
         */
         .inbody:hover {
-		    /* hover 효과를 없애는 스타일 */
-		    background-color: none;
-		}
-		
-		/* 등록 모달 스타일 */
-		#insertContent{
+          /* hover 효과를 없애는 스타일 */
+          background-color: none;
+      }
+      
+      /* 등록 모달 스타일 */
+      #insertContent{
         border: 2px solid rgba(26, 188, 156, 0.78);
         border-radius: 10px;
         padding: 10px;
@@ -93,27 +93,27 @@
         padding-left: 1px ;       
         background-color: none;
         }
-    	/* li 요소에 hover 스타일이 없도록 재정의 */
-	    .modal-body ul li:hover {
-	        background-color: transparent !important; /* 배경색 투명으로 설정 */
-	        color: inherit !important; /* 글자색 상속 */
-	    }
+       /* li 요소에 hover 스타일이 없도록 재정의 */
+       .modal-body ul li:hover {
+           background-color: transparent !important; /* 배경색 투명으로 설정 */
+           color: inherit !important; /* 글자색 상속 */
+       }
 
     </style>
 </head>
 <body>
-		<%if(alertMsg != null){ %>
-			<script>
-				alert('<%=alertMsg%>');
-			</script>
+      <%if(alertMsg != null){ %>
+         <script>
+            alert('<%=alertMsg%>');
+         </script>
         <%
-        	session.removeAttribute("alertMsg");
-		} 
-		%>
+           session.removeAttribute("alertMsg");
+      } 
+      %>
 
             <td class="section2" >
             <br>
-                <div class="calory" >
+                <div class="calory" id="userInbodySelect">
                 <form action="<%=contextPath%>/updateInbody.trainar" method="post">
                     <h4></h4>&nbsp;<input type="text" name="userPhone" style="width: 400px; text-align:left;" placeholder="회원의 전화번호를 입력해 주세요.">
                     <button type="button" id="searchbtn">검색</button>
@@ -121,7 +121,7 @@
                 <br>
                 <div class="inbody" id="userInbody">
                     <table>
-                    	<tr>
+                       <tr>
                             <td width="150px">이름  </td>
                             <td><input type="text" name="userName" readonly></td>
                         </tr>
@@ -156,7 +156,7 @@
                         <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
                     </div>
                 </div>
-		        </form>
+              </form>
             </td>
         
             <td class="section3"></td>
@@ -167,10 +167,7 @@
             <td class="section3 "></td>
         </tfoot>
         <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
-   </table>
 
-
-</body>
 
 <!-- 등록용 모달 -->
 <div class="modal" id="insertModal" >
@@ -213,10 +210,10 @@
 
                     </li>
                 </ul>
-				        <!-- Modal footer -->
-				        <div class="modal-footer">
-				            <button type="button" id="insertbtn"class="btn btn-outline-success btn-sm"data-dismiss="modal">등록</button>
-				        </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" id="insertbtn"class="btn btn-outline-success btn-sm"data-dismiss="modal">등록</button>
+                    </div>
         </div>
       </div>
     </div>
@@ -241,74 +238,96 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
+            <button class="btn btn-outline-danger btn-sm" id="deletebtn" data-dismiss="modal">삭제</button>
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <a href="<%=contextPath %>/deleteInbody.trainar" class="btn btn-outline-danger btn-sm" id="deletebtn" data-dismiss="modal">확인</a>
         </div>
       </div>
     </div>
   </div>
 
 
-	<script>
-	
-		// 회원의 인바디 조회 
-		$("#searchbtn").on("click", function(){
-			$.ajax({
-				url: "<%=contextPath%>/inbody.trainar",
-				data:{userPhone:$("input[name='userPhone']").val()},
-				type:"get",
-				success:function(ib){
-					console.log(ib);
-					
-					$("#userInbody input[name='userName']").val(ib.userName).prop("readonly",true);
-					$("#userInbody input[name='height']").val(ib.bodyHeight);
-					$("#userInbody input[name='weight']").val(ib.bodyWeight);
-					$("#userInbody input[name='metabolism']").val(ib.badyMetabolism);
-					$("#userInbody input[name='fat']").val(ib.bodyFat);
-					//$("#inbody input[name='registDate']").val(ib.registDate);
-					
-					
-				},
-				error:function(){
-					console.log("인바디 조회 ajax 통신 실패");
-					alert("조회에 실패하였습니다.");
-				}
-			})
-			
-		})
-		
-		
-		// 회원 인바디 등록
-		$("#insertbtn").on("click", function(){
-			$.ajax({
-				url:"<%=contextPath%>/insertInbody.trainar",
-				data:{
-					insertName:$("input[name='insertName']").val(),
-					insertPhone:$("input[name='insertPhone']").val(),
-					insertHeight:$("input[name='insertHeight']").val(),
-					insertWeight:$("input[name='insertWeight']").val(),
-					insertMetabolism:$("input[name='insertMetabolism']").val(),
-					insertFat:$("input[name='insertFat']").val()
-				},
-				type:"post",
-				success:function(result){
-					console.log(result);					
-					alert("성공적으로 등록 되었습니다.");
-				},
-				error:function(){
-					console.log("인바디 등록 ajax통신 실패");
-					alert("등록에 실패하였습니다. 입력하신 정보를 다시 확인해주세요.");
-				}
-			})
-		})
-		
-			
-		
-		
-		
-		
-		
-	</script>
+   <script>
+   
+      // 회원의 인바디 조회 
+      $("#searchbtn").on("click", function(){
+         $.ajax({
+            url: "<%=contextPath%>/inbody.trainar",
+            data:{userPhone:$("input[name='userPhone']").val()},
+            type:"get",
+            success:function(ib){
+               console.log(ib);
+               
+               $("#userInbody input[name='userName']").val(ib.userName).prop("readonly",true);
+               $("#userInbody input[name='height']").val(ib.bodyHeight);
+               $("#userInbody input[name='weight']").val(ib.bodyWeight);
+               $("#userInbody input[name='metabolism']").val(ib.badyMetabolism);
+               $("#userInbody input[name='fat']").val(ib.bodyFat);
+               //$("#inbody input[name='registDate']").val(ib.registDate);
+
+               
+            },
+            error:function(){
+               console.log("인바디 조회 ajax 통신 실패");
+               alert("조회에 실패하였습니다.");
+            }
+         })
+         
+      })
+      
+      
+      // 회원 인바디 등록
+      $("#insertbtn").on("click", function(){
+         $.ajax({
+            url:"<%=contextPath%>/insertInbody.trainar",
+            data:{
+               insertName:$("input[name='insertName']").val(),
+               insertPhone:$("input[name='insertPhone']").val(),
+               insertHeight:$("input[name='insertHeight']").val(),
+               insertWeight:$("input[name='insertWeight']").val(),
+               insertMetabolism:$("input[name='insertMetabolism']").val(),
+               insertFat:$("input[name='insertFat']").val()
+            },
+            type:"post",
+            success:function(result){
+               console.log(result);               
+               alert("성공적으로 등록 되었습니다.");
+            },
+            error:function(){
+               console.log("인바디 등록 ajax통신 실패");
+               alert("등록에 실패하였습니다. 입력하신 정보를 다시 확인해주세요.");
+            }
+         })
+      })
+      
+         
+      // 회원 인바디 정보 삭제
+      $(document).ready(function() {
+      $("#deletebtn").on("click", function(){
+         $.ajax({
+            url:"<%=contextPath %>/deleteInbody.trainar",
+            data:{userPhone:$("#userInbodySelect input[name='userPhone']").val()},
+            type:"get",
+            success:function(result){
+               console.log(result);
+               alert("성공적으로 삭제되었습니다.");
+            },
+            error:function(){
+               console.log("회원인바디정보삭제 ajax통신실패");
+               alert("게시글 삭제에 실패하였습니다.");
+            }
+         })
+      })
+     })  
+      
+      
+      
+      
+      
+   </script>
+
+</body>
+
+
 
 
 

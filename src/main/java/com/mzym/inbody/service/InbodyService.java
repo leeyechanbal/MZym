@@ -36,9 +36,9 @@ public class InbodyService {
 	}
 	
 	// 회원 인바디 등록
-	public int insertInbody(Inbody ib, String insertPhone) {
+	public int insertInbody(Inbody ib,String insertName, String insertPhone) {
 		Connection conn = getConnection();
-		int result = iDao.insertInbody(conn, ib, insertPhone);
+		int result = iDao.insertInbody(conn, ib, insertName, insertPhone);
 		
 		if(result > 0) {
 			commit(conn);
@@ -50,6 +50,27 @@ public class InbodyService {
 		
 		
 	}
+	
+	
+	// 회원 인바디 삭제
+	public int deleteInbody(String userPhone) {
+		Connection conn = getConnection();
+		int result = iDao.deleteInbody(conn, userPhone);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
 	
 
 }

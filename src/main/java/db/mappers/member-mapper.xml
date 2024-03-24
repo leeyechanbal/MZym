@@ -342,9 +342,11 @@ SELECT
      , BODY_WEIGHT
      , BODY_METABOLISM
      , BODY_FAT
-  FROM INBODY
+     , i.STATUS STATUS
+  FROM INBODY i
   JOIN MZYM_MEMBER USING(USER_NO)
  WHERE PHONE = ?
+   AND i.STATUS = 'Y'
 </entry>
 
 
@@ -376,10 +378,18 @@ VALUES
   , ?
   , ?
   , SYSDATE
+  , 'Y'
 ) 
 </entry>
 
-
+<!-- 김민정 회원 인바디 삭제 -->
+<entry key="deleteInbody">
+UPDATE INBODY
+   SET STATUS = 'N'
+ WHERE USER_NO = (SELECT USER_NO
+                    FROM MZYM_MEMBER
+                   WHERE PHONE = ?)
+</entry>
 
 
 

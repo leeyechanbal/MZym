@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.mzym.inbody.service.InbodyService;
-import com.mzym.mypage.model.vo.Inbody;
 
 /**
- * Servlet implementation class AjaxInbodyController
+ * Servlet implementation class AjaxInbodyDeleteController
  */
-@WebServlet("/inbody.trainar")
-public class AjaxInbodyController extends HttpServlet {
+@WebServlet("/deleteInbody.trainar")
+public class AjaxInbodyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxInbodyController() {
+    public AjaxInbodyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +30,14 @@ public class AjaxInbodyController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String userPhone = request.getParameter("userPhone");
 		
-		Inbody ib = new InbodyService().selectInbody(userPhone);
+		int result = new InbodyService().deleteInbody(userPhone);
 		response.setContentType("application/json; charset=utf-8");
 		
-		if(ib != null) {
-				new Gson().toJson(ib, response.getWriter());
-		}else {
-			response.getWriter().println("회원의 정보가 존재하지 않습니다.");
+		if(result > 0) {
+			new Gson().toJson(result, response.getWriter());
 		}
 		
 	}

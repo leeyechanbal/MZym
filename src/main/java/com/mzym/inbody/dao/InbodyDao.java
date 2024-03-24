@@ -45,7 +45,8 @@ public class InbodyDao {
 								rset.getInt("BODY_HEIGHT"),
 								rset.getInt("BODY_WEIGHT"),
 								rset.getInt("BODY_METABOLISM"),
-								rset.getInt("BODY_FAT")
+								rset.getInt("BODY_FAT"),
+								rset.getString("STATUS")
 								);
 			}
 			
@@ -88,7 +89,7 @@ public class InbodyDao {
 	
 	
 	// 회원 인바디 등록
-	public int insertInbody(Connection conn, Inbody ib, String insertPhone) {
+	public int insertInbody(Connection conn, Inbody ib,String insertName, String insertPhone) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertInbody");
@@ -113,8 +114,26 @@ public class InbodyDao {
 		return result;
 	}
 	
-	
-	
+	// 회원 인바디 삭제
+	public int deleteInbody(Connection conn, String userPhone) {
+	    int result = 0;
+	    PreparedStatement pstmt = null;
+	    String sql = prop.getProperty("deleteInbody");
+	    System.out.println(sql);
+	    
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userPhone);
+	        
+	        result = pstmt.executeUpdate();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        close(pstmt);
+	    }
+	    return result;
+	}
 	
 	
 	
