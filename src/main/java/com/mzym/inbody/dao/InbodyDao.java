@@ -28,6 +28,7 @@ public class InbodyDao {
 		
 	}
 	
+	// 회원 조회
 	public Inbody selectInbody(Connection conn, String userPhone) {
 		Inbody ib = null;
 		PreparedStatement pstmt = null;
@@ -58,7 +59,7 @@ public class InbodyDao {
 		
 	}
 	
-	
+	// 회원 인바디 수정
 	public int updateInbody(Connection conn, Inbody ib, String userPhone) {
 		int result = 0;
 		
@@ -84,6 +85,38 @@ public class InbodyDao {
 		return result;
 		
 	}
+	
+	
+	// 회원 인바디 등록
+	public int insertInbody(Connection conn, Inbody ib, String insertPhone) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertInbody");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ib.getUserName());
+			pstmt.setString(2, insertPhone);
+			pstmt.setInt(3, ib.getBodyHeight());
+			pstmt.setInt(4, ib.getBodyWeight());
+			pstmt.setInt(5, ib.getBadyMetabolism());
+			pstmt.setInt(6, ib.getBodyFat());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
 	
 	
 

@@ -362,6 +362,25 @@ UPDATE INBODY
 </entry>
 
 
+<!-- 김민정 회원 인바디 등록 -->
+<entry key="insertInbody">
+INSERT 
+INTO INBODY
+VALUES 
+((SELECT USER_NO
+    FROM MZYM_MEMBER
+   WHERE USER_NAME = ? 
+     AND PHONE = ?)
+  , ?
+  , ?
+  , ?
+  , ?
+  , SYSDATE
+) 
+</entry>
+
+
+
 
 
 </properties>

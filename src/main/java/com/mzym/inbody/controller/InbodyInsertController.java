@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.mzym.inbody.service.InbodyService;
 import com.mzym.mypage.model.vo.Inbody;
 
@@ -31,8 +32,6 @@ public class InbodyInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8");
-		
 		String insertName = request.getParameter("insertName");
 		String insertPhone = request.getParameter("insertPhone");
 		int insertHeight = Integer.parseInt(request.getParameter("insertHeight"));
@@ -42,7 +41,14 @@ public class InbodyInsertController extends HttpServlet {
 		
 		Inbody ib = new Inbody(insertName, insertHeight, insertWeight, insertMetabolism, insertFat);
 		
-		int result = new InbodyService().insertInbody(ib, insertName);
+		int result = new InbodyService().insertInbody(ib, insertPhone);
+		response.setContentType("application/json; charset=utf-8");
+		
+		if(result > 0) {
+			new Gson().toJson(result, response.getWriter());
+		}else {
+			
+		}
 		
 	}
 

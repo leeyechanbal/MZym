@@ -183,7 +183,6 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body" style=font-size: 15px; ">
-            <form action="<%=contextPath%>/insertInbody.trainar" method="post">
                 <ul>
                     <li>
                         <label >이름</label> <br>
@@ -214,11 +213,10 @@
 
                     </li>
                 </ul>
-            </form>
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-success btn-sm" id="deletebtn" data-dismiss="modal">등록</button>
+				        <!-- Modal footer -->
+				        <div class="modal-footer">
+				            <button type="button" id="insertbtn"class="btn btn-outline-success btn-sm"data-dismiss="modal">등록</button>
+				        </div>
         </div>
       </div>
     </div>
@@ -244,7 +242,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <a href="" class="btn btn-outline-danger btn-sm" id="deletebtn" data-dismiss="modal">확인</a>
+            <a href="<%=contextPath %>/deleteInbody.trainar" class="btn btn-outline-danger btn-sm" id="deletebtn" data-dismiss="modal">확인</a>
         </div>
       </div>
     </div>
@@ -279,6 +277,30 @@
 			
 		})
 		
+		
+		// 회원 인바디 등록
+		$("#insertbtn").on("click", function(){
+			$.ajax({
+				url:"<%=contextPath%>/insertInbody.trainar",
+				data:{
+					insertName:$("input[name='insertName']").val(),
+					insertPhone:$("input[name='insertPhone']").val(),
+					insertHeight:$("input[name='insertHeight']").val(),
+					insertWeight:$("input[name='insertWeight']").val(),
+					insertMetabolism:$("input[name='insertMetabolism']").val(),
+					insertFat:$("input[name='insertFat']").val()
+				},
+				type:"post",
+				success:function(result){
+					console.log(result);					
+					alert("성공적으로 등록 되었습니다.");
+				},
+				error:function(){
+					console.log("인바디 등록 ajax통신 실패");
+					alert("등록에 실패하였습니다. 입력하신 정보를 다시 확인해주세요.");
+				}
+			})
+		})
 		
 			
 		
