@@ -1,4 +1,4 @@
-package com.mzym.member.controller;
+package com.mzym.member.controller.representative.member;
 
 import java.io.IOException;
 
@@ -7,22 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.mzym.member.model.service.MemberService;
-import com.mzym.member.model.vo.Member;
+import com.mzym.member.model.service.RepreService;
 
 /**
- * Servlet implementation class MemberSignupController
+ * Servlet implementation class RepreDeleteMemberController
  */
-@WebServlet("/signup.me")
-public class AjaxMemberSignupController extends HttpServlet {
+@WebServlet("/deleteMember.re")
+public class RepreDeleteMemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxMemberSignupController() {
+    public RepreDeleteMemberController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +30,16 @@ public class AjaxMemberSignupController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
-		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		String userName = request.getParameter("userName");
-		String phone = request.getParameter("phone");
-		String rRN = request.getParameter("rRN");
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");		
-		
-		
-		Member m = new Member(userId, userPwd, userName, phone, rRN, email, address);
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 
+		int result = new RepreService().deleteMember(userNo);	
 		
-		int result = new MemberService().insertMember(m);
-		
-		response.getWriter().print(result);
+		if(result > 0 ) {
+			request.getSession().setAttribute("alertMsg", "매출삭제 완료했습니다");
+			response.sendRedirect(request.getContextPath() + "/memberForm.re");
+		}else {
+			request.getSession().setAttribute("alertMsg", "매출삭제가 실패했습니다 다시 시도해주세요");
+		}
 	}
 
 	/**

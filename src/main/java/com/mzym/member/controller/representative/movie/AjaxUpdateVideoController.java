@@ -1,4 +1,4 @@
-package com.mzym.member.controller;
+package com.mzym.member.controller.representative.movie;
 
 import java.io.IOException;
 
@@ -7,22 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.mzym.member.model.service.MemberService;
-import com.mzym.member.model.vo.Member;
+import com.mzym.board.vo.Video;
+import com.mzym.member.model.service.RepreService;
 
 /**
- * Servlet implementation class MemberSignupController
+ * Servlet implementation class AjaxUpdateVideoController
  */
-@WebServlet("/signup.me")
-public class AjaxMemberSignupController extends HttpServlet {
+@WebServlet("/updateVideo.re")
+public class AjaxUpdateVideoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxMemberSignupController() {
+    public AjaxUpdateVideoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +31,25 @@ public class AjaxMemberSignupController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		String userName = request.getParameter("userName");
-		String phone = request.getParameter("phone");
-		String rRN = request.getParameter("rRN");
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");		
+		int userNo = Integer.parseInt(request.getParameter("videoNo"));
+		String title = request.getParameter("title");
+		String link = request.getParameter("link");
+		int level = Integer.parseInt(request.getParameter("category"));
 		
+		Video v = new Video();
+		v.setVideoNo(userNo);
+		v.setVideoTitle(title);
+		v.setLink(link);
+		v.setVideoLevel(level);
 		
-		Member m = new Member(userId, userPwd, userName, phone, rRN, email, address);
-
+		int result = new RepreService().updateVideo(v);
 		
-		int result = new MemberService().insertMember(m);
-		
-		response.getWriter().print(result);
+		if(result > 0) {
+			response.getWriter().write("success");
+		}else {
+			response.getWriter().write("failure");
+		}
 	}
 
 	/**

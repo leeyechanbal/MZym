@@ -210,12 +210,12 @@
                 <div class="repre_left_bottom" style="text-align: cent;">
                     <a href="#" class="main-menu">매출관리</a>
                     <div class="sub-menu">
-                        <a href="#" class="sub-item">상품관리</a>
-                        <a href="#" class="sub-item">월별매출조회</a>
+                        <a href="<%=contextPath%>/productform.re" class="sub-item">상품관리</a>
+                        <a href="<%=contextPath%>/selectDate.re" class="sub-item">월별매출조회</a>
                     </div>
-                    <a href="#" class="main-menu">회원관리</a>
+                    <a href="<%=contextPath%>/memberForm.re" class="main-menu">회원관리</a>
                     <a href="#" class="main-menu">트레이너관리</a>
-                    <a href="#" class="main-menu">영상관리</a>
+                    <a href="<%=contextPath%>/movieForm.re" class="main-menu">영상관리</a>
                 </div>
 
                 <script>
@@ -377,7 +377,7 @@
 
                     
                     
-                    <!-- 모달 전용 스크립트 -->
+                    <!-- 모달카테고리 전용 스크립트 -->
                     <script>
 					$(document).ready(function() {
 					    // select 요소가 변경될 때마다 호출되는 함수
@@ -406,9 +406,9 @@
                 	var form ;
                 	var totalPrice_h3;
     				var price_date = $("#select_date :selected").text();
-    				var paymentList;
     				var selectForUpdateDate = $("#select_date :selected").val();
-    				var pageInfo
+    				var paymentList;
+    				var pageInfo;
     				
     				$(document).ready(function(){
                    		var select_date = $("#select_date").val();
