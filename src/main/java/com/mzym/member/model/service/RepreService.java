@@ -8,6 +8,7 @@ import static com.mzym.common.template.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.dao.RepreDao;
 import com.mzym.member.model.vo.Member;
@@ -28,6 +29,13 @@ public class RepreService {
 	public int selectListCount() {
 		Connection conn = getConnection();
 		int listCount = rDao.selectListCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
+	public int selectMovieCount() {
+		Connection conn = getConnection();
+		int listCount = rDao.selectMovieCount(conn);
 		close(conn);
 		return listCount;
 	}
@@ -64,5 +72,54 @@ public class RepreService {
 		close(conn);
 		return result;
 	}
+
+	public List<Video> selectListVdieo(PageInfo pi) {
+		Connection conn = getConnection();
+		List<Video> list = rDao.selectVideo(conn, pi);
+		close(conn);
+		return list;
+	}
+
+	public int insertVideo(Video v) {
+		Connection conn = getConnection();
+		int result = rDao.insertVideo(conn, v);
+	
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public int updateVideo(Video v) {
+		Connection conn = getConnection();
+		int result = rDao.updateVideo(conn, v);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteVideo(int videoNo) {
+		Connection conn = getConnection();
+		int result = rDao.deleteVideo(conn, videoNo);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	
 
 }

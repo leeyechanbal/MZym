@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <% String contextPath = request.getContextPath(); %>
+<% String contextPath = request.getContextPath(); %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.mzym.member.model.vo.Member" %>    
 <% 
@@ -224,7 +224,7 @@
                     </div>
                     <a href="<%=contextPath%>/memberForm.re" class="main-menu">회원관리</a>
                     <a href="#" class="main-menu">트레이너관리</a>
-                    <a href="#" class="main-menu">영상관리</a>
+                    <a href="<%=contextPath%>/movieForm.re" class="main-menu">영상관리</a>
                 </div>
 
                 <script>

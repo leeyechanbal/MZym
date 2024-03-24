@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
 import com.mzym.member.model.vo.RepreDate;
@@ -87,6 +88,30 @@ public class RepreDao {
 		
 		return listCount;
 	}
+	
+	public int selectMovieCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectlistVideo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
 
 	public List<Member> selectMember(Connection conn, PageInfo pi) {
 		List<Member> list = new ArrayList<>();
@@ -173,4 +198,103 @@ public class RepreDao {
 		return result;
 	}
 
+	public List<Video> selectVideo(Connection conn, PageInfo pi) {
+		List<Video> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVideo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {	
+					list.add(new Video(
+							 rset.getInt("video_no"),
+							 rset.getString("video_title"),
+					         rset.getString("link"),
+					         rset.getInt("video_level")
+					         ));		         
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int insertVideo(Connection conn, Video v) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertVideo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, v.getVideoTitle());
+			pstmt.setString(2, v.getLink());
+			pstmt.setInt(3, v.getVideoLevel());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateVideo(Connection conn, Video v) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateVideo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, v.getVideoLevel());
+			pstmt.setString(2, v.getVideoTitle());
+			pstmt.setString(3, v.getLink());
+			pstmt.setInt(4, v.getVideoNo());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteVideo(Connection conn, int videoNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteVideo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, videoNo);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
 }
