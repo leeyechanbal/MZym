@@ -119,7 +119,6 @@ public class InbodyDao {
 	    int result = 0;
 	    PreparedStatement pstmt = null;
 	    String sql = prop.getProperty("deleteInbody");
-	    System.out.println(sql);
 	    
 	    try {
 	        pstmt = conn.prepareStatement(sql);
