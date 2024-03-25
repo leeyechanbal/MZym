@@ -17,9 +17,9 @@ import com.mzym.board.vo.BoardCategory;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
+import com.mzym.board.vo.ReportCategory;
 import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
-import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardService {
 	
@@ -69,7 +69,6 @@ public class BoardService {
 		
 		int resultAttachment = 1;
 		
-		Attachment att = n.getAtt();
 		
 		if(n.getAtt() != null) {
 			resultAttachment = dao.insertAttachment(conn, n); 
@@ -287,6 +286,32 @@ public class BoardService {
 		close(conn);
 		return total;
 	}
+	
+	/**
+	 * 게시판의 카테고리를 반환하는 매서드
+	 * @author 이예찬
+	 * @return 게시판 테이블에 모든 카테고리 정보
+	 */
+	public List<BoardCategory> selectBoardCategory() {
+		Connection conn = getConnection();
+		List<BoardCategory> list = dao.selectBoardCategory(conn);
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * @author 이예차
+	 * @return 신고 테이블에 모든 카테고리 정보
+	 */
+	public List<ReportCategory> selectReportCategory() {
+		Connection conn = getConnection();
+		List<ReportCategory> list = dao.selectReportCategory(conn);
+		close(conn);
+		
+		return list;
+	}
+	
 	
 	
 	
@@ -567,6 +592,8 @@ Connection conn = getConnection();
 		close(conn);
 		return result;
 	}
+
+
 
 	
 	

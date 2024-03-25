@@ -420,7 +420,8 @@
                     })
 
                     $("type1").click(function(){
-                        const 
+                        const $type1 = $(this);
+                        console.log($type1);
                     })
                     
                     $("[data-target='#myModal']").click(function(){
