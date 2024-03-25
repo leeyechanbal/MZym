@@ -73,10 +73,12 @@ public class ProductListController extends HttpServlet {
 		PageInfo pi =  new PageInfo(listCount,currentPage,pagingLimit,boardLimit,maxPage,startPage,endPage);
 		
 		List<Product> list = new ProductService().selectList(pi);
+		List<Product> bestList = new ProductService().selectList(pi);
+		
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
-		
+		request.setAttribute("bestList", bestList);
 		
 		request.getRequestDispatcher("/views/board/productboard/productBoardList.jsp").forward(request, response);
 	}

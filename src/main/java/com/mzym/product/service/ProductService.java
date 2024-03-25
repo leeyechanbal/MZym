@@ -49,6 +49,13 @@ private ProductDao pDao = new ProductDao();
 		
 		return listCount;
 	}
+	public List<Product> selectBestList() {
+		Connection conn = getConnection();
+		List<Product> list = pDao.selectBestList(conn);
+		
+		close(conn);
+		return list;
+	}
 	
 	
 	

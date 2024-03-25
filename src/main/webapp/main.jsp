@@ -149,8 +149,8 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
 					<div class="carousel-inner trainerImg">
 					    <% for(int i = 0; i < trList.size(); i++) { %>
 					        <div class="carousel-item <%= i == 0 ? "active" : "" %>">
-					            <img src="<%= contextPath %>/resources/img/common/트레이너 이미지 샘플.png" alt="트레이너 이미지1">
-					            <!--<img src="<%= contextPath + "/" + trList.get(i).getImageURL() %>" alt="트레이너 이미지">-->
+					            <!--<img src="<%= contextPath %>/resources/img/common/트레이너 이미지 샘플.png" alt="트레이너 이미지1">-->
+					            <img src="<%= contextPath + "/" + trList.get(i).getImageURL() %>" alt="트레이너 이미지">
 					            <div class="carousel-caption d-none d-md-block text-area">
 					                <h3><%= trList.get(i).getUserName() %> 트레이너</h3>
 					                <div>

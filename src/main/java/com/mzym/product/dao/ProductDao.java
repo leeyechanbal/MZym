@@ -97,5 +97,41 @@ public class ProductDao {
 		}
 		return list;
 	}
+
+	public List<Product> selectBestList(Connection conn) {
+		List<Product> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("bestProduct");
+		
+	    try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Product(
+					     rset.getInt("PRODUCT_NO"),
+					 	 rset.getString("PRODUCT_NAME"),
+					 	 rset.getString("PRODUCT_CONTENT"),
+					 	 rset.getInt("PRODUCT_PRICE"),
+					 	 rset.getDate("REGIST_DATE"),
+					 	 rset.getInt("COUNT"),
+					 	 rset.getString("UPFILEURL")
+		
+						));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally { 
+			close(rset);
+			close(pstmt);
+		}
+	    
+	    
+	    
+	    return list;
+	}
 	
 }

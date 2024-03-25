@@ -14,23 +14,30 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 <meta charset="UTF-8">
 <title>상품구매</title>
 <style>
+
 .center{display:flex; justify-content: center; align-items: center;}
 
         /* Section 관련 스타일 */
-        .board_content{
-            border:1px solid 1abc9c;
-            width:80%;
-            margin:auto;
-            margin-top:50px; 
-            margin-bottom:50px;
-            min-height:500px;
-            padding:50px;
-            border-radius:10px;
-        }
+       .board_content {
+	   	
+	    width: 90%;
+	    height: 100%;
+	    margin: auto;
+	    margin-top: 50px;
+	    min-height: 1200px;
+	    padding: 50px;
+	    border-radius: 10px;
+		}
+		
+		.board_content > div {
+		    flex: 1;
+		    margin: 20px;
+		  
+		}
 
         h4 { 
             text-align: center; 
-            color: #1abc9c;
+            color: black;
         }
 
         hr{
@@ -38,10 +45,7 @@ List<Product> list = (List<Product>)request.getAttribute("list");
             text-align: center;
         }
 
-        .board_list{
-            display:flex;
-            flex-wrap:wrap;
-        }
+      
         .thumbnail{
             width:200px;
             margin:25px;
@@ -125,10 +129,35 @@ List<Product> list = (List<Product>)request.getAttribute("list");
             display: flex;
             justify-content: center;
             align-items: center;
+          
         }
+		.normalItem{
+			
+		}
+		.bestItem{
+			
+		}
+		.itenTitle{
+		    display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px;
+		    padding: 20px;
+		    border-bottom: 2px solid #1ABC9C;
+		}
+		
+.bestItem > .board_list, .normalItem > .board_list {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+}
 
 
-
+.bestItem > .board_list > div, .normalItem > .board_list > div {
+    
+    margin-bottom: 20px;
+}
+		
 </style>
 </head>
 <body>
@@ -142,137 +171,51 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 		<%@ include file="/views/common/Mzym_sidebar.jsp" %>
           
 	        <div class="board_content">
-	
+				<div class="bestItem">
+				<div class="itenTitle">
 	            <h4>추천 상품</h4>
-	            <hr>
-	            <br>
-	
-	            <div class="board_list">
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../../resources/img/common/MZYMProduct.png">
-	                    <div class="thumbnail_title">MZYM PT 10회권</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">500,000원</div>
-	                        <div class="product_detail">프리미엄P.T 10회 + 헬스장 2개월 이용권</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
 	            </div>
+	
+		            <div class="board_list">
+		
+		                <div class="thumbnail">
+		                    <img class="thumbnail_img" src="../../../resources/img/common/MZYMProduct.png">
+		                    <div class="thumbnail_title">MZYM PT 10회권</div>
+		                    <div class="thumbnail_etc">
+		                        <div class="price">500,000원</div>
+		                        <div class="product_detail">프리미엄P.T 10회 + 헬스장 2개월 이용권</div>
+		                    </div>
+		                </div>
+			                              
+		            </div>
+	        	</div>
 	            
-	            <br>
+	            <div class="normalItem">
+	            
+	            <div class="itenTitle">
 	            <h4>전체 상품</h4>
-	            <hr>
-	            <br>
-	
+	           	</div>
+				
+				
 	            <div class="board_list">
+	            <% for(int i = 0; i < list.size(); i++) { %>
 	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
+	                    <img class="thumbnail_img" src="<%= contextPath + "/" + list.get(i).getUpfileUrl() %>">
+	                    <div class="thumbnail_title"><%=list.get(i).getProductName()%></div>
 	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
+	                        <div class="price"><%=list.get(i).getPrice() %>원</div>
+	                        <div class="product_detail"><%=list.get(i).getProductContent()  %></div>
 	                    </div>
 	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	                <div class="thumbnail">
-	                    <img class="thumbnail_img" src="../../resources/images/.jpg">
-	                    <div class="thumbnail_title">상품이름</div>
-	                    <div class="thumbnail_etc">
-	                        <div class="price">가격</div>
-	                        <div class="product_detail">설명</div>
-	                    </div>
-	                </div>
-	
-	            </div>
-	            <br><br>
-	
-	            <div class="search">
-	                <input type="text" placeholder="검색어를 입력하세요">
-	                <img class="searchimg" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-	            </div>
+	                <%} %>
+				</div>
+	         	
 	            <br>
-	
+				</div>
+				
+				
+				
+				
 	            <!--  페이징바 영역 -->
 				<ul class="pagination justify-content-center">
 					<%if(pi.getCurrentPage()==1){ %>
