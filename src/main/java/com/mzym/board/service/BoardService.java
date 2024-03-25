@@ -526,6 +526,26 @@ public class BoardService {
 		
 		return list;
 	}
+
+	public List<Board> ProdoctBoardselectList(PageInfo pi) {
+		
+Connection conn = getConnection();
+		
+		List<Board> b = dao.selectProductBoard(conn, pi);
+		close(conn);
+		return b;
+	}
+
+	public int ProdoctBoardselectListConut() {
+		
+		Connection conn = getConnection();
+		int result = dao.selectProductCount(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	
 	
 	
 	

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Board;
 import com.mzym.common.paging.PageInfo;
 import com.mzym.serviceBoard.service.ServiceBoardService;
 
@@ -43,7 +44,7 @@ public class ProductBoardListController extends HttpServlet {
 				int endPage; 
 
 				
-				listCount = new ServiceBoardService().selectListCount();
+				listCount = new BoardService().ProdoctBoardselectListConut();
 				
 				
 				try {
@@ -71,7 +72,7 @@ public class ProductBoardListController extends HttpServlet {
 				
 				PageInfo pi =  new PageInfo(listCount,currentPage,pagingLimit,boardLimit,maxPage,startPage,endPage);
 				
-				List<BoardService> list = new BoardService().selectList(pi);
+				List<Board> list = new BoardService().ProdoctBoardselectList(pi);
 				
 				request.setAttribute("pi", pi);
 				request.setAttribute("list", list);

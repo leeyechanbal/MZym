@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<%
-	//response.sendRedirect(request.getContextPath()+"/main");
-%>
+
 
 <html>
 <head>
