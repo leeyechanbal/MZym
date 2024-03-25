@@ -110,7 +110,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
       margin-top: 50px;
    }
   
-  tbody tr:hover {
+ homePageBoardContent:hover {
     background-color: #1abc9c;
     cursor: pointer;
   }
@@ -193,7 +193,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
                     </thead>
                     <tbody>
                     <%for(Board b: List1){ %>
-                      <tr>
+                      <tr class="homePageBoardContent">
                         <td><%=b.getBoardNo() %></td>
                         <td><%=b.getBoardTitle() %></td>
                         <td><%=b.getBoardMember() %></td>
@@ -227,7 +227,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
                     </thead>
                     <tbody>
                     <%for(Board b: List2){ %>
-                      <tr>
+                      <tr class="homePageBoardContent">
                         <td><%=b.getBoardNo() %></td>
                         <td><%=b.getBoardTitle() %></td>
                         <td><%=b.getBoardMember() %></td>
