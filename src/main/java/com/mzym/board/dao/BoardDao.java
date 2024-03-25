@@ -1399,6 +1399,18 @@ public class BoardDao {
 		
 	}
 
+	public int selectProductCount(Connection conn) {
+		
+		return 0;
+	}
+
+	public List<Board> selectProductBoard(Connection conn, PageInfo pi) {
+		
+		
+		
+		return list;
+	}
+
 
 
 

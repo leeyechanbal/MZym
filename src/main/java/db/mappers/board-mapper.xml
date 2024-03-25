@@ -873,6 +873,34 @@ SELECT
 </entry>
 
 
-<!--  -->
-<entry key=""></entry>
+<!-- 상품구매 페이징 쿼리문 작성자 엄희강 -->
+<entry key="productSelectListCount">
+SELECT COUNT(*) COUNT
+        FROM PRODUCT
+</entry>
+
+<entry key="productSelectList">
+SELECT *
+	FROM (
+    SELECT ROWNUM RNUM, A.*
+    FROM (
+        SELECT 
+            p.PRODUCT_NO,
+			p.PRODUCT_NAME,
+			p.PRODUCT_CONTENT,
+			p.PRODUCT_PRICE,
+			TO_CHAR(p.REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE,
+			p.COUNT,
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
+        	at.FILE_NO
+        FROM PRODUCT p
+        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
+        ORDER BY p.PRODUCT_NO DESC
+    	) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+
+
 </properties>

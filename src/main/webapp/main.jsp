@@ -110,7 +110,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
       margin-top: 50px;
    }
   
- homePageBoardContent:hover {
+ .homePageBoardContent:hover {
     background-color: #1abc9c;
     cursor: pointer;
   }
@@ -215,7 +215,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
                 
                 <div class="boardArea">
                   <div style="text-align: center; margin-bottom: 50px;"><span><h3>질문게시판</h3></span></div>
-                  <table class="table">
+                  <table class="table" id="anwserBoard_list">
                     <thead>
                       <tr>
                       <th width="15%">글번호</th>
@@ -242,7 +242,13 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
                 </div>
             
               </div>
-
+				<script>
+			            $(function(){
+			                $("#anwserBoard_list>tbody>tr").click(function(){
+			                	location.href = "<%=contextPath%>//*freedetail.bo*/?no=" + $(this).children().eq(0).text();
+			                })
+			            })
+			            </script>		
         </div>
       </section>
       <!--section end-->
