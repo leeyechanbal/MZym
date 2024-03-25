@@ -1,12 +1,12 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.mzym.board.service.BoardService;
 import com.mzym.board.vo.Attachment;
@@ -45,8 +45,6 @@ public class FreeBoardDetailController extends HttpServlet {
 			request.setAttribute("b", b);
 			request.setAttribute("at", at);
 			
-			System.out.println(b.getBoardNo());
-			System.out.println(at);
 			request.getRequestDispatcher("/views/board/freeboard/freeBoardDetail.jsp").forward(request, response);		
 		}else {
 			

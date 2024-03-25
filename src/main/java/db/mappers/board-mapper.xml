@@ -848,7 +848,7 @@ SELECT
 작성자 : 황수림
 페이징 처리 위한 후기게시판 갯수 가져오는 쿼리
  -->
-<entry key="selectFreeListCount">
+<entry key="selectReviewListCount">
 	SELECT	COUNT(*) COUNT
 	FROM	MZYM_BOARD
 	WHERE	BOARD_TYPE = 3

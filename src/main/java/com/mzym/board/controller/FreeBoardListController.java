@@ -63,7 +63,6 @@ public class FreeBoardListController extends HttpServlet {
 		// 페이징바 데이터 객체
 		PageInfo pi = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage);
 		
-		
 		List<Board> list = new BoardService().selectFreeList(pi, type);
 		BoardCategory bc = new BoardService().selectBoardName(type);
 		
@@ -71,7 +70,6 @@ public class FreeBoardListController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("bc", bc);
 		request.setAttribute("type", type);
-		
 		
 		request.getRequestDispatcher("/views/board/freeboard/freeBoardList.jsp").forward(request, response);
 		
