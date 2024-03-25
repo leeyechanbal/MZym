@@ -192,8 +192,7 @@ public class Board {
 		this.category = category;
 	}
 
-	
-	
+
 
 	
 }

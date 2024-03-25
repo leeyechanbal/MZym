@@ -10,7 +10,7 @@
 </entry>
 
 <entry key="selectList">
-	SELECT *
+		SELECT *
 	FROM (
     SELECT ROWNUM RNUM, A.*
     FROM (
@@ -24,13 +24,15 @@
             sb.SERVICE_TR,
             sb.SERVICE_REPEAT,
             at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
-        	at.FILE_NO
+        	at.FILE_NO,
+        	at.STATUS FILESTATUS
+        
         	
         FROM MZYM_SERVICE sb
         JOIN SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
         JOIN MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO
         LEFT JOIN ATTACHMENT at ON sb.SERVICE_NO = at.ATT_NO
-        WHERE sb.STATUS = 'Y'
+        WHERE sb.STATUS = 'Y' 
         ORDER BY sb.SERVICE_NO DESC
     	) A
 	)
@@ -137,7 +139,8 @@
 			ATT_CATEGORY,
 			ORIGIN_NAME,
 			CHANGE_NAME,
-			FILE_PATH
+			FILE_PATH,
+			STATUS
 		)
 		VALUES
 		(
@@ -146,9 +149,17 @@
 		'B',
 		?,
 	   	?,
-	   	?
+	   	?,
+	   	'Y'
 	   	
 		)
+</entry>
+
+<entry key="deleteOldAttachment">
+		DELETE FROM ATTACHMENT
+		WHERE 1=1
+		AND ATT_NO = ?
+		AND STATUS = 'N'
 </entry>
 
 <entry key="selectSerchList">
@@ -166,15 +177,18 @@
             sb.SERVICE_TR,
             sb.SERVICE_REPEAT,
             at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
-        	at.FILE_NO
+        	at.FILE_NO,
+       		at.STATUS FILESTATUS
         	
         FROM MZYM_SERVICE sb
         JOIN SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
         JOIN MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO
         LEFT JOIN ATTACHMENT at ON sb.SERVICE_NO = at.ATT_NO
-        WHERE sb.STATUS = 'Y'
+         WHERE sb.STATUS = 'Y'
         AND (sb.SERVICE_TITLE LIKE '%' || upper(?) || '%'
-             OR sb.SERVICE_CONTENT LIKE '%' ||upper(?) || '%' )
+
+             OR sb.SERVICE_CONTENT LIKE '%' ||upper(?) || '%')
+            
         ORDER BY sb.SERVICE_NO DESC
     	) A
 	)
@@ -189,5 +203,42 @@
     AND (SERVICE_TITLE LIKE '%' || upper(?) || '%'
          OR SERVICE_CONTENT LIKE '%' || upper(?) || '%') 
 </entry>
+
+<entry key="deleteServiceImg">
+		UPDATE ATTACHMENT
+		SET STATUS = 'N'
+		WHERE File_NO = ? 
+			
+</entry>
+<!-- <entry key="latestpostFreeBoard">
+<![CDATA[
+SELECT 
+    SERVICE_NO,
+    CATEGORY_NAME,
+    SERVICE_TITLE,
+    USER_ID,
+    TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') AS REGIST_DATE
+FROM  
+    (SELECT 
+        sb.SERVICE_NO,
+        sc.CATEGORY_NAME,
+        sb.SERVICE_TITLE,
+        mm.USER_ID,
+        sb.REGIST_DATE,
+        ROW_NUMBER() OVER (ORDER BY sb.SERVICE_NO DESC) AS RN
+    FROM  
+        MZYM_SERVICE sb
+    JOIN 
+        SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
+    JOIN 
+        MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO	
+    WHERE 
+        sb.STATUS = 'Y'
+    )
+WHERE 
+    RN <= 10
+]]>
+</entry>-->
+
 
 </properties>

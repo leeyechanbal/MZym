@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static com.mzym.common.template.JDBCTemplate.close;
@@ -183,5 +185,40 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public List<Member> infoTr(Connection conn) {
+		List<Member> infoTr = new ArrayList<>();
+		PreparedStatement pstmt = null;
+	    ResultSet rset = null;
+	    String sql = prop.getProperty("selectTrList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				infoTr.add(new Member(rset.getInt("USER_NO"),
+									  rset.getString("USER_NAME"),	
+									  rset.getString("TR_CAREER"),
+									  rset.getString("CERTIFICATE"),
+									  rset.getString("IMAGE_URL")
+						
+						));
+				
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return infoTr;
 	}
 }

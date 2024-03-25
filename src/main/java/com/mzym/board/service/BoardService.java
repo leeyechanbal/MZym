@@ -19,6 +19,7 @@ import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
 import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
+import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardService {
 	
@@ -503,6 +504,26 @@ public class BoardService {
 		Connection conn = getConnection();
 		List<Video> list = dao. selectVideoList(conn, pi);
 		close(conn);
+		return list;
+	}
+	
+/*	
+	================================= 엄희강 ==================================
+*/	
+//작성자 엄희강 , 홈페이지에 자유게시판 최신글 10개를 조회 하는 서비스 
+	public List<Board> latestpostFreeBoard() {
+		Connection conn = getConnection();
+		List<Board> list  = dao.latestpostFreeBoard(conn);
+		close(conn);
+		
+		return list;
+	}
+
+	public List<Board> latestpostFreeBoard2() {
+		Connection conn = getConnection();
+		List<Board> list  = dao.latestpostFreeBoard2(conn);
+		close(conn);
+		
 		return list;
 	}
 	
