@@ -45,6 +45,8 @@ public class FreeBoardDetailController extends HttpServlet {
 			request.setAttribute("b", b);
 			request.setAttribute("at", at);
 			
+			System.out.println(b.getBoardNo());
+			System.out.println(at);
 			request.getRequestDispatcher("/views/board/freeboard/freeBoardDetail.jsp").forward(request, response);		
 		}else {
 			

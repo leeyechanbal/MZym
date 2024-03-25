@@ -6,7 +6,7 @@ public class Board {
 	private int boardNo; // 글번호 
 	private int boardWriter; // 작성자 = 회원 맴버번호
 	private String boardMember; // 조인한 작성자 = 이름
-	private int boardType; // 게시글 카테고리
+	private int boardType; // 게시글 숫자로 받는 카테고리
 	private String boardTitle; // 글 제목
 	private String boardContent; // 글 내용
 	private Date regist_Date; // 등록일
@@ -14,22 +14,18 @@ public class Board {
 	private String status; 
 	private int reviewRate; // null 0 
 	private int count;  // 기본값 0
-	
 	private String category; // 게시판 카테고리명을 담기 위한 변수
+	
 	private Attachment att; // 게시글의 첨부파일을 담기 위한 객체
 	
 	public Board() {
 		super();
 	}
 	
-	
-
 	public Board(int boardType) {
 		super();
 		this.boardType = boardType;
 	}
-
-
 
 	public int getBoardNo() {
 		return boardNo;
@@ -168,28 +164,35 @@ public class Board {
 	}
 
 	/**
+	 * db의 신고 테이블에서 게시판 과 첨부파일을 받아오는 생성자
 	 * @author 이예찬
 	 * @param boardNo 글번호
 	 * @param boardMember 글쓴이
 	 * @param boardTitle 글 제목
 	 * @param boardContent 글 내용
-	 * @param category 글 유형에 맞는 카테고리
 	 * @param att 각 글에 맞는 첨부파일
-	 * 지우면 나 프로젝트 안해
 	 */
-	public Board(int boardNo, String boardMember, String boardTitle, String boardContent, String category, Attachment att) {
+	public Board(int boardNo, int boardType , String boardMember, String boardTitle, String boardContent, Attachment att) {
 		super();
 		this.boardNo = boardNo;
+		this.boardType = boardType;
 		this.boardMember = boardMember;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
-		this.category = category;
 		this.att = att;
 	}
 
-	public Board(int boardNo, String category) {
+	/**
+	 * 댓글 테이블에 필요한 데이터를 db에서 조회해서 담은 생성자 
+	 * @author 이예찬
+	 * @param boardNo 글번호
+	 * @param boardType 게시글의 카테고리 번호
+	 */
+	public Board(int boardNo,String boardTitle, int boardType) {
+		super();
 		this.boardNo = boardNo;
-		this.category = category;
+		this.boardTitle = boardTitle;
+		this.boardType = boardType;
 	}
 
 

@@ -21,11 +21,36 @@ public class Member {
 	private String certificate; // 자격증
 	private String status;
 	private int assignTr; // 담당 트레이너 번호
+	private String assignTrName;
 	private String imageURL;
 
 	public Member() {
 		super();
 	}
+	
+
+	public Member(int userNo, String userId, String userPwd, String userName, String phone, String rRN, String email,
+			String address, Date enrollDate, Date modifyDate, String trCareer, String certificate, String status,
+			int assignTr, String assignTrName, String imageURL) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.RRN = rRN;
+		this.email = email;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.trCareer = trCareer;
+		this.certificate = certificate;
+		this.status = status;
+		this.assignTr = assignTr;
+		this.assignTrName = assignTrName;
+		this.imageURL = imageURL;
+	}
+
 
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String rRN, String email,
 			String address, Date enrollDate, Date modifyDate, String trCareer, String certificate, String status,
@@ -47,6 +72,23 @@ public class Member {
 		this.assignTr = assignTr;
 		this.imageURL = imageURL;
 	}
+	
+	
+
+	public Member(int userNo, String userId, String userName, String phone, String rRN, String email, String address,
+			int assignTr, String assignTrName) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.phone = phone;
+		this.RRN = rRN;
+		this.email = email;
+		this.address = address;
+		this.assignTr = assignTr;
+		this.assignTrName = assignTrName;
+	}
+
 
 	public Member(int userNo, String userName, String trCareer, String certificate, String imageURL) {
 		super();
@@ -132,8 +174,16 @@ public class Member {
 		this.userName = userName;
 		this.phone = phone;
 		this.userId = userId;
+	}	
+		
+	public String getAssignTrName() {
+		return assignTrName;
 	}
-	
+
+	public void setAssignTrName(String assignTrName) {
+		this.assignTrName = assignTrName;
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}

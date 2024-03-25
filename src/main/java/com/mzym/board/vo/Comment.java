@@ -5,6 +5,7 @@ public class Comment {
 	private int commentNo;
 	private int boardNo;
 	private String commentWriter;
+	// 이거 왜 스트링으로 만든거임?
 	private String userName;
 	private String commentDate;
 	private String commentContent;
@@ -31,6 +32,22 @@ public class Comment {
 		this.commentNo = commentNo;
 		this.commentWriter = commentWriter;
 		this.commentDate = commentDate;
+		this.commentContent = commentContent;
+	}
+	
+	
+
+	/**
+	 * 신고된 댓글의 정보를 받아오는 생성자
+	 * @author 이예찬
+	 * @param commentNo 댓글 번호
+	 * @param userName
+	 * @param commentContent 댓글의 내용
+	 */
+	public Comment(int commentNo, String userName, String commentContent) {
+		super();
+		this.commentNo = commentNo;
+		this.userName = userName;
 		this.commentContent = commentContent;
 	}
 

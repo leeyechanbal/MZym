@@ -1,4 +1,4 @@
-package com.mzym.inbody.controller;
+package com.mzym.member.controller.representative.sale;
 
 import java.io.IOException;
 
@@ -8,21 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.mzym.inbody.service.InbodyService;
-import com.mzym.mypage.model.vo.Inbody;
+import com.mzym.mypage.model.service.MyPageService;
 
 /**
- * Servlet implementation class AjaxInbodyController
+ * Servlet implementation class RepreSaleDeleteController
  */
-@WebServlet("/inbody.trainar")
-public class AjaxInbodyController extends HttpServlet {
+@WebServlet("/deletePayment.re")
+public class RepreSaleDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxInbodyController() {
+    public RepreSaleDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +29,18 @@ public class AjaxInbodyController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String userPhone = request.getParameter("userPhone");
 		
-		Inbody ib = new InbodyService().selectInbody(userPhone);
-		response.setContentType("application/json; charset=utf-8");
+		int paymentNo = Integer.parseInt(request.getParameter("paymentNo"));
 		
-		if(ib != null) {
-				new Gson().toJson(ib, response.getWriter());
+		
+		int result = new MyPageService().deletePayment(paymentNo);	
+		
+		if(result > 0 ) {
+			request.getSession().setAttribute("alertMsg", "매출삭제 완료했습니다");
+			response.sendRedirect(request.getContextPath() + "/selectDate.re");
 		}else {
-			response.getWriter().println("회원의 정보가 존재하지 않습니다.");
+			request.getSession().setAttribute("alertMsg", "매출삭제가 실패했습니다 다시 시도해주세요");
 		}
-		
 	}
 
 	/**

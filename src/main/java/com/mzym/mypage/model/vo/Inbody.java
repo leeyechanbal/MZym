@@ -20,6 +20,7 @@ public class Inbody {
 	 * @author 김민정
 	 */
 	private String userName;
+	private String status;
 	
 
 	public Inbody() {}
@@ -41,15 +42,35 @@ public class Inbody {
 		this.bodyFat = bodyFat;
 		this.registDate = registDate;
 	}
+	
+	public Inbody(int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat) {
+		super();
+		this.bodyHeight = bodyHeight;
+		this.bodyWeight = bodyWeight;
+		this.badyMetabolism = badyMetabolism;
+		this.bodyFat = bodyFat;
+	}
 
-	public Inbody(String userName, int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat) {
+	public Inbody(String userName, int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat, String status) {
 		super();
 		this.userName = userName;
 		this.bodyHeight = bodyHeight;
 		this.bodyWeight = bodyWeight;
 		this.badyMetabolism = badyMetabolism;
 		this.bodyFat = bodyFat;
+		this.status = status;
 	}
+
+	public Inbody(int bodyHeight, int bodyWeight, int badyMetabolism, int bodyFat, Date registDate) {
+		super();
+		this.bodyHeight = bodyHeight;
+		this.bodyWeight = bodyWeight;
+		this.badyMetabolism = badyMetabolism;
+		this.bodyFat = bodyFat;
+		this.registDate = registDate;
+	}
+	
+
 
 	public int getUserNo() {
 		return userNo;
@@ -98,20 +119,31 @@ public class Inbody {
 	public void setRegistDate(Date registDate) {
 		this.registDate = registDate;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
 		return "Inbody [userNo=" + userNo + ", bodyHeight=" + bodyHeight + ", bodyWeight=" + bodyWeight
-				+ ", badyMetabolism=" + badyMetabolism + ", bodyFat=" + bodyFat + ", registDate=" + registDate + "]";
+				+ ", badyMetabolism=" + badyMetabolism + ", bodyFat=" + bodyFat + ", registDate=" + registDate
+				+ ", userName=" + userName + ", status=" + status + "]";
 	}
+
+
 
 	
 	

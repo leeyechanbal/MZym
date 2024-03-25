@@ -155,7 +155,7 @@
 											  // > no => 다시 입력할 수 있도록 유도
 					if(result == "NNNNN") {
 						alert("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
-						$idInput.focus();
+						document.getElementById('input_id').focus;
 					}else {
 						$("#input_idCheck").val(id);
 						console.log($("#input_idCheck").val());
@@ -193,8 +193,6 @@
                 var input_email = $('#input_email').val();
 				var input_address =$('#input_address').val();                
                 
-                console.log(id);
-                console.log(idCheck);
 
                 if (id !== idCheck) {
                     alert("아이디 중복확인 안되었습니다 중복확인 버튼을 눌려주세요");

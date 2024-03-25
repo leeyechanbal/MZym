@@ -198,11 +198,13 @@
 
 <!-- 매출조회 - 구성모 -->
 <entry key="repreSaleSelect">
-SELECT 
-        USER_NAME
+SELECT
+        PAYMENT_NO
+      , USER_NAME
       , PRODUCT_NAME
       , PAYMENT_PRICE
       , PAYMENT_DATE
+      , PAYMENT_NAME
 		  FROM (
 				SELECT ROWNUM RNUM, A.*
 				  FROM (
@@ -211,12 +213,14 @@ SELECT
 						  , PRODUCT_NO
 						  , PAYMENT_USER
                           , PAYMENT_PRICE
-						  , TO_CHAR(PAYMENT_DATE, 'YY-MM-DD') AS PAYMENT_DATE
+                          , PAYMENT_NAME
+						  , TO_CHAR(PAYMENT_DATE, 'YYYY-MM-DD') AS PAYMENT_DATE
 						FROM PAYMENT
 						WHERE TO_CHAR(PAYMENT_DATE, 'YYYY-MM') = ?
+						  AND STATUS IN ('S', 'W')
 				 		) A
 			)
-	 JOIN MZYM_MEMBER ON (PAYMENT_USER = USER_NO)
+	 LEFT JOIN MZYM_MEMBER ON (PAYMENT_USER = USER_NO)
      JOIN PRODUCT USING (PRODUCT_NO)
      WHERE RNUM BETWEEN ? AND ?
 </entry>
@@ -230,7 +234,7 @@ SELECT
 	    , FOOD_CATEGORY
 	    , FOOD_NAME
 	    , FOOD_CAL
-	    , REGIST_DATE
+	    , TO_CHAR(REGIST_DATE,  'YYYY"년" MM"월" DD"일"') REGIST_DATE
 	 FROM FOOD F
 	 JOIN MZYM_MEMBER ON (FOOD_USER = USER_NO)
 	WHERE FOOD_DATE = '20240318'
@@ -270,6 +274,65 @@ INSERT
       AND FOOD_NO = ?
 </entry>
 
+<!-- 구성모 상품 조회 -->
+<entry key="selectAllProduct">
+	SELECT
+		*
+	FROM PRODUCT
+</entry>
+
+<!-- 구성모 매출추가 -->
+<entry key="insertRepreSale">
+INSERT
+      INTO PAYMENT
+      (
+         PAYMENT_NO
+       , PRODUCT_NO
+       , PAYMENT_PRICE
+       , PAYMENT_DATE
+       , STATUS
+       , PAYMENT_NAME
+       )
+       VALUES
+       (
+         SEQ_PAYMENTNO.NEXTVAL
+       , ? 
+       , ?
+       , TO_DATE(?, 'YYYY-MM-DD') 
+       , 'W' 
+       , ? 
+       )
+</entry>
+
+<!-- 관리자 매출관리 금액 총합 -->
+<entry key="selectTotalPrice">
+SELECT SUM(PAYMENT_PRICE) AS TOTAL_PAYMENT_PRICE
+FROM PAYMENT
+WHERE TO_CHAR(PAYMENT_DATE, 'YYYY-MM') = ?
+  AND STATUS IN ('S', 'W')
+</entry>
+
+<!-- 관리자 유저 결제내역 업데이트 -->
+<entry key="updatePayment">
+UPDATE
+		  PAYMENT
+	   SET 
+	   	   PRODUCT_NO = ?
+	     , PAYMENT_PRICE = ?
+	     , PAYMENT_DATE = (TO_DATE(?, 'YYYY-MM-DD'))
+	 WHERE PAYMENT_NO = ?
+</entry>
+
+<!-- 관리자 유저 결제내역 삭제 -->
+<entry key="deletePayment">
+UPDATE
+		  PAYMENT
+	   SET 
+	   	   STATUS = 'N'
+	 WHERE PAYMENT_NO = ?
+</entry>
+
+
 
 <!-- 김민정 회원 인바디 조회(관리자페이지) -->
 <entry key="selectInbody">
@@ -279,9 +342,53 @@ SELECT
      , BODY_WEIGHT
      , BODY_METABOLISM
      , BODY_FAT
-  FROM INBODY I
+     , i.STATUS STATUS
+  FROM INBODY i
   JOIN MZYM_MEMBER USING(USER_NO)
  WHERE PHONE = ?
+   AND i.STATUS = 'Y'
+</entry>
+
+
+<!-- 김민정 회원 인바디 수정 -->
+<entry key="updateInbody">
+UPDATE INBODY
+   SET BODY_HEIGHT = ?
+     , BODY_WEIGHT = ?
+     , BODY_METABOLISM = ?
+     , BODY_FAT = ?
+     , REGIST_DATE = SYSDATE
+ WHERE USER_NO = (SELECT USER_NO 
+                  FROM MZYM_MEMBER 
+                 WHERE PHONE = ?)
+</entry>
+
+
+<!-- 김민정 회원 인바디 등록 -->
+<entry key="insertInbody">
+INSERT 
+INTO INBODY
+VALUES 
+((SELECT USER_NO
+    FROM MZYM_MEMBER
+   WHERE USER_NAME = ? 
+     AND PHONE = ?)
+  , ?
+  , ?
+  , ?
+  , ?
+  , SYSDATE
+  , 'Y'
+) 
+</entry>
+
+<!-- 김민정 회원 인바디 삭제 -->
+<entry key="deleteInbody">
+UPDATE INBODY
+   SET STATUS = 'N'
+ WHERE USER_NO = (SELECT USER_NO
+                    FROM MZYM_MEMBER
+                   WHERE PHONE = ?)
 </entry>
 <!-- 작성자 엄희강 트레이너 정보를 불러오는 쿼리문 -->
 <entry key="selectTrList">
@@ -296,8 +403,5 @@ WHERE  STATUS = 'T'
 
 
 </entry>
-
-
-
 
 </properties>

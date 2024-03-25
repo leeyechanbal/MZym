@@ -7,22 +7,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
 import com.mzym.inbody.service.InbodyService;
 import com.mzym.mypage.model.vo.Inbody;
 
 /**
- * Servlet implementation class AjaxInbodyController
+ * Servlet implementation class InbodyUpdateController
  */
-@WebServlet("/inbody.trainar")
-public class AjaxInbodyController extends HttpServlet {
+@WebServlet("/updateInbody.trainar")
+public class InbodyUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxInbodyController() {
+    public InbodyUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,30 @@ public class AjaxInbodyController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("utf-8");
+		
 		String userPhone = request.getParameter("userPhone");
+		int height = Integer.parseInt(request.getParameter("height"));
+		int weight = Integer.parseInt(request.getParameter("weight"));
+		int metabolism = Integer.parseInt(request.getParameter("metabolism"));
+		int fat = Integer.parseInt(request.getParameter("fat"));
 		
-		Inbody ib = new InbodyService().selectInbody(userPhone);
-		response.setContentType("application/json; charset=utf-8");
+		Inbody ib = new Inbody();
+		ib.setBodyHeight(height);
+		ib.setBodyWeight(weight);
+		ib.setBadyMetabolism(metabolism);
+		ib.setBodyFat(fat);
 		
-		if(ib != null) {
-				new Gson().toJson(ib, response.getWriter());
+		int result = new InbodyService().updateInbody(ib, userPhone);
+		
+		if(result > 0) {
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/indobyForm.trainar");
+			
 		}else {
-			response.getWriter().println("회원의 정보가 존재하지 않습니다.");
+			// 에러페이지
 		}
 		
 	}

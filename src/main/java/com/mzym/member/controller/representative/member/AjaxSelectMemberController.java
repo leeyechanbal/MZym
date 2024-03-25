@@ -1,4 +1,4 @@
-package com.mzym.member.controller.representative;
+package com.mzym.member.controller.representative.member;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.mzym.common.paging.PageInfo;
-import com.mzym.member.model.vo.ReprePayment;
-import com.mzym.mypage.model.service.MyPageService;
+import com.mzym.member.model.service.RepreService;
+import com.mzym.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectRepreSaleController
+ * Servlet implementation class AjaxSelectMemberController
  */
-@WebServlet("/selectSale.re")
-public class AjaxSelectRepreSaleController extends HttpServlet {
+@WebServlet("/selectMember.re")
+public class AjaxSelectMemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSelectRepreSaleController() {
+    public AjaxSelectMemberController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,18 +35,15 @@ public class AjaxSelectRepreSaleController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		PageInfo pi = pagingBar(request, response);
+		List<Member> mList = new RepreService().selectListMember(pi);
 		
-		String paymentDate = request.getParameter("date");
-		
-		PageInfo pi = pagingBar(request, response, paymentDate);
-		List<ReprePayment> list = new MyPageService().selectList(pi, paymentDate);
-		
-		HashMap<String, Object> saleMap = new HashMap<>();
-		saleMap.put("pi", pi);
-		saleMap.put("list", list);
-		
+		HashMap<String, Object> memberMap = new HashMap<>();
+		memberMap.put("pi", pi);
+		memberMap.put("list", mList);
+
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(saleMap, response.getWriter());
+		new Gson().toJson(memberMap, response.getWriter());
 	}
 
 	/**
@@ -57,8 +54,7 @@ public class AjaxSelectRepreSaleController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-
-	private PageInfo  pagingBar(HttpServletRequest request, HttpServletResponse response, String paymentDate ) {
+	private PageInfo  pagingBar(HttpServletRequest request, HttpServletResponse response) {
 		// 메뉴바에 있는 일반게시판 메뉴 클릭시 /list.bo?page=1    => 1번 페이지 요청 
 				// 페이징바에 있는 페이지번호 클릭시 /list.bo?page=클릭한번호 => 클릭한페이지 요청
 				
@@ -73,7 +69,7 @@ public class AjaxSelectRepreSaleController extends HttpServlet {
 				int startPage;		// 사용자가 요청한 페이지 하단에 보여질 페이징바의 시작수
 				int endPage;		//					"				끝수
 				
-				listCount = new MyPageService().selectListCount(paymentDate);
+				listCount = new RepreService().selectListCount();
 				// * currentPage : 사용자가 요청한 페이지수 (현재 띄워줄 페이지)
 				currentPage = Integer.parseInt(request.getParameter("pageNo"));
 				// * pageLimit : 페이징바의 페이지 최대 갯수 (페이징바의 목록수 단위)
@@ -96,5 +92,4 @@ public class AjaxSelectRepreSaleController extends HttpServlet {
 				
 				return pi;
 	}
-
 }

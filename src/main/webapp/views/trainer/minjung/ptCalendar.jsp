@@ -103,7 +103,7 @@
             
                 <!-- Modal Header -->
                 <div class="modal-header">
-                <h4 class="modal-title"><b>조회메뉴</b></h4>
+                <h4 class="modal-title"><b>회원 조회</b></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
         
