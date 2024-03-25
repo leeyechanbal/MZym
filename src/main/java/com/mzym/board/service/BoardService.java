@@ -320,18 +320,21 @@ public class BoardService {
 	 * @return 결과값 반환
 	 */
 	public int reportRequest(HashMap<String, Object> hash) {
+		/*
+		 	신고 철회 type 1 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 게시불 상태 = Y변경(화면에 다시 보이게)
+		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서)
+		 	check = 1 => 게시물 쿼리
+		 	check = 2 => 댓글 쿼리
+		 	
+		 */
 		
 		Connection conn = getConnection();
 		// 신고 테이블의 상태 완료로 변경
 		int result = dao.reportStatusN(conn, hash);
 		int outcome = 1;
 		
-		/*
-		 	신고 철회 type 1 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 게시불 상태 = Y변경(화면에 다시 보이게)
-		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서)
-		 */
 		if((int)hash.get("type") == 1) { // 신고철회
-//			게시불 상태 = Y변경
+//			게시물 상태 = Y변경
 			outcome = dao.boardStatusY(conn, hash);
 		}
 		

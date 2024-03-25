@@ -34,33 +34,41 @@ public class ReportRequest extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		String t = request.getParameter("type");
 		String r = request.getParameter("reportNo");
+		String c = request.getParameter("typeCheck");
+		HttpSession session = request.getSession();
 		
 	System.out.println("tlfgod");
 		
-		if(t != null && r != null) {
+		if(t != null && r != null && c != null) {
 			int type = Integer.parseInt(t);
 			int reportNo = Integer.parseInt(r);			
+			int check = Integer.parseInt(c);
 			String text = request.getParameter("text");
 			
 			HashMap<String, Object> hash = new HashMap<>();
 			hash.put("type", type);
 			hash.put("reportNo", reportNo);
 			hash.put("text", text);
+			hash.put("check", check);
 			
 			
 			int result = new BoardService().reportRequest(hash);
-			HttpSession session = request.getSession();
+			
 			
 			if(result > 0) {
-				session.setAttribute("alter", "요청에 성공 했습니다.");
+				session.setAttribute("alert", "요청에 성공 했습니다.");
 				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
 			} else {
-				session.setAttribute("alter", "요청에 실패 했습니다.");
+				session.setAttribute("alert", "요청에 실패 했습니다.");
 			}
 			
 			
+		}else {
+			session.setAttribute("alert", "보고서를 작성 하셨나요?");
 		}
 		
 	}
