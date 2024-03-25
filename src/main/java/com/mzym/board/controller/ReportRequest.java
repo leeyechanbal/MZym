@@ -13,67 +13,55 @@ import javax.servlet.http.HttpSession;
 import com.mzym.board.service.BoardService;
 
 /**
- * Servlet implementation class BoardMoving
+ * Servlet implementation class ReportRequest
  */
-@WebServlet("/moveBoard.trainer")
-public class BoardMoving extends HttpServlet {
+@WebServlet("/reportRequest.trainer")
+public class ReportRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardMoving() {
+    public ReportRequest() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * 부적절한 게시판이 신고 되었을때 신고를 처리하는 서블릿
+	 * type이 1이면 신고 철회를 type이 2이면 신고 확인 처리를 하는 서블릿
+	 * 신고 번호(reportNo) 와  보고서(text)을 받아옴
 	 * @author 이예찬
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		 * 이동 => 
-		 * 		1. 신고 테이블 N 변경하기 
-		 * 		2. 게시글 번호의 카테고리 번호 변경
-		 * 		3. 보고서의 기록을 넣기
-		 */
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		String a = request.getParameter("reportNo"); // 신고 번호
-		String b = request.getParameter("selectNo"); // 변경될 카테고리 번호
+		String t = request.getParameter("type");
+		String r = request.getParameter("reportNo");
 		
-		if(a != null && b != null ) {
-			
-			int reportNo = Integer.parseInt(a);
-			int selectNo = Integer.parseInt(b);
-			
+	System.out.println("tlfgod");
+		
+		if(t != null && r != null) {
+			int type = Integer.parseInt(t);
+			int reportNo = Integer.parseInt(r);			
 			String text = request.getParameter("text");
-
-			HashMap<String, Object> hash = new HashMap<>();
 			
+			HashMap<String, Object> hash = new HashMap<>();
+			hash.put("type", type);
 			hash.put("reportNo", reportNo);
-			hash.put("selectNo", selectNo);
 			hash.put("text", text);
 			
-			int result = new BoardService().boardMoving(hash);
-			System.out.println("실행왕2");
+			
+			int result = new BoardService().reportRequest(hash);
+			HttpSession session = request.getSession();
 			
 			if(result > 0) {
-			
-				session.setAttribute("alert", "이동이 완료 되었습니다.");
-				
+				session.setAttribute("alter", "요청에 성공 했습니다.");
 				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
-				
 			} else {
-				session.setAttribute("alrert", "다시 시도해 주세요.");
+				session.setAttribute("alter", "요청에 실패 했습니다.");
 			}
 			
-		} else {
-			session.setAttribute("alert", "실행이 원활하지 않습니다. 관리자를 호출해 주세요.");
+			
 		}
-		
 		
 	}
 

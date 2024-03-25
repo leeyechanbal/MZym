@@ -82,7 +82,7 @@ public class ReportManagment extends HttpServlet {
 				// 댓글인 경우 반호나 대는 신고 리스트
 				hash.replace("type", "comment");
 				List<Report> listComment = new BoardService().selectedBoard(infoComment, hash);
-				
+	
 				
 				request.setAttribute("infoBoard", infoBoard);
 				request.setAttribute("listBoard", listBoard);

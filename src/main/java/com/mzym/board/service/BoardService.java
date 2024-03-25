@@ -17,9 +17,9 @@ import com.mzym.board.vo.BoardCategory;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
+import com.mzym.board.vo.ReportCategory;
 import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
-import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardService {
 	
@@ -69,7 +69,6 @@ public class BoardService {
 		
 		int resultAttachment = 1;
 		
-		Attachment att = n.getAtt();
 		
 		if(n.getAtt() != null) {
 			resultAttachment = dao.insertAttachment(conn, n); 
@@ -259,8 +258,119 @@ public class BoardService {
 		
 		close(conn);
 		
-		return null;
+		return list;
 	}
+	
+	
+	
+	/**
+	 * 신고 번호와 대응 되는 게시글의 카테고리 이동 및 신고 상태 = N 변경
+	 * @author 이예찬
+	 * @param hash 신고 번호(reportNo), 이동할 카테고리 번호(selectNo) , 보고서 작성내용(text)
+	 * @return update완료된 결과값 반환
+	 */
+	public int boardMoving(HashMap<String, Object> hash) {
+		Connection conn = getConnection();
+		
+		int result = dao.boardMoving(conn, hash);
+	
+		int outcome = dao.reportStatusN(conn, hash);
+		
+		int total = result*outcome;
+		
+		if(total > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return total;
+	}
+	
+	/**
+	 * 게시판의 카테고리를 반환하는 매서드
+	 * @author 이예찬
+	 * @return 게시판 테이블에 모든 카테고리 정보
+	 */
+	public List<BoardCategory> selectBoardCategory() {
+		Connection conn = getConnection();
+		List<BoardCategory> list = dao.selectBoardCategory(conn);
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * @author 이예차
+	 * @return 신고 테이블에 모든 카테고리 정보
+	 */
+	public List<ReportCategory> selectReportCategory() {
+		Connection conn = getConnection();
+		List<ReportCategory> list = dao.selectReportCategory(conn);
+		close(conn);
+		
+		return list;
+	}
+	
+	
+	/**
+	 * 받아온 type에 따라 신고 확인과 신고 처리를 구분하여 처리
+	 * @author 이예찬
+	 * @param hash
+	 * @return 결과값 반환
+	 */
+	public int reportRequest(HashMap<String, Object> hash) {
+		
+		Connection conn = getConnection();
+		// 신고 테이블의 상태 완료로 변경
+		int result = dao.reportStatusN(conn, hash);
+		int outcome = 1;
+		
+		/*
+		 	신고 철회 type 1 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 게시불 상태 = Y변경(화면에 다시 보이게)
+		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서)
+		 */
+		if((int)hash.get("type") == 1) { // 신고철회
+//			게시불 상태 = Y변경
+			outcome = dao.boardStatusY(conn, hash);
+		}
+		
+		int total = result * outcome;
+		
+		close(conn);
+		
+		return total;
+	}
+	
+	/**
+	 * 삭제 요청된 신고 테이블을 화면에 안보이게 처리
+	 * @author 이예찬
+	 * @param reportNo
+	 * @return 결과값 반환
+	 */
+	public int deleteReport(int reportNo) {
+		Connection conn = getConnection();
+		
+		int result  = dao.deleteReport(conn, reportNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -535,6 +645,14 @@ public class BoardService {
 		close(conn);
 		return b;
 	}
+//	public List<Board> ProdoctBoardselectList(PageInfo pi) {
+//		
+//Connection conn = getConnection();
+//		
+//////		List<Board> b = dao.selectProductBoard(conn, pi);
+//////		close(conn);
+////		return b;
+//	}
 
 	public int ProdoctBoardselectListConut() {
 		
@@ -544,6 +662,10 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+
+
+
+
 
 	
 	

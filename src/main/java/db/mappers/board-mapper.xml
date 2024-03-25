@@ -295,6 +295,7 @@ from(
             , mzym_member.USER_ID reportID <!-- 신고자 아이디 -->
             , REPORT_DATE <!-- 신고일 -->
             , CATEGORY_NO <!-- 신고 카테고리 번호 -->
+            , REPORT_CONTENT
             <!-- board -->
             , BOARD_NO <!-- 신고 카테고리 -->
             , BOARD_TYPE <!-- 게시글의 타입 -->
@@ -321,10 +322,10 @@ from(
             from mzym_board 
             join mzym_member on(BOARD_WRITER = USER_NO)
             left join Attachment on (att_no = BOARD_NO and ATT_CATEGORY != 'N')
-            and  board_type = ? <!-- 해당 카테고리의 숫자값 -->
                 ) board using (BOARD_NO)
         join mzym_member on (REPORT_USER = USER_NO)
         where report.status = ? <!-- N : 신고 완료, Y : 신고 대기 -->
+        and  board_type = ? <!-- 해당 카테고리의 숫자값 -->
         order by REPORT_NO DESC 
     )report
 )
@@ -347,6 +348,7 @@ from(
            , USER_ID <!-- 신고자 아이디 -->
            , REPORT_DATE 
 		   , CATEGORY_NO  <!-- 신고 카테고리 -->
+           , REPORT_CONTENT		   
            <!-- board -->
            , com.board_No
            , BOARD_TITLE
@@ -366,12 +368,12 @@ from(
                     , COMMENT_CONTENT
                 from board_comment
                 join mzym_board using (BOARD_NO)
-                where BOARD_TYPE = ?<!-- 게시물 타입 번호 -->
 			<!-- 신고 처리가 될때 게시물의 상태를 'N'으로 바꾸어야만 조회가 됨 -->
             ) com using (COMMENT_NO)
         
         join mzym_member on (REPORT_USER = USER_NO)
         where report.STATUS = ? <!-- 신고된 상태 N 처리완료 Y 신고대기 -->
+        and BOARD_TYPE = ?<!-- 게시물 타입 번호 -->
         order by REPORT_NO DESC 
     )n
 )
@@ -412,12 +414,12 @@ where board_no = (
      select board_no
      from report
      where report_no = ?
-     )
+)
 </entry>
 
 <!-- 
 	작성자 : 이예찬
-	게시물 이동 후 신고테이블에서 상태를 N으로 변경하는 쿼리
+	신고테이블에서 상태를 N으로 변경하는 쿼리
  -->
 <entry key="reportStatusN">
 update report
@@ -429,7 +431,7 @@ where report_no = ?
 
 <!-- 
 	작성자 : 이예찬
-	사게 요청된 신고 게시물의 상태를 K로 변경
+	삭제 요청된 신고 게시물의 상태를 K로 변경
  -->
 <entry key="deleteReport">
 update report
@@ -438,10 +440,23 @@ where report_no = ?
 </entry>
 
 
+<!-- 
+	작성자 : 이예찬
+	신고 철회 요청된 게시물의 상태를 변경하는 쿼리
+ -->
+<entry key="boardStatusY">
+update mzym_board
+set status = 'Y'
+where board_no = (
+     select board_no
+     from report
+     where report_no = ?
+     )
+</entry>
 <!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+<entry key="">
+
+</entry>
 <!--  -->
 <entry key=""></entry>
 
@@ -873,33 +888,6 @@ SELECT
 </entry>
 
 
-<!-- 상품구매 페이징 쿼리문 작성자 엄희강 -->
-<entry key="productSelectListCount">
-SELECT COUNT(*) COUNT
-        FROM PRODUCT
-</entry>
-
-<entry key="productSelectList">
-SELECT *
-	FROM (
-    SELECT ROWNUM RNUM, A.*
-    FROM (
-        SELECT 
-            p.PRODUCT_NO,
-			p.PRODUCT_NAME,
-			p.PRODUCT_CONTENT,
-			p.PRODUCT_PRICE,
-			TO_CHAR(p.REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE,
-			p.COUNT,
-            at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
-        	at.FILE_NO
-        FROM PRODUCT p
-        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
-        ORDER BY p.PRODUCT_NO DESC
-    	) A
-	)
-	WHERE RNUM BETWEEN ? AND ?
-</entry>
 
 
 
