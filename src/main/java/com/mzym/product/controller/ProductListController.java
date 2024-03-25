@@ -73,7 +73,7 @@ public class ProductListController extends HttpServlet {
 		PageInfo pi =  new PageInfo(listCount,currentPage,pagingLimit,boardLimit,maxPage,startPage,endPage);
 		
 		List<Product> list = new ProductService().selectList(pi);
-		List<Product> bestList = new ProductService().selectList(pi);
+		List<Product> bestList = new ProductService().selectBestList();
 		
 		
 		request.setAttribute("pi", pi);

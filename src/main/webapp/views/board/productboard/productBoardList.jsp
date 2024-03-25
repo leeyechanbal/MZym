@@ -6,7 +6,7 @@
 <%
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 List<Product> list = (List<Product>)request.getAttribute("list");
-
+List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 %>    
 <!DOCTYPE html>
 <html>
@@ -177,16 +177,16 @@ List<Product> list = (List<Product>)request.getAttribute("list");
 	            </div>
 	
 		            <div class="board_list">
-		
+						<% for(int i = 0; i < bestList.size(); i++) { %> 
 		                <div class="thumbnail">
-		                    <img class="thumbnail_img" src="../../../resources/img/common/MZYMProduct.png">
-		                    <div class="thumbnail_title">MZYM PT 10회권</div>
+		                    <img class="thumbnail_img" src="<%= contextPath + "/" + list.get(i).getUpfileUrl() %>">
+		                    <div class="thumbnail_title"><%=list.get(i).getProductName()%></div>
 		                    <div class="thumbnail_etc">
-		                        <div class="price">500,000원</div>
-		                        <div class="product_detail">프리미엄P.T 10회 + 헬스장 2개월 이용권</div>
+		                        <div class="price"><%=list.get(i).getPrice() %>원</div>
+		                        <div class="product_detail"><%=list.get(i).getProductContent()  %></div>
 		                    </div>
 		                </div>
-			                              
+			            <%} %>                  
 		            </div>
 	        	</div>
 	            

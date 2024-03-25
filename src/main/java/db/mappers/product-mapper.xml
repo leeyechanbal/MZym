@@ -41,7 +41,7 @@ SELECT *
 			p.PRODUCT_NAME,
 			p.PRODUCT_CONTENT,
 			p.PRODUCT_PRICE,
-			p.REGIST_DATE
+			p.REGIST_DATE,
 			p.COUNT,
             at.FILE_PATH || at.CHANGE_NAME UPFILEURL
         FROM PRODUCT p
@@ -50,7 +50,7 @@ SELECT *
     	) A
 	 WHERE ROWNUM <= 4
     )
-	WHERE RNUM >= 1;
+	WHERE RNUM >= 1
 ]]>
 </entry>
 
