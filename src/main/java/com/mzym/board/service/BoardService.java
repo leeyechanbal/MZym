@@ -329,14 +329,26 @@ public class BoardService {
 		 */
 		
 		Connection conn = getConnection();
+		
 		// 신고 테이블의 상태 완료로 변경
 		int result = dao.reportStatusN(conn, hash);
 		int outcome = 1;
 		
-		if((int)hash.get("type") == 1) { // 신고철회
-//			게시물 상태 = Y변경
-			outcome = dao.boardStatusY(conn, hash);
+		
+		if((int)hash.get("check") == 1) {
+			
+			if((int)hash.get("type") == 1) { // 신고철회
+				//게시물 상태 = Y변경
+				outcome = dao.boardStatusY(conn, hash);
+			}
+		} else {
+			// 댓글인 경우
+			if((int)hash.get("type") == 1) { // 신고철회
+				//댓글 상태 = Y변경
+				outcome = dao.commentStatusY(conn, hash);
+			}
 		}
+		
 		
 		int total = result * outcome;
 		
@@ -640,22 +652,6 @@ public class BoardService {
 		return list;
 	}
 
-	public List<Board> ProdoctBoardselectList(PageInfo pi) {
-		
-		Connection conn = getConnection();
-		
-		List<Board> b = dao.selectProductBoard(conn, pi);
-		close(conn);
-		return b;
-	}
-//	public List<Board> ProdoctBoardselectList(PageInfo pi) {
-//		
-//Connection conn = getConnection();
-//		
-//////		List<Board> b = dao.selectProductBoard(conn, pi);
-//////		close(conn);
-////		return b;
-//	}
 
 	public int ProdoctBoardselectListConut() {
 		

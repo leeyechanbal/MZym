@@ -800,6 +800,31 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	/**
+	 *	신고 철회된 댓글 상태 Y로 변경
+	 * @author 이예찬
+	 * @param conn
+	 * @param hash
+	 * @return
+	 */
+	public int commentStatusY(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("commentStatusY"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
 
 	
 	
@@ -1449,6 +1474,7 @@ public class BoardDao {
 		
 		return 0;
 	}
+
 
 
 

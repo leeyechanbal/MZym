@@ -453,9 +453,18 @@ where board_no = (
      where report_no = ?
      )
 </entry>
-<!--  -->
-<entry key="">
-
+<!-- 
+	작성자 : 이예찬
+	신고 철회 요청에 댓글의 상태를 변경하는 쿼리
+ -->
+<entry key="commentStatusY">
+update board_comment
+set status = 'Y'
+where COMMENT_NO = (
+     select COMMENT_NO
+     from report
+     where report_no = ?
+     )
 </entry>
 <!--  -->
 <entry key=""></entry>
