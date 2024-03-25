@@ -769,6 +769,92 @@ SELECT
  WHERE CATEGORY_NO = ?
 </entry>
 
+<!--
+	작성자 : 황수림
+	후기게시판 게시글 insert문
+ -->
+<entry key="insertReviewBoard">
+	INSERT
+	INTO MZYM_BOARD
+	(
+		BOARD_NO
+	,	BOARD_WRITER
+	,	BOARD_TYPE
+	,	BOARD_TITLE
+	,	REVIEW_RATE
+	,	BOARD_CONTENT
+	)
+	VALUES
+	(
+		SEQ_BOARDNO.NEXTVAL
+	,	?
+	,	3
+	,	?
+	,	?	
+	,	?
+	)
+</entry>
+
+
+<!--
+	작성자 : 황수림
+	후기게시판 첨부파일 insert문
+ -->
+<entry key="insertReviewAttachment">
+	INSERT
+	INTO ATTACHMENT
+	(
+		FILE_NO
+	,	ATT_NO
+	,	ATT_CATEGORY
+	,	ORIGIN_NAME
+	,	CHANGE_NAME
+	,	FILE_PATH
+	,	FILE_LEVEL
+	)
+	VALUES
+	(
+		SEQ_ATTACHMENT.NEXTVAL
+	,	SEQ_BOARDNO.CURRVAL
+	,	'B'
+	,	?
+	,	?
+	,	?
+	,	?
+	)
+</entry>
+
+<!--
+	작성자 : 황수림
+	후기게시판 select문
+ -->
+<entry key="selectReviewList">
+	SELECT
+	        BOARD_NO
+	    ,   BOARD_TITLE
+	    ,   REVIEW_RATE
+	    ,   COUNT
+	    ,   FILE_PATH || CHANGE_NAME TITLEIMG_URL
+	FROM    MZYM_BOARD B
+	JOIN    ATTACHMENT ON (ATT_NO = BOARD_NO)
+	WHERE BOARD_TYPE = 3
+	AND B.STATUS = 'Y'
+	AND FILE_LEVEL = 1
+	ORDER
+	    BY BOARD_NO DESC
+</entry>
+
+<!-- 
+작성자 : 황수림
+페이징 처리 위한 후기게시판 갯수 가져오는 쿼리
+ -->
+<entry key="selectFreeListCount">
+	SELECT	COUNT(*) COUNT
+	FROM	MZYM_BOARD
+	WHERE	BOARD_TYPE = 3
+	AND		STATUS = 'Y'
+</entry>
+
 <!-- ===========================황수림================================= -->
 
 <!--

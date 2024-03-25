@@ -106,7 +106,7 @@
                       <li><a>공지사항</a></li>
                       <li><a href="<%= contextPath%>/freelist.bo?type=1">자유게시판</a></li>
                       <li><a href="<%= contextPath%>/freelist.bo?type=2">질문게시판</a></li>
-                      <li><a>헬스장후기</a></li>
+                      <li><a href="<%= contextPath%>/list.re">헬스장후기</a></li>
                       <li><a href="<%= contextPath%>/freelist.bo?type=4">운동모임</a></li>
                     </ul>
                   </div>

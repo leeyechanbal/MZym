@@ -586,6 +586,22 @@ public class BoardService {
 		close(conn);
 		return bc;
 	}
+	
+	public int insertReviewBoard(Board b, List<Attachment> list) {
+		Connection conn = getConnection();
+		
+		int result1 = dao.insertReviewBoard(conn, b);
+		int result2 = dao.insertReviewAttachment(conn, list);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+	}
 		
 		
 	/*	
@@ -633,6 +649,21 @@ public class BoardService {
 		List<Video> list = dao. selectVideoList(conn, pi);
 		close(conn);
 		return list;
+	}
+	
+	public List<Board> selectReviewList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Board> list = dao.selectReviewList(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+	public int selectReviewListCount() {
+		Connection conn = getConnection();
+		int listCount = dao.selectReviewListCount(conn);
+		close(conn);
+		return listCount;
+		
 	}
 	
 /*	
