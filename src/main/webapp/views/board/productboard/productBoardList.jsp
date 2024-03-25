@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.mzym.common.paging.PageInfo"%>
+<%@ page import="com.mzym.mypage.model.vo.Product"%>
+<%@ page import="java.util.List"%>    
+<%
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+List<Product> list = (List<Product>)request.getAttribute("list");
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -265,15 +273,31 @@
 	            </div>
 	            <br>
 	
-	            <ul class="pagination my justify-content-center">
-	                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-	                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-	                <li class="page-item"><a class="page-link" href="#">2</a></li>
-	                <li class="page-item"><a class="page-link" href="#">3</a></li>
-	                <li class="page-item"><a class="page-link" href="#">4</a></li>
-	                <li class="page-item"><a class="page-link" href="#">5</a></li>
-	                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-	            </ul>
+	            <!--  페이징바 영역 -->
+				<ul class="pagination justify-content-center">
+					<%if(pi.getCurrentPage()==1){ %>
+					<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+					<%}else{ %>
+					<li class="page-item"><a class="page-link"
+						href="<%=contextPath%>/product.list?page=<%=pi.getCurrentPage()-1 %>">Previous</a></li>
+					<%} %>
+					<%for(int p = pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+					<%if(p==pi.getCurrentPage()){ %>
+					<li class="page-item active"><a class="page-link" href="#"><%=p %></a></li>
+					<%}else{%>
+					<li class="page-item"><a class="page-link"
+						href="<%=contextPath%>//product.list?page=<%=p%>"><%=p %></a></li>
+					<%} %>
+					<%} %>
+	
+
+					<%if(pi.getCurrentPage()==pi.getMaxPage()){ %>
+					<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+					<%}else{ %>
+					<li class="page-item"><a class="page-link"
+						href="<%=contextPath%>//product.list?page=<%=pi.getCurrentPage()+1%>">Next</a></li>
+					<%} %>
+				</ul>
 	            
 	        </div>
 	
