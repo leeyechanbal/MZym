@@ -195,8 +195,7 @@ public class Board {
 		this.boardType = boardType;
 	}
 
-	
-	
+
 
 	
 }

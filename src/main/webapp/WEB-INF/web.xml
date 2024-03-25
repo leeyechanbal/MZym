@@ -9,4 +9,17 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+<!-- 
+  <servlet>
+    <servlet-name>InfoTRServlet</servlet-name>
+    <servlet-class>com.mzym.member.controller.InfoTRServlet</servlet-class>
+  </servlet>
+  
+
+  <servlet-mapping>
+    <servlet-name>InfoTRServlet</servlet-name>
+    <url-pattern>/InfoTR</url-pattern>
+  </servlet-mapping>
+ -->
 </web-app>
