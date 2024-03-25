@@ -171,9 +171,18 @@
 	            const changeName = $(this).next().find("#change").val();            
 				/* console.log(changeName) */
 	            $("#deletModal").find("#fileName").val(changeName);
+
+                $(this).css('border', '3px solid #1abc9cc7').css('border-radius', '10px');
+
+                $(this).siblings().css('border', '0');
+                // console.log($(this).siblings());
+                // console.log($(this).siblings('.show'));
+
+                $(this).siblings('.show').removeClass('show');
 	             
 	        })
 	    })
+
     </Script>
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">

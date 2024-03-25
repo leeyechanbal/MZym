@@ -438,38 +438,47 @@
 
                     $("#boardcontent tr").click(function(){
                         const boardNo = $(this).children(".table-number").text();
-                        $("#deletModal").find(".board-data").val(boardNo);     
+                        $("#deletModal").find(".board-data").val(boardNo);  
+                        
+                        $(this).css('border', '3px solid #1abc9cc7').css('border-radius', '10px');
+
+                        $(this).siblings().css('border', '0');
+                        // console.log($(this).siblings());
+                        // console.log($(this).siblings('.show'));
+                       
+                        $(this).siblings('.show').removeClass('show');
+
                     })
 
 
                     $(".type1").click(function(){
                         const $form = $(this).parents('form');
-                        console.log($form);
+                        // console.log($form);
                         const reportNo = $form.find('input[name=report]').val();
-                        console.log(reportNo);
+                        // console.log(reportNo);
                         const text = $form.find('textarea[name=content]').val();
-                        console.log(text);
+                        // console.log(text);
                         const typeCheck = $form.find('input[name=typeCheck]').val();
-                        console.log(typeCheck);
+                        // console.log(typeCheck);
 
                         const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=1';
-                        console.log(str);
+                        // console.log(str);
                        location.href = str;
                         // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
                     })
 
                     $(".type2").click(function(){
                         const $form = $(this).parents('form');
-                        console.log($form);
+                        // console.log($form);
                         const reportNo = $form.find('input[name=report]').val();
-                        console.log(reportNo);
+                        // console.log(reportNo);
                         const text = $form.find('textarea[name=content]').val();
-                        console.log(text);
+                        // console.log(text);
                         const typeCheck = $form.find('input[name=typeCheck]').val();
-                        console.log(typeCheck);
+                        // console.log(typeCheck);
 
                         const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=2';
-                        console.log(str);
+                        // console.log(str);
                        location.href = str;
                     })
                     
@@ -479,10 +488,10 @@
                         // console.log($(this).parents('.collapseitem'));
 
                         const reportNo =  $(this).parents('.collapseitem').children('input[name=report]').val()
-                        console.log(reportNo);
+                        // console.log(reportNo);
 
                         const content =  $(this).parents('.collapseitem').children('textarea[name=content]').val() 
-                        console.log(content);
+                        // console.log(content);
 
                         $("#myModal").find("input[name=reportNo]").val(reportNo);
                         $("#myModal").find("input[name=text]").val(content);    
@@ -572,7 +581,7 @@
 					        <!-- Modal body -->
 					        <form action="<%=mzymPath%>/reportDelete.trainer">
 					        <div class="in-line" style="text-align: center;">
-					            <h5>현재 선택된 게시글</h5> 
+					            <h5>현재 선택된 데이터 번호</h5> 
 					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo" value="0">번</div>
 					            <div class="modal-body" style="text-align: center; font-size: 15px; ">
 					                게시물을 정말로 삭제 하시겠습니까?
@@ -582,7 +591,7 @@
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
 					            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-					            <button type="button" class="btn btn-outline-danger btn-sm">확인</button>
+					            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
 					        </div>
                         </form>
 					      </div>

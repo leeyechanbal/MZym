@@ -40,3 +40,14 @@ function imaging(index){
     }
 }
 
+
+$("#boardcontent tr").click(function(){
+    $(this).css('border', '3px solid #1abc9cc7').css('border-radius', '10px');
+
+    $(this).siblings().css('border', '0');
+    // console.log($(this).siblings());
+    // console.log($(this).siblings('.show'));
+   
+    $(this).siblings('.show').removeClass('show');
+
+})
