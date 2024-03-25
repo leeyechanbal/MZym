@@ -109,11 +109,11 @@
             <hr>
             <br><br>
                     
-            <form action="<%= contextPath %>/insert.th" method="post" enctype="multipart/form-data">
+            <form action="<%= contextPath %>/insert.re" method="post" enctype="multipart/form-data">
                 <input type="text" class="form-control" required placeholder="제목 입력" name="title">
                 <div class="star">
                     <div style="margin-right: 10px;">&#9733;</div>
-                    <input type="number" id="star_num" name="star_num" min="1" max="5">
+                    <input type="number" id="star_num" min="1" max="5" name="star">
                 </div>
                 <table class="table">
                     <tr>
