@@ -570,6 +570,7 @@ public class BoardDao {
 								rset.getInt("REPORT_NO")
 								, rset.getInt("CATEGORY_NO")
 								, rset.getString("REPORT_DATE")
+								, rset.getString("REPORT_CONTENT")
 								, rset.getString("reportID")
 								, new Board(
 										rset.getInt("BOARD_NO")
@@ -602,6 +603,7 @@ public class BoardDao {
 								rset.getInt("REPORT_NO")
 								, rset.getInt("CATEGORY_NO")
 								, rset.getString("REPORT_DATE")
+								, rset.getString("REPORT_CONTENT")
 								, rset.getString("USER_ID")
 								, new Board(
 										rset.getInt("board_No")
@@ -751,7 +753,7 @@ public class BoardDao {
 
 	
 	/**
-	 * 사게 요청된 데이터의 상태를 K로 바꾼후 결과값 반환
+	 * 삭제 요청된 데이터의 상태를 K로 바꾼후 결과값 반환
 	 * @author 이예찬
 	 * @param conn db에 연결을 위한 객체
 	 * @param reportNo 신고 게시물 번호
@@ -771,6 +773,56 @@ public class BoardDao {
 		}finally {
 			close(pst);
 		}
+		return result;
+	}
+	
+	/**
+	 * 신고로 보이지 않게된 게시글의 상태를 Y변경하는 쿼리요청
+	 * @author 이예찬
+	 * @param conn db연결을 위한 객체
+	 * @param hash 
+	 * @return 결과값
+	 */
+	public int boardStatusY(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("boardStatusY"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 *	신고 철회된 댓글 상태 Y로 변경
+	 * @author 이예찬
+	 * @param conn
+	 * @param hash
+	 * @return
+	 */
+	public int commentStatusY(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("commentStatusY"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
 		return result;
 	}
 
@@ -1529,11 +1581,14 @@ public class BoardDao {
 		return list;
 		
 	}
-
 	public int selectProductCount(Connection conn) {
 		
 		return 0;
 	}
+
+
+
+
 
 
 

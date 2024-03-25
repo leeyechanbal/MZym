@@ -258,7 +258,7 @@ public class BoardService {
 		
 		close(conn);
 		
-		return null;
+		return list;
 	}
 	
 	
@@ -311,6 +311,86 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	
+	/**
+	 * 받아온 type에 따라 신고 확인과 신고 처리를 구분하여 처리
+	 * @author 이예찬
+	 * @param hash
+	 * @return 결과값 반환
+	 */
+	public int reportRequest(HashMap<String, Object> hash) {
+		/*
+		 	신고 철회 type 1 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 게시불 상태 = Y변경(화면에 다시 보이게)
+		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서)
+		 	check = 1 => 게시물 쿼리
+		 	check = 2 => 댓글 쿼리
+		 	
+		 */
+		
+		Connection conn = getConnection();
+		
+		// 신고 테이블의 상태 완료로 변경
+		int result = dao.reportStatusN(conn, hash);
+		int outcome = 1;
+		
+		System.out.println((int)hash.get("check"));
+		System.out.println(result);
+		
+		if((int)hash.get("check") == 1) {
+			
+			if((int)hash.get("type") == 1) { // 신고철회
+				//게시물 상태 = Y변경
+				outcome = dao.boardStatusY(conn, hash);
+			}
+		} else {
+			// 댓글인 경우
+			if((int)hash.get("type") == 1) { // 신고철회
+				//댓글 상태 = Y변경
+				outcome = dao.commentStatusY(conn, hash);
+				System.out.println("이거 되?");
+			}
+		}
+		
+		
+		int total = result * outcome;
+		
+		close(conn);
+		
+		return total;
+	}
+	
+	/**
+	 * 삭제 요청된 신고 테이블을 화면에 안보이게 처리
+	 * @author 이예찬
+	 * @param reportNo
+	 * @return 결과값 반환
+	 */
+	public int deleteReport(int reportNo) {
+		Connection conn = getConnection();
+		
+		int result  = dao.deleteReport(conn, reportNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -606,14 +686,6 @@ public class BoardService {
 		return list;
 	}
 
-	public List<Board> ProdoctBoardselectList(PageInfo pi) {
-		
-Connection conn = getConnection();
-		
-		List<Board> b = dao.selectProductBoard(conn, pi);
-		close(conn);
-		return b;
-	}
 
 	public int ProdoctBoardselectListConut() {
 		
@@ -626,12 +698,12 @@ Connection conn = getConnection();
 
 
 
+
+
 	
 	
 	
 	
-/*	
-	================================= 손수현 ==================================
-*/
+
 
 }// class END

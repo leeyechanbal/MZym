@@ -389,5 +389,34 @@ public class ServiceBoardDao {
 	}
 
 		
+	/**
+	 * @author 김민정
+	 */
+	public int updateRepeat(Connection conn, int serviceNo, String repeat) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRepeat");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, repeat);
+			pstmt.setInt(2, serviceNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 }

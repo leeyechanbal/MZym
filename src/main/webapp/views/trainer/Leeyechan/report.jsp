@@ -40,10 +40,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 <meta charset="UTF-8">
 <title>신고</title>
 
-<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
     <style>
 
         /* 신고 댓글 추가 스타일 */
@@ -76,7 +76,7 @@
                         </button>
                         <div class="dropdown-menu">
                         <% for(BoardCategory b : bCategory) {%>
-                          <a class="dropdown-item" href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&status=Y&cate=<%=b.getCategoryNo()%>"><%=b.getCategoryName()%></a>
+                          <a class="dropdown-item" href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&status=<%=status%>&cate=<%=b.getCategoryNo()%>"><%=b.getCategoryName()%></a>
                           <%} %>
                         </div>
                       </div>
@@ -135,11 +135,15 @@
                                                     <li>신고일: <%=r.getReportDate()%></li>
                                                 </ul>
                                             </fieldset>
-                                   <form action="" method="get">
+                                    <form action="" method="">
                                             <textarea cols="150" rows="5" readonly><%=b.getBoardContent()%></textarea>
                                             <legend><u>보고서</u></legend>
-                                            <textarea cols="150" rows="5" name="content"></textarea>
-                                            <input type="hidden" name="board" value="<%=b.getBoardNo()%>">
+                                            <%if(check){ %>
+                                            <textarea cols="150" rows="5" name="content" required></textarea>
+                                            <%} else { %>
+                                            <textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            <%} %>
+                                            <input type="hidden" name="typeCheck" value="1">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                             <br><br>
                                             <div style="width: 100%; display: flex; justify-content: space-between;">
@@ -151,9 +155,9 @@
                                                 <div>첨부파일이 존재하지 않습니다.</div>
                                                 <%} %>
                                                 <div>
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <% if (r.getCategoryNo() != 5) {%>
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <%}else{ %>
                                                     <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
@@ -161,12 +165,12 @@
                                             </div>
                                         </div>
                                     </td>
-                            </form>
+                                    </form>
                                 </tr>
 							<%} else if(categoryNum == numPT) { %>
 
                             <!-- pt후기 : 사진 -->
-                            <form action="" method="get">
+                
                                 <tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
                                     <td class="table-number"><%=r.getReportNo() %></td>
                                     <td class="table-title"><%=b.getBoardTitle() %></td>
@@ -191,24 +195,24 @@
                                                     	<li>신고자: <%=r.getUserID() %></li>
                                                     	<li>신고일: <%=r.getReportDate()%></li>
                                                     </ul>
+                                                    <form action="" method="">
                                                     <textarea cols="75" rows="8" readonly><%=b.getBoardContent()%></textarea>
                                                     <legend><u>보고서</u></legend>
-                                                    <textarea cols="75" rows="8"  name="content"></textarea>
-                                                    <input type="hidden" name="board" value="">
-                                                    <input type="hidden" name="report" value="">
+                                                    <%if(check){ %>
+                                                        <textarea cols="75" rows="8" name="content" required></textarea>
+                                                        <%} else { %>
+                                                        <textarea cols="75" rows="8" name="content"><%=r.getReportContent()%></textarea>
+                                                        <%} %>
+                                                    <input type="hidden" name="typeCheck" value="1">
+                                                    <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                                 </fieldset>
                                                 <!-- 사진 미리보기 -->
                                                 <div id="demo" class="carousel slide" data-ride="carousel">
 
                                                     <!-- Indicators -->
-															<!-- 
-																파일레벨 
-																Report r = listBoard.get(i);
-								        						Board b = r.getBoard();
-								        						Attachment a = b.getAtt(); 
-															--> 
 													
 													<% if(a != null){%>  
+                                                        <!-- 첨부파일이 없을 경우 로고 이미지 출력 -->
 													<ul class="carousel-indicators">                                             
                                                       <li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
                                                     </ul>
@@ -220,6 +224,13 @@
                                                       </div>
                                                     </div>
                                                     <%} else { %>
+                                                    <!-- 
+                                                        파일레벨 
+                                                        Report r = listBoard.get(i);
+                                                        Board b = r.getBoard();
+                                                        Attachment a = b.getAtt(); 
+                                                    --> 
+                                                        
                                                     <ul class="carousel-indicators">                                             
                                                     	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
                                                    	</ul>
@@ -229,6 +240,9 @@
                                                         <img src="<%=mzymPath%>/resources/img/MZYM_logo_272x167.png" width="500px" height="500px">
                                                       </div>
                                                     </div>
+
+
+
                                                     <%} %>
                                                     <!-- Left and right controls -->
                                                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -241,12 +255,13 @@
                                                   <!-- 사진 영역 -->
                                         </div>
                                         <div style="text-align: -webkit-right; margin-top: 10px;">
-                                            <button type="submit" class="btn btn-outline-secondary btn-sm">철회</button>
-                                            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                            <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                         </div>
+                                    </form>
                                     </td>
                                 </tr>
-                            </form>
+                    
                             	<%} %> <!-- 사진과 게시글 나누는 if문 끝 -->
                             <%} %><!-- 게시글 for문 끝 -->
                             </table>
@@ -268,16 +283,16 @@
                         		Board b = r.getBoard();
                         		Comment c = r.getComment();
                         	%>
-                            <form action="" method="get">
-                                <tr class="tr-title" data-toggle="collapse" data-target="#reComment<%=i%>">
-                                    <td class="table-number"><%=r.getReportNo() %></td>
-                                    <td class="table-title"><%=b.getBoardTitle() %></td>
-                                    <td><%=c.getUserName()%></td>
-                                </tr>
-        
-                                <tr id="reComment<%=i%>" class="collapse">
-                                    <td colspan="5">
-                                        <div class="collapseitem">
+                            <tr class="tr-title" data-toggle="collapse" data-target="#reComment<%=i%>">
+                                <td class="table-number"><%=r.getReportNo() %></td>
+                                <td class="table-title"><%=b.getBoardTitle() %></td>
+                                <td><%=c.getUserName()%></td>
+                            </tr>
+                            
+                            <tr id="reComment<%=i%>" class="collapse">
+                                <td colspan="5">
+                                    <div class="collapseitem">
+                                <form action="" method="get">
                                             <fieldset style="text-align: start;">
                                                 <legend><u>세부사항</u></legend>
                                                 <ul>
@@ -295,18 +310,22 @@
                                             </fieldset>
                                             <textarea cols="150" rows="5" readonly><%=c.getCommentContent()%></textarea>
                                             <legend><u>보고서</u></legend>
-                                            <textarea cols="150" rows="5" name="content"></textarea>
-                                            <input type="hidden" name="board" value="<%=b.getBoardNo()%>">
+                                            <%if(check){ %>
+                                            <textarea cols="150" rows="5" name="content" required></textarea>
+                                            <%} else { %>
+                                            <textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            <%} %>
+                                            <input type="hidden" name="typeCheck" value="0">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                             <br><br>
                                             <div style="text-align: -webkit-right;">
-                                                <button type="submit" class="btn btn-outline-secondary btn-sm">철회</button>
-                                                <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                             </div>
                                         </div>
                                     </td>
+                                </form>
                                 </tr>
-                            </form>
                             <%} %>
                             
                             </table>
@@ -403,12 +422,15 @@
                         if(type == '게시글'){
                             const $paging = $('.paging-board');
                             $paging.css('content-visibility', 'visible');
-                            console.log($paging.next())
+                            // console.log($paging.next())
                             $paging.next().css('content-visibility', 'hidden');
+
+
+
                         } else {
                             const $paging = $('.paging-commnet');
                             $paging.css('content-visibility', 'visible');
-                            console.log($paging.prev())
+                            // console.log($paging.prev())
                             $paging.prev().css('content-visibility', 'hidden');
                         }
 
@@ -419,11 +441,39 @@
                         $("#deletModal").find(".board-data").val(boardNo);     
                     })
 
-                    $("type1").click(function(){
-                        const $type1 = $(this);
-                        console.log($type1);
+
+                    $(".type1").click(function(){
+                        const $form = $(this).parents('form');
+                        console.log($form);
+                        const reportNo = $form.find('input[name=report]').val();
+                        console.log(reportNo);
+                        const text = $form.find('textarea[name=content]').val();
+                        console.log(text);
+                        const typeCheck = $form.find('input[name=typeCheck]').val();
+                        console.log(typeCheck);
+
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=1';
+                        console.log(str);
+                       location.href = str;
+                        // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
+                    })
+
+                    $(".type2").click(function(){
+                        const $form = $(this).parents('form');
+                        console.log($form);
+                        const reportNo = $form.find('input[name=report]').val();
+                        console.log(reportNo);
+                        const text = $form.find('textarea[name=content]').val();
+                        console.log(text);
+                        const typeCheck = $form.find('input[name=typeCheck]').val();
+                        console.log(typeCheck);
+
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=2';
+                        console.log(str);
+                       location.href = str;
                     })
                     
+
                     $("[data-target='#myModal']").click(function(){
                         // console.log(this);
                         // console.log($(this).parents('.collapseitem'));
