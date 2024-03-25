@@ -1360,7 +1360,7 @@ public class BoardDao {
 			
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
-			String sql = prop.getProperty("selectFreeListCount");
+			String sql = prop.getProperty("selectReviewListCount");
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
