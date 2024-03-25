@@ -529,7 +529,7 @@ public class BoardService {
 
 	public List<Board> ProdoctBoardselectList(PageInfo pi) {
 		
-Connection conn = getConnection();
+		Connection conn = getConnection();
 		
 		List<Board> b = dao.selectProductBoard(conn, pi);
 		close(conn);
@@ -549,8 +549,6 @@ Connection conn = getConnection();
 	
 	
 	
-/*	
-	================================= 손수현 ==================================
-*/
+
 
 }// class END

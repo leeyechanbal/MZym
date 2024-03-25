@@ -1397,7 +1397,6 @@ public class BoardDao {
 		return list;
 		
 	}
-
 	public int selectProductCount(Connection conn) {
 		
 		return 0;
