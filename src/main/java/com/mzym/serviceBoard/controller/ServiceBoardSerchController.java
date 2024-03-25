@@ -16,7 +16,7 @@ import com.mzym.serviceBoard.vo.ServiceBoard;
 /**
  * Servlet implementation class ServiceBoardSerchController
  */
-@WebServlet("/search.me")
+@WebServlet("/search.Sevice")
 public class ServiceBoardSerchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -1,6 +1,7 @@
-package com.mzym.inbody.controller;
+package com.mzym.mainpage;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,21 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.mzym.inbody.service.InbodyService;
-import com.mzym.mypage.model.vo.Inbody;
+import com.mzym.board.service.BoardService;
+import com.mzym.board.vo.Board;
+import com.mzym.member.model.service.MemberService;
+import com.mzym.member.model.vo.Member;
+
+
 
 /**
- * Servlet implementation class AjaxInbodyController
+ * Servlet implementation class InfoTRController
  */
-@WebServlet("/inbody.trainar")
-public class AjaxInbodyController extends HttpServlet {
+@WebServlet("/main.do")
+public class MainpageInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxInbodyController() {
+    public MainpageInfoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +35,25 @@ public class AjaxInbodyController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String userPhone = request.getParameter("userPhone");
+		List<Member> trList = null;
+		List<Board> List1 = null;
+		List<Board> List2 = null;
 		
-		Inbody ib = new InbodyService().selectInbody(userPhone);
-		response.setContentType("application/json; charset=utf-8");
+		MemberService memberService = new MemberService();
 		
-		if(ib != null) {
-				new Gson().toJson(ib, response.getWriter());
-		}else {
-			response.getWriter().println("회원의 정보가 존재하지 않습니다.");
-		}
+		BoardService  BoardService = new BoardService();
 		
-	}
+		trList = memberService.infoTr();
+		List1 = BoardService.latestpostFreeBoard();
+		List2 = BoardService.latestpostFreeBoard2();
+		
+		  
+		request.setAttribute("trList", trList);
+		request.setAttribute("List1", List1);
+		request.setAttribute("List2", List2);
+		request.getRequestDispatcher("/main.jsp").forward(request, response);
+		}	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

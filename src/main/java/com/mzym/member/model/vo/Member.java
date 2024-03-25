@@ -90,6 +90,15 @@ public class Member {
 	}
 
 
+	public Member(int userNo, String userName, String trCareer, String certificate, String imageURL) {
+		super();
+		this.userNo = userNo;
+		this.userName = userName;
+		this.trCareer = trCareer;
+		this.certificate = certificate;
+		this.imageURL = imageURL;
+	}
+
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String rRN, String email,
 			String address, Date enrollDate, Date modifyDate, String status) {
 		super();
