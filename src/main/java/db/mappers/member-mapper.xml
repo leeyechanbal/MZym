@@ -135,7 +135,7 @@
 </entry>
 
 <!-- 손수현 인바디 조회 -->
-<entry key="selectInbody">
+<entry key="selectMyPageInbody">
 	SELECT BODY_HEIGHT
 		 , BODY_WEIGHT
 		 , BODY_FAT
