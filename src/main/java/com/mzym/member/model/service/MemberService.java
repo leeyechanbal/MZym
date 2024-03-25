@@ -1,6 +1,7 @@
 package com.mzym.member.model.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import static com.mzym.common.template.JDBCTemplate.*;
 import com.mzym.member.model.dao.MemberDao;
@@ -67,6 +68,14 @@ public class MemberService {
 		
 		close(conn);
 		return result;
+	}
+
+	public List<Member> infoTr() {
+		Connection conn = getConnection();
+		List<Member> infoTr = mDao.infoTr(conn);
+		close(conn);
+		
+		return infoTr;
 	}
 
 }

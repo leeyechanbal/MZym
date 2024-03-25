@@ -851,7 +851,6 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 		
 	}
@@ -1353,6 +1352,86 @@ public class BoardDao {
 /*	
 	================================= 손수현 videoBoard ==================================
 */
+
+	
+	
+/*
+ * 작성자 엄희강, 홈페이지에 자유, 질문 게시판 최신글 10개만 불러올 쿼리
+ * */	
+	
+	public List<Board> latestpostFreeBoard(Connection conn) {
+		List<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("latestpostFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_no"),
+									rset.getString("board_title"),
+									rset.getString("user_name"),
+									rset.getInt("count"),
+									rset.getDate("regist_date")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	public List<Board> latestpostFreeBoard2(Connection conn) {
+		List<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("latestpostFreeBoard2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_no"),
+									rset.getString("board_title"),
+									rset.getString("user_name"),
+									rset.getInt("count"),
+									rset.getDate("regist_date")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	public int selectProductCount(Connection conn) {
+		
+		return 0;
+	}
+
+	public List<Board> selectProductBoard(Connection conn, PageInfo pi) {
+		
+		
+		
+		return list;
+	}
+
+
 
 
 

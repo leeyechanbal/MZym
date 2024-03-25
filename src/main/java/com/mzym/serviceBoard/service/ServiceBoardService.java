@@ -90,6 +90,7 @@ public class ServiceBoardService {
 				
 			}else {
 				result2 = sDao.insertNewAtt(conn, at);
+				result2 = sDao.deleteOldAtt(conn, at);
 				
 			}
 		}
@@ -119,6 +120,23 @@ public class ServiceBoardService {
 		
 		return listCount;
 	}
+
+	public int deleteImg(int fileNo) {
+		
+		Connection conn = getConnection();
+		int result = sDao.deleteImg(conn, fileNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+			
+		return result;
+	}
+
+
 
 	
 	

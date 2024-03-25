@@ -3,12 +3,11 @@
 
 <%@ page import="com.mzym.common.paging.PageInfo"%>
 <%@ page import="com.mzym.serviceBoard.vo.ServiceBoard"%>
-<%@ page import="com.mzym.board.vo.Attachment"%>
 <%@ page import="java.util.List"%>
 <%
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 List<ServiceBoard> list = (List<ServiceBoard>)request.getAttribute("list");
-Attachment at = (Attachment)request.getAttribute("at");
+String deleteImg = request.getContextPath()+"/delete.serviceImg";
 String deleteBoard = request.getContextPath()+"/delete.serviceBoard";
 
 %>
@@ -209,7 +208,7 @@ border rounded>span {
 				<!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 				<%if(loginUser != null){ %>
 				<div class="sea">
-					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
+					<form action="<%=contextPath %>/search.Sevice" method="get" onsubmit="return enterForm();">
 					<div class="sea">
                		<input type="search" placeholder="검색어를 입력하세요" name="keyword" id="keyword">
                 	<img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
@@ -291,10 +290,11 @@ border rounded>span {
 										
 										<div class="upfileArea ">
 
-										<%if(sb.getUpfileUrl() != null){ %>
+										<%if(sb.getUpfileUrl() != null && !sb.getFileStatus().equals("N")){ %>
 										<div class=fileimgarea>
-										<img src="<%= contextPath + "/" + sb.getUpfileUrl() %>"
-											style="max-width: 100%; height: auto;"> 
+										
+											<img src="<%= contextPath + "/" + sb.getUpfileUrl() %> " style="max-width: 100%; height: auto;"> 
+										
 										</div>	
 										<div class="fileimgareaButton">
 										<a href="<%= contextPath + "/" + sb.getUpfileUrl() %>" download="<%= contextPath + "/" + sb.getUpfileUrl() %>" class="btn btn-outline-secondary btn-sm">다운로드</a>
@@ -307,17 +307,21 @@ border rounded>span {
 									
 									<div class="upNewfileArea ">
 
-										<%if(sb.getUpfileUrl() != null){ %>
+										<%if(sb.getUpfileUrl() != null && !sb.getFileStatus().equals("N")){ %>
+										
 										<div class=fileimgarea>
-										<img src="<%= contextPath + "/" + sb.getUpfileUrl() %>"
-											style="max-width: 100%; height: auto;"> 
-										<input type="hidden" name="originFileNo" value="<%= sb.getFileNo() %>">	
+											<img class="imgfile" src="<%= contextPath + "/" + sb.getUpfileUrl() %>"
+												style="max-width: 100%; height: auto;"> 
+											<input type="hidden" name="originFileNo" value="<%= sb.getFileNo() %>">	
 										</div>	
+										
 										<div class="fileimgareaButton">
-										<input type="file" value="파일추가" name="upfile">
-										<a  class="btn btn-outline-secondary btn-sm">파일삭제</a>
+											<input type="file" value="파일추가" name="upfile">
+											<a onclick="deleteImg(<%= sb.getFileNo()%>);" class="btn btn-outline-secondary btn-sm">파일삭제</a>
 										</div>
+										
 										<% }else{ %>
+										
 										첨부파일이 없습니다. 추가 하시겠습니까??
 										
 										<input type="file" value="파일추가" name="upfile">
@@ -370,6 +374,9 @@ border rounded>span {
 				<script>
 				
 				$(document).ready(function () {
+					
+					
+					
 			        $('.summernote').summernote({
 			            placeholder: '내용을 작성하세요',
 			            height: 400,
@@ -416,7 +423,31 @@ border rounded>span {
 						        }
 						    }
 													
-							    
+						    function deleteImg(fileNo) {
+							      
+						        if (confirm('정말 삭제하시겠습니까?')) {
+						            
+						            $.ajax({
+						            	url: "<%= deleteImg %>",
+						                type: "get", 
+						                data: { "fileNo": fileNo }, 
+						                success: function(response) {
+						                	
+						                
+						                	console.log("1");
+						                    $(".imgfile").attr("src",'');
+						                   // div 파일 삭제가 되었습니다 추가? div 만드는거? 
+						                    alert("파일삭제가 성공적으로 되었습니다."); 
+						               
+						                    
+						                },
+						                error: function() { 
+						                    
+						                    alert("파일삭제에 실패했습니다."); 
+						                }
+						            });
+						        }
+						    }    
 						</script>
 
 
@@ -429,13 +460,13 @@ border rounded>span {
 					<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 					<%}else{ %>
 					<li class="page-item">
-					<a class="page-link" href="<%=contextPath%>/search.me?page=<%=pi.getCurrentPage()-1 %>&keyword=<%=request.getParameter("keyword") %>">Previous</a></li>
+					<a class="page-link" href="<%=contextPath%>/search.Sevice?page=<%=pi.getCurrentPage()-1 %>&keyword=<%=request.getParameter("keyword") %>">Previous</a></li>
 					<%} %>
 					<%for(int p = pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
 					<%if(p==pi.getCurrentPage()){ %>
 					<li class="page-item active"><a class="page-link" href="#"><%=p %></a></li>
 					<%}else{%>
-					<li class="page-item"><a class="page-link" href="<%=contextPath%>/search.me?page=<%=p%>&keyword=<%=request.getParameter("keyword") %>"><%=p %></a></li>
+					<li class="page-item"><a class="page-link" href="<%=contextPath%>/search.Sevice?page=<%=p%>&keyword=<%=request.getParameter("keyword") %>"><%=p %></a></li>
 					<%} %>
 					<%} %>
 	
@@ -444,7 +475,7 @@ border rounded>span {
 					<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
 					<%}else{ %>
 					<li class="page-item"><a class="page-link"
-						href="<%=contextPath%>/search.me?page=<%=pi.getCurrentPage()+1%>&keyword=<%=request.getParameter("keyword") %>">Next</a></li>
+						href="<%=contextPath%>/search.Sevice?page=<%=pi.getCurrentPage()+1%>&keyword=<%=request.getParameter("keyword") %>">Next</a></li>
 					<%} %>
 				</ul>
 			</div>

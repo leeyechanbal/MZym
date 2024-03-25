@@ -17,9 +17,9 @@ import com.mzym.board.vo.BoardCategory;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
-import com.mzym.board.vo.ReportCategory;
 import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
+import com.mzym.serviceBoard.vo.ServiceBoard;
 
 public class BoardService {
 	
@@ -259,33 +259,10 @@ public class BoardService {
 		
 		close(conn);
 		
-		return list;
+		return null;
 	}
 	
-	/**
-	 * 게시판의 카테고리를 반환하는 매서드
-	 * @author 이예찬
-	 * @return 게시판 테이블에 모든 카테고리 정보
-	 */
-	public List<BoardCategory> selectBoardCategory() {
-		Connection conn = getConnection();
-		List<BoardCategory> list = dao.selectBoardCategory(conn);
-		close(conn);
-		
-		return list;
-	}
 	
-	/**
-	 * @author 이예차
-	 * @return 신고 테이블에 모든 카테고리 정보
-	 */
-	public List<ReportCategory> selectReportCategory() {
-		Connection conn = getConnection();
-		List<ReportCategory> list = dao.selectReportCategory(conn);
-		close(conn);
-		
-		return list;
-	}
 	
 	/**
 	 * 신고 번호와 대응 되는 게시글의 카테고리 이동 및 신고 상태 = N 변경
@@ -297,7 +274,7 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int result = dao.boardMoving(conn, hash);
-		System.out.println("실행왕1");
+	
 		int outcome = dao.reportStatusN(conn, hash);
 		
 		int total = result*outcome;
@@ -311,19 +288,8 @@ public class BoardService {
 		return total;
 	}
 	
-	/**
-	 * 삭제 요청된 신고 게시물의 상태를 변경하고 요청된 결과 값 반환
-	 * @author 이예찬
-	 * @param reportNo
-	 * @return 삭제 후 결과 값 반환
-	 */
-	public int deleteReport(int reportNo) {
-		Connection conn = getConnection();
-		int result = dao.deleteReport(conn, reportNo);
-		
-		close(conn);
-		return result;
-	}
+	
+	
 	
 	
 /*	
@@ -563,9 +529,47 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+	
+/*	
+	================================= 엄희강 ==================================
+*/	
+//작성자 엄희강 , 홈페이지에 자유게시판 최신글 10개를 조회 하는 서비스 
+	public List<Board> latestpostFreeBoard() {
+		Connection conn = getConnection();
+		List<Board> list  = dao.latestpostFreeBoard(conn);
+		close(conn);
+		
+		return list;
+	}
 
+	public List<Board> latestpostFreeBoard2() {
+		Connection conn = getConnection();
+		List<Board> list  = dao.latestpostFreeBoard2(conn);
+		close(conn);
+		
+		return list;
+	}
 
+	public List<Board> ProdoctBoardselectList(PageInfo pi) {
+		
+Connection conn = getConnection();
+		
+		List<Board> b = dao.selectProductBoard(conn, pi);
+		close(conn);
+		return b;
+	}
 
+	public int ProdoctBoardselectListConut() {
+		
+		Connection conn = getConnection();
+		int result = dao.selectProductCount(conn);
+		
+		close(conn);
+		return result;
+	}
+
+	
+	
 	
 	
 /*	

@@ -15,8 +15,9 @@ public class ServiceBoard {
 	private String repeatDate;
 	private String status;
 	private String upfileUrl; // 파일 
-	private String keyward;
-	private int fileNo;
+	private String keyward; // 검색용 
+	private int fileNo; // 파일 번호 
+	private String fileStatus; //파일 상태 
 	
 	
 	public ServiceBoard() {
@@ -26,7 +27,7 @@ public class ServiceBoard {
 
 	public ServiceBoard(int serviceNo, String serviceUser, String categoryNo, String serviceTitle,
 			String serviceContent, String registDate, String editDate, String serviceTr, String serviceRepeat,
-			String repeatDate, String status, String upfileUrl, String keyward, int fileNo) {
+			String repeatDate, String status, String upfileUrl, String keyward, int fileNo , String fileStatus) {
 		super();
 		this.serviceNo = serviceNo;
 		this.serviceUser = serviceUser;
@@ -42,6 +43,17 @@ public class ServiceBoard {
 		this.upfileUrl = upfileUrl;
 		this.keyward = keyward;
 		this.fileNo = fileNo;
+		this.fileStatus = fileStatus;
+	}
+
+
+	public String getFileStatus() {
+		return fileStatus;
+	}
+
+
+	public void setFileStatus(String fileStatus) {
+		this.fileStatus = fileStatus;
 	}
 
 
@@ -185,17 +197,11 @@ public class ServiceBoard {
 	}
 
 
-	@Override
-	public String toString() {
-		return "ServiceBoard [serviceNo=" + serviceNo + ", serviceUser=" + serviceUser + ", categoryNo=" + categoryNo
-				+ ", serviceTitle=" + serviceTitle + ", serviceContent=" + serviceContent + ", registDate=" + registDate
-				+ ", editDate=" + editDate + ", serviceTr=" + serviceTr + ", serviceRepeat=" + serviceRepeat
-				+ ", repeatDate=" + repeatDate + ", status=" + status + ", upfileUrl=" + upfileUrl + "]";
-	}
+	
 
 
 	public ServiceBoard(int serviceNo, String serviceUser, String categoryNo, String serviceTitle,
-			String serviceContent, String registDate, String serviceTr, String serviceRepeat, String upfileUrl, int fileNo) {
+			String serviceContent, String registDate, String serviceTr, String serviceRepeat, String upfileUrl, int fileNo ,String fileStatus) {
 		super();
 		this.serviceNo = serviceNo;
 		this.categoryNo = categoryNo;
@@ -207,7 +213,20 @@ public class ServiceBoard {
 		this.serviceRepeat = serviceRepeat;
 		this.upfileUrl = upfileUrl;
 		this.fileNo = fileNo;
+		this.fileStatus = fileStatus;
 	}
+
+
+	public ServiceBoard(int serviceNo, String categoryNo, String serviceTitle, String serviceUser, String registDate) {
+		super();
+		this.serviceNo = serviceNo;
+		this.categoryNo = categoryNo;
+		this.serviceUser = serviceUser;
+		this.serviceTitle = serviceTitle;
+		this.registDate = registDate;
+	}
+
+
 	
 	
 	

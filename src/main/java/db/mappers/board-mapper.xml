@@ -827,9 +827,80 @@ SELECT
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 작성자 엄희강 자유게시판 최신 10개 조회하는 쿼리문(홈페이지에 보여질) -->
+<entry key="latestpostFreeBoard">
+<![CDATA[
+  SELECT
+       BOARD_NO
+       , BOARD_TITLE
+       , USER_NAME
+       , COUNT
+       , REGIST_DATE
+   FROM
+       MZYM_BOARD B
+   JOIN
+       MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+   WHERE 1=1
+   AND BOARD_TYPE = 1
+   AND
+       B.STATUS = 'Y'
+   AND ROWNUM  < 10    
+   ORDER
+       BY BOARD_NO DESC
+]]>
+</entry>
 
-<!--  -->
-<entry key=""></entry>
+<entry key="latestpostFreeBoard2">
+<![CDATA[
+  SELECT
+       BOARD_NO
+       , BOARD_TITLE
+       , USER_NAME
+       , COUNT
+       , REGIST_DATE
+   FROM
+       MZYM_BOARD B
+   JOIN
+       MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+   WHERE 1=1
+   AND BOARD_TYPE = 2
+   AND
+       B.STATUS = 'Y'
+   AND ROWNUM  < 10    
+   ORDER
+       BY BOARD_NO DESC
+]]>
+</entry>
+
+
+<!-- 상품구매 페이징 쿼리문 작성자 엄희강 -->
+<entry key="productSelectListCount">
+SELECT COUNT(*) COUNT
+        FROM PRODUCT
+</entry>
+
+<entry key="productSelectList">
+SELECT *
+	FROM (
+    SELECT ROWNUM RNUM, A.*
+    FROM (
+        SELECT 
+            p.PRODUCT_NO,
+			p.PRODUCT_NAME,
+			p.PRODUCT_CONTENT,
+			p.PRODUCT_PRICE,
+			TO_CHAR(p.REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE,
+			p.COUNT,
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
+        	at.FILE_NO
+        FROM PRODUCT p
+        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
+        ORDER BY p.PRODUCT_NO DESC
+    	) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+
+
 </properties>

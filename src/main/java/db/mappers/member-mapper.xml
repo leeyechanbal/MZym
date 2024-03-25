@@ -135,7 +135,7 @@
 </entry>
 
 <!-- 손수현 인바디 조회 -->
-<entry key="selectInbody">
+<entry key="selectMyPageInbody">
 	SELECT BODY_HEIGHT
 		 , BODY_WEIGHT
 		 , BODY_FAT
@@ -390,7 +390,18 @@ UPDATE INBODY
                     FROM MZYM_MEMBER
                    WHERE PHONE = ?)
 </entry>
+<!-- 작성자 엄희강 트레이너 정보를 불러오는 쿼리문 -->
+<entry key="selectTrList">
+ SELECT
+    USER_NO,
+    USER_NAME,
+    TR_CAREER,
+    CERTIFICATE,
+    IMAGE_URL
+FROM MZYM_MEMBER
+WHERE  STATUS = 'T'
 
 
+</entry>
 
 </properties>
