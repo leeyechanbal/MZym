@@ -48,6 +48,7 @@ public class ReportRequest extends HttpServlet {
 			int reportNo = Integer.parseInt(r);			
 			int check = Integer.parseInt(c);
 			String text = request.getParameter("text");
+			String cate = request.getParameter("nowCate"); // 현재 사용자가 보고 있는 카테고리 위치
 			
 			HashMap<String, Object> hash = new HashMap<>();
 			hash.put("type", type);
@@ -62,8 +63,8 @@ public class ReportRequest extends HttpServlet {
 			
 			if(result > 0) {
 				session.setAttribute("alert", "요청에 성공 했습니다.");
-				System.out.println(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
-				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
+	
+				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate="+ cate +"&status=N");
 			} else {
 				session.setAttribute("alert", "요청에 실패 했습니다.");
 			}

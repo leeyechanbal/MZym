@@ -103,12 +103,11 @@ tfoot {
 							</fieldset> <br>
 					<form action="<%=mzymPath %>/turnAdvice.trainer" method="post">
 							<fieldset>
-								<legend>신청내용</legend>
+								<legend><u>신청내용</u></legend>
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" readonly><%=ad.getAdviceContent()%></textarea>
-								<h4>보고서</h4>
+								<h4><u>보고서</u></h4>
 								<%if(ad.getRepeat() != null){ %>
-									<!-- 세션값을 받아와야함  -->
-									<%if(ad.getTrainerId().equals("tr04")){ %>
+									<%if(ad.getTrainerId().equals(trainerID)){ %>
 <textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="repeat"><%=ad.getRepeat()%></textarea>									
 									<%} else { %>
 <textarea cols="57" rows="5" style="resize: none; padding: 10px;"readonly><%=ad.getRepeat()%></textarea>									
@@ -119,10 +118,10 @@ tfoot {
 								<input type="hidden" name="adviceNo" value="<%=ad.getAdviceNo()%>">
 								<input type="hidden" name="status" value="<%=ad.getStatus()%>">
 								<!-- 트레이너 아이디 출력 -->
-								<input type="hidden" name="trainerId" value="tr04">
+								<input type="hidden" name="trainerId" value="<%=trainerID%>">
 							</fieldset>
 							<!-- 세션값을 받아와야함  -->
-							<%if(ad.getTrainerId().equals("tr04")){ %>
+							<%if(ad.getTrainerId().equals(trainerID)){ %>
 							<div class="buttonLo">
 							<button type="submit" class="btn btn-outline-warning btn-sm">수정</button>
 							</div>
@@ -197,15 +196,14 @@ tfoot {
 										<li>핸드폰 번호: <%=ad.getPhone() %></li>
 										<li>분류: <%=ad.getCategoryName() %></li>
 										<li>신청 날짜: <%=ad.getAdviceDate() %></li>
-										<!-- 접속중인 트레이너 아이디 출력 -->
-										<li>담당자: tr04</li>
+										<li>담당자: <%=trainerID%></li>
 									</ul>
 								</fieldset> <br>
 					<form action="<%=mzymPath %>/turnAdvice.trainer" method="post">
 								<fieldset>
-									<legend>신청내용</legend>
+									<legend><u>신청내용</u></legend>
 <textarea style="padding: 10px; resize: none;" cols="57" rows="5" readonly><%=ad.getAdviceContent()%></textarea>
-									<h4>보고서</h4>
+									<h4><u>보고서</u></h4>
 <textarea cols="57" rows="5" style="resize: none; padding: 10px;" name="repeat" placeholder="내용을 작성해 주세요."></textarea>
 								<input type="hidden" name="adviceNo" value="<%=ad.getAdviceNo()%>">
 								<input type="hidden" name="status" value="<%=ad.getStatus()%>">

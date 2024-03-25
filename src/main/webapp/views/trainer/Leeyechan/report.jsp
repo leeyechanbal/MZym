@@ -133,6 +133,7 @@
                                                     </li>
                                                     <li>신고자: <%=r.getUserID() %></li>
                                                     <li>신고일: <%=r.getReportDate()%></li>
+                                                    <li>보고자: <%=loginUser.getUserId()%></li>
                                                 </ul>
                                             </fieldset>
                                     <form action="" method="">
@@ -141,7 +142,7 @@
                                             <%if(check){ %>
                                             <textarea cols="150" rows="5" name="content" required></textarea>
                                             <%} else { %>
-                                            <textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            	<textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
                                             <%} %>
                                             <input type="hidden" name="typeCheck" value="1">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
@@ -155,12 +156,14 @@
                                                 <div>첨부파일이 존재하지 않습니다.</div>
                                                 <%} %>
                                                 <div>
+                                                
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <% if (r.getCategoryNo() != 5) {%>
                                                     <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <%}else{ %>
                                                     <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -461,7 +464,7 @@
                         const typeCheck = $form.find('input[name=typeCheck]').val();
                         // console.log(typeCheck);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=1';
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&nowCate=' + categoryNum + '&type=1';
                         // console.log(str);
                        location.href = str;
                         // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
@@ -477,7 +480,7 @@
                         const typeCheck = $form.find('input[name=typeCheck]').val();
                         // console.log(typeCheck);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=2';
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&nowCate=' + categoryNum + '&type=2';
                         // console.log(str);
                        location.href = str;
                     })
@@ -523,7 +526,7 @@
 					        <div class="in-line">
 					            <h5>현재 선택된 게시글</h5> 
 					            <div style="font-size: 15px;"><input type="text" name="reportNo">번</div>
-					            <div style="font-size: 20px;">현재 위치 : <%=categoryName%></div>
+					            <div style="font-size: 20px;" name="nowCate">현재 위치 : <%=categoryName%></div>
 					            <br>
 					            <div style="font-size: 20px; display: flex"> 이동 위치 선택
 					                <ul class="moving-category" style="font-size: 15px;">
@@ -532,8 +535,9 @@
 					                     <%} %>
 					                </ul>
 					            </div>
-					            <input type="text" name="selectNo">
+					            <input type="hidden" name="selectNo">
                                 <input type="text" name="text">
+                                <input type="text" name="nowCate" value="<%=categoryNum%>">
 					        </div>
 					        </div>
 					
@@ -583,6 +587,7 @@
 					        <div class="in-line" style="text-align: center;">
 					            <h5>현재 선택된 데이터 번호</h5> 
 					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo" value="0">번</div>
+					           	<input type="text" name="nowCate" value="<%=categoryNum%>">
 					            <div class="modal-body" style="text-align: center; font-size: 15px; ">
 					                게시물을 정말로 삭제 하시겠습니까?
 					            </div>

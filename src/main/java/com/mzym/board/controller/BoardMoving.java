@@ -49,7 +49,8 @@ public class BoardMoving extends HttpServlet {
 			int reportNo = Integer.parseInt(a);
 			int selectNo = Integer.parseInt(b);
 			
-			String text = request.getParameter("text");
+			String cate = request.getParameter("nowCate"); // 현재 사용자가 보고 있는 카테고리 위치
+			String text = request.getParameter("text"); // 보고서의 내용
 
 			HashMap<String, Object> hash = new HashMap<>();
 			
@@ -58,13 +59,13 @@ public class BoardMoving extends HttpServlet {
 			hash.put("text", text);
 			
 			int result = new BoardService().boardMoving(hash);
-			System.out.println("실행왕2");
+		
 			
 			if(result > 0) {
 			
 				session.setAttribute("alert", "이동이 완료 되었습니다.");
 				
-				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
+				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate="+ cate +"&status=N");
 				
 			} else {
 				session.setAttribute("alert", "다시 시도해 주세요.");
