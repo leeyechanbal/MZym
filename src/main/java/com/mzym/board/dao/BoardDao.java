@@ -800,6 +800,31 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	/**
+	 *	신고 철회된 댓글 상태 Y로 변경
+	 * @author 이예찬
+	 * @param conn
+	 * @param hash
+	 * @return
+	 */
+	public int commentStatusY(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("commentStatusY"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
 
 	
 	
@@ -1241,6 +1266,117 @@ public class BoardDao {
 		return bc;
 	}
 	
+	public int insertReviewBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReviewBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getBoardWriter());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setInt(3, b.getReviewRate());
+			pstmt.setString(4, b.getBoardContent());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertReviewAttachment(Connection conn, List<Attachment> list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReviewAttachment");
+		
+		try {
+			
+			for(Attachment at : list) {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, at.getOriginName());
+					pstmt.setString(2, at.getChangeName());
+					pstmt.setString(3, at.getFilePath());
+					pstmt.setInt(4, at.getFileLevel());
+					
+					result = pstmt.executeUpdate();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		
+		return result;
+	}
+	
+	public List<Board> selectReviewList(Connection conn, PageInfo pi){
+		
+		List<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				
+				b.setBoardNo(rset.getInt("board_no"));
+				b.setBoardTitle(rset.getString("board_title"));
+				b.setReviewRate(rset.getInt("review_rate"));
+				b.setCount(rset.getInt("count"));
+				b.setTitleImgURL(rset.getString("titleimg_url"));
+				
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	public int selectReviewListCount(Connection conn) {
+			
+			int listCount = 0;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectFreeListCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return listCount;
+	}
 /*	
 	=================================  황수림 a yellow forest ==================================
 */
@@ -1445,11 +1581,11 @@ public class BoardDao {
 		return list;
 		
 	}
-
 	public int selectProductCount(Connection conn) {
 		
 		return 0;
 	}
+
 
 
 

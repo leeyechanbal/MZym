@@ -67,7 +67,7 @@ public class BoardMoving extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
 				
 			} else {
-				session.setAttribute("alrert", "다시 시도해 주세요.");
+				session.setAttribute("alert", "다시 시도해 주세요.");
 			}
 			
 		} else {

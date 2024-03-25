@@ -320,20 +320,38 @@ public class BoardService {
 	 * @return 결과값 반환
 	 */
 	public int reportRequest(HashMap<String, Object> hash) {
+		/*
+		 	신고 철회 type 1 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 게시불 상태 = Y변경(화면에 다시 보이게)
+		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서)
+		 	check = 1 => 게시물 쿼리
+		 	check = 2 => 댓글 쿼리
+		 	
+		 */
 		
 		Connection conn = getConnection();
+		
 		// 신고 테이블의 상태 완료로 변경
 		int result = dao.reportStatusN(conn, hash);
 		int outcome = 1;
 		
-		/*
-		 	신고 철회 type 1 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 게시불 상태 = Y변경(화면에 다시 보이게)
-		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서)
-		 */
-		if((int)hash.get("type") == 1) { // 신고철회
-//			게시불 상태 = Y변경
-			outcome = dao.boardStatusY(conn, hash);
+		System.out.println((int)hash.get("check"));
+		System.out.println(result);
+		
+		if((int)hash.get("check") == 1) {
+			
+			if((int)hash.get("type") == 1) { // 신고철회
+				//게시물 상태 = Y변경
+				outcome = dao.boardStatusY(conn, hash);
+			}
+		} else {
+			// 댓글인 경우
+			if((int)hash.get("type") == 1) { // 신고철회
+				//댓글 상태 = Y변경
+				outcome = dao.commentStatusY(conn, hash);
+				System.out.println("이거 되?");
+			}
 		}
+		
 		
 		int total = result * outcome;
 		
@@ -568,6 +586,22 @@ public class BoardService {
 		close(conn);
 		return bc;
 	}
+	
+	public int insertReviewBoard(Board b, List<Attachment> list) {
+		Connection conn = getConnection();
+		
+		int result1 = dao.insertReviewBoard(conn, b);
+		int result2 = dao.insertReviewAttachment(conn, list);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+	}
 		
 		
 	/*	
@@ -617,6 +651,21 @@ public class BoardService {
 		return list;
 	}
 	
+	public List<Board> selectReviewList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Board> list = dao.selectReviewList(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+	public int selectReviewListCount() {
+		Connection conn = getConnection();
+		int listCount = dao.selectReviewListCount(conn);
+		close(conn);
+		return listCount;
+		
+	}
+	
 /*	
 	================================= 엄희강 ==================================
 */	
@@ -637,14 +686,6 @@ public class BoardService {
 		return list;
 	}
 
-//	public List<Board> ProdoctBoardselectList(PageInfo pi) {
-//		
-//Connection conn = getConnection();
-//		
-//////		List<Board> b = dao.selectProductBoard(conn, pi);
-//////		close(conn);
-////		return b;
-//	}
 
 	public int ProdoctBoardselectListConut() {
 		
@@ -663,8 +704,6 @@ public class BoardService {
 	
 	
 	
-/*	
-	================================= 손수현 ==================================
-*/
+
 
 }// class END

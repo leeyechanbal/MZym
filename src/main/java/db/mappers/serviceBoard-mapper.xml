@@ -241,4 +241,16 @@ WHERE
 </entry>-->
 
 
+
+<!-- 김민정 회원 인바디 등록 -->
+<entry key="updateRepeat">
+UPDATE MZYM_SERVICE
+   SET SERVICE_REPEAT = ?
+     , REPEAT_DATE = SYSDATE
+ WHERE SERVICE_NO = ?
+   AND STATUS = 'Y'
+</entry>
+
+
+
 </properties>

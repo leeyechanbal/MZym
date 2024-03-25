@@ -8,6 +8,10 @@ import static com.mzym.common.template.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.mzym.board.vo.Attachment;
 import com.mzym.common.paging.PageInfo;
 import com.mzym.serviceBoard.dao.ServiceBoardDao;
@@ -136,8 +140,23 @@ public class ServiceBoardService {
 		return result;
 	}
 
-
-
+	
+	/**
+	 * @author 김민정
+	 */
+	public int updateRepeat(int serviceNo, String repeat) {
+		Connection conn = getConnection();
+		int result = sDao.updateRepeat(conn, serviceNo, repeat);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
 	
 	
 	
