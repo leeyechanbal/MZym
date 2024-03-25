@@ -334,6 +334,8 @@ public class BoardService {
 		int result = dao.reportStatusN(conn, hash);
 		int outcome = 1;
 		
+		System.out.println((int)hash.get("check"));
+		System.out.println(result);
 		
 		if((int)hash.get("check") == 1) {
 			
@@ -346,6 +348,7 @@ public class BoardService {
 			if((int)hash.get("type") == 1) { // 신고철회
 				//댓글 상태 = Y변경
 				outcome = dao.commentStatusY(conn, hash);
+				System.out.println("이거 되?");
 			}
 		}
 		

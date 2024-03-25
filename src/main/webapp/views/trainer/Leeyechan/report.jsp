@@ -40,10 +40,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 <meta charset="UTF-8">
 <title>신고</title>
 
-<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
     <style>
 
         /* 신고 댓글 추가 스타일 */
@@ -255,8 +255,8 @@
                                                   <!-- 사진 영역 -->
                                         </div>
                                         <div style="text-align: -webkit-right; margin-top: 10px;">
-                                            <button type="submit" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                            <button type="submit" class="btn btn-outline-danger btn-sm type2">확인</button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                            <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                         </div>
                                     </form>
                                     </td>
@@ -319,8 +319,8 @@
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                             <br><br>
                                             <div style="text-align: -webkit-right;">
-                                                <button type="submit" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                                <button type="submit" class="btn btn-outline-danger btn-sm type2">확인</button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                             </div>
                                         </div>
                                     </td>
@@ -452,11 +452,10 @@
                         const typeCheck = $form.find('input[name=typeCheck]').val();
                         console.log(typeCheck);
 
-                        
                         const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=1';
                         console.log(str);
-                       // location.href = str;
-
+                       location.href = str;
+                        // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
                     })
 
                     $(".type2").click(function(){
@@ -471,7 +470,7 @@
 
                         const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=2';
                         console.log(str);
-                       // location.href = str;
+                       location.href = str;
                     })
                     
 

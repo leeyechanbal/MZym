@@ -58,9 +58,11 @@ public class ReportRequest extends HttpServlet {
 			
 			int result = new BoardService().reportRequest(hash);
 			
+			System.out.println("controller   " + result);
 			
 			if(result > 0) {
 				session.setAttribute("alert", "요청에 성공 했습니다.");
+				System.out.println(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
 				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
 			} else {
 				session.setAttribute("alert", "요청에 실패 했습니다.");
