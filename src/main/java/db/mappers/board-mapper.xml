@@ -295,6 +295,7 @@ from(
             , mzym_member.USER_ID reportID <!-- 신고자 아이디 -->
             , REPORT_DATE <!-- 신고일 -->
             , CATEGORY_NO <!-- 신고 카테고리 번호 -->
+            , REPORT_CONTENT
             <!-- board -->
             , BOARD_NO <!-- 신고 카테고리 -->
             , BOARD_TYPE <!-- 게시글의 타입 -->
@@ -347,6 +348,7 @@ from(
            , USER_ID <!-- 신고자 아이디 -->
            , REPORT_DATE 
 		   , CATEGORY_NO  <!-- 신고 카테고리 -->
+           , REPORT_CONTENT		   
            <!-- board -->
            , com.board_No
            , BOARD_TITLE
@@ -417,7 +419,7 @@ where board_no = (
 
 <!-- 
 	작성자 : 이예찬
-	게시물 이동 후 신고테이블에서 상태를 N으로 변경하는 쿼리
+	신고테이블에서 상태를 N으로 변경하는 쿼리
  -->
 <entry key="reportStatusN">
 update report
@@ -429,7 +431,7 @@ where report_no = ?
 
 <!-- 
 	작성자 : 이예찬
-	사게 요청된 신고 게시물의 상태를 K로 변경
+	삭제 요청된 신고 게시물의 상태를 K로 변경
  -->
 <entry key="deleteReport">
 update report
@@ -438,10 +440,23 @@ where report_no = ?
 </entry>
 
 
+<!-- 
+	작성자 : 이예찬
+	신고 철회 요청된 게시물의 상태를 변경하는 쿼리
+ -->
+<entry key="boardStatusY">
+update mzym_board
+set status = 'Y'
+where board_no = (
+     select board_no
+     from report
+     where report_no = ?
+     )
+</entry>
 <!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+<entry key="">
+
+</entry>
 <!--  -->
 <entry key=""></entry>
 

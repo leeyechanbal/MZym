@@ -76,7 +76,7 @@
                         </button>
                         <div class="dropdown-menu">
                         <% for(BoardCategory b : bCategory) {%>
-                          <a class="dropdown-item" href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&status=Y&cate=<%=b.getCategoryNo()%>"><%=b.getCategoryName()%></a>
+                          <a class="dropdown-item" href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&status=<%=status%>&cate=<%=b.getCategoryNo()%>"><%=b.getCategoryName()%></a>
                           <%} %>
                         </div>
                       </div>
@@ -135,10 +135,14 @@
                                                     <li>신고일: <%=r.getReportDate()%></li>
                                                 </ul>
                                             </fieldset>
-                                   <form action="" method="get">
+                                    <form>
                                             <textarea cols="150" rows="5" readonly><%=b.getBoardContent()%></textarea>
                                             <legend><u>보고서</u></legend>
+                                            <%if(check){ %>
                                             <textarea cols="150" rows="5" name="content"></textarea>
+                                            <%} else { %>
+                                            <textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            <%} %>
                                             <input type="hidden" name="board" value="<%=b.getBoardNo()%>">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                             <br><br>
@@ -151,9 +155,9 @@
                                                 <div>첨부파일이 존재하지 않습니다.</div>
                                                 <%} %>
                                                 <div>
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <% if (r.getCategoryNo() != 5) {%>
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <%}else{ %>
                                                     <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
@@ -161,7 +165,7 @@
                                             </div>
                                         </div>
                                     </td>
-                            </form>
+                                    </form>
                                 </tr>
 							<%} else if(categoryNum == numPT) { %>
 
@@ -419,11 +423,44 @@
                         $("#deletModal").find(".board-data").val(boardNo);     
                     })
 
-                    $("type1").click(function(){
-                        const $type1 = $(this);
-                        console.log($type1);
+
+                    $(".type1").click(function(){
+                        const $form = $(this).parents('form');
+                        console.log($form);
+                        const reportNo = $form.find('input[name=report]').val();
+                        console.log(reportNo);
+                        const text = $form.find('textarea[name=content]').val();
+                        console.log(text);
+                        
+                        
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&type=1';
+                        location.href = str;
+
+
+
+                        // // FormData 객체를 생성하여 POST 요청에 포함할 데이터를 설정합니다.
+                        // var formData = new FormData();
+                        // formData.append('reportNo', reportNo);
+                        // formData.append('text', text);
+                        // formData.append('type', 1);
+
+                        // console.log(formData);
+                        // // XMLHttpRequest 객체를 생성합니다.
+                        // var xhr = new XMLHttpRequest();
+
+                        // // POST 요청을 설정합니다.
+                        // xhr.open('POST', 'trainer.do');
+
+                        // // POST 요청에 데이터를 추가합니다.
+                        // xhr.send(formData);
+
+                    })
+
+                    $(".type2").click(function(){
+                        console.log($(this));
                     })
                     
+
                     $("[data-target='#myModal']").click(function(){
                         // console.log(this);
                         // console.log($(this).parents('.collapseitem'));
