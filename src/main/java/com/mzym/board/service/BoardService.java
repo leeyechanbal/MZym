@@ -337,7 +337,7 @@ public class BoardService {
 		
 		int total = result * outcome;
 		
-		
+		close(conn);
 		
 		return total;
 	}
@@ -350,10 +350,16 @@ public class BoardService {
 	 */
 	public int deleteReport(int reportNo) {
 		Connection conn = getConnection();
-		int result  = 0;
 		
+		int result  = dao.deleteReport(conn, reportNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		
-		return 0;
+		close(conn);
+		return result;
 	}
 
 	
