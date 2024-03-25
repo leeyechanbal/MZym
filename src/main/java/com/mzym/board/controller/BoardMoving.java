@@ -41,7 +41,6 @@ public class BoardMoving extends HttpServlet {
 		 */
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		
 		String a = request.getParameter("reportNo"); // 신고 번호
 		String b = request.getParameter("selectNo"); // 변경될 카테고리 번호
 		
@@ -51,7 +50,7 @@ public class BoardMoving extends HttpServlet {
 			int selectNo = Integer.parseInt(b);
 			
 			String text = request.getParameter("text");
-			
+
 			HashMap<String, Object> hash = new HashMap<>();
 			
 			hash.put("reportNo", reportNo);
@@ -59,9 +58,10 @@ public class BoardMoving extends HttpServlet {
 			hash.put("text", text);
 			
 			int result = new BoardService().boardMoving(hash);
-			
+			System.out.println("실행왕2");
 			
 			if(result > 0) {
+			
 				session.setAttribute("alert", "이동이 완료 되었습니다.");
 				
 				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");

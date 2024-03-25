@@ -31,9 +31,9 @@
 			categoryName = b.getCategoryName();
 		}
 		
-		if(b.getCategoryName().equals("PT및헬스장후기")){
+ 		if(b.getCategoryName().equals("PT및헬스장후기")){
 			numPT = b.getCategoryNo();
-		}
+		} 
 	}
 	
 %>
@@ -107,7 +107,7 @@
         						Board b = r.getBoard();
         						Attachment a = b.getAtt();
         						
-        						if(b.getBoardType() != numPT) {
+        						if(categoryNum != numPT) {
         					%>
                             <!-- 게시글 : 첨부파일 -->
                                 <tr class="tr-title" data-toggle="collapse" data-target="#reBoard<%=i%>"> 
@@ -117,7 +117,7 @@
                                 </tr>
         
                                 <tr id="reBoard<%=i %>" class="collapse">
-                            <form action="" method="get">
+                          
                                     <td colspan="5">
                                         <div class="collapseitem">
                                             <fieldset>
@@ -135,6 +135,7 @@
                                                     <li>신고일: <%=r.getReportDate()%></li>
                                                 </ul>
                                             </fieldset>
+                                   <form action="" method="get">
                                             <textarea cols="150" rows="5" readonly><%=b.getBoardContent()%></textarea>
                                             <legend><u>보고서</u></legend>
                                             <textarea cols="150" rows="5" name="content"></textarea>
@@ -150,11 +151,11 @@
                                                 <div>첨부파일이 존재하지 않습니다.</div>
                                                 <%} %>
                                                 <div>
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm">철회</button>
-                                                    <% if (r.getCategoryNo() == 5) {%>
-                                                    	<button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
-                                                    <%} else { %>
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
+                                                    <button type="submit" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                    <% if (r.getCategoryNo() != 5) {%>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                    <%}else{ %>
+                                                    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
                                                 </div>
                                             </div>
@@ -162,13 +163,13 @@
                                     </td>
                             </form>
                                 </tr>
-							<%} else { %>
+							<%} else if(categoryNum == numPT) { %>
 
                             <!-- pt후기 : 사진 -->
                             <form action="" method="get">
                                 <tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
-                                    <td class="table-number"><%=r.getBoardNo() %></td>
-                                    <td class="table-title"><%=b.getBoardContent() %></td>
+                                    <td class="table-number"><%=r.getReportNo() %></td>
+                                    <td class="table-title"><%=b.getBoardTitle() %></td>
                                     <td><%=b.getBoardMember() %></td>
                                 </tr>
         
@@ -193,33 +194,42 @@
                                                     <textarea cols="75" rows="8" readonly><%=b.getBoardContent()%></textarea>
                                                     <legend><u>보고서</u></legend>
                                                     <textarea cols="75" rows="8"  name="content"></textarea>
-                                                    <input type="hidden" name="board" value="<%=%>">
-                                                    <input type="hidden" name="report" value="<%=%>">
+                                                    <input type="hidden" name="board" value="">
+                                                    <input type="hidden" name="report" value="">
                                                 </fieldset>
                                                 <!-- 사진 미리보기 -->
                                                 <div id="demo" class="carousel slide" data-ride="carousel">
 
                                                     <!-- Indicators -->
-                                                    <ul class="carousel-indicators">
-															<!-- 파일레벨 -->                                                   
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="0" class="<%-- <%=(i == 0 )?"active":""%> --%>"></li>
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="1"></li>
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="2"></li>
+															<!-- 
+																파일레벨 
+																Report r = listBoard.get(i);
+								        						Board b = r.getBoard();
+								        						Attachment a = b.getAtt(); 
+															--> 
+													
+													<% if(a != null){%>  
+													<ul class="carousel-indicators">                                             
+                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
                                                     </ul>
                                                     
                                                     <!-- The slideshow -->
                                                     <div class="carousel-inner">
                                                       <div class="carousel-item active"><span class="badge badge-dark">1</span>
-                                                        <img src="" width="500px" height="500px">
-                                                      </div>
-                                                      <div class="carousel-item"><span class="badge badge-dark">2</span>
-                                                        <img src="" width="500px" height="500px">
-                                                      </div>
-                                                      <div class="carousel-item">
-                                                        <img src="" width="500px" height="500px">
+                                                        <img src="<%=mzymPath + a.getFilePath()+ "/" + a.getChangeName()%>" width="500px" height="500px">
                                                       </div>
                                                     </div>
-                                                    
+                                                    <%} else { %>
+                                                    <ul class="carousel-indicators">                                             
+                                                    	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
+                                                   	</ul>
+                                                   	<!-- 기본 로고 페이지 출력 -->
+                                                   	<div class="carousel-inner">
+                                                      <div class="carousel-item active"><span class="badge badge-dark">1</span>
+                                                        <img src="<%=mzymPath%>/resources/img/MZYM_logo_272x167.png" width="500px" height="500px">
+                                                      </div>
+                                                    </div>
+                                                    <%} %>
                                                     <!-- Left and right controls -->
                                                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
                                                       <span class="carousel-control-prev-icon" style="background-color: black;"></span>
@@ -388,7 +398,7 @@
                 $(function(){
                     $(".nav-item a").click(function(){
                         const type = $(this).text()
-                        console.log(type);
+                        //console.log(type);
 
                         if(type == '게시글'){
                             const $paging = $('.paging-board');
@@ -406,11 +416,27 @@
 
                     $("#boardcontent tr").click(function(){
                         const boardNo = $(this).children(".table-number").text();
-                        const text = $(this).next().find(".report-content").val();
-                        // console.log(text); 
-                        $("#deletModal").find(".board-data").val(boardNo);  
-                        $("#myModal").find(".board-data").val(boardNo);
-                        $("#myModal").find(".board-text").val(text);        
+                        $("#deletModal").find(".board-data").val(boardNo);     
+                    })
+
+                    $("type1").click(function(){
+                        const 
+                    })
+                    
+                    $("[data-target='#myModal']").click(function(){
+                        // console.log(this);
+                        // console.log($(this).parents('.collapseitem'));
+
+                        const reportNo =  $(this).parents('.collapseitem').children('input[name=report]').val()
+                        console.log(reportNo);
+
+                        const content =  $(this).parents('.collapseitem').children('textarea[name=content]').val() 
+                        console.log(content);
+
+                        $("#myModal").find("input[name=reportNo]").val(reportNo);
+                        $("#myModal").find("input[name=text]").val(content);    
+
+
                     })
 
 
@@ -419,7 +445,6 @@
             
             
             <td class="section3 ">
-         
                 
 					<!-- 이동용 모달 -->
 					<div class="modal" id="myModal">
@@ -433,11 +458,11 @@
 					        </div>
 					  
 					        <!-- Modal body -->
-					    <form action="/moveBoard.trainer" method="post">
+					    <form action="<%=mzymPath%>/moveBoard.trainer" method="get">
 					        <div class="modal-body">
 					        <div class="in-line">
 					            <h5>현재 선택된 게시글</h5> 
-					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo">번</div>
+					            <div style="font-size: 15px;"><input type="text" name="reportNo">번</div>
 					            <div style="font-size: 20px;">현재 위치 : <%=categoryName%></div>
 					            <br>
 					            <div style="font-size: 20px; display: flex"> 이동 위치 선택
@@ -447,8 +472,8 @@
 					                     <%} %>
 					                </ul>
 					            </div>
-					            <input type="hidden" class="outmove" name="selectNo">
-                                <input type="hidden" class="board-text" name="text">
+					            <input type="text" name="selectNo">
+                                <input type="text" name="text">
 					        </div>
 					        </div>
 					
@@ -469,10 +494,8 @@
 					                // 제이쿼리에서 선택된 요소를 제외한고 골라준다.
 					                $(this).siblings().css('border', '0')
 					
-					                $(".outmove").val($(this).val());
+					                $("input[name=selectNo]").val($(this).val());
 					            })
-					
-					
 					           
 					        })
 					    </script>

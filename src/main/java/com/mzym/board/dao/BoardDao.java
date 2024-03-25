@@ -497,6 +497,8 @@ public class BoardDao {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		}finally {
+			close(pst);
 		}
 		
 		return result;
@@ -555,8 +557,8 @@ public class BoardDao {
 			// 신고 게시판 불러오기
 			if(hash.get("type").equals("board")) {
 				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
-				pst.setInt(1,(int)hash.get("categoryNum"));
-				pst.setString(2,(String)hash.get("status"));
+				pst.setString(1,(String)hash.get("status"));
+				pst.setInt(2,(int)hash.get("categoryNum"));
 				pst.setInt(3, info.getStartBoard());
 				pst.setInt(4, info.getEndBoard());
 				
@@ -588,8 +590,8 @@ public class BoardDao {
 			} else {
 			// 신고 댓글 불러오기	
 				pst = conn.prepareStatement(prop.getProperty("selectCommnetReport"));
-				pst.setInt(1, (int)hash.get("categoryNum"));
-				pst.setString(2, (String)hash.get("status"));
+				pst.setString(1, (String)hash.get("status"));
+				pst.setInt(2, (int)hash.get("categoryNum"));
 				pst.setInt(3, info.getStartBoard());
 				pst.setInt(4, info.getEndBoard());
 				
@@ -687,8 +689,7 @@ public class BoardDao {
 			close(rset);
 			close(pst);
 		}
-		
-		
+
 		return list;
 	}
 	
@@ -701,33 +702,53 @@ public class BoardDao {
 	 * @return update뒤 결과 값 반환
 	 */
 	public int boardMoving(Connection conn, HashMap<String, Object> hash) {
-		PreparedStatement pst1 = null;
-		PreparedStatement pst2 = null;
+		PreparedStatement pst = null;
 		int result = 0;
-		int outcome = 0;
-		int reportNo = (int)hash.get("reportNo");
 		
 		try {
-			pst1 = conn.prepareStatement(prop.getProperty("boardMoving"));
-			pst1.setInt(1, reportNo);
-			pst1.setInt(2, (int)hash.get("selectNo"));
-			result = pst1.executeUpdate();
-			
-			pst2 = conn.prepareStatement(prop.getProperty("reportStatusN"));
-			pst2.setString(1, (String)hash.get("text"));
-			pst2.setInt(2, reportNo);
-			outcome = pst2.executeUpdate();
-			
+			pst = conn.prepareStatement(prop.getProperty("boardMoving"));
+			System.out.println((int)hash.get("selectNo"));
+			System.out.println((int)hash.get("reportNo"));
+			pst.setInt(1, (int)hash.get("selectNo"));
+			pst.setInt(2, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(pst1);
-			close(pst2);
+			close(pst);
 		}
 		
-		return result * outcome;
+		return result;
 	}
+	
+	/**
+	 * 신고 처리된 게시물의 status을 N으로 바꿔주는 매서드
+	 * @author 이예찬
+	 * @param conn
+	 * @param hash
+	 * @return
+	 */
+	public int reportStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("reportStatusN"));
+			pst.setString(1, (String)hash.get("text"));
+			pst.setInt(2, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+
 	
 	/**
 	 * 사게 요청된 데이터의 상태를 K로 바꾼후 결과값 반환
@@ -1332,6 +1353,7 @@ public class BoardDao {
 /*	
 	================================= 손수현 videoBoard ==================================
 */
+
 
 
 

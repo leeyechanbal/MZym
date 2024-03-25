@@ -321,10 +321,10 @@ from(
             from mzym_board 
             join mzym_member on(BOARD_WRITER = USER_NO)
             left join Attachment on (att_no = BOARD_NO and ATT_CATEGORY != 'N')
-            and  board_type = ? <!-- 해당 카테고리의 숫자값 -->
                 ) board using (BOARD_NO)
         join mzym_member on (REPORT_USER = USER_NO)
         where report.status = ? <!-- N : 신고 완료, Y : 신고 대기 -->
+        and  board_type = ? <!-- 해당 카테고리의 숫자값 -->
         order by REPORT_NO DESC 
     )report
 )
@@ -366,12 +366,12 @@ from(
                     , COMMENT_CONTENT
                 from board_comment
                 join mzym_board using (BOARD_NO)
-                where BOARD_TYPE = ?<!-- 게시물 타입 번호 -->
 			<!-- 신고 처리가 될때 게시물의 상태를 'N'으로 바꾸어야만 조회가 됨 -->
             ) com using (COMMENT_NO)
         
         join mzym_member on (REPORT_USER = USER_NO)
         where report.STATUS = ? <!-- 신고된 상태 N 처리완료 Y 신고대기 -->
+        and BOARD_TYPE = ?<!-- 게시물 타입 번호 -->
         order by REPORT_NO DESC 
     )n
 )
@@ -412,7 +412,7 @@ where board_no = (
      select board_no
      from report
      where report_no = ?
-     )
+)
 </entry>
 
 <!-- 

@@ -297,14 +297,18 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int result = dao.boardMoving(conn, hash);
+		System.out.println("실행왕1");
+		int outcome = dao.reportStatusN(conn, hash);
 		
-		if(result > 0) {
+		int total = result*outcome;
+		
+		if(total > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
-		return result;
+		return total;
 	}
 	
 	/**
