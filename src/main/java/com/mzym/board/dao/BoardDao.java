@@ -830,7 +830,6 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 		
 	}
