@@ -5,6 +5,7 @@
 <%
 	Board b = (Board)request.getAttribute("b");  // 글번호, 제목, 내용, 작성자이름
 	Attachment at = (Attachment)request.getAttribute("at"); // 파일번호, 원본명, 수정파일명, 저장경로
+	
  %>
 <!DOCTYPE html>
 <html>
@@ -295,7 +296,6 @@
         $("#confirmReport").click(function(){
 	    var reportReason = $("#reportReason").val(); // 신고 사유
 	    var postId = <%=b.getBoardNo() %>;
-	    var reporterId = <%= loginUser.getUserNo() %>
 	
 	    // AJAX를 사용하여 서버에 데이터 전송
 	    $.ajax({
@@ -303,7 +303,6 @@
 	        type: "POST",
 	        data: {
 	            postId: postId,
-	            reporterId: reporterId,
 	            reportReason: reportReason
 	        },
 	        success: function(response) {
@@ -346,7 +345,7 @@
 			                    <!-- 필요한 신고 사유 항목을 추가하세요 -->
 			                </select>
 			                <input type="hidden" id="reportCommentNo" name="reportCommentNo" value="">
-			                <input type="hidden" id="reportCommentUser" name="reportCommentUser" value="<%= loginUser.getUserNo() %>">
+			                <input type="hidden" id="reportCommentUser" name="reportCommentUser" value="">
 		            	</div>
 		            </div>
 		            <!-- 모달 하단 -->

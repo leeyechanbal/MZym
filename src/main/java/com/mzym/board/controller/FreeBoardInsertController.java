@@ -72,6 +72,7 @@ public class FreeBoardInsertController extends HttpServlet {
 			
 			BoardCategory bc = new BoardService().selectBoardName(type);
 			request.setAttribute("bc", bc);
+			
 			if(result > 0) { // 성공 
 				
 				session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");

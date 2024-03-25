@@ -243,7 +243,8 @@ public class MyPageDao {
 		Inbody body  = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectInbody");
+		String sql = prop.getProperty("selectMyPageInbody");
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);

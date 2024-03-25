@@ -1,6 +1,7 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.mzym.board.service.BoardService;
 import com.mzym.board.vo.Report;
+import com.mzym.member.model.vo.Member;
 
 /**
  * Servlet implementation class AjaxReportCommentInsertController
@@ -32,10 +34,12 @@ public class AjaxReportCommentInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int commentNo = Integer.parseInt(request.getParameter("reportCommentNo"));
-		int reportUser = Integer.parseInt(request.getParameter("reportCommentUser"));
-		int CategoryNo = Integer.parseInt(request.getParameter("reportReasonComment"));
 		
 		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int reportUser = loginUser.getUserNo();
+		
+		int CategoryNo = Integer.parseInt(request.getParameter("reportReasonComment"));
 		
 		Report r = new Report();
 		r.setCommentNo(commentNo);

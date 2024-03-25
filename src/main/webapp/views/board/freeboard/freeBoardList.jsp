@@ -174,7 +174,7 @@
             	<% if(pi.getCurrentPage() == 1) { %>
                 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                 <% }else { %>
-                <li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%=pi.getCurrentPage() - 1%>">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%=pi.getCurrentPage() - 1%>&type=<%= request.getParameter("type") %>">Previous</a></li>
                 <% } %>
                 
                 <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
@@ -182,14 +182,14 @@
 	                <% if(p == pi.getCurrentPage()) { %>
 	                <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
 	                <% }else { %>
-	                <li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%= p %>"><%= p %></a></li>
+	                <li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%= p %>&type=<%= request.getParameter("type") %>"><%= p %></a></li>
                 	<% } %>
                 <% } %>
                 
                 <% if(pi.getCurrentPage() == pi.getMaxPage()) { %>
                 <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
             	<% }else { %>
-            	<li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%=pi.getCurrentPage() + 1%>">Next</a></li>
+            	<li class="page-item"><a class="page-link" href="<%= contextPath %>/freelist.bo?page=<%=pi.getCurrentPage() + 1%>&type=<%= request.getParameter("type") %>">Next</a></li>
             	<% } %>
             	
             </ul>
