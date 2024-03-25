@@ -287,49 +287,48 @@ and COMMENT_NO is not null
 <entry key="selectBoardReport">
 select *
 from(
-    select ROWNUM seq , report.* 
+    select ROWNUM r , report.* 
     from(
          select
-            REPORT_NO -- report영역
-            , mzym_member.USER_ID reportID -- 신고자 아이디
-            , REPORT_DATE -- 신고일
-            , rc.CATEGORY_NAME reportCategory -- 신고 카테고리
+         	<!-- report영역 -->
+            REPORT_NO 
+            , mzym_member.USER_ID reportID <!-- 신고자 아이디 -->
+            , REPORT_DATE <!-- 신고일 -->
+            , CATEGORY_NO <!-- 신고 카테고리 번호 -->
             <!-- board -->
-            , BOARD_NO -- 게시글 번호
-            , board.CATEGORY_NAME boardCategory -- 게시글 카테고리 이름
-            , BOARD_TITLE -- 게시글 제목
-            , board.USER_ID boardID -- 게시글 작성자
-            <!-- attachment -->
-            , ORIGIN_NAME
-            , CHANGE_NAME
-            , FILE_PATH
+            , BOARD_NO <!-- 신고 카테고리 -->
+            , BOARD_TYPE <!-- 게시글의 타입 -->
+            , BOARD_TITLE <!-- 게시글 제목 -->
+            , board_Content <!-- 게시글 내용 -->
+            , board.USER_ID boardID <!-- 게시글 작성자 -->
+            <!-- attchment -->
+            , ORIGIN_NAME <!-- 파일 원본명 -->
+            , CHANGE_NAME <!-- 수정된 파일명 -->
+            , FILE_PATH <!-- 파일 -->
             , FILE_LEVEL
-            , BOARD_TYPE
         from report
-         -- 게시물 조회
         join (
             select 
                 BOARD_NO
                 , BOARD_TITLE
                 , USER_ID
-                , CATEGORY_NAME
+                , board_content
+                , BOARD_TYPE
                 , ORIGIN_NAME
                 , CHANGE_NAME
                 , FILE_PATH
                 , FILE_LEVEL
-                , BOARD_TYPE
             from mzym_board 
-            join board_category on (BOARD_TYPE = CATEGORY_NO and BOARD_TYPE = ?)<!-- 넘어오는 카테고리 번호 -->
             join mzym_member on(BOARD_WRITER = USER_NO)
             left join Attachment on (att_no = BOARD_NO and ATT_CATEGORY != 'N')
                 ) board using (BOARD_NO)
-        join report_category rc using (CATEGORY_NO)
         join mzym_member on (REPORT_USER = USER_NO)
-        where report.status = ? <!-- 신고된 상태 N 처리완료 Y 신고대기 -->
+        where report.status = ? <!-- N : 신고 완료, Y : 신고 대기 -->
+        and  board_type = ? <!-- 해당 카테고리의 숫자값 -->
         order by REPORT_NO DESC 
     )report
 )
-where seq BETWEEN ? and ? <!-- 페이징 처리된 숫자 -->
+where r BETWEEN ? and ? <!-- 페이징 처리된 수 -->
 
 </entry>
 
@@ -343,56 +342,102 @@ from(
     select ROWNUM r , n.* 
     from(
         select
+       	<!-- report -->
            REPORT_NO 
-           , USER_ID -- 신고자 아이디
-           , REPORT_DATE -- 신고 날짜
-           , report_category.CATEGORY_NAME reportCategory -- 신고 카테고리
+           , USER_ID <!-- 신고자 아이디 -->
+           , REPORT_DATE 
+		   , CATEGORY_NO  <!-- 신고 카테고리 -->
            <!-- board -->
            , com.board_No
-           , com.CATEGORY_NAME boardCategory -- 게시판 카테고리
+           , BOARD_TITLE
+           , board_type <!-- 게시판 카테고리 번호 -->
            <!-- comment -->
-           , com.USER_NAME -- 댓글 작성자    
+           , com.USER_NAME <!-- 댓글 작성자 -->    
            , comment_no
-           , comment_date
            , comment_content
         from report 
-        -- 답글 조회
             join (
                 select 
                     COMMENT_NO
                     , BOARD_NO
-                    , CATEGORY_NAME
+                    , board_type
+                    , BOARD_TITLE
                     , USER_NAME
-                    , COMMENT_DATE
                     , COMMENT_CONTENT
                 from board_comment
                 join mzym_board using (BOARD_NO)
-                join board_category on (BOARD_TYPE = CATEGORY_NO AND BOARD_TYPE = ?)<!-- 게시물 타입 번호 -->
 			<!-- 신고 처리가 될때 게시물의 상태를 'N'으로 바꾸어야만 조회가 됨 -->
             ) com using (COMMENT_NO)
         
         join mzym_member on (REPORT_USER = USER_NO)
-        join report_category using(CATEGORY_NO)
         where report.STATUS = ? <!-- 신고된 상태 N 처리완료 Y 신고대기 -->
+        and BOARD_TYPE = ?<!-- 게시물 타입 번호 -->
         order by REPORT_NO DESC 
     )n
 )
 where r BETWEEN ? and ? <!-- 페이징 된 댓글 숫자 -->
 </entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	신고 카테고리를 조회 하는 쿼리
+ -->
+<entry key="selectReportCategory">
+select 
+     CATEGORY_NO
+     , CATEGORY_NAME
+from report_category
+</entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	게시글 카테고리를 조회 하는 쿼리
+ -->
+<entry key="selectBoardCategory">
+select 
+     CATEGORY_NO
+     , CATEGORY_NAME
+from Board_category
+</entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	게시글을 이동시키는 쿼리
+ -->
+<entry key="boardMoving">
+update mzym_board
+set BOARD_TYPE = ?
+, status = 'Y'
+where board_no = (
+     select board_no
+     from report
+     where report_no = ?
+)
+</entry>
 
-<!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	게시물 이동 후 신고테이블에서 상태를 N으로 변경하는 쿼리
+ -->
+<entry key="reportStatusN">
+update report
+set status = 'N'
+, REPORT_CONTENT = ?
+where report_no = ?
+
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	사게 요청된 신고 게시물의 상태를 K로 변경
+ -->
+<entry key="deleteReport">
+update report
+set status = 'K'
+where report_no = ?	
+</entry>
+
+
 <!--  -->
 <entry key=""></entry>
 <!--  -->
@@ -782,9 +827,80 @@ SELECT
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
 
-<!--  -->
-<entry key=""></entry>
+<!-- 작성자 엄희강 자유게시판 최신 10개 조회하는 쿼리문(홈페이지에 보여질) -->
+<entry key="latestpostFreeBoard">
+<![CDATA[
+  SELECT
+       BOARD_NO
+       , BOARD_TITLE
+       , USER_NAME
+       , COUNT
+       , REGIST_DATE
+   FROM
+       MZYM_BOARD B
+   JOIN
+       MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+   WHERE 1=1
+   AND BOARD_TYPE = 1
+   AND
+       B.STATUS = 'Y'
+   AND ROWNUM  < 10    
+   ORDER
+       BY BOARD_NO DESC
+]]>
+</entry>
 
-<!--  -->
-<entry key=""></entry>
+<entry key="latestpostFreeBoard2">
+<![CDATA[
+  SELECT
+       BOARD_NO
+       , BOARD_TITLE
+       , USER_NAME
+       , COUNT
+       , REGIST_DATE
+   FROM
+       MZYM_BOARD B
+   JOIN
+       MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+   WHERE 1=1
+   AND BOARD_TYPE = 2
+   AND
+       B.STATUS = 'Y'
+   AND ROWNUM  < 10    
+   ORDER
+       BY BOARD_NO DESC
+]]>
+</entry>
+
+
+<!-- 상품구매 페이징 쿼리문 작성자 엄희강 -->
+<entry key="productSelectListCount">
+SELECT COUNT(*) COUNT
+        FROM PRODUCT
+</entry>
+
+<entry key="productSelectList">
+SELECT *
+	FROM (
+    SELECT ROWNUM RNUM, A.*
+    FROM (
+        SELECT 
+            p.PRODUCT_NO,
+			p.PRODUCT_NAME,
+			p.PRODUCT_CONTENT,
+			p.PRODUCT_PRICE,
+			TO_CHAR(p.REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE,
+			p.COUNT,
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL,
+        	at.FILE_NO
+        FROM PRODUCT p
+        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
+        ORDER BY p.PRODUCT_NO DESC
+    	) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+
+
 </properties>

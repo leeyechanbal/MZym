@@ -623,9 +623,10 @@
 	                        var name = form.querySelector('.name').value;
 	                        var phoneNumber = form.querySelector('.phone').value;
 	                        var residentRegistrationNumber = form.querySelector('.rrn').value;
-	                        var input_email = form.querySelector('.email').value;
+	                        var email = form.querySelector('.email').value;
 	                        var input_address = form.querySelector('.address').value;
-	     
+	     					
+	                        
 	                        $.ajax({
 	                            url:"<%=contextPath%>/signup.me",
 	                            data:{
@@ -633,7 +634,7 @@
 	                                userPwd:pwd,
 	                                userName:name,
 	                                phone:phoneNumber,
-	                                email:input_email,
+	                                email:email,
 	                                rRN:residentRegistrationNumber,
 	                                address:input_address
 	                            },

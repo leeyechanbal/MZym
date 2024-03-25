@@ -20,6 +20,7 @@ import com.mzym.board.vo.BoardCategory;
 import com.mzym.board.vo.Comment;
 import com.mzym.board.vo.Notice;
 import com.mzym.board.vo.Report;
+import com.mzym.board.vo.ReportCategory;
 import com.mzym.board.vo.Video;
 import com.mzym.common.paging.PageInfo;
 
@@ -496,6 +497,8 @@ public class BoardDao {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		}finally {
+			close(pst);
 		}
 		
 		return result;
@@ -554,8 +557,8 @@ public class BoardDao {
 			// 신고 게시판 불러오기
 			if(hash.get("type").equals("board")) {
 				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
-				pst.setInt(1,(int)hash.get("categoryNum"));
-				pst.setString(2,(String)hash.get("status"));
+				pst.setString(1,(String)hash.get("status"));
+				pst.setInt(2,(int)hash.get("categoryNum"));
 				pst.setInt(3, info.getStartBoard());
 				pst.setInt(4, info.getEndBoard());
 				
@@ -563,18 +566,55 @@ public class BoardDao {
 				
 				
 				while(rset.next()) {
-					
+					list.add(new Report(
+								rset.getInt("REPORT_NO")
+								, rset.getInt("CATEGORY_NO")
+								, rset.getString("REPORT_DATE")
+								, rset.getString("reportID")
+								, new Board(
+										rset.getInt("BOARD_NO")
+										, rset.getInt("BOARD_TYPE")
+										, rset.getString("boardID")
+										, rset.getString("BOARD_TITLE")
+										, rset.getString("board_Content")
+										, new Attachment(
+												rset.getString("ORIGIN_NAME")
+												, rset.getNString("CHANGE_NAME")
+												, rset.getNString("FILE_PATH")
+												, rset.getInt("FILE_LEVEL")
+												)
+										)
+							));
 				}
 				
 			} else {
 			// 신고 댓글 불러오기	
-				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
-				pst.setInt(1, (int)hash.get("categoryNum"));
-				pst.setString(2, (String)hash.get("status"));
+				pst = conn.prepareStatement(prop.getProperty("selectCommnetReport"));
+				pst.setString(1, (String)hash.get("status"));
+				pst.setInt(2, (int)hash.get("categoryNum"));
 				pst.setInt(3, info.getStartBoard());
 				pst.setInt(4, info.getEndBoard());
 				
 				rset = pst.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Report(
+								rset.getInt("REPORT_NO")
+								, rset.getInt("CATEGORY_NO")
+								, rset.getString("REPORT_DATE")
+								, rset.getString("USER_ID")
+								, new Board(
+										rset.getInt("board_No")
+										, rset.getString("BOARD_TITLE")
+										, rset.getInt("board_type")
+										)
+								, new Comment(
+										rset.getInt("comment_no")
+										, rset.getString("USER_NAME")
+										, rset.getString("comment_content")
+										)
+							));
+				}
 				
 			}
 			
@@ -588,10 +628,152 @@ public class BoardDao {
 		
 		return list;
 	}
+	
+	
+	/**
+	 * @author 이예찬
+	 * @return 조회된 게시물 카테고리를 반환하는 매서드
+	 */
+	public List<BoardCategory> selectBoardCategory(Connection conn) {
+		PreparedStatement pst = null;
+		ResultSet rset = null;
+		List<BoardCategory> list = new ArrayList<>();
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectBoardCategory"));
+			rset = pst.executeQuery();
+			
+			while(rset.next()){
+				list.add(new BoardCategory(
+							rset.getInt("CATEGORY_NO")
+							, rset.getString("CATEGORY_NAME")
+						));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pst);
+		}
+		
+		
+		return list;
+	}
+	
+	
+	/**
+	 * @author 이예찬
+	 * @return 신고 카테고리를 반환
+	 */
+	public List<ReportCategory> selectReportCategory(Connection conn) {
+		PreparedStatement pst = null;
+		ResultSet rset = null;
+		List<ReportCategory> list = new ArrayList<>();
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("selectReportCategory"));
+			rset = pst.executeQuery();
+			
+			while(rset.next()){
+				list.add(new ReportCategory(
+							rset.getInt("CATEGORY_NO")
+							, rset.getString("CATEGORY_NAME")
+						));
+			}
+
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pst);
+		}
+
+		return list;
+	}
+	
+	/**
+	 * 신고 받은 번호에 게시판의 상태 = "Y", 그리고 게시판을 정달받은 데이터로 이동
+	 * 그 뒤에 신고테이블에서 상태를 "N"으로 작성된 보고서를 전달해 주는 쿼리
+	 * @author 이예찬
+	 * @param conn db에 연결하기 위한 객체
+	 * @param hash 신고 번호(reportNo), 이동할 카테고리 번호(selectNo) , 보고서 작성내용(text)
+	 * @return update뒤 결과 값 반환
+	 */
+	public int boardMoving(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("boardMoving"));
+			System.out.println((int)hash.get("selectNo"));
+			System.out.println((int)hash.get("reportNo"));
+			pst.setInt(1, (int)hash.get("selectNo"));
+			pst.setInt(2, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 신고 처리된 게시물의 status을 N으로 바꿔주는 매서드
+	 * @author 이예찬
+	 * @param conn
+	 * @param hash
+	 * @return
+	 */
+	public int reportStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("reportStatusN"));
+			pst.setString(1, (String)hash.get("text"));
+			pst.setInt(2, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
 
 	
-	
-	
+	/**
+	 * 사게 요청된 데이터의 상태를 K로 바꾼후 결과값 반환
+	 * @author 이예찬
+	 * @param conn db에 연결을 위한 객체
+	 * @param reportNo 신고 게시물 번호
+	 * @return 상태 변경 후 결과 값 반환
+	 */
+	public int deleteReport(Connection conn, int reportNo) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("deleteReport"));
+			pst.setInt(1, reportNo);
+			result = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		return result;
+	}
+
 	
 	
 	
@@ -669,7 +851,6 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 		
 	}
@@ -1171,6 +1352,86 @@ public class BoardDao {
 /*	
 	================================= 손수현 videoBoard ==================================
 */
+
+	
+	
+/*
+ * 작성자 엄희강, 홈페이지에 자유, 질문 게시판 최신글 10개만 불러올 쿼리
+ * */	
+	
+	public List<Board> latestpostFreeBoard(Connection conn) {
+		List<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("latestpostFreeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_no"),
+									rset.getString("board_title"),
+									rset.getString("user_name"),
+									rset.getInt("count"),
+									rset.getDate("regist_date")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	public List<Board> latestpostFreeBoard2(Connection conn) {
+		List<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("latestpostFreeBoard2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_no"),
+									rset.getString("board_title"),
+									rset.getString("user_name"),
+									rset.getInt("count"),
+									rset.getDate("regist_date")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	public int selectProductCount(Connection conn) {
+		
+		return 0;
+	}
+
+
+
+
+
+
+
+
+
 
 
 }// class END

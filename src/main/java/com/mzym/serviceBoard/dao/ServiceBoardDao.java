@@ -91,7 +91,9 @@ public class ServiceBoardDao {
 								   rset.getString("SERVICE_TR"),
 								   rset.getString("SERVICE_REPEAT"),
 								   rset.getString("UPFILEURL"),
-								   rset.getInt("file_no")
+								   rset.getInt("file_no"),
+								   rset.getString("FILESTATUS")
+								 
 						)); 
 			}
 			
@@ -326,7 +328,9 @@ public class ServiceBoardDao {
 								   rset.getString("SERVICE_TR"),
 								   rset.getString("SERVICE_REPEAT"),
 								   rset.getString("UPFILEURL"),
-								   rset.getInt("file_no")
+								   rset.getInt("file_no"),
+								   rset.getString("FILESTATUS")
+								  
 						)); 
 			}
 			
@@ -339,6 +343,51 @@ public class ServiceBoardDao {
 		}
 		return list;
 	}
+
+	public int deleteImg(Connection conn, int fileNo) {
+		int result =  0; 
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteServiceImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, fileNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+
+	public int deleteOldAtt(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteOldAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, at.getAttNo());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 		
 	
 }

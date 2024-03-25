@@ -67,6 +67,24 @@ public class Attachment {
 		this.filePath = filePath;
 		this.checkedFile = checkedFile;
 	}
+	
+	
+
+	/**
+	 * 게시물 or 후기 게시물을 받아오는 생성자
+	 * @author 이예찬
+	 * @param originName
+	 * @param changeName
+	 * @param filePath
+	 * @param fileLevel
+	 */
+	public Attachment(String originName, String changeName, String filePath, int fileLevel) {
+		super();
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.fileLevel = fileLevel;
+	}
 
 	public boolean isCheckedFile() {
 		return checkedFile;

@@ -37,7 +37,7 @@
         
         <thead class="">
             <td class="section1" id="back"><img src="/src/main/webapp/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
-            <td class="section2" id="logo"><img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png" alt="로고"></td>
+            <td class="section2" id="logo"><a href=""><img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png"></a></td>
             <td class="section3"></td>
         </thead>
         
@@ -99,14 +99,14 @@
                                 </tr>
         
                             <!-- 첨부파일 -->
-                            <form action="" method="">
-                                <tr class="tr-title" data-toggle="collapse" data-target="#reBoard1"> 
-                                    <td class="table-number">1</td>
-                                    <td class="table-title">여기서 똥싸도 되요.</td>
-                                    <td>자유게시판</td>
-                                    <td>test1</td>
-                                </tr>
-        
+                            <tr class="tr-title" data-toggle="collapse" data-target="#reBoard1"> 
+                                <td class="table-number">1</td>
+                                <td class="table-title">여기서 똥싸도 되요.</td>
+                                <td>자유게시판</td>
+                                <td>test1</td>
+                            </tr>
+                            
+                            
                                 <tr id="reBoard1" class="collapse">
                                     <td colspan="5">
                                         <div class="collapseitem">
@@ -119,25 +119,34 @@
                                                     <li>신고일: 24-03-22</li>
                                                 </ul>
                                             </fieldset>
+                                            <!-- form은 tr의 안에 있어야만 한다. -->
                                             <textarea cols="150" rows="5" readonly> 저희 집 안마당에서 강아지 똥 치워주 실 멍청이 구합니다.</textarea>
                                             <legend><u>보고서</u></legend>
-                                            <textarea cols="150" rows="5"></textarea>
-                                            <br><br>
+                                            <textarea cols="150" rows="5" class="report-content">브라브랍르</textarea>
                                             <div style="width: 100%; display: flex; justify-content: space-between;">
                                                 <a download="" href="">오리지널 파일 이름</a>
                                                 <div>
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm">요청 철회</button>
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm">신고 확인</button>
+                                                    <form action="/trainer.do" method="get">
+                                                        <input type="hidden" name="board" value="152">
+                                                        <input type="hidden" name="report" value="5">
+                                                        <input type="hidden" name="type" value="0">
+                                                        <button type="submit" class="btn btn-outline-secondary btn-sm">철회</button>
+                                                    </form>
+
+                                                    <form action="/trainer.do" method="get">
+                                                        <input type="hidden" name="report" value="5">
+                                                        <input type="hidden" name="type" value="1">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            </form>
-
+                            
 
                             <!-- 사진 -->
-                            <form action="" method="">
+                            <form action="" method="" class="re">
                                 <tr class="tr-title" data-toggle="collapse" data-target="#rePicture1"> 
                                     <td class="table-number">1</td>
                                     <td class="table-title">여기서 똥싸도 되요.</td>
@@ -166,20 +175,20 @@
 
                                                     <!-- Indicators -->
                                                     <ul class="carousel-indicators">
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="1"></li>
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="2"></li>
+                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="0" ></li>
+                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="1" ></li>
+                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="2" ></li>
                                                     </ul>
                                                     
                                                     <!-- The slideshow -->
                                                     <div class="carousel-inner">
-                                                      <div class="carousel-item active">
+                                                      <div class="carousel-item active"><span class="badge badge-dark">1</span>
                                                         <img src="/src/main/webapp/resources/img/common/MZYMProduct.png" width="500px" height="500px">
                                                       </div>
-                                                      <div class="carousel-item">
+                                                      <div class="carousel-item"><span class="badge badge-dark">2</span>
                                                         <img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png" width="500px" height="500px">
                                                       </div>
-                                                      <div class="carousel-item">
+                                                      <div class="carousel-item"><span class="badge badge-dark">3</span>
                                                         <img src="/src/main/webapp/resources/img/icon/logo-sm-170x100.png" width="500px" height="500px">
                                                       </div>
                                                     </div>
@@ -218,7 +227,7 @@
                                 </tr>
         
         
-                            <form action="" method="">
+                            <form action="" method="" class="re">
                                 <tr class="tr-title" data-toggle="collapse" data-target="#reComment1">
                                     <td class="table-number">1</td>
                                     <td class="table-title">여기서 똥싸도 되요.</td>
@@ -241,6 +250,7 @@
                                             <textarea cols="150" rows="5" readonly> 저희 집 안마당에서 강아지 똥 치워주 실 멍청이 구합니다.</textarea>
                                             <legend><u>보고서</u></legend>
                                             <textarea cols="150" rows="5"></textarea>
+                                            <input type="text">
                                             <br><br>
                                             <div style="text-align: -webkit-right;">
                                                 <button type="submit" class="btn btn-outline-secondary btn-sm">요청 철회</button>
@@ -310,6 +320,18 @@
                         }
 
                     })
+
+
+                    $("#boardcontent tr").click(function(){
+                        const boardNo = $(this).children(".table-number").text();
+                        const text = $(this).next().find(".report-content").val();
+                        // console.log(text); 
+                        $("#deletModal").find(".board-data").val(boardNo);  
+                        $("#myModal").find(".board-data").val(boardNo);
+                        $("#myModal").find(".board-text").val(text);        
+                    })
+
+            
                 })
             </script>
 
@@ -369,14 +391,14 @@
             <br>
             <div style="font-size: 20px; display: flex"> 이동 위치 선택
                 <ul class="moving-category" style="font-size: 15px;">
-                    <li>공지사항</li>
-                    <li>자유게시판</li>
-                    <li>질문게시판</li>
-                    <li>PT 및 헬스장 후기</li>
-                    <li>운동 모임</li>
+                    <li value="1">자유게시판</li>
+                    <li value="2">질문게시판</li>
+                    <li value="3">PT 및 헬스장 후기</li>
+                    <li value="4">운동 모임</li>
                 </ul>
             </div>
             <input type="text" class="outmove">
+            <input type="text" class="board-text">
         </div>
         </div>
 
@@ -390,13 +412,23 @@
 
     <script>
         $(function(){
-            $(".moving-category>li").click(function(){
-                const $move = $(this).text();
-                console.log($move)
-                $(".outmove").val($move);
-            })
-        })
+            $(".moving-category>li").click(function(e){
+                
+                $(this).css('border', '1px solid #1abc9cc7').css('border-radius', '10px');
+                
+                // console.log(e);
+                // console.log($(this).siblings());
+                // console.log($(this).not(e));
 
+                // 제이쿼리에서 선택된 요소를 제외한고 골라준다.
+                $(this).siblings().css('border', '0')
+
+                $(".outmove").val($(this).val());
+            })
+
+
+           
+        })
     </script>
   
       </div>
