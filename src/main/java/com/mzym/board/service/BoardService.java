@@ -640,6 +640,14 @@ public class BoardService {
 		return list;
 	}
 
+	public List<Board> ProdoctBoardselectList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		List<Board> b = dao.selectProductBoard(conn, pi);
+		close(conn);
+		return b;
+	}
 //	public List<Board> ProdoctBoardselectList(PageInfo pi) {
 //		
 //Connection conn = getConnection();
@@ -666,8 +674,6 @@ public class BoardService {
 	
 	
 	
-/*	
-	================================= 손수현 ==================================
-*/
+
 
 }// class END
