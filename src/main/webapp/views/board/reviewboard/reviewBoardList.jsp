@@ -139,7 +139,7 @@
  <%@ include file="/views/common/Mzym_header.jsp" %>
 
 <!-- Section start -->
-       <section class="main_content">
+       <section class="main_content">	
         <%@ include file="/views/common/Mzym_sidebar.jsp" %>
 
         <div class="board_content">
@@ -164,7 +164,7 @@
                     <div class="thumbnail_title"><%= b.getBoardTitle() %></div>
                     <div class="thumbnail_etc">
                         <div>&#9733;<%= b.getReviewRate() %></div>
-                        <div><%= b.getCount() %></div>
+                        <div>조회수:<%= b.getCount() %></div>
                     </div>
                 </div>
                 <% } %>
