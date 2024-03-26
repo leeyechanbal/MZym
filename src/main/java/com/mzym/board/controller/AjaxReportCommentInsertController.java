@@ -35,6 +35,8 @@ public class AjaxReportCommentInsertController extends HttpServlet {
 		
 		int commentNo = Integer.parseInt(request.getParameter("reportCommentNo"));
 		
+		int boardType = Integer.parseInt(request.getParameter("boardType"));
+		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int reportUser = loginUser.getUserNo();
@@ -50,7 +52,7 @@ public class AjaxReportCommentInsertController extends HttpServlet {
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "신고 성공.");
-			response.sendRedirect(request.getContextPath() + "/freelist.bo?page=1");
+			response.sendRedirect(request.getContextPath() + "/freelist.bo?type=" + boardType);
 		}else {
 			session.setAttribute("alertMsg", "신고 실패.");
 		}
