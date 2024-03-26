@@ -1,4 +1,4 @@
-package com.mzym.serviceBoard.controller;
+package com.mzym.product.controller;
 
 import java.io.IOException;
 
@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.serviceBoard.service.ServiceBoardService;
+import com.mzym.mypage.model.vo.Product;
+import com.mzym.product.service.ProductService;
 
 /**
- * Servlet implementation class TrainerUpdateServiceBoardRepeatController
+ * Servlet implementation class ProductDetailController
  */
-@WebServlet("/updateServiceBoard.trainer")
-public class TrainerUpdateServiceBoardRepeatController extends HttpServlet {
+@WebServlet("/product.detail")
+public class ProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TrainerUpdateServiceBoardRepeatController() {
+    public ProductDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +30,21 @@ public class TrainerUpdateServiceBoardRepeatController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		int productNo = Integer.parseInt(request.getParameter("no"));
 		
-		int serviceNo = Integer.parseInt(request.getParameter("no"));
-		String repeat = request.getParameter("repeat");
+		ProductService pb = new ProductService();
 		
-		int result = new ServiceBoardService().updateRepeat(serviceNo, repeat);
+		int result = pb.increaseCount(productNo);
 		
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "답변이 등록되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/serviceBoardList.trainer?page=1");
-		}else {
-			request.getSession().setAttribute("alertMsg", "답변이 등록실패");
+		if(result>0) {
+			
+			Product p = pb.selectProduct(productNo);
+			request.setAttribute("p", p);
+			request.getRequestDispatcher("/views/board/productboard/productBoardDetail.jsp").forward(request, response);
 		}
 		
+
+	
 		
 	}
 

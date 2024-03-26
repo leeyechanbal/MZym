@@ -1,26 +1,25 @@
-package com.mzym.serviceBoard.controller;
+package com.mzym.member.controller.representative.product;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.serviceBoard.service.ServiceBoardService;
+import com.mzym.member.model.service.RepreService;
 
 /**
- * Servlet implementation class TrainerUpdateServiceBoardRepeatController
+ * Servlet implementation class RepreDeleteProductController
  */
-@WebServlet("/updateServiceBoard.trainer")
-public class TrainerUpdateServiceBoardRepeatController extends HttpServlet {
+@WebServlet("/deleteProduct.re")
+public class RepreDeleteProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TrainerUpdateServiceBoardRepeatController() {
+    public RepreDeleteProductController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +28,15 @@ public class TrainerUpdateServiceBoardRepeatController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		int serviceNo = Integer.parseInt(request.getParameter("no"));
-		String repeat = request.getParameter("repeat");
-		
-		int result = new ServiceBoardService().updateRepeat(serviceNo, repeat);
-		
+
+		int productNo = Integer.parseInt(request.getParameter("no"));
+		int result = new RepreService().deleteProduct(productNo);
+
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "답변이 등록되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/serviceBoardList.trainer?page=1");
+			response.getWriter().write("success");
 		}else {
-			request.getSession().setAttribute("alertMsg", "답변이 등록실패");
+			response.getWriter().write("failure");
 		}
-		
-		
 	}
 
 	/**

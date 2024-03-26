@@ -48,7 +48,7 @@ public class ReportRequest extends HttpServlet {
 			int reportNo = Integer.parseInt(r);			
 			int check = Integer.parseInt(c);
 			String text = request.getParameter("text");
-			String cate = request.getParameter("nowCate"); // 현재 사용자가 보고 있는 카테고리 위치
+			String cate = request.getParameter("cate"); // 현재 사용자가 보고 있는 카테고리 위치
 			
 			HashMap<String, Object> hash = new HashMap<>();
 			hash.put("type", type);

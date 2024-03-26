@@ -159,6 +159,20 @@ public class ServiceBoardService {
 	}
 	
 	
+	/**
+	 * @author 김민정
+	 */
+	public int deleteServiceBoardTR(int no) {
+		Connection conn = getConnection();
+		int result = sDao.deleteServiceBoardTR(conn, no);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 	
 }

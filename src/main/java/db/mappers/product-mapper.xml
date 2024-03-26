@@ -54,5 +54,26 @@ SELECT *
 ]]>
 </entry>
 
+<entry key="increaseCount">
+UPDATE 
+	PRODUCT p 	
+	SET p.COUNT = p.COUNT + 1
+WHERE PRODUCT_NO =?
+</entry>
+
+<entry key="selectProduct">
+SELECT 
+     		p.product_no,
+         	p.PRODUCT_NAME ,
+         	p.PRODUCT_CONTENT, 
+         	p.PRODUCT_PRICE,
+        	at.FILE_PATH || at.CHANGE_NAME UPFILEURL
+         FROM PRODUCT p 
+         left JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO
+      	 WHERE p.PRODUCT_NO  = ?
+</entry>
+
+
+
 
 </properties>

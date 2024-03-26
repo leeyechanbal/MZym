@@ -14,6 +14,7 @@ import com.mzym.member.model.dao.RepreDao;
 import com.mzym.member.model.vo.Member;
 import com.mzym.member.model.vo.RepreDate;
 import com.mzym.member.model.vo.ReprePayment;
+import com.mzym.mypage.model.vo.Product;
 
 public class RepreService {
 	
@@ -36,6 +37,13 @@ public class RepreService {
 	public int selectMovieCount() {
 		Connection conn = getConnection();
 		int listCount = rDao.selectMovieCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
+	public int selectProductCount() {
+		Connection conn = getConnection();
+		int listCount = rDao.selectProductCount(conn);
 		close(conn);
 		return listCount;
 	}
@@ -119,6 +127,55 @@ public class RepreService {
 		close(conn);
 		return result;
 	}
+
+	public List<Product> selectListProduct(PageInfo pi) {
+		Connection conn = getConnection();
+		List<Product> list = rDao.selectProduct(conn, pi);
+		close(conn);
+		return list;
+	}
+
+	public int insertProduct(Product p) {
+		Connection conn = getConnection();
+		int result = rDao.insertProduct(conn, p);
+	
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public int updateProduct(Product p) {
+		Connection conn = getConnection();
+		int result = rDao.updateProduct(conn, p);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteProduct(int productNo) {
+		Connection conn = getConnection();
+		int result = rDao.deleteProduct(conn, productNo);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	
 
 	
 

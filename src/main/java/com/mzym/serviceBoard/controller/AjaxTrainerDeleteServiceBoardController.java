@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.mzym.serviceBoard.service.ServiceBoardService;
 
 /**
- * Servlet implementation class TrainerUpdateServiceBoardRepeatController
+ * Servlet implementation class AjaxTrainerDeleteServiceBoardController
  */
-@WebServlet("/updateServiceBoard.trainer")
-public class TrainerUpdateServiceBoardRepeatController extends HttpServlet {
+@WebServlet("/deleteServiceBoard.trainer")
+public class AjaxTrainerDeleteServiceBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TrainerUpdateServiceBoardRepeatController() {
+    public AjaxTrainerDeleteServiceBoardController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +30,17 @@ public class TrainerUpdateServiceBoardRepeatController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		
-		int serviceNo = Integer.parseInt(request.getParameter("no"));
-		String repeat = request.getParameter("repeat");
+		int no = Integer.parseInt(request.getParameter("no"));
 		
-		int result = new ServiceBoardService().updateRepeat(serviceNo, repeat);
+		int result = new ServiceBoardService().deleteServiceBoardTR(no);
+		response.setContentType("application/json; charset=utf-8");
 		
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "답변이 등록되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/serviceBoardList.trainer?page=1");
+			new Gson().toJson(result, response.getWriter());
 		}else {
-			request.getSession().setAttribute("alertMsg", "답변이 등록실패");
+			request.getSession().setAttribute("alsertMsg", "게시글 삭제 실패");
 		}
-		
-		
 	}
 
 	/**

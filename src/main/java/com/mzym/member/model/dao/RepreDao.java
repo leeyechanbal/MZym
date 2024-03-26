@@ -17,6 +17,7 @@ import com.mzym.common.paging.PageInfo;
 import com.mzym.member.model.vo.Member;
 import com.mzym.member.model.vo.RepreDate;
 import com.mzym.member.model.vo.ReprePayment;
+import com.mzym.mypage.model.vo.Product;
 
 public class RepreDao {
 
@@ -94,6 +95,29 @@ public class RepreDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectlistVideo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int selectProductCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectlistProduct");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -296,5 +320,102 @@ public class RepreDao {
 		return result;
 	}
 
-	
+	public List<Product> selectProduct(Connection conn, PageInfo pi) {
+		List<Product> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Product p = new Product();
+				p.setProductNo(rset.getInt("product_no"));
+				p.setProductName(rset.getString("product_name"));
+				p.setPrice(rset.getInt("product_price"));
+				p.setImageURL(rset.getString("image_url"));
+				list.add(p);		         
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int insertProduct(Connection conn, Product p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getProductName() );
+			pstmt.setString(2, p.getImageURL());
+			pstmt.setInt(3, p.getPrice());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateProduct(Connection conn, Product p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getProductName());
+			pstmt.setInt(2, p.getPrice());
+			pstmt.setString(3, p.getImageURL());
+			pstmt.setInt(4, p.getProductNo());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteProduct(Connection conn, int productNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, productNo);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
