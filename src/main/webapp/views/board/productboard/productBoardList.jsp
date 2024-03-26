@@ -57,6 +57,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
         .thumbnail:hover>img{
             opacity:0.9;
         }
+        
         .thumbnail_img{
             width:190px;
             height:200px;
@@ -65,7 +66,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
             width:190px;
             height:30px;
             text-align:center;
-            position:absolute;
+            
             top:175px;
             z-index:10;
         }
@@ -131,12 +132,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
             align-items: center;
           
         }
-		.normalItem{
-			
-		}
-		.bestItem{
-			
-		}
+		
 		.itenTitle{
 		    display: flex;
             justify-content: center;
@@ -180,7 +176,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 						<% for(int i = 0; i < bestList.size(); i++) { %> 
 		                <div class="thumbnail">
 		                	<input type = hidden value ="<%=bestList.get(i).getProductNo() %>">
-		                    <img class="thumbnail_img" src="<%= contextPath + "/" + list.get(i).getUpfileUrl() %>">
+		                    <div class="thumbnail_img"><img class="thumbnail_img" src="<%= contextPath + "/" + list.get(i).getUpfileUrl() %>"></div>
 		                    <div class="thumbnail_title"><%=list.get(i).getProductName()%></div>
 		                    <div class="thumbnail_etc">
 		                        <div class="price"><%=list.get(i).getPrice() %>원</div>
