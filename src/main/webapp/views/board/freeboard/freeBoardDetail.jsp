@@ -217,14 +217,17 @@
             					    value += "<tr>"
             					        + "<td>" + list[i].commentWriter + "</td>"
             					        + "<td>" + list[i].commentContent + "</td>"
-            					        + "<td>" + list[i].commentDate + "</td>"
-            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>"
-            					        + "</tr>";
+            					        + "<td>" + list[i].commentDate + "</td>";
+
+            					        if("<%=loginUser%>" != 'null') {
+            					        value += "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>";            					        
+            					        }
+            					        value += "</tr>";
             					}
             				value = "<table id=\"comment_list\">" + value + "</table>";
             				}else{
             					value += "<tr><td colspan='3'>존재하는 댓글이 없습니다.</td></tr>"
-            				}
+            				} 
             				
             				$("#comment_area tbody").html(value);
             				
