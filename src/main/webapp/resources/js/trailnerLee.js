@@ -106,36 +106,36 @@ $(function(){
 
 
 
-    $(".type1").click(function(){
-        const $form = $(this).parents('form');
-        // console.log($form);
-        const reportNo = $form.find('input[name=report]').val();
-        // console.log(reportNo);
-        const text = $form.find('textarea[name=content]').val();
-        // console.log(text);
-        const typeCheck = $form.find('input[name=typeCheck]').val();
-        // console.log(typeCheck);
+    // $(".type1").click(function(){
+    //     const $form = $(this).parents('form');
+    //     // console.log($form);
+    //     const reportNo = $form.find('input[name=report]').val();
+    //     // console.log(reportNo);
+    //     const text = $form.find('textarea[name=content]').val();
+    //     // console.log(text);
+    //     const typeCheck = $form.find('input[name=typeCheck]').val();
+    //     // console.log(typeCheck);
 
-        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=1';
-        // console.log(str);
-       location.href = str;
-        // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
-    })
+    //     const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=1';
+    //     // console.log(str);
+    //    location.href = str;
+    //     // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
+    // })
 
-    $(".type2").click(function(){
-        const $form = $(this).parents('form');
-        // console.log($form);
-        const reportNo = $form.find('input[name=report]').val();
-        // console.log(reportNo);
-        const text = $form.find('textarea[name=content]').val();
-        // console.log(text);
-        const typeCheck = $form.find('input[name=typeCheck]').val();
-        // console.log(typeCheck);
+    // $(".type2").click(function(){
+    //     const $form = $(this).parents('form');
+    //     // console.log($form);
+    //     const reportNo = $form.find('input[name=report]').val();
+    //     // console.log(reportNo);
+    //     const text = $form.find('textarea[name=content]').val();
+    //     // console.log(text);
+    //     const typeCheck = $form.find('input[name=typeCheck]').val();
+    //     // console.log(typeCheck);
 
-        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
-        // console.log(str);
-       location.href = str;
-    })
+    //     const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
+    //     // console.log(str);
+    //    location.href = str;
+    // })
     
 
     $("[data-target='#myModal']").click(function(){
