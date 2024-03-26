@@ -141,6 +141,23 @@ public class Member {
 		this.status = status;
 	}
 	
+	
+
+	public Member(int userNo, String userId, String userName, String phone, String rRN, String email, String address,
+			String trCareer, String certificate, String imageURL) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.phone = phone;
+		this.RRN = rRN;
+		this.email = email;
+		this.address = address;
+		this.trCareer = trCareer;
+		this.certificate = certificate;
+		this.imageURL = imageURL;
+	}
+
 
 	public Member(String userId, String userPwd, String userName, String phone, String rRN, String email,
 			String address) {
@@ -174,8 +191,27 @@ public class Member {
 		this.userName = userName;
 		this.phone = phone;
 		this.userId = userId;
-	}	
+	}
+	
+	
+	
 		
+	public Member(String userId, String userPwd, String userName, String phone, String rRN, String email,
+			String address, String trCareer, String certificate, String imageURL) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.RRN = rRN;
+		this.email = email;
+		this.address = address;
+		this.trCareer = trCareer;
+		this.certificate = certificate;
+		this.imageURL = imageURL;
+	}
+
+
 	public String getAssignTrName() {
 		return assignTrName;
 	}

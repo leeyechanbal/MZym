@@ -1,4 +1,4 @@
-package com.mzym.member.controller.representative.product;
+package com.mzym.member.controller.representative.trainer;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class RepreProductFormController
+ * Servlet implementation class RepreTrainserFormController
  */
-@WebServlet("/productForm.re")
-public class RepreProductFormController extends HttpServlet {
+@WebServlet("/trainerForm.re")
+public class RepreTrainserFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RepreProductFormController() {
+    public RepreTrainserFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class RepreProductFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("/views/representative/repreProduct.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/views/representative/repreTrainer.jsp");
 		view.forward(request, response);
 	}
 
