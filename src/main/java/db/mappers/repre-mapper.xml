@@ -34,6 +34,13 @@ ORDER BY YEAR_MONTH DESC
 	WHERE STATUS = 'Y'
 </entry>
 
+<entry key="selectlistTrainer">
+	SELECT
+		COUNT(*) COUNT
+	FROM MZYM_MEMBER
+	WHERE STATUS = 'T'
+</entry>
+
 <entry key="selectlistVideo">
 	SELECT
 		COUNT(*) COUNT
@@ -176,6 +183,78 @@ UPDATE
 	   SET 
 	   	   STATUS = 'N'
 	 WHERE PRODUCT_NO = ?
+</entry>
+
+<entry key="selectTrainer">
+SELECT M.*
+FROM (
+    SELECT t.*, ROWNUM AS rnum
+    FROM (
+        SELECT *
+        FROM MZYM_MEMBER
+        WHERE STATUS = 'T'
+        ORDER BY USER_NO DESC
+    ) t
+) M
+WHERE M.RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="insertTr">
+	INSERT
+	  INTO MZYM_MEMBER
+	  (
+	    USER_NO
+	  , USER_ID
+	  , USER_PWD
+	  , USER_NAME
+	  , PHONE
+	  , RRN
+	  , EMAIL
+	  , ADDRESS
+	  , TR_CAREER
+	  , CERTIFICATE
+	  , IMAGE_URL
+	  , STATUS
+	  )
+	  VALUES
+	  (
+	    SEQ_MEMEBERNO.NEXTVAL
+	  , ? <!-- 아이디 -->
+	  , ? <!-- 비밀번호 -->
+	  , ? <!-- 이름 -->
+	  , ? <!-- 전화번호 -->
+	  , ? <!-- 주민번호 -->
+	  , ? <!-- 이메일 -->
+	  , ? <!-- 주소 -->
+	  , ? <!-- 경력 -->
+	  , ? <!-- 자격증 -->
+	  , ? <!-- 이미지URL -->
+	  , 'T'
+	  )
+</entry>
+
+<entry key="updateTr">
+UPDATE
+		  MZYM_MEMBER
+	   SET 
+	   	   USER_PWD = ?
+	     , USER_NAME = ?
+	     , PHONE = ?
+	     , RRN = ?
+	     , EMAIL = ?
+	     , ADDRESS = ?
+	     , TR_CAREER = ?
+	     , CERTIFICATE = ?
+	     , IMAGE_URL = ?
+	 WHERE USER_NO = ?
+</entry>
+
+<entry key="deleteTr">
+UPDATE
+		  MZYM_MEMBER
+	   SET 
+	   	   STATUS = 'N'
+	 WHERE USER_NO = ?
 </entry>
 
 </properties>

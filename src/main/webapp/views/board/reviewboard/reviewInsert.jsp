@@ -139,18 +139,20 @@
                 <button type="submit" class="btn3 btn-outline-secondary btn-sm">등록</button>  
 
                 <div style="display:none;">
+
                     <!-- 대표이미지 -->
-                    <input type="file" name="upfile1" onchange="loadImg(0);" required>
+                    <input type="file" class="imgfile" name="upfile1" onchange="loadImg(0);" required>
                     <!-- 상세이미지 -->
-                    <input type="file" name="upfile2" onchange="loadImg(1);">
-                    <input type="file" name="upfile3" onchange="loadImg(2);">
-                    <input type="file" name="upfile4" onchange="loadImg(3);">
+                    <input type="file" class="imgfile" name="upfile2" onchange="loadImg(1);">
+                    <input type="file" class="imgfile" name="upfile3" onchange="loadImg(2);">
+                    <input type="file" class="imgfile" name="upfile4" onchange="loadImg(3);">
                 </div>
 
                 <script>
                     function chooseFile(idx){
-                        $(":file").eq(idx).click();
+                        $(".imgfile").eq(idx).click();
                     }
+
 
                     function loadImg(idx){
                         const inputFile = window.event.target;

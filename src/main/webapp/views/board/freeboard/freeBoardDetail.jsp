@@ -5,7 +5,6 @@
 <%
 	Board b = (Board)request.getAttribute("b");  // 글번호, 제목, 내용, 작성자이름
 	Attachment at = (Attachment)request.getAttribute("at"); // 파일번호, 원본명, 수정파일명, 저장경로
-	
  %>
 <!DOCTYPE html>
 <html>
@@ -120,7 +119,7 @@
                 <% if(loginUser != null && Integer.toString(loginUser.getUserNo()).equals(b.getBoardMember())) { %>
                 <button type="button" class="btn2 btn-outline-danger btn-sm">삭제</button>
                 <a href="<%= contextPath %>/freeUpdateForm.bo?no=<%= b.getBoardNo() %>" class="btn3 btn-outline-secondary btn-sm">수정</a>
-                <% }else {%>
+                <% }else if(loginUser != null){%>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자가 아닐 경우 보여지는 버튼 요소 -->
                 <button type="button" class="btn4 btn-outline-danger btn-sm" id="report_board">신고</button>
                 <% } %>
@@ -206,6 +205,7 @@
             		$.ajax({
             			url:"<%= contextPath %>/rlist.bo",
             			data:{no:<%= b.getBoardNo() %>},
+            			async:false,
             			success:function(list){
             				
             				console.log(list);
@@ -217,14 +217,17 @@
             					    value += "<tr>"
             					        + "<td>" + list[i].commentWriter + "</td>"
             					        + "<td>" + list[i].commentContent + "</td>"
-            					        + "<td>" + list[i].commentDate + "</td>"
-            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>"
-            					        + "</tr>";
+            					        + "<td>" + list[i].commentDate + "</td>";
+
+            					        if("<%=loginUser%>" != 'null') {
+            					        value += "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>";            					        
+            					        }
+            					        value += "</tr>";
             					}
             				value = "<table id=\"comment_list\">" + value + "</table>";
             				}else{
             					value += "<tr><td colspan='3'>존재하는 댓글이 없습니다.</td></tr>"
-            				}
+            				} 
             				
             				$("#comment_area tbody").html(value);
             				
@@ -237,7 +240,7 @@
             
             </script>
             <div class="btn1">
-                <a href="<%= contextPath %>/freelist.bo?page=1" class="btnlist btn-outline-secondary btn-sm">목록</a>
+                <button type="button" class="btnlist btn-outline-secondary btn-sm" onclick="history.back();">목록</button>
             </div>
         </div>
 
@@ -323,6 +326,7 @@
 
   <!-- 댓글 신고 모달 -->
 	  <form action="<%=contextPath%>/report.co" method="post">
+	  <input type="hidden" name="boardType" value=<%=b.getBoardType() %>>
 		<div class="modal" id="reportCommentModal">
 		    <div class="modal-dialog">
 		        <div class="modal-content">
@@ -390,7 +394,7 @@
 		                success: function(response) {
 		                    alert("삭제되었습니다.");
 		                    window.location.reload();
-		                  	window.location.href = "<%= contextPath %>/freelist.bo?page=1";
+		                  	window.location.href = "<%= contextPath %>/freelist.bo?type=<%=b.getBoardType() %>";
 		                },
 		                error: function(xhr, status, error) {
 		                    alert("삭제에 실패했습니다. 다시 시도해주세요.");

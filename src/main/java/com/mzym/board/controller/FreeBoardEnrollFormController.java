@@ -31,6 +31,7 @@ public class FreeBoardEnrollFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int type = Integer.parseInt(request.getParameter("type"));
+		System.out.println(type);
 		BoardCategory bc = new BoardService().selectBoardName(type);
 		request.setAttribute("bc", bc);
 		

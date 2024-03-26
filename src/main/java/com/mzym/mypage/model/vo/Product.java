@@ -133,6 +133,16 @@ public class Product {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", productContent=" + productContent
 				+ ", price=" + price + ", registDate=" + registDate + "]";
 	}
+
+	public Product(int productNo, String productName, String productContent, int price, String upfileUrl) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productContent = productContent;
+		this.price = price;
+		this.upfileUrl = upfileUrl;
+	}
+	
 	
 	
 }

@@ -198,11 +198,11 @@
                 <div class="repre_left_bottom" style="text-align: cent;">
                     <a href="#" class="main-menu">매출관리</a>
                     <div class="sub-menu">
-                        <a href="<%=contextPath%>/productform.re" class="sub-item">상품관리</a>
+                        <a href="<%=contextPath%>/productForm.re" class="sub-item">상품관리</a>
                         <a href="<%=contextPath%>/selectDate.re" class="sub-item">월별매출조회</a>
                     </div>
                     <a href="<%=contextPath%>/memberForm.re" class="main-menu">회원관리</a>
-                    <a href="#" class="main-menu">트레이너관리</a>
+                    <a href="<%=contextPath%>/trainerForm.re" class="main-menu">트레이너관리</a>
                     <a href="<%=contextPath%>/movieForm.re" class="main-menu">영상관리</a>
                 </div>
 

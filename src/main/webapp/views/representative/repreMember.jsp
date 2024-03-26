@@ -219,11 +219,11 @@
                 <div class="repre_left_bottom" style="text-align: cent;">
                     <a href="#" class="main-menu">매출관리</a>
                     <div class="sub-menu">
-                        <a href="<%=contextPath%>/productform.re" class="sub-item">상품관리</a>
+                        <a href="<%=contextPath%>/productForm.re" class="sub-item">상품관리</a>
                         <a href="<%=contextPath%>/selectDate.re" class="sub-item">월별매출조회</a>
                     </div>
                     <a href="<%=contextPath%>/memberForm.re" class="main-menu">회원관리</a>
-                    <a href="#" class="main-menu">트레이너관리</a>
+                    <a href="<%=contextPath%>/trainerForm.re" class="main-menu">트레이너관리</a>
                     <a href="<%=contextPath%>/movieForm.re" class="main-menu">영상관리</a>
                 </div>
 
@@ -466,10 +466,6 @@
                             phoneNumber = form.querySelector('.phone').value;
                             residentRegistrationNumber = form.querySelector('.rrn').value;
                             
-                            console.log(id);
-                            console.log(name);
-                            console.log(phoneNumber);
-                            console.log(residentRegistrationNumber);
                             
                             var idRegex = /^[a-zA-Z0-9]+$/;
                             if (!idRegex.test(id)) {
@@ -592,7 +588,7 @@
                 		    if (!idRegex.test(id)) {
                 		        alert("아이디는 영문자와 숫자만 입력 가능합니다.");
                 		        return;
-                		    }
+               		    	}
 
                 			$.ajax({
                 				url:"<%=contextPath%>/idCheck.me",
