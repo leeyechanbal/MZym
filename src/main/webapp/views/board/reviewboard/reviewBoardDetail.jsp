@@ -161,6 +161,33 @@
     </section>
     <!-- Section end -->
     
+    <script>
+		    // 삭제 버튼 클릭 시 confirm 창 띄우기
+		    $(".btn3").click(function() {
+		        var result = confirm("정말 삭제하시겠습니까?");
+		        
+		        // 사용자가 "확인"을 선택한 경우에만 AJAX 요청을 실행합니다.
+		        if (result) {
+		            $.ajax({
+		                url: "<%=contextPath%>/deleteFree.bo",
+		                type: "POST",
+		                data: {
+		                    boardNo: <%=b.getBoardNo() %>
+		                },
+		                success: function(response) {
+		                    alert("삭제되었습니다.");
+		                    window.location.reload();
+		                  	window.location.href = "<%= contextPath %>/list.re";
+		                },
+		                error: function(xhr, status, error) {
+		                    alert("삭제에 실패했습니다. 다시 시도해주세요.");
+		                    console.error(xhr, status, error);
+		                }
+		            });
+		        }
+		    });
+		</script>
+    
     <%@ include file="/views/common/Mzym_footer.jsp" %>
 
 </body>
