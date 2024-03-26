@@ -6,7 +6,6 @@
 <%
 	String contextPath = request.getContextPath();
 	List<ServiceBoard> list = (List<ServiceBoard>)request.getAttribute("list");
-	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	String alertMsg = (String)session.getAttribute("alertMsg");
 %>  
@@ -88,9 +87,9 @@
 					<%for(int i=0; i<list.size();i++){ %>
                     <form action="<%=contextPath %>/updateServiceBoard.trainer?no=<%=list.get(i).getServiceNo() %>" method="post" id="serviceList">
                         <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
-                            <td class="table-number" name=""><%=list.get(i).getServiceNo() %></td>
+                            <td class="table-number"><%=list.get(i).getServiceNo() %></td>
                             <td name=""><%=list.get(i).getCategoryNo() %></td>
-                            <td class="table-title" name=""><%=list.get(i).getServiceTitle() %></td>
+                            <td class="table-title"><%=list.get(i).getServiceTitle() %></td>
                             <td name=""><%=list.get(i).getServiceUser() %></td>
                             <td><%=list.get(i).getRegistDate() %></td>
                         </tr>
@@ -101,9 +100,9 @@
                                     <%=list.get(i).getServiceContent() %>
                                 <hr>
                                 <%if(list.get(i).getUpfileUrl() != null && !list.get(i).getFileStatus().equals("N")){ %>
-                                <div>
-                                	<img src="<%=contextPath + "/" + list.get(i).getUpfileUrl() %>" style="max-width:100%; height: auto;">
-                                </div>
+	                                <div>
+	                                	<img src="<%=contextPath + "/" + list.get(i).getUpfileUrl() %>" style="max-width:100%; height: auto;">
+	                                </div>
                                 <input type="file">
                                 <%}else{ %>
                                 	등록된 첨부파일이 없습니다.
@@ -115,48 +114,18 @@
                                  		serviceTr = Integer.parseInt(String.valueOf(list.get(i).getServiceTr()));
                                     
                                     if(loginUser.getUserNo() == serviceTr){ %>
-                                    <div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
-                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>"></div>
-                                    <button  type="submit" class="btn btn-outline-success btn-sm">답변</button>
+	                                    <div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
+	                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>"></div>
+	                                    <button  type="submit" class="btn btn-outline-success btn-sm">답변</button>
+	                        			<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
                                 	<%}else { %>
-                                	<div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
-                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>" readonly></div>
+	                                	<div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
+	                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>" readonly></div>
                                 	<%} %>
                                 </div>
                             </td>
                         </tr>
                     </form>
-                    
-                      <script>
-							  	$(document).ready(function(){
-							  		
-							  		$(".tr-title").on("click", function(){
-							  			var serviceNo = $(this).closest("tr").find(".table-number").text();
-							  			$("#deletebtn").data("serviceNo",serviceNo);
-							  		});
-							  		
-							  		$("#deletebtn").on("click",function(){
-							  			
-							  			var serviceNo = $(this).data("serviceNo");
-							  			
-							  			$.ajax({
-							  				url:"<%=contextPath%>/deleteServiceBoard.trainer",
-							  				data:{no:serviceNo},
-							  				type:"get",
-							  				success:function(result){
-							  					console.log(result);
-							  					alert("게시글 삭제 완료되었습니다.");
-							  				},
-							  				error:function(){
-							  					console.log("문의글 삭제 ajax 통신 실패");
-							  				}
-							  			})
-							  		})
-							  	})	
-					  </script>
-                    
-                    
-                    
                     
                     <%} %>
 
@@ -191,11 +160,7 @@
                     <%} %>
                 </ul>
             </td>
-            
-            <td class="section3">
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
-                 
-            </td>
+
         </tfoot>
 
 
@@ -205,6 +170,7 @@
       <div class="modal-content" style="border: 3px solid #1abc9cc7;">
   
         <!-- Modal Header -->
+        <form action="">
         <div class="modal-header">
           <h3 class="modal-title">게시물 삭제</h3>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -215,17 +181,47 @@
             게시물을 정말로 삭제 하시겠습니까?
         
         </div>
+        <input type="text" class="">
   
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-outline-danger btn-sm deletebtn" data-dismiss="modal">확인</button>
+            <button type="button" class="btn btn-outline-danger btn-sm deletebtn">확인</button>
         </div>
+        </form>
   
       </div>
     </div>
   </div>
   
+		<script>
+		  	$(document).ready(function(){
+		  		
+		  		$(".deletebtn").on("click",function(){
+		  			
+		  			const boardNo = $(".tr-title");
+		  		 
+		  			
+		  			console.log(boardNo);
+		  			
+		  			/*
+		  			$.ajax({
+		  				url:"<%=contextPath%>/deleteServiceBoard.trainer",
+		  				data:{no:$(this).closest("form").find(".table-number").text()},
+		  				type:"get",
+		  				success:function(result){
+		  					console.log(result);
+		  					alert("게시글 삭제 완료되었습니다.");
+		  				},
+		  				error:function(){
+		  					console.log("문의글 삭제 ajax 통신 실패");
+		  					alert("게시글 삭제 실패");
+		  				}
+		  			})
+		  			*/
+		  		})
+		  	})	
+		 </script>
 
 
   

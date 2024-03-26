@@ -65,44 +65,44 @@ $(function(){
 
     })
 
-    // $("#boardcontent tr").click(function(){
-    //     const boardNo = $(this).children(".table-number").text();
-    //     $("#deletModal").find(".board-data").val(boardNo);  
+    $("#boardcontent tr").click(function(){
+        const boardNo = $(this).children(".table-number").text();
+        $("#deletModal").find(".board-data").val(boardNo);  
         
-    //     $(this).css('border', '3px solid #1abc9cc7');
+        $(this).css('border', '3px solid #1abc9cc7');
 
-    //     $(this).siblings().css('border', '0');
-    //     // console.log($(this).siblings());
-    //     // console.log($(this).siblings('.show'));
+        $(this).siblings().css('border', '0');
+        // console.log($(this).siblings());
+        // console.log($(this).siblings('.show'));
        
-    //     $(this).siblings('.show').removeClass('show');
+        $(this).siblings('.show').removeClass('show');
 
-    // })
+    })
 
-    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
-    // $(function(){
-    //     $(document).keypress(function(e){
-    //         // console.log($("#boardcontent tr")); 
-    //         // console.log(e.key); 
-    //         // console.log(Number(e.key) * 2); 
-    //         // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
-    //         const val = e.key;
-    //         let $t = null;
-    //         if(val != 0){
-    //             $t = $("#boardcontent tr").eq(Number(val) * 2);   
-    //         } else if (val == 0){
-    //             $t = $("#boardcontent tr").eq(20);
-    //         }
+    키보드 값을 입력 받을떄 해당 위치의 collapse 등장
+    $(function(){
+        $(document).keypress(function(e){
+            // console.log($("#boardcontent tr")); 
+            // console.log(e.key); 
+            // console.log(Number(e.key) * 2); 
+            // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
+            const val = e.key;
+            let $t = null;
+            if(val != 0){
+                $t = $("#boardcontent tr").eq(Number(val) * 2);   
+            } else if (val == 0){
+                $t = $("#boardcontent tr").eq(20);
+            }
 
-    //         $t.css('border', '3px solid #1abc9cc7');
-    //             $t.addClass('show');
+            $t.css('border', '3px solid #1abc9cc7');
+                $t.addClass('show');
 
-    //             $t.siblings().css('border', '0');
-    //             $t.siblings('.show').removeClass('show');
+                $t.siblings().css('border', '0');
+                $t.siblings('.show').removeClass('show');
 
-    //     }) 
+        }) 
                 
-    // })
+    })
 
 
     $("[data-target='#myModal']").click(function(){

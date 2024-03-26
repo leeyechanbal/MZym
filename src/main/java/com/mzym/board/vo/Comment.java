@@ -10,6 +10,7 @@ public class Comment {
 	private String commentDate;
 	private String commentContent;
 	private String status;
+	private int commentUser;
 	
 	public Comment() {}
 
@@ -26,7 +27,15 @@ public class Comment {
 	}
 
 	
-	
+	public Comment(int commentNo, String commentWriter, String commentContent, int commentUser, String commentDate) {
+		super();
+		this.commentNo = commentNo;
+		this.commentWriter = commentWriter;
+		this.commentDate = commentDate;
+		this.commentContent = commentContent;
+		this.commentUser = commentUser;
+	}
+
 	public Comment(int commentNo, String commentWriter, String commentContent, String commentDate) {
 		super();
 		this.commentNo = commentNo;
@@ -106,14 +115,20 @@ public class Comment {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	
+	public int getCommentUser() {
+		return commentUser;
+	}
+
+	public void setCommentUser(int commentUser) {
+		this.commentUser = commentUser;
+	}
+
 	@Override
 	public String toString() {
 		return "Comment [commentNo=" + commentNo + ", boardNo=" + boardNo + ", commentWriter=" + commentWriter
 				+ ", userName=" + userName + ", commentDate=" + commentDate + ", commentContent=" + commentContent
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", commentUser=" + commentUser + "]";
 	}
-	
-	
+
 }

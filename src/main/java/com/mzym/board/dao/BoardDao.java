@@ -1188,6 +1188,7 @@ public class BoardDao {
 				list.add(new Comment(rset.getInt("comment_No"),
 									 rset.getString("user_name"),
 									 rset.getString("comment_Content"),
+									 rset.getInt("comment_Writer"),
 									 rset.getString("comment_Date")));
 			}
 		} catch (SQLException e) {
