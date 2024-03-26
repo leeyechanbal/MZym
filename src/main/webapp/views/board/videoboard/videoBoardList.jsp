@@ -50,19 +50,10 @@
             background: #1abc9c;
             border-color: #1abc9c;
         }
-
-        .page-link {
-            color: #000; 
-            background-color: #fff;
-            border: 1px solid #ccc; 
-        }
-
-        .page-item.active .page-link {
-            z-index: 1;
-            font-weight:bold;
-            background-color: #f1f1f1;
-            border-color: #ccc;
-        }
+        
+        .page-item a.page-link {
+        color: #1abc9c;
+    	}
 
         .search {
             position: relative;
