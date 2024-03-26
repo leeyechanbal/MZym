@@ -453,7 +453,6 @@ where board_no = (
      where report_no = ?
      )
 </entry>
-
 <!-- 
 	작성자 : 이예찬
 	신고 철회 요청에 댓글의 상태를 변경하는 쿼리
@@ -467,8 +466,6 @@ where COMMENT_NO = (
      where report_no = ?
      )
 </entry>
-
-
 <!--  -->
 <entry key=""></entry>
 
@@ -833,19 +830,26 @@ SELECT
 	후기게시판 select문
  -->
 <entry key="selectReviewList">
-	SELECT
-	        BOARD_NO
-	    ,   BOARD_TITLE
-	    ,   REVIEW_RATE
-	    ,   COUNT
-	    ,   FILE_PATH || CHANGE_NAME TITLEIMG_URL
-	FROM    MZYM_BOARD B
-	JOIN    ATTACHMENT ON (ATT_NO = BOARD_NO)
-	WHERE BOARD_TYPE = 3
-	AND B.STATUS = 'Y'
-	AND FILE_LEVEL = 1
-	ORDER
-	    BY BOARD_NO DESC
+	SELECT *
+	    FROM (
+	            SELECT ROWNUM RNUM, A.*
+	                FROM (
+						SELECT
+						BOARD_NO
+					,   BOARD_TITLE
+					,   REVIEW_RATE
+					,   COUNT
+					,   FILE_PATH || CHANGE_NAME TITLEIMG_URL
+				FROM    MZYM_BOARD B
+				JOIN    ATTACHMENT ON (ATT_NO = BOARD_NO)
+				WHERE BOARD_TYPE = 3
+				AND B.STATUS = 'Y'
+				AND FILE_LEVEL = 1
+				ORDER
+					BY BOARD_NO DESC
+	                    ) A
+	        )
+	WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <!-- 
@@ -858,6 +862,7 @@ SELECT
 	WHERE	BOARD_TYPE = 3
 	AND		STATUS = 'Y'
 </entry>
+
 
 <!-- ===========================황수림================================= -->
 

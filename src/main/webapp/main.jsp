@@ -245,7 +245,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
 				<script>
 			            $(function(){
 			                $("#anwserBoard_list>tbody>tr").click(function(){
-			                	location.href = "<%=contextPath%>//*freedetail.bo*/?no=" + $(this).children().eq(0).text();
+			                	location.href = "<%=contextPath%>/freedetail.bo?no=" + $(this).children().eq(0).text();
 			                })
 			            })
 			            </script>		

@@ -602,6 +602,14 @@ public class BoardService {
 		
 		return result1 * result2;
 	}
+	
+	public List<Attachment> selectAttachmentReview(int boardNo) {
+		Connection conn = getConnection();
+		
+		List<Attachment> list = dao.selectAttachmentReview(conn, boardNo);
+		close(conn);
+		return list;
+	}
 		
 		
 	/*	

@@ -231,7 +231,7 @@ public class Board {
 				+ ", boardType=" + boardType + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", regist_Date=" + regist_Date + ", modify_date=" + modify_date + ", status=" + status
 				+ ", reviewRate=" + reviewRate + ", count=" + count + ", category=" + category + ", att=" + att
-				+ ", titleImgURL=" + titleImgURL + "]";
+				+ ", atList=" + atList + ", titleImgURL=" + titleImgURL + "]";
 	}
-	
+
 }

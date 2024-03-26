@@ -119,7 +119,7 @@
                 <% if(loginUser != null && Integer.toString(loginUser.getUserNo()).equals(b.getBoardMember())) { %>
                 <button type="button" class="btn2 btn-outline-danger btn-sm">삭제</button>
                 <a href="<%= contextPath %>/freeUpdateForm.bo?no=<%= b.getBoardNo() %>" class="btn3 btn-outline-secondary btn-sm">수정</a>
-                <% }else {%>
+                <% }else if(loginUser != null){%>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자가 아닐 경우 보여지는 버튼 요소 -->
                 <button type="button" class="btn4 btn-outline-danger btn-sm" id="report_board">신고</button>
                 <% } %>
@@ -217,14 +217,17 @@
             					    value += "<tr>"
             					        + "<td>" + list[i].commentWriter + "</td>"
             					        + "<td>" + list[i].commentContent + "</td>"
-            					        + "<td>" + list[i].commentDate + "</td>"
-            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>"
-            					        + "</tr>";
+            					        + "<td>" + list[i].commentDate + "</td>";
+
+            					        if("<%=loginUser%>" != 'null') {
+            					        value += "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>";            					        
+            					        }
+            					        value += "</tr>";
             					}
             				value = "<table id=\"comment_list\">" + value + "</table>";
             				}else{
             					value += "<tr><td colspan='3'>존재하는 댓글이 없습니다.</td></tr>"
-            				}
+            				} 
             				
             				$("#comment_area tbody").html(value);
             				
