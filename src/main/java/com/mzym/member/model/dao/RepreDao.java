@@ -135,6 +135,30 @@ public class RepreDao {
 		
 		return listCount;
 	}
+	
+	public int selectTrainerCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectlistTrainer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
 
 
 	public List<Member> selectMember(Connection conn, PageInfo pi) {
@@ -418,4 +442,122 @@ public class RepreDao {
 		return result;
 	}
 
+	public List<Member> selectTrainer(Connection conn, PageInfo pi) {
+		List<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTrainer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {	
+					list.add(new Member(
+							 rset.getInt("user_no"),
+							 rset.getString("user_id"),
+					         rset.getString("user_name"),
+					         rset.getString("phone"),
+					         rset.getString("rrn"),
+					         rset.getString("email"),
+					         rset.getString("address"),
+					         rset.getString("tr_career"),
+					         rset.getString("certificate"),
+					         rset.getString("image_url")
+					         ));		         
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int insertTr(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTr");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getUserId() );
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName() );
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getRRN());
+			pstmt.setString(6, m.getEmail());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getTrCareer());
+			pstmt.setString(9, m.getCertificate());
+			pstmt.setString(10, m.getImageURL());
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateTr(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateTr");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getUserPwd());
+			pstmt.setString(2, m.getUserName() );
+			pstmt.setString(3, m.getPhone());
+			pstmt.setString(4, m.getRRN());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getTrCareer());
+			pstmt.setString(8, m.getCertificate());
+			pstmt.setString(9, m.getImageURL());
+			pstmt.setInt(10, m.getUserNo());
+			
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteTr(Connection conn, int trNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteTr");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trNo);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

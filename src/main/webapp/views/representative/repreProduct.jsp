@@ -203,11 +203,11 @@
                 <div class="repre_left_bottom" style="text-align: cent;">
                     <a href="#" class="main-menu">매출관리</a>
                     <div class="sub-menu">
-                        <a href="<%=contextPath%>/productform.re" class="sub-item">상품관리</a>
+                        <a href="<%=contextPath%>/productForm.re" class="sub-item">상품관리</a>
                         <a href="<%=contextPath%>/selectDate.re" class="sub-item">월별매출조회</a>
                     </div>
                     <a href="<%=contextPath%>/memberForm.re" class="main-menu">회원관리</a>
-                    <a href="#" class="main-menu">트레이너관리</a>
+                    <a href="<%=contextPath%>/trainerForm.re" class="main-menu">트레이너관리</a>
                     <a href="<%=contextPath%>/movieForm.re" class="main-menu">영상관리</a>
                 </div>
 
@@ -270,7 +270,7 @@
                                 <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h3 class="modal-title">상품추가</h3>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <button type="button" class="close" data-dismiss="modal" onclick="resetFile('insertCustomFile','insertLable')">&times;</button>
                                 </div>
 
                                 <!-- Modal body -->
@@ -281,7 +281,7 @@
                                                 <th>이미지</th>
                                                 <td><div class="custom-file">
                                                     <input type="file" accept=".png, .jpg, .jpeg" name="productIMG" class="custom-file file" id="insertCustomFile" required onchange="updateLabel(this, 'insert_form')">
-                                                    <label class="custom-file-label" for="insertCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                                    <label class="custom-file-label" id="insertLable" for="insertCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
                                                 </div></td>
                                             </tr>
                                             <tr>
@@ -311,7 +311,7 @@
                                 <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h3 class="modal-title">상품수정</h3>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <button type="button" class="close" data-dismiss="modal" onclick="resetFile('updateCustomFile','updateLabel')">&times;</button>
                                 </div>
 
                                 <!-- Modal body -->
@@ -324,7 +324,7 @@
                                                 <th>이미지</th>
                                                 <td><div class="custom-file">
                                                     <input type="file" class="custom-file file" accept=".png, .jpg, .jpeg" name="productIMG" id="updateCustomFile" onchange="updateLabel(this, 'change_form')">
-                                                    <label class="custom-file-label" for="updateCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                                    <label class="custom-file-label" id="updateLabel" for="updateCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
                                                 </div></td>
                                             </tr>
                                             <tr>
@@ -400,7 +400,6 @@
 	                        } else {
 	                        	event.preventDefault(); // 기본 제출 동작 막기
 	 	                        productNo = document.getElementById('update_productNo').value;
-	                        	console.log(productNo);
 	                         	$.ajax({
 	                                 url:"<%=contextPath%>/deleteProduct.re",
 	                                 data:{ no : productNo },
@@ -466,6 +465,14 @@
 
 	                        return true;
 	                    }
+	                    
+	                    function resetFile(inputId ,labelId) {
+                        	var input = document.getElementById(inputId);
+                            var label = document.getElementById(labelId);
+
+                            input.value = '';
+                            label.innerText = '첨부파일을 추가해주세요';
+                        }
 
                         
                         function ajaxSelect(pageParam){

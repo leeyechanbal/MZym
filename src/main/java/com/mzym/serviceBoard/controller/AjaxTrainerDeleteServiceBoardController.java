@@ -34,13 +34,9 @@ public class AjaxTrainerDeleteServiceBoardController extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		
 		int result = new ServiceBoardService().deleteServiceBoardTR(no);
+
 		response.setContentType("application/json; charset=utf-8");
-		
-		if(result > 0) {
-			new Gson().toJson(result, response.getWriter());
-		}else {
-			request.getSession().setAttribute("alsertMsg", "게시글 삭제 실패");
-		}
+		new Gson().toJson(result, response.getWriter());
 	}
 
 	/**
