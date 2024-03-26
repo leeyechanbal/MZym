@@ -85,7 +85,7 @@ public class ProductDao {
 								 	 rset.getInt("PRODUCT_PRICE"),
 								 	 rset.getDate("REGIST_DATE"),
 								 	 rset.getInt("COUNT"),
-								 	 rset.getString("UPFILEURL")
+								 	 rset.getString("image_URL")
 						)); 
 			}
 			
@@ -117,7 +117,7 @@ public class ProductDao {
 					 	 rset.getInt("PRODUCT_PRICE"),
 					 	 rset.getDate("REGIST_DATE"),
 					 	 rset.getInt("COUNT"),
-					 	 rset.getString("UPFILEURL")
+					 	 rset.getString("IMAGE_URL")
 		
 						));
 			}
@@ -145,7 +145,7 @@ public class ProductDao {
 			pstmt.setInt(1, productNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -171,7 +171,7 @@ public class ProductDao {
 								 rset.getString("PRODUCT_NAME"),
 								 rset.getString("PRODUCT_CONTENT"),
 								 rset.getInt("PRODUCT_PRICE"),
-								 rset.getString("UPFILEURL")
+								 rset.getString("IMAGE_URL")
 						);
 				
 			}
