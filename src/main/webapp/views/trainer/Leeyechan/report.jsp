@@ -511,12 +511,12 @@
                         const reportNo = $form.find('input[name=report]').val();
                         // console.log(reportNo);
                         const text = $form.find('textarea[name=content]').val();
-                        // console.log(text);
+                        console.log(text);
                         const typeCheck = $form.find('input[name=typeCheck]').val();
-                        // console.log(typeCheck);
+                        console.log(typeCheck);
 
                         const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
-                        // console.log(str);
+                        console.log(str);
                        location.href = str;
                     })
                     
