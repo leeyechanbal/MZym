@@ -1,25 +1,25 @@
 package com.mzym.member.controller.representative.product;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mzym.member.model.service.RepreService;
+
 /**
- * Servlet implementation class RepreProductFormController
+ * Servlet implementation class RepreDeleteProductController
  */
-@WebServlet("/productForm.re")
-public class RepreProductFormController extends HttpServlet {
+@WebServlet("/deleteProduct.re")
+public class AjaxDeleteProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RepreProductFormController() {
+    public AjaxDeleteProductController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +28,15 @@ public class RepreProductFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("/views/representative/repreProduct.jsp");
-		view.forward(request, response);
+
+		int productNo = Integer.parseInt(request.getParameter("no"));
+		int result = new RepreService().deleteProduct(productNo);
+
+		if(result > 0) {
+			response.getWriter().write("success");
+		}else {
+			response.getWriter().write("failure");
+		}
 	}
 
 	/**

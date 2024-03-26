@@ -5,6 +5,7 @@
 <%
 	Board b = (Board)request.getAttribute("b");  // 글번호, 제목, 내용, 작성자이름
 	Attachment at = (Attachment)request.getAttribute("at"); // 파일번호, 원본명, 수정파일명, 저장경로
+	
  %>
 <!DOCTYPE html>
 <html>
@@ -112,6 +113,8 @@
         <div class="board_content">
             <h2>게시글조회</h2>
             <hr>
+            
+            <input type="hidden" id="loginUserNo" value="<%= loginUser != null ? loginUser.getUserNo() : 0 %>">
 
             <table class="table">
             	<thead>
@@ -217,9 +220,12 @@
             					    value += "<tr>"
             					        + "<td>" + list[i].commentWriter + "</td>"
             					        + "<td>" + list[i].commentContent + "</td>"
-            					        + "<td>" + list[i].commentDate + "</td>"
-            					        + "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>"
-            					        + "</tr>";
+            					        + "<td>" + list[i].commentDate + "</td>";
+
+            					        if($("#loginUserNo").val() != 0 && $("#loginUserNo").val() != list[i].commentUser) {
+            								value += "<td><button type=\"button\" class=\"btn5 btn-outline-danger btn-sm\" onclick=\"reportClick(" + list[i].commentNo + ");\">신고</button></td>";            					        
+            					        }
+            					        value += "</tr>";
             					}
             				value = "<table id=\"comment_list\">" + value + "</table>";
             				}else{

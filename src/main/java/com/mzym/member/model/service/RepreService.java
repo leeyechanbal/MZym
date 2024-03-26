@@ -47,6 +47,13 @@ public class RepreService {
 		close(conn);
 		return listCount;
 	}
+	
+	public int selectTrainerCount() {
+		Connection conn = getConnection();
+		int listCount = rDao.selectTrainerCount(conn);
+		close(conn);
+		return listCount;
+	}
 
 	public List<Member> selectListMember(PageInfo pi) {
 		Connection conn = getConnection();
@@ -175,8 +182,50 @@ public class RepreService {
 		return result;
 	}
 
-	
+	public List<Member> selectListTrainer(PageInfo pi) {
+		Connection conn = getConnection();
+		List<Member> list = rDao.selectTrainer(conn, pi);
+		close(conn);
+		return list;
+	}
 
+	public int insertTr(Member m) {
+		Connection conn = getConnection();
+		int result = rDao.insertTr(conn, m);
 	
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 
+	public int updateTr(Member m) {
+		Connection conn = getConnection();
+		int result = rDao.updateTr(conn, m);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteTr(int trNo) {
+		Connection conn = getConnection();
+		int result = rDao.deleteTr(conn, trNo);
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }

@@ -211,6 +211,26 @@ public class Board {
 		this.boardContent = boardContent;
 		this.att = att;
 	}
+	
+	/**
+	 * 게시물 pt 후기일 경우 첨부파일을 받아오기 위한 생성자
+	 * @author 이예찬
+	 * @param boardNo 글번호
+	 * @param boardType 글의 종류
+	 * @param boardMember 글쓴이
+	 * @param boardTitle 글 제목
+	 * @param boardContent 글 내용
+	 * @param atList 첨부파일 여러개의 사진 게시판을 받아오기 위한 리스트
+	 */
+	public Board(int boardNo, int boardType , String boardMember, String boardTitle, String boardContent, List<Attachment> atList) {
+		super();
+		this.boardNo = boardNo;
+		this.boardType = boardType;
+		this.boardMember = boardMember;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.atList = atList;
+	}
 
 	/**
 	 * 댓글 테이블에 필요한 데이터를 db에서 조회해서 담은 생성자 
@@ -230,8 +250,10 @@ public class Board {
 		return "Board [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardMember=" + boardMember
 				+ ", boardType=" + boardType + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", regist_Date=" + regist_Date + ", modify_date=" + modify_date + ", status=" + status
-				+ ", reviewRate=" + reviewRate + ", count=" + count + ", category=" + category + ", att=" + att
-				+ ", atList=" + atList + ", titleImgURL=" + titleImgURL + "]";
+				+ ", reviewRate=" + reviewRate + ", count=" + count + ", category=" + category + ", atList=" + atList
+				+ "]";
 	}
-
+	
+	
+	
 }

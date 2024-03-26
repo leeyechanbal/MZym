@@ -3,8 +3,6 @@
 <%@ page import="com.mzym.member.model.vo.Member" %>
 <%
    String contextPath = request.getContextPath();
-   Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-   
    String alertMsg = (String)session.getAttribute("alertMsg");
 %>    
 <!DOCTYPE html>

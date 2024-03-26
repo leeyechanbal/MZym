@@ -70,7 +70,7 @@
 
         #img_content{
             width:500px;
-            height:300px;
+            min-height:300px;
             margin:auto;
         }
         .carousel-item img{

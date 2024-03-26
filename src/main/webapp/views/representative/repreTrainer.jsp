@@ -4,13 +4,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.mzym.member.model.vo.Member" %>    
 <% 
-	Member loginUser = (Member)session.getAttribute("loginUser");
+	Member loginUser = (Member)session.getAttribute("loginUser"); 
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원관리</title>
+<title>트레이너 관리</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -70,7 +70,7 @@
         }
         .repre_body_right{ width: 100%; display: flex; flex-direction: column;}
         .repre_right_top{  height: 85px; display: flex; padding-left: 3%; padding-top: 2%; align-items: center;}
-        .right_top_title{ min-width: 200px;}
+        .right_top_title{ min-width: 300px;}
         .repre_right_top h1 {
             padding-right: 3%;
             padding-left: 3%;
@@ -89,7 +89,7 @@
             background-color: #1ABC9C;
             color: white;
             height: 70%;
-            width: 120px;
+            width: 150px;
         }
 
         .right_top_button button:hover{
@@ -117,12 +117,15 @@
             color: white;
         }
 
+		.product_img{ width: auto; height: 90px;}
+
         .modal-body{
-            min-height: 600px;
+            min-height: 1050px;
         }
 
         .change_sale {
             width: 95%; /* 테이블 전체 너비 설정 */
+            overflow-y: auto;
         }
 
         .change_sale tr> th{
@@ -198,20 +201,16 @@
             border: solid #19b192;
             color: white;
         }
-        
-        .modal-header, .modal-body{ padding-left : 30px; }
-
     </style>
 </head>
 <body>
-<body>
-    <div class="wrap">
-        <div class="repre_header"><img src="<%=contextPath%>/resources/img/icon/logo-sm-170x100.png" alt=""></div>
+<div class="wrap">
+        <div class="repre_header"><img src="<%=contextPath %>/resources/img/icon/logo-sm-170x100.png" alt=""></div>
         <div class="repre_body">
             <div class="repre_body_left">
                 <!-- 관리자 로그인 화면 -->
                 <div class="repre_left_top" style="display: flex; padding: 5%;">
-                    <img src="<%=contextPath%>/resources/img/common/profile_icon_512x512.png" alt="" style="width: 50px; height: 50px;">
+                    <img src="<%=contextPath %>/resources/img/common/profile_icon_512x512.png" alt="" style="width: 50px; height: 50px;">
                     <h4 style="text-align: center; width: 100%; padding-top: 10%;"><%=loginUser.getUserName() %></h4>
                 </div>
                 <hr>
@@ -254,11 +253,11 @@
             <div class="repre_body_right">
                 <div class="repre_right_top">
                     <div class="right_top_title">
-                        <h1>회원관리</h1>
+                        <h1>트레이너관리</h1>
                     </div>
 
                     <div class="right_top_button">
-                        <button class="btn" data-toggle="modal" data-target="#insert_Modal">회원추가</button>
+                        <button class="btn" data-toggle="modal" data-target="#insert_Modal">트레이너추가</button>
                     </div>
                 </div>
                 <div class="repre_right_center">
@@ -267,58 +266,73 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10%;">번호</th>
+                                    <th style="width: 11%;">사진</th>
                                     <th style="width: 11%;">이름</th>
                                     <th style="width: 11%;">아이디</th>
                                     <th style="width: 11%;">생년월일</th>
                                     <th style="width: 11%;">이메일</th>
                                     <th style="width: 11%;">전화번호</th>
+                                    <th style="width: 11%;">경력</th>
                                 </tr>
                             </thead>
-                            <tbody id="saleSelectTable"> 
+                            <tbody id="saleSelectTable">
                             
-                            
-                        	</tbody>
+                        </tbody>
                         </table>
                     </div>
 
 
-                    <!-- 회원추가 모달창 -->
+                    <!-- 트레이너추가 모달창 -->
                     <div class="modal fade" id="insert_Modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h3 class="modal-title">회원추가</h3>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h3 class="modal-title">트레이너추가</h3>
+                                    <button type="button" class="close" data-dismiss="modal" onclick="resetFile('insertCustomFile','insertLable')">&times;</button>
                                 </div>
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="insert_form" action="">
+                                    <form id="insert_form" action="" enctype="multipart/form-data">
                                         <table class="change_sale">
                                             <tr>
-                                                <td><input type="text" class="form-control formid" placeholder="아이디" required id="input_id" name="userId">
+                                                <td><div class="custom-file">
+                                                <input type="file" accept=".png, .jpg, .jpeg" name="trIMG" class="custom-file file" id="insertCustomFile" required onchange="updateLabel(this, 'insert_form')">
+                                                <label class="custom-file-label" id="insertLable" for="insertCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                            </div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control formId" placeholder="아이디" required id="input_id" name="trId">
                                                     <button type="button" class="info_btn btn-sm" onclick="idCheck();">중복확인</button></td>
                                                     <input type="hidden" class = "form-fontrol" id="input_idCheck" value="">
                                             </tr>
                                             <tr>
-                                            	<input type="hidden" class="form-control pwd" placeholder="초기비밀번호 : a1234567" value="a1234567" readonly name="userPwd">
-                                                <td><input type="text" class="form-control" placeholder="초기비밀번호 : a1234567"  readonly></td>
+                                                <td><input type="password" class="form-control pwd" placeholder="비밀번호" required id="input_pwd" name="trPwd"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control name" placeholder="이름" required id="input_name" name="userName"></td>
+                                                <td><input type="password" class="form-control pwdCheck" placeholder="비밀번호 확인" required id="input_pwdcheck"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control phone" placeholder="전화번호(-포함해서 입력해주세요)" required id="input_phone" name="phone"></td>
+                                                <td><input type="text" class="form-control name" placeholder="이름" required id="input_name" name="trName"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control rrn" placeholder="주민번호(-포함해서 입력해주세요)" required id="input_residentRegistrationNumber" name="rRN"></td>
+                                                <td><input type="text" class="form-control phone" placeholder="전화번호(-포함해서 입력해주세요)" required id="input_phone" name="trPhone"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="email" class="form-control email" placeholder="이메일" required  id="input_email" name="email"></td>
+                                                <td><input type="text" class="form-control rrn" placeholder="주민번호(-포함해서 입력해주세요)" required id="input_residentRegistrationNumber" name="trRRN"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control address" placeholder="주소" required name="address"></td>
+                                                <td><input type="email" class="form-control email" placeholder="이메일" required  id="input_email" name="trEmail"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control address" placeholder="주소" required name="trAddress"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><textarea id="" cols="30" rows="4" class="form-control career" style="resize: none;" placeholder="경력" name="trCareer"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td><textarea id="" cols="30" rows="4" class="form-control cert" style="resize: none;" placeholder="자격증 및 수료증" name="trCert"></textarea></td>
                                             </tr>
                                         </table>
                                         <div class="table_btn">
@@ -329,49 +343,66 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 상품추가 모달창 끝 -->
+                    <!-- 트레이너추가 모달창 끝 -->
 
 
-                    <!-- 상품수정 모달창 -->
+                    <!-- 트레이너수정 모달창 -->
                     <div class="modal fade" id="info_Modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h3 class="modal-title">회원수정</h3>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h3 class="modal-title">트레이너수정</h3>
+                                    <button type="button" class="close" data-dismiss="modal" onclick="resetFile('updateCustomFile','updateLabel')">&times;</button>
                                 </div>
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="change_form" action="<%=contextPath %>/deleteMember.re" method="post">
+                                    <form id="change_form" action="">
                                         <table class="change_sale">
-                                        <input type="hidden" class="form-control" name="userNo" id="update_userNo">
+                                        	<input type="hidden" class="form-control" name="trNo" id="update_trNo">
+                                        	<input type="hidden" class="form-control" name="checkIMG" id="check_trIMG">
                                             <tr>
-                                                <td><input type="text" class="form-control formid" placeholder="아이디" readOnly id="update_id">
+                                                <td><div class="custom-file">
+                                                <input type="file" class="custom-file file" accept=".png, .jpg, .jpeg" name="trIMG" id="updateCustomFile" onchange="updateLabel(this, 'change_form')">
+                                                    <label class="custom-file-label" id="updateLabel" for="updateCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                            </div></td>
                                             </tr>
                                             <tr>
-                                                <input type="hidden" class="form-control pwd" placeholder="초기비밀번호 : a1234567" value="a1234567" id="update_userPwd" readonly">
-                                                <td><input type="text" class="form-control" placeholder="초기비밀번호 : a1234567"  readonly></td>
+                                                <td>
+                                                	<input type="text" class="form-control formId" placeholder="아이디" readonly required id="update_id" name="trId">
+												</td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control name" placeholder="이름" required id="update_userName"></td>
+                                                <td><input type="password" class="form-control pwd" placeholder="비밀번호" required id="update_pwd" name="trPwd"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control phone" placeholder="전화번호(-포함해서 입력해주세요)" required id="update_phone"></td>
+                                                <td><input type="password" class="form-control pwdCheck" placeholder="비밀번호 확인" required id="update_pwdcheck"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control rrn" placeholder="주민번호(-포함해서 입력해주세요)" required id="update_rrn"></td>
+                                                <td><input type="text" class="form-control name" placeholder="이름" required id="update_name" name="trName"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="email" class="form-control email" placeholder="이메일" required  id="update_email"></td>
+                                                <td><input type="text" class="form-control phone" placeholder="전화번호(-포함해서 입력해주세요)" required id="update_phone" name="trPhone"></td>
                                             </tr>
                                             <tr>
-                                                <td><input type="text" class="form-control address" placeholder="주소" required id="update_address"></td>
+                                                <td><input type="text" class="form-control rrn" placeholder="주민번호(-포함해서 입력해주세요)" required id="update_rrn" name="trRRN"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="email" class="form-control email" placeholder="이메일" required id="update_email" name="trEmail"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control address" placeholder="주소" required id="update_address" name="trAddress"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><textarea id="update_career" cols="30" rows="4" class="form-control career" style="resize: none;" placeholder="경력" required name="trCareer"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td><textarea  id="update_cert" cols="30" rows="4" class="form-control cert" style="resize: none;" placeholder="자격증 및 수료증" required name="trCert"></textarea></td>
                                             </tr>
                                         </table>
                                         <div class="table_btn">
-                                            <button type="submit" class="btn btn-danger" id="deleteBtn">삭제하기</button>
+                                            <button type="button" class="btn btn-danger" id="deleteBtn">삭제하기</button>
                                             <button type="button" class="btn change_btn" id="changeBtn">수정하기</button>
                                         </div>
                                     </form>
@@ -384,21 +415,27 @@
 
                     <script>
                     	
-	                    var memberList;
+	                    var trainerList;
 	    				var pageInfo;
 	    				var form;
 	    				
 	    				var id;
+	    				var pwd;
+	    				var pwdCheck
+	    				var name;
+	    				var phone;
+	    				var rrn;
+	    				
 	    				
 	                    $(document).ready(function(){
 	                        ajaxSelect(1);
 	                 	});
-                    
+                    	
 	                    $('#insert_Btn').click(function(event) {
 		                    event.preventDefault(); // 기본 제출 동작 막기
 		                    form = document.getElementById('insert_form');
 
-		                  	id = form.querySelector('.formid').value;
+		                  	id = form.querySelector('.formId').value;
 		                    var idCheck = $('#input_idCheck').val();
 		                    
 		                    if (id !== idCheck) {
@@ -406,70 +443,149 @@
 		                        return;
 		                    }
 		                    if(check(form)) {
-		                        signupMember()
+		                    	signupTrainer(form)
 		                    }
 	                    });
-		                
-	                   $('#changeBtn').click(function(event) {
+    
+	                    $('#changeBtn').click(function(event) {
 	                        event.preventDefault(); // 기본 제출 동작 막기
 	                        form = document.getElementById('change_form');
 	                        if(check(form)) {
+                       			var updateFormData = new FormData(form);
 	                        	$.ajax({
-	                     			url:"<%=contextPath%>/updateMember.re",
-	                     			data:{
-	                     				userNo: $('#update_userNo').val(),
-	                     	            id : $('#update_userid').val(),
-	                     	            pwd: $('#update_userPwd').val(),
-	                     	            name: $('#update_userName').val(),
-	                     	            phone: $('#update_phone').val(),
-	                     	            rrn: $('#update_rrn').val(),
-	                     	            email: $('#update_email').val(),
-	                     	         	addreess: $('#update_address').val(),
-	                     			},
-	                     			type:"post",
-	                     			success:function(response){
-	                     				if (response === "success") {
+	                                url:"<%=contextPath%>/updateTr.re",
+	                                data:updateFormData,
+	                                processData : false,
+	                                contentType : false,
+	                                type:"post",
+	                                success:function(response){
+	                                	if (response === "success") {
 	                     		            // 성공 메시지를 보여줍니다.
 		                     				ajaxSelect(pageInfo.currentPage)
 	                     		            $('#info_Modal').modal('hide');
-	                     		            alert("매출이 수정되었습니다.");
+	                     		            alert("트레이너가 수정되었습니다.");
 	                     		        } else {
 	                     		            // 실패 메시지를 보여줍니다.
-	                     		            alert("매출수정이 실패했습니다. 다시 시도해주세요.");
+	                     		            alert("트레이너수정이 실패했습니다. 다시 시도해주세요.");
 	                     		        }
-
-	                     			},error:function(){
-	                     				console.log("매출조회 등록용 ajax통신 실패")
-	                     			}
-	                     		})
-	                        } 
+	                                },error:function(){
+	                                	console.log("상품조회 등록용 ajax통신 실패")
+	                                }
+	                            })
+	                        }
 	                    });
-	                    
-	                    $('#change_form').submit(function(event) {
-		                    event.preventDefault(); // 기본 제출 동작 막기
-		                    var confirmation = confirm("정말로 삭제하시겠습니까?");
-		                    if (!confirmation) {
+    
+	                    $('#deleteBtn').click(function() {
+	                        var confirmation = confirm("정말로 삭제하시겠습니까?");
+	                        if (!confirmation) {
 	                            event.preventDefault(); // 폼 제출을 막음
 	                        } else {
-	                        	this.submit();
+	                        	event.preventDefault(); // 기본 제출 동작 막기
+	 	                        trNo = document.getElementById('update_trNo').value;
+	                         	$.ajax({
+	                                 url:"<%=contextPath%>/deleteTr.re",
+	                                 data:{ no : trNo },
+	                                 type:"post",
+	                                 success:function(response){
+	                                 	if (response === "success") {
+	                      		            // 성공 메시지를 보여줍니다.
+	 	                     				ajaxSelect(pageInfo.currentPage)
+	                      		            $('#info_Modal').modal('hide');
+	                      		            alert("트레이너가 삭제되었습니다.");
+	                      		        } else {
+	                      		            // 실패 메시지를 보여줍니다.
+	                      		            alert("트레이너삭제가 실패했습니다. 다시 시도해주세요.");
+	                      		        }
+	                                 },error:function(){
+	                                 	console.log("상품조회 등록용 ajax통신 실패")
+	                                 }
+	                             })
 	                        }
-		                });
-
-		                    
-		              
+	                    });
     
+                        function updateLabel(input, formId) {
+	                        // 파일이 선택되었을 때
+	                        if (input.files && input.files[0]) {
+	                            var fileName = input.files[0].name; // 파일명 가져오기
+	                            var label = document.querySelector('label[for="' + input.id + '"]'); // 해당 input과 연결된 레이블 가져오기
+	                            
+	                            // 파일 확장자 확인
+	                            var validExtensions = ['.png', '.jpg', '.jpeg'];
+	                            var fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+	                            
+	                            if (!validExtensions.includes(fileExtension)) {
+	                                alert("올바른 이미지 파일을 선택해주세요.");
+	                                input.value = ''; // 파일 선택 취소
+	                                label.textContent = "첨부파일을 추가해주세요"; // 레이블 초기화
+	                                return;
+	                            }
+
+	                            label.textContent = fileName; // 레이블 텍스트 변경
+	                        }
+	                    }
+                        
+                        function resetFile(inputId ,labelId) {
+                        	var input = document.getElementById(inputId);
+                            var label = document.getElementById(labelId);
+
+                            input.value = '';
+                            label.innerText = '첨부파일을 추가해주세요';
+                        }
+	                    
+                        function idCheck(){
+                    		  
+                		  	var id = $('#input_id').val();
+                		  	var idRegex = /^[a-zA-Z0-9]+$/;
+                		    if (!idRegex.test(id)) {
+                		        alert("아이디는 영문자와 숫자만 입력 가능합니다.");
+                		        return;
+                		    }
+                		    
+                		    $.ajax({
+                				url:"<%=contextPath%>/idCheck.me",
+                				data: {checkId:id},
+                				success: function(resultIdCheck){
+                					if(resultIdCheck == "NNNNN") {
+                						alert("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
+                						document.getElementById('input_id').focus;
+                					}else {
+                						$("#input_idCheck").val(id);
+                						console.log($("#input_idCheck").val());
+                						alert("아이디 사용가능합니다 추후 아이디 변경하면 다시한번 중복확인을 눌려주세요!");			
+                					}
+                				},
+                				error: function(){
+                					console.log("아이디 중복체크용 ajax 통신 실패");
+                				}
+                			});
+               		    }	
                         
                         function check(form){
+                        	
+                        	id = form.querySelector('.formId').value;
+    	    				pwd = form.querySelector('.pwd').value;
+    	    				pwdCheck =form.querySelector('.pwdCheck').value;
+    	    				name = form.querySelector('.name').value;
+    	    				phone = form.querySelector('.phone').value;
+    	    				rrn = form.querySelector('.rrn').value;
     
-                            id = form.querySelector('.formid').value;
-                            name = form.querySelector('.name').value;
-                            phoneNumber = form.querySelector('.phone').value;
-                            residentRegistrationNumber = form.querySelector('.rrn').value;
-                            
                             
                             var idRegex = /^[a-zA-Z0-9]+$/;
                             if (!idRegex.test(id)) {
+                                console.log("아이디오류");
                                 alert("아이디는 영문자와 숫자만 입력 가능합니다.");
+                                return;
+                            }
+                            // 비밀번호 유효성 검사: 영문자, 숫자, 특수문자 포함, 8자 이상
+                            var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+                            if (!passwordRegex.test(pwd)) {
+                                alert("비밀번호는 영문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
+                                return;
+                            }
+
+                            // 비밀번호와 비밀번호 확인 일치 여부 검사
+                            if (pwd !== pwdCheck) {
+                                alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
                                 return;
                             }
 
@@ -482,45 +598,43 @@
 
                             // 전화번호 유효성 검사: 010 또는 02로 시작하는 10~11자리 숫자
                             var phoneNumberRegex = /^(02|010)-\d{3,4}-\d{4}$/;
-                            if (!phoneNumberRegex.test(phoneNumber)) {
+                            if (!phoneNumberRegex.test(phone)) {
                                 alert("전화번호는 010 또는 02로 시작하는 10~11자리의 숫자이어야 합니다.");
                                 return;
                             }
 
                             // 주민등록번호 유효성 검사: 6자리 숫자-7자리 숫자 형식
                             var residentRegistrationNumberRegex = /^\d{6}-\d{7}$/;
-                            if (!residentRegistrationNumberRegex.test(residentRegistrationNumber)) {
+                            if (!residentRegistrationNumberRegex.test(rrn)) {
                                 alert("주민등록번호 형식이 올바르지 않습니다. 예) 123456-1234567");
                                 return;
                             }
-
                             return true;
                         }
-                        
-                        function ajaxSelect(pageParam){
+						function ajaxSelect(pageParam){
         					
         					$.ajax({
-                     			url:"<%=contextPath%>/selectMember.re",
+                     			url:"<%=contextPath%>/selectTrainer.re",
                      			data:{
         							pageNo:pageParam
                      			},
                      			type:"post",
                      			async:false,
-                     			success:function(memberMap){
+                     			success:function(trainerMap){
                      		        
-                     				pageInfo = memberMap.pi;
-                     		        memberList = memberMap.list;    
+                     				pageInfo = trainerMap.pi;
+                     				trainerList = trainerMap.list;    
                      				
                      				$("ul").html(generatePageLinks(pageInfo, pageParam));
-                     				$("#saleSelectTable").html(selectSale(memberList, pageInfo, pageParam));
+                     				$("#saleSelectTable").html(selectSale(trainerList, pageInfo, pageParam));
                      				
                      			},error:function(){
                      				console.log("회원조회 등록용 ajax통신 실패")
                      			}
                      		})
         				}
-                        
-                        function generatePageLinks(pageInfo, pageParam) {
+						
+						function generatePageLinks(pageInfo, pageParam) {
         				    var pagehtml = '';
         				    // 이전 페이지 링크 추가
         				    if (pageInfo.currentPage == 1) {
@@ -548,14 +662,16 @@
         				    return pagehtml;
         				}
                         
-                        function selectSale(memberList, pageInfo, pageParam) {
+						function selectSale(trainerList, pageInfo, pageParam) {
         					
         					var html = '';
         					for (var p = 0; p < pageInfo.boardLimit; p++) {
-        						if(memberList[p] == null) {
+        						if(trainerList[p] == null) {
         							html += 
-        									'<tr style="height:70px">' +
+        									'<tr style="height:115px">' +
         						            '<th></th>' +
+        						            '<td></td>' +
+        						            '<td></td>' +
         						            '<td></td>' +
         						            '<td></td>' +
         						            '<td></td>' +
@@ -563,105 +679,67 @@
         						            '<td></td>' +
         						            '</tr>';
         						}else {
-        							var jumin = memberList[p].RRN 
+        							var jumin = trainerList[p].RRN 
         							jumin = jumin.replace(/-/g, '');
         							jumin = jumin.substring(0, 6);
         							html += 
         								'<tr onclick="openModal(' + p +')" data-toggle="modal" data-target="#info_Modal">' +
         							    '<th>' + ((parseInt(pageParam)-1) * pageInfo.pagingLimit + (p+1)) + '</th>' +
-        							    '<td>' + memberList[p].userName + '</td>' +
-        							    '<td>' + memberList[p].userId + '</td>' +
+        							    '<td><img class="product_img" src="<%= contextPath %>' + trainerList[p].imageURL + '" alt=""></td>' +
+        							    '<td>' + trainerList[p].userName + '</td>' +
+        							    '<td>' + trainerList[p].userId + '</td>' +
         							    '<td>' + jumin + '</td>' +
-        							    '<td>' + memberList[p].email + '</td>' +
-        							    '<td>' + memberList[p].phone + '</td>' +
+        							    '<td>' + trainerList[p].email + '</td>' +
+        							    '<td>' + trainerList[p].phone + '</td>' +
+        							    '<td>' + trainerList[p].trCareer + '</td>' +
         							    '</tr>';
         						}
         				    }
                              
                              return html;
         				}
-                        
-                        function idCheck(){
-                  		  
-                		  	var id = $('#input_id').val();
-                		  	var idRegex = /^[a-zA-Z0-9]+$/;
-                		    if (!idRegex.test(id)) {
-                		        alert("아이디는 영문자와 숫자만 입력 가능합니다.");
-                		        return;
-               		    	}
-
-                			$.ajax({
-                				url:"<%=contextPath%>/idCheck.me",
-                				data: {checkId:id},
-                				success: function(resultIdCheck){
-                					// 1) 사용불가능(NNNNN)일 경우 => alert로 메세지 출력, 다시 입력할 수 있도록 유도
-                					// 2) 사용가능(NNNNY)일 경우 => 진짜 사용할껀지 재차 물어보기 (confirm메소드)
-                											  // > yes => 더이상 아이디 수정 못하게끔, 회원가입버튼 활성화
-                											  // > no => 다시 입력할 수 있도록 유도
-                					if(resultIdCheck == "NNNNN") {
-                						alert("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
-                						document.getElementById('input_id').focus;
-                					}else {
-                						$("#input_idCheck").val(id);
-                						console.log($("#input_idCheck").val());
-                						alert("아이디 사용가능합니다 추후 아이디 변경하면 다시한번 중복확인을 눌려주세요!");			
-                					}
-                				},
-                				error: function(){
-                					console.log("아이디 중복체크용 ajax 통신 실패");
-                				}
-                			});
-                		}
-                        
-                        function signupMember() {
+						
+						function signupTrainer(form) {
                         	
-		    				var pwd = form.querySelector('.pwd').value;
-	                        var name = form.querySelector('.name').value;
-	                        var phoneNumber = form.querySelector('.phone').value;
-	                        var residentRegistrationNumber = form.querySelector('.rrn').value;
-	                        var email = form.querySelector('.email').value;
-	                        var input_address = form.querySelector('.address').value;
-	     					
-	                        
-	                        $.ajax({
-	                            url:"<%=contextPath%>/signup.me",
-	                            data:{
-	                                userId:id,
-	                                userPwd:pwd,
-	                                userName:name,
-	                                phone:phoneNumber,
-	                                email:email,
-	                                rRN:residentRegistrationNumber,
-	                                address:input_address
-	                            },
-	                            type:"post",
-	                            success:function(result){
-	                            	ajaxSelect(1);
-	                            	$('#insert_Modal').modal('hide');
-	                            	alert("회원이 추가되었습니다.");
-	                            },error:function(){
-	                                console.log("회원가입 ajax통신 실패")
-	                            }
-	                        })
+							var insertFormData = new FormData(form);
+
+							$.ajax({
+                                url:"<%=contextPath%>/insertTr.re",
+                                data:insertFormData,
+                                processData : false,
+                                contentType : false,
+                                type:"post",
+                                success:function(result){
+                                	ajaxSelect(1);
+                                	$('#insert_Modal').modal('hide');
+                                	alert("트레이너가 추가되었습니다.");
+                                },error:function(){
+                                    console.log("트레이너추가 ajax통신 실패")
+                                }
+                            })
                         }
-                        
-                        function openModal(p) {
+						
+						function openModal(p) {
         					var modalId = "info_Modal";
         	
         			        // 모달을 열기 위해 모달을 나타내는 요소를 가져옵니다.
         			        var modal = document.getElementById(modalId);
         			        
-        			        document.getElementById('update_userNo').value = memberList[p].userNo; 
-        			        document.getElementById('update_id').value = memberList[p].userId;
-        			        document.getElementById('update_userName').value = memberList[p].userName;
-        			        document.getElementById('update_phone').value = memberList[p].phone;
-        			        document.getElementById('update_rrn').value = memberList[p].RRN;
-        			        document.getElementById('update_email').value = memberList[p].email;
-        			        document.getElementById('update_address').value = memberList[p].address;
-        			        	        
+        			        document.getElementById('update_trNo').value = trainerList[p].userNo; 
+        			        document.getElementById('check_trIMG').value = trainerList[p].imageURL;
+        			        document.getElementById('update_id').value = trainerList[p].userId;
+        			        document.getElementById('update_name').value = trainerList[p].userName;
+        			        document.getElementById('update_phone').value = trainerList[p].phone;
+        			        document.getElementById('update_rrn').value = trainerList[p].RRN;
+        			        document.getElementById('update_email').value = trainerList[p].email;
+        			        document.getElementById('update_address').value = trainerList[p].address;
+        			        document.getElementById('update_career').value = trainerList[p].trCareer;
+        			        document.getElementById('update_cert').value = trainerList[p].certificate;
+
         			        
         			        $(modal).modal('show');
         				}
+						
                     </script>
 
                 </div>

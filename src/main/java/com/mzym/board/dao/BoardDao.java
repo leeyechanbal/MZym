@@ -552,6 +552,7 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		List<Report> list = new ArrayList<>();
+		List<Attachment> atList = new ArrayList<>();
 		
 		try {
 			// 신고 게시판 불러오기
@@ -594,6 +595,7 @@ public class BoardDao {
 					
 					} else {
 						// 카테고리가 pt 후기인 경우
+						// while 문
 						list.add(new Report(
 								rset.getInt("REPORT_NO")
 								, rset.getInt("CATEGORY_NO")
@@ -606,21 +608,32 @@ public class BoardDao {
 										, rset.getString("boardID")
 										, rset.getString("BOARD_TITLE")
 										, rset.getString("board_Content")
-										, new Attachment(
-												rset.getString("ORIGIN_NAME")
-												, rset.getNString("CHANGE_NAME")
-												, rset.getNString("FILE_PATH")
-												, rset.getInt("FILE_LEVEL")
-												)
+										, atList
 										)
-							));
-					}
+								));
+						int count = 0;
+						
+						// 반복 x , 반복은 rset.next()가 할꺼임
+						if( (count == 0 ) ? true : (list.get(count-1).getBoardNo() == list.get(count).getBoardNo())) {
+							
+							atList.add(
+									new Attachment(
+										rset.getString("ORIGIN_NAME")
+										, rset.getNString("CHANGE_NAME")
+										, rset.getNString("FILE_PATH")
+										, rset.getInt("FILE_LEVEL")
+										)
+									);
+						} else {
+							count = 0;
+						}
+						count++;
+//						System.out.println(atList);
+						
+					} // if문 
 					
-					
-					
-					
-					
-				}
+//					System.out.println(list);
+				} // while문
 				
 			} else {
 			// 신고 댓글 불러오기	
@@ -1175,6 +1188,7 @@ public class BoardDao {
 				list.add(new Comment(rset.getInt("comment_No"),
 									 rset.getString("user_name"),
 									 rset.getString("comment_Content"),
+									 rset.getInt("comment_Writer"),
 									 rset.getString("comment_Date")));
 			}
 		} catch (SQLException e) {

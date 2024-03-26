@@ -93,8 +93,9 @@
                     
                     <!-- Tab panes -->
                     <div class="tab-content">
+                    <!-- 게시글인 경우 -->
                         <div class="tab-pane container active" id="reportBoard">
-
+						
                             <table id="boardcontent" class="table">
                                 <tr id="theader" style="background-color: rgb(224, 224, 224);">
                                     <th class="table-number">번호</th>
@@ -102,23 +103,21 @@
                                     <th>작성자</th>
                                 </tr>
         					
-        					<% for(int i =0; i<listBoard.size(); i++) {
-        						Report r = listBoard.get(i);
-        						Board b = r.getBoard();
-        						Attachment a = b.getAtt();
-        						
-        						if(categoryNum != numPT) {
-        					%>
-                            <!-- 게시글 : 첨부파일 -->
-                                <tr class="tr-title" data-toggle="collapse" data-target="#reBoard<%=i%>"> 
+        					<!-- PT후기 게시판이 아닐 경우 -->
+        					<% if(categoryNum != numPT) { %>
+        						<% for(int i =0; i<listBoard.size(); i++) {
+            						Report r = listBoard.get(i);
+            						Board b = r.getBoard();
+            						Attachment a = b.getAtt();  %>
+                            		
+                         		<tr class="tr-title" data-toggle="collapse" data-target="#reBoard<%=i%>"> 
                                     <td class="table-number"><%=r.getReportNo()%></td>
                                     <td class="table-title"><%=b.getBoardTitle()%></td>
                                     <td><%=b.getBoardMember()%></td>
-                                </tr>
-        
-                                <tr id="reBoard<%=i %>" class="collapse">
-                          
-                                    <td colspan="5">
+                               	</tr>
+                            		
+                            	<tr id="reBoard<%=i %>" class="collapse">
+                            		<td colspan="5">
                                         <div class="collapseitem">
                                             <fieldset>
                                                 <legend><u>세부사항</u></legend>
@@ -136,7 +135,7 @@
                                                     <li>보고자: <%=loginUser.getUserId()%></li>
                                                 </ul>
                                             </fieldset>
-                                    <form action="" method="">
+                 				            <form action="" method="">
                                             <textarea cols="150" rows="5" readonly><%=b.getBoardContent()%></textarea>
                                             <legend><u>보고서</u></legend>
                                             <%if(check){ %>
@@ -169,21 +168,28 @@
                                         </div>
                                     </td>
                                     </form>
-                                </tr>
-							<%} else if(categoryNum == numPT) { %>
 
-                            <!-- pt후기 : 사진 -->
-                
-                                <tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
-                                    <td class="table-number"><%=r.getReportNo() %></td>
-                                    <td class="table-title"><%=b.getBoardTitle() %></td>
-                                    <td><%=b.getBoardMember() %></td>
-                                </tr>
-        
-                                <tr id="rePicture<%=i%>" class="collapse">
+                            		
+                           		<%} %>
+                            <%} else { %>
+                            <!-- PT후기(3) 게시판일 경우 -->
+                            	<%for (int i = 0 ; i < listBoard.size(); i++ ){ 
+                            		Report r = listBoard.get(i);
+                            		Board b = r.getBoard();
+                            		List<Attachment> atList = b.getAtList(); 
+                            	%>
+                            	<% if((i == 0 ) ? true : (listBoard.get(i-1).getBoardNo() != listBoard.get(i).getBoardNo())) {%>
+                          		 	<tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
+                                    	<td class="table-number"><%=r.getReportNo() %></td>
+                                    	<td class="table-title"><%=b.getBoardTitle() %></td>
+                                    	<td><%=b.getBoardMember() %></td>
+                                	</tr>
+                                	
+                                	<tr id="rePicture<%=i%>" class="collapse">
+                                	
                                     <td colspan="5">
+                                        <form action="" method="">
                                         <div class="collapsePicture">
-                                           
                                                 <fieldset style="text-align: start;">
                                                     <legend><u>세부사항</u></legend>
                                                     <ul>
@@ -198,7 +204,9 @@
                                                     	<li>신고자: <%=r.getUserID() %></li>
                                                     	<li>신고일: <%=r.getReportDate()%></li>
                                                     </ul>
-                                                    <form action="" method="">
+                                                    
+                                        
+                                                    
                                                     <textarea cols="75" rows="8" readonly><%=b.getBoardContent()%></textarea>
                                                     <legend><u>보고서</u></legend>
                                                     <%if(check){ %>
@@ -206,40 +214,48 @@
                                                         <%} else { %>
                                                         <textarea cols="75" rows="8" name="content"><%=r.getReportContent()%></textarea>
                                                         <%} %>
-                                                    <input type="hidden" name="typeCheck" value="1">
+                                                    <input type="hidden" name="typeCheck" value="1"> <!-- 게시물인지 댓글인지 -->
                                                     <input type="hidden" name="report" value="<%=r.getReportNo()%>">
-                                                </fieldset>
-                                                <!-- 사진 미리보기 -->
+                                               	</fieldset>
+                                                
+                                                
                                                 <div id="demo" class="carousel slide" data-ride="carousel">
-
-                                                    <!-- Indicators -->
+                                               
 													
-													<% if(a != null){%>  
-                                                        <!-- 첨부파일이 없을 경우 로고 이미지 출력 -->
+													<% if(!atList .isEmpty()){%>  
+                                                    <!-- 사진이 있는 경우 -->
+                                                    <!-- Indicators -->
 													<ul class="carousel-indicators">                                             
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
+                                                       <%for (int j = 0; j< atList.size(); j++ ){ %>
+                                                      	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="<%=atList.get(j).getFileLevel() == 1 ? "active": ""%>"></li>
+                                                   	<%} %>
                                                     </ul>
-                                                    
+	                                                    
                                                     <!-- The slideshow -->
                                                     <div class="carousel-inner">
-                                                      <div class="carousel-item active"><span class="badge badge-dark">1</span>
-                                                        <img src="<%=mzymPath + a.getFilePath()+ "/" + a.getChangeName()%>" width="500px" height="500px">
+                                                    <%for (int j = 0; j< atList.size(); j++ ){ %>
+                                                      <div class="carousel-item <%=atList.get(j).getFileLevel() == 1 ? "active": ""%>"><span class="badge badge-dark"><%=atList.get(j).getFileLevel()%></span>
+                                                        <img src="<%=mzymPath + atList.get(j).getFilePath()+ "/" + atList.get(j).getChangeName()%>" width="500px" height="500px">
                                                       </div>
+                                                      <%} %>
                                                     </div>
-                                                    <%} else { %>
+                                                    <!-- 사진이 있는 경우 -->
+                                                     <%} else { %>
+                                                   	<!-- 사진이 없는 경우 => 기본 로고 출력 -->
+                                                   	<!-- Indicators -->
                                                     <ul class="carousel-indicators">                                             
                                                     	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
                                                    	</ul>
-                                                   	<!-- 기본 로고 페이지 출력 -->
+                                                   	
+                                                   	<!-- The slideshow -->
                                                    	<div class="carousel-inner">
-                                                      <div class="carousel-item active"><span class="badge badge-dark">1</span>
+                                                      <div class="carousel-item active">
                                                         <img src="<%=mzymPath%>/resources/img/MZYM_logo_272x167.png" width="500px" height="500px">
                                                       </div>
                                                     </div>
 
-
-
-                                                    <%} %>
+                                                    <%} %> <!-- 사진이 없는 경우 -->
+                                                    
                                                     <!-- Left and right controls -->
                                                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
                                                       <span class="carousel-control-prev-icon" style="background-color: black;"></span>
@@ -247,19 +263,20 @@
                                                     <a class="carousel-control-next" href="#demo" data-slide="next">
                                                       <span class="carousel-control-next-icon" style="background-color: black;"></span>
                                                     </a>
+                                                </div> <!-- demo 끝 -->
+                                            </div> <!-- collapsePicture 끝 -->
+
+                                                <div style="text-align: -webkit-right; margin-top: 10px;">
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                                 </div>
-                                                  <!-- 사진 영역 -->
-                                        </div>
-                                        <div style="text-align: -webkit-right; margin-top: 10px;">
-                                            <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                            <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
-                                        </div>
-                                    </form>
-                                    </td>
+                                            </td>
+                                        </form>
                                 </tr>
-                    
-                            	<%} %> <!-- 사진과 게시글 나누는 if문 끝 -->
-                            <%} %><!-- 게시글 for문 끝 -->
+                                	<%} %> <!-- 게시물 번호 비교 if문 끝 -->
+                            	<%} %> <!-- 사진 for문 끝 -->
+                           	<%} %> <!-- pt후기 게시글 체크 else문 끝 -->
+
                             </table>
                         </div>
                         
@@ -288,7 +305,7 @@
                             <tr id="reComment<%=i%>" class="collapse">
                                 <td colspan="5">
                                     <div class="collapseitem">
-                                <form action="" method="">
+                                        <form action="" method="">
                                             <fieldset style="text-align: start;">
                                                 <legend><u>세부사항</u></legend>
                                                 <ul>
@@ -318,12 +335,11 @@
                                                 <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                 <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                             </div>
+                                        </form>
                                         </div>
                                     </td>
-                                </form>
                                 </tr>
                             <%} %>
-                            
                             </table>
                         </div>
                         <!-- 댓글 -->
