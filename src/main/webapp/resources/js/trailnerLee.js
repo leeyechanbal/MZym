@@ -79,7 +79,7 @@ $(function(){
 
     })
 
-    키보드 값을 입력 받을떄 해당 위치의 collapse 등장
+   
     $(function(){
         $(document).keypress(function(e){
             // console.log($("#boardcontent tr")); 

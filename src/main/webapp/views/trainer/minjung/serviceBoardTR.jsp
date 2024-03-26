@@ -15,17 +15,6 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객 센터 페이지</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <link href="/src/main/webapp/resources/css/leeyechan/trailnerLee.css" rel="stylesheet" type="text/css">
-    <script src="/src/main/webapp/resources/js/trailnerLee.js" rel="javascript"></script>
 
 	
    <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
@@ -84,48 +73,63 @@
                             <th>작성일</th>
                         </tr>
 
-					<%for(int i=0; i<list.size();i++){ %>
-                    <form action="<%=contextPath %>/updateServiceBoard.trainer?no=<%=list.get(i).getServiceNo() %>" method="post" id="serviceList">
+					<%for(int i=0; i<list.size();i++){ 
+                        ServiceBoard s = list.get(i);
+                        %>
                         <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
-                            <td class="table-number"><%=list.get(i).getServiceNo() %></td>
-                            <td name=""><%=list.get(i).getCategoryNo() %></td>
+                            <td class="table-number"><%=s.getServiceNo() %></td>
+                            <td><%=list.get(i).getCategoryNo() %></td>
                             <td class="table-title"><%=list.get(i).getServiceTitle() %></td>
-                            <td name=""><%=list.get(i).getServiceUser() %></td>
+                            <td><%=list.get(i).getServiceUser() %></td>
                             <td><%=list.get(i).getRegistDate() %></td>
                         </tr>
 
                         <tr id="context<%=i%>" class="collapse">
+                    <form action="<%=contextPath %>/updateServiceBoard.trainer" method="get" id="serviceList">
                             <td colspan="5">
                                 <p style="min-height:150px; text-align: left; white-space: pre;" class="border rounded">
                                     <%=list.get(i).getServiceContent() %>
                                 <hr>
-                                <%if(list.get(i).getUpfileUrl() != null && !list.get(i).getFileStatus().equals("N")){ %>
-	                                <div>
-	                                	<img src="<%=contextPath + "/" + list.get(i).getUpfileUrl() %>" style="max-width:100%; height: auto;">
+                                <input type="hidden" name="no" value="<%=s.getServiceNo() %>">
+                                <input type="hidden" name="confimeTR" value="<%=loginUser.getUserNo()%>">
+                                <%if(list.get(i).getUpfileUrl() != null && list.get(i).getFileStatus().equals("Y")){ %>
+	                                <div style="max-width:100%; height: auto; text-align: left;">
+	                                	<a download="orginName" href="<%=contextPath + list.get(i).getUpfileUrl() %>" class="btn btn-outline-success">download</a>
 	                                </div>
-                                <input type="file">
                                 <%}else{ %>
                                 	등록된 첨부파일이 없습니다.
                                 <%} %>
                                 <hr>
                                 <div class="repeat border rounded mx-auto">
+                                <!-- 
+                                	내용 ㅇ => 내용을 보이게
+                                	내용 X => 작성하면
+                                 -->
+                                <% if(list.get(i).getServiceRepeat() != null){ %>
                                  	<%
-                                 		int serviceTr = 0;
-                                 		serviceTr = Integer.parseInt(String.valueOf(list.get(i).getServiceTr()));
-                                    
-                                    if(loginUser.getUserNo() == serviceTr){ %>
-	                                    <div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
-	                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>"></div>
-	                                    <button  type="submit" class="btn btn-outline-success btn-sm">답변</button>
-	                        			<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
+                                 	if(loginUser.getUserNo() == Integer.parseInt(s.getServiceTr())) {
+                                 	%>
+	                                    <div><b><%=trainerID %><br><!-- <%=list.get(i).getServiceTr()%> --></b></div>
+	                                    <div style="width: 80%; display: flex;">
+	                                    <input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat()%>" >
+	                                    	                                 
+	                                    <button  type="submit" class="btn btn-outline-warning btn-sm" style="margin-left: 70px;">수정</button>
+	                                    </div>
+	                                   
+	                        			
                                 	<%}else { %>
-	                                	<div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
+	                                	<div><b><%=trainerID %><br></b></div>
 	                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>" readonly></div>
                                 	<%} %>
+                                	<%}else{ %>
+	                                    <div><b><%=trainerID %><br><!-- <%=list.get(i).getServiceTr() %> --></b></div>
+	                                    <input type="control" class="form-control" required name="repeat">
+	                                    <button  type="submit" class="btn btn-outline-success btn-sm" style="margin-left: 70px;">등록</button>
+                                	<% } %>
                                 </div>
                             </td>
+                    	</form>
                         </tr>
-                    </form>
                     
                     <%} %>
 
@@ -149,7 +153,7 @@
                     <%if(p == pi.getCurrentPage()){ %>
                     	<li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
                     <%}else{ %>
-                    	<li class="page-item active"><a class="page-link" href="<%=contextPath%>/serviceBoardList.trainer?page=<%=p%>"><%= p %></a></li>
+                    	<li class="page-item"><a class="page-link" href="<%=contextPath%>/serviceBoardList.trainer?page=<%=p%>"><%= p %></a></li>
 					<%} %>
 					<%} %>
 					
@@ -161,6 +165,9 @@
                 </ul>
             </td>
 
+			<td class="section3">
+                <button type="button" class="btn btn-outline-danger btn-sm " data-toggle="modal" data-target="#deletModal" >삭제</button>
+            </td>
         </tfoot>
 
 
@@ -181,7 +188,7 @@
             게시물을 정말로 삭제 하시겠습니까?
         
         </div>
-        <input type="text" class="">
+        <input type="hidden" name="no">
   
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -196,35 +203,38 @@
   
 		<script>
 		  	$(document).ready(function(){
-		  		
-		  		$(".deletebtn").on("click",function(){
-		  			
-		  			const boardNo = $(".tr-title");
-		  		 
-		  			
-		  			console.log(boardNo);
-		  			
-		  			/*
-		  			$.ajax({
-		  				url:"<%=contextPath%>/deleteServiceBoard.trainer",
-		  				data:{no:$(this).closest("form").find(".table-number").text()},
-		  				type:"get",
-		  				success:function(result){
-		  					console.log(result);
-		  					alert("게시글 삭제 완료되었습니다.");
-		  				},
-		  				error:function(){
-		  					console.log("문의글 삭제 ajax 통신 실패");
-		  					alert("게시글 삭제 실패");
-		  				}
-		  			})
-		  			*/
-		  		})
-		  	})	
+               
+                $("#boardcontent tr").click(function(){
+                    const num = $(this).children('.table-number').text();
+                    console.log(num);
+                    $('#deletModal').find('input[name=no]').val(num);
+
+                })
+
+
+                 $(".deletebtn").on("click",(function(){
+
+                    $.ajax({
+                        url:"<%=contextPath%>/deleteServiceBoard.trainer",
+                        data:{no:$('#deletModal').find('input[name=no]').val()},
+                        type:"get",
+                        success:function(result){
+                            console.log(result);
+                            alert("게시글 삭제 완료되었습니다.");
+                            location.href="/mzym/serviceBoardList.trainer?page=1";
+                        },
+                        error:function(){
+                            console.log("문의글 삭제 ajax 통신 실패");
+                            alert("게시글 삭제 실패");
+                        }
+                    })
+                    
+                 }))         
+
+            })
 		 </script>
 
 
-  
   
 </body>
 

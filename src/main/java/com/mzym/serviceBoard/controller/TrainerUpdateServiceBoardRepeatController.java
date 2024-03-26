@@ -30,11 +30,15 @@ public class TrainerUpdateServiceBoardRepeatController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		/*
+		 * "confimeTR" 트레이너 번호 나오는지 => update 추가로 SERVICE_TR 변경 하는데 쿼리에서
+		*/
 		int serviceNo = Integer.parseInt(request.getParameter("no"));
 		String repeat = request.getParameter("repeat");
 		
-		int result = new ServiceBoardService().updateRepeat(serviceNo, repeat);
+		int confimeTR = Integer.parseInt(request.getParameter("confimeTR"));
+		
+		int result = new ServiceBoardService().updateRepeat(serviceNo, repeat, confimeTR);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "답변이 등록되었습니다.");
