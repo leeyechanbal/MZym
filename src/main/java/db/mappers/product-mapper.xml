@@ -19,15 +19,13 @@ SELECT *
 			p.PRODUCT_PRICE,
 			p.REGIST_DATE,
 			p.COUNT,
-            at.FILE_PATH || at.CHANGE_NAME UPFILEURL
-    
+   			p.IMAGE_URL
         FROM PRODUCT p
-        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
-        ORDER BY p.PRODUCT_NO DESC
+        WHERE P.STATUS='Y' 
+        ORDER BY p.count DESC
     	) A
-	)
-	WHERE RNUM BETWEEN ? AND ?
-
+    )
+WHERE RNUM BETWEEN ? AND ? 
 </entry>
 
 <entry key="bestProduct">
@@ -43,9 +41,9 @@ SELECT *
 			p.PRODUCT_PRICE,
 			p.REGIST_DATE,
 			p.COUNT,
-            at.FILE_PATH || at.CHANGE_NAME UPFILEURL
+   			p.IMAGE_URL
         FROM PRODUCT p
-        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
+        WHERE P.STATUS='Y' 
         ORDER BY p.count DESC
     	) A
 	 WHERE ROWNUM <= 4
@@ -67,10 +65,10 @@ SELECT
          	p.PRODUCT_NAME ,
          	p.PRODUCT_CONTENT, 
          	p.PRODUCT_PRICE,
-        	at.FILE_PATH || at.CHANGE_NAME UPFILEURL
+        	p.IMAGE_URL
          FROM PRODUCT p 
-         left JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO
       	 WHERE p.PRODUCT_NO  = ?
+      	 AND P.STATUS='Y'
 </entry>
 
 

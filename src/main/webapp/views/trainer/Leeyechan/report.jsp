@@ -116,19 +116,167 @@
                                     <td><%=b.getBoardMember()%></td>
                                	</tr>
                             		
-                            		
-                            		
-                            		
-                            		
+                            	<tr id="reBoard<%=i %>" class="collapse">
+                            		<td colspan="5">
+                                        <div class="collapseitem">
+                                            <fieldset>
+                                                <legend><u>세부사항</u></legend>
+                                                <ul>
+                                                    <li>글 번호 : <%=b.getBoardNo()%></li>
+                                                    <li>카테고리: 
+	                                                    <%for(ReportCategory rc : rCategory) {
+	 		                                                 if(rc.getCategoryNo() == r.getCategoryNo()){
+	 		                                                	 out.print(rc.getCategoryName());
+	 		                                                 }  	
+	                                                    }%>
+                                                    </li>
+                                                    <li>신고자: <%=r.getUserID() %></li>
+                                                    <li>신고일: <%=r.getReportDate()%></li>
+                                                    <li>보고자: <%=loginUser.getUserId()%></li>
+                                                </ul>
+                                            </fieldset>
+                 				            <form action="" method="">
+                                            <textarea cols="150" rows="5" readonly><%=b.getBoardContent()%></textarea>
+                                            <legend><u>보고서</u></legend>
+                                            <%if(check){ %>
+                                            <textarea cols="150" rows="5" name="content" required></textarea>
+                                            <%} else { %>
+                                            	<textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            <%} %>
+                                            <input type="hidden" name="typeCheck" value="1">
+                                            <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                            <br><br>
+                                            <div style="width: 100%; display: flex; justify-content: space-between;">
+                                            <% String originName = a.getOriginName();
+                                            	if(originName != null){
+                                            %>
+                                                <div>다운로드: <a download="<%=originName%>" href="<%=mzymPath + "/" + a.getFilePath() + a.getChangeName()%>"><%=originName%></a></div>
+                                                <%} else { %>
+                                                <div>첨부파일이 존재하지 않습니다.</div>
+                                                <%} %>
+                                                <div>
+                                                
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                    <% if (r.getCategoryNo() != 5) {%>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                    <%}else{ %>
+                                                    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
+                                                    <%} %>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    </form>
+
                             		
                            		<%} %>
                             <%} else { %>
                             <!-- PT후기(3) 게시판일 경우 -->
-                            	
-                            <%} %>
-                            
-                            
-                            
+                            	<%for (int i = 0 ; i < listBoard.size(); i++ ){ 
+                            		Report r = listBoard.get(i);
+                            		Board b = r.getBoard();
+                            		List<Attachment> atList = b.getAtList(); 
+                            	%>
+                            	<% if((i == 0 ) ? true : (listBoard.get(i-1).getBoardNo() != listBoard.get(i).getBoardNo())) {%>
+                          		 	<tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
+                                    	<td class="table-number"><%=r.getReportNo() %></td>
+                                    	<td class="table-title"><%=b.getBoardTitle() %></td>
+                                    	<td><%=b.getBoardMember() %></td>
+                                	</tr>
+                                	
+                                	<tr id="rePicture<%=i%>" class="collapse">
+                                	
+                                    <td colspan="5">
+                                        <form action="" method="">
+                                        <div class="collapsePicture">
+                                                <fieldset style="text-align: start;">
+                                                    <legend><u>세부사항</u></legend>
+                                                    <ul>
+                                                        <li>글 번호 : <%=b.getBoardNo()%></li>
+                                                    	<li>카테고리: 
+	                                                    <%for(ReportCategory rc : rCategory) {
+	 		                                                 if(rc.getCategoryNo() == r.getCategoryNo()){
+	 		                                                	 out.print(rc.getCategoryName());
+	 		                                                 }  	
+	                                                    }%>
+                                                    	</li>
+                                                    	<li>신고자: <%=r.getUserID() %></li>
+                                                    	<li>신고일: <%=r.getReportDate()%></li>
+                                                    </ul>
+                                                    
+                                        
+                                                    
+                                                    <textarea cols="75" rows="8" readonly><%=b.getBoardContent()%></textarea>
+                                                    <legend><u>보고서</u></legend>
+                                                    <%if(check){ %>
+                                                        <textarea cols="75" rows="8" name="content" required></textarea>
+                                                        <%} else { %>
+                                                        <textarea cols="75" rows="8" name="content"><%=r.getReportContent()%></textarea>
+                                                        <%} %>
+                                                    <input type="hidden" name="typeCheck" value="1"> <!-- 게시물인지 댓글인지 -->
+                                                    <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                               	</fieldset>
+                                                
+                                                
+                                                <div id="demo" class="carousel slide" data-ride="carousel">
+                                               
+													
+													<% if(!atList .isEmpty()){%>  
+                                                    <!-- 사진이 있는 경우 -->
+                                                    <!-- Indicators -->
+													<ul class="carousel-indicators">                                             
+                                                       <%for (int j = 0; j< atList.size(); j++ ){ %>
+                                                      	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="<%=atList.get(j).getFileLevel() == 1 ? "active": ""%>"></li>
+                                                   	<%} %>
+                                                    </ul>
+	                                                    
+                                                    <!-- The slideshow -->
+                                                    <div class="carousel-inner">
+                                                    <%for (int j = 0; j< atList.size(); j++ ){ %>
+                                                      <div class="carousel-item <%=atList.get(j).getFileLevel() == 1 ? "active": ""%>"><span class="badge badge-dark"><%=atList.get(j).getFileLevel()%></span>
+                                                        <img src="<%=mzymPath + atList.get(j).getFilePath()+ "/" + atList.get(j).getChangeName()%>" width="500px" height="500px">
+                                                      </div>
+                                                      <%} %>
+                                                    </div>
+                                                    <!-- 사진이 있는 경우 -->
+                                                     <%} else { %>
+                                                   	<!-- 사진이 없는 경우 => 기본 로고 출력 -->
+                                                   	<!-- Indicators -->
+                                                    <ul class="carousel-indicators">                                             
+                                                    	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
+                                                   	</ul>
+                                                   	
+                                                   	<!-- The slideshow -->
+                                                   	<div class="carousel-inner">
+                                                      <div class="carousel-item active">
+                                                        <img src="<%=mzymPath%>/resources/img/MZYM_logo_272x167.png" width="500px" height="500px">
+                                                      </div>
+                                                    </div>
+
+                                                    <%} %> <!-- 사진이 없는 경우 -->
+                                                    
+                                                    <!-- Left and right controls -->
+                                                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                                      <span class="carousel-control-prev-icon" style="background-color: black;"></span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                                                      <span class="carousel-control-next-icon" style="background-color: black;"></span>
+                                                    </a>
+                                                </div> <!-- demo 끝 -->
+                                            </div> <!-- collapsePicture 끝 -->
+
+                                                <div style="text-align: -webkit-right; margin-top: 10px;">
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
+                                                </div>
+                                            </td>
+                                        </form>
+                                </tr>
+                                	<%} %> <!-- 게시물 번호 비교 if문 끝 -->
+                            	<%} %> <!-- 사진 for문 끝 -->
+                           	<%} %> <!-- pt후기 게시글 체크 else문 끝 -->
+
                             </table>
                         </div>
                         
@@ -157,7 +305,7 @@
                             <tr id="reComment<%=i%>" class="collapse">
                                 <td colspan="5">
                                     <div class="collapseitem">
-                                <form action="" method="">
+                                        <form action="" method="">
                                             <fieldset style="text-align: start;">
                                                 <legend><u>세부사항</u></legend>
                                                 <ul>
@@ -187,9 +335,9 @@
                                                 <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                 <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                             </div>
+                                        </form>
                                         </div>
                                     </td>
-                                </form>
                                 </tr>
                             <%} %>
                             </table>
@@ -300,19 +448,19 @@
 
                     })
 
-                    // $("#boardcontent tr").click(function(){
-                    //     const boardNo = $(this).children(".table-number").text();
-                    //     $("#deletModal").find(".board-data").val(boardNo);  
+                    $("#boardcontent tr").click(function(){
+                        const boardNo = $(this).children(".table-number").text();
+                        $("#deletModal").find(".board-data").val(boardNo);  
                         
-                    //     $(this).css('border', '3px solid #1abc9cc7');
+                        $(this).css('border', '3px solid #1abc9cc7');
 
-                    //     $(this).siblings().css('border', '0');
-                    //     // console.log($(this).siblings());
-                    //     // console.log($(this).siblings('.show'));
+                        $(this).siblings().css('border', '0');
+                        // console.log($(this).siblings());
+                        // console.log($(this).siblings('.show'));
                        
-                    //     $(this).siblings('.show').removeClass('show');
+                        $(this).siblings('.show').removeClass('show');
 
-                    // })
+                    })
 
                     // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
                     $(function(){

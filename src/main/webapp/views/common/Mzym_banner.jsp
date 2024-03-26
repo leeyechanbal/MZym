@@ -5,6 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.carousel-inner {
+    overflow: hidden; /* 내용이 부모 요소를 벗어날 경우 숨김 처리 */
+}
+.carousel-item img {
+    width: 100%; /* 이미지를 부모 요소의 너비에 맞게 설정 */
+    height: auto; /* 이미지의 비율을 유지하면서 조정 */
+}
+</style>
 </head>
 <body>
 	<!--banner start-->
@@ -21,13 +30,13 @@
 	        <!-- The slideshow -->
 	        <div class="carousel-inner">
 	          <div class="carousel-item active">
-	            <img src="<%=contextPath %>/resources/img/common/메인사진1.jpg" alt="">
+	            <a href="<%=contextPath %>/location.me" target="_blank"><img class="img-fluid" src="<%=contextPath %>/resources/img/common/홈페이지소개.jpg" alt=""></a>
 	          </div>
 	          <div class="carousel-item">
-	            <img src="<%=contextPath %>/resources/img/common/메인사진2.jpg" alt="">
+	            <a href="<%=contextPath %>/product.list" target="_blank"><img class="img-fluid" src="<%=contextPath %>/resources/img/common/PT.png" alt=""></a>
 	          </div>
 	          <div class="carousel-item">
-	            <img src="<%=contextPath %>/resources/img/common/메인사진3.jpg" alt="">
+	            <a href="<%= contextPath%>/freelist.bo?type=4" target="_blank"><img class="img-fluid" src="<%=contextPath %>/resources/img/common/운동모임.jpg" alt=""></a>
 	          </div>
 	        </div>
 	      

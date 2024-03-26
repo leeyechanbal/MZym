@@ -81,9 +81,9 @@
                     </div>
                     <div class="SearchText_section">
                         
-                        <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
-                        <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span>
-                        </div>
+                        <!--  <div class="Search_area2"><span style="font-size: 15px; color: gray; font-weight: bold;">인기 검색어 :</span>
+                        <span style="font-size: 18px;">오운완 | 운동 루틴 | 헬스 후기</span> 
+                        </div>-->
                     
                     </div>
                 </div>

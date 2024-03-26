@@ -90,6 +90,13 @@
             margin: 10px;
             font-size: 15px;
         }
+        
+        .video_title {
+		    width: 248px; /* 텍스트가 넘치는 경우의 가로 길이 설정 */
+		    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+		    overflow: hidden; /* 넘치는 텍스트를 숨기는 설정 */
+		    text-overflow: ellipsis; /* 넘치는 텍스트를 생략 부호(...)로 표시하는 설정 */
+		}
 
         .video_etc{
             margin: 10px;

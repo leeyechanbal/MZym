@@ -348,12 +348,14 @@
                                             </tr>
                                             <tr>
                                                 <th>상품</th>
-                                                <td><select name="" id="category_update" class="form-control category">
-                                                    <option value="select_product">상품선택</option>
-                                                    <% for(Product p : pList) { %>
-						                            <option value="<%= p.getProductNo() %>" data-price="<%= p.getPrice() %>"><%= p.getProductName() %></option>
-						                            <% } %>
-                                                </select></td>
+                                                <td>
+	                                                <select name="" id="category_update" class="form-control category">
+	                                                    <option value="select_product">상품선택</option>
+	                                                    <% for(Product p : pList) { %>
+							                            <option value="<%= p.getProductNo() %>" data-price="<%= p.getPrice() %>"><%= p.getProductName() %></option>
+							                            <% } %>
+	                                                </select>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>가격</th>

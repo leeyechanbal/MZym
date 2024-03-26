@@ -128,13 +128,13 @@ Product p = (Product)request.getAttribute("p");
             
             <div class="product-container">
                 <div class="product-image">
-                    <img src="" alt="상품 이미지" style="width: 350px; height: 300px; margin: 20px;">
-                	<!--contextPath + "/" + p.getUpfileUrl()-->
+                    <img src="<%=contextPath + "/" + p.getUpfileUrl() %>" alt="상품 이미지" style="width: 350px; height: 300px; margin: 20px;">
+                	
                 </div>
                 <div class="product-details">
                     <h6><%=p.getProductName() %></h6>
-                    <p class="price" style="color: #1abc9c; margin-right: 50px;"><%=p.getPrice() %>>원</p>
-                    <p><%=p.getProductContent() %>></p>
+                    <p class="price" style="color: #1abc9c; margin-right: 50px;"><%=p.getPrice() %>원</p>
+                    <p><%=p.getProductContent() %></p>
                     <div id="quantity-container">
                         <button onclick="adjustQuantity(-1)">-</button>
                         <input type="text" id="quantity" value="1" oninput="calculateTotalPrice()">
@@ -145,7 +145,11 @@ Product p = (Product)request.getAttribute("p");
                     <hr style="width: 650px;">
                     <div class="total-and-button">
                         <p class="total_price"><%=p.getPrice() %>원</p>
+                        <%if(loginUser !=null){%>
                         <button id="sellButton" type="button" style="margin-right: 50px;">구매하기</button>
+                    	<%}else{ %>
+                    		<p>로그인후 구매가 가능합니다.</p>
+                    	<%} %>
                     </div>
                 </div>
             </div>
