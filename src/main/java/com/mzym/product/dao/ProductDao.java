@@ -1,6 +1,7 @@
 package com.mzym.product.dao;
 
-import static com.mzym.common.template.JDBCTemplate.close;
+
+import static com.mzym.common.template.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -132,6 +133,56 @@ public class ProductDao {
 	    
 	    
 	    return list;
+	}
+
+	public int increaseCount(Connection conn, int productNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, productNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
+
+	public Product selectProduct(Connection conn, int productNo) {
+		Product p = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProduct");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, productNo);
+			rset =pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Product (rset.getInt("product_no"),
+								 rset.getString("PRODUCT_NAME"),
+								 rset.getString("PRODUCT_CONTENT"),
+								 rset.getInt("PRODUCT_PRICE"),
+								 rset.getString("UPFILEURL")
+						);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally { 
+			close(rset);
+			close(pstmt);
+		}
+		return p;
 	}
 	
 }

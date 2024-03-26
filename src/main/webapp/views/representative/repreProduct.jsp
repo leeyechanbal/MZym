@@ -117,7 +117,7 @@
             color: white;
         }
 
-        .product_img{ width: auto; height: 120px;}
+        .product_img{ width: auto; height: 90px;}
 
         .modal-body {
             position: relative; /* 부모 요소를 상대 위치로 설정합니다. */
@@ -190,12 +190,12 @@
 	            out.println("<script>alert('" + alertMsg + "');</script>");
 	        }
 	    %>
-        <div class="repre_header"><img src="/resources/img/icon/logo-sm-170x100.png" alt=""></div>
+        <div class="repre_header"><img src="<%=contextPath %>/resources/img/icon/logo-sm-170x100.png" alt=""></div>
         <div class="repre_body">
             <div class="repre_body_left">
                 <!-- 관리자 로그인 화면 -->
                 <div class="repre_left_top" style="display: flex; padding: 5%;">
-                    <img src="/resources/img/common/profile_icon_512x512.png" alt="" style="width: 50px; height: 50px;">
+                    <img src="<%=contextPath %>/resources/img/common/profile_icon_512x512.png" alt="" style="width: 50px; height: 50px;">
                     <h4 style="text-align: center; width: 100%; padding-top: 10%;"><%=loginUser.getUserName() %></h4>
                 </div>
                 <hr>
@@ -256,37 +256,8 @@
                                     <th style="width: 20%;">가격</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            <tr data-toggle="modal" data-target="#info_Modal">
-                                <th class="highlight">1</th>
-                                <td><img class="product_img" src="/resources/img/common/트레이너 이미지 샘플.png" alt=""></td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <tr data-toggle="modal" data-target="#info_Modal">
-                                <th class="highlight">1</th>
-                                <td><img class="product_img" src="/resources/img/common/트레이너 이미지 샘플2.png" alt=""></td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <tr data-toggle="modal" data-target="#info_Modal">
-                                <th class="highlight">1</th>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <tr data-toggle="modal" data-target="#info_Modal">
-                                <th class="highlight">1</th>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <tr data-toggle="modal" data-target="#info_Modal">
-                                <th class="highlight">1</th>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
+                            <tbody id="saleSelectTable">
+                           
                         </tbody>
                         </table>
                     </div>
@@ -304,26 +275,26 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="insert_form" action="">
+                                    <form id="insert_form" action="" enctype="multipart/form-data">
                                         <table class="change_sale">
                                             <tr>
                                                 <th>이미지</th>
                                                 <td><div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile" required onchange="updateLabel(this, 'insert_form')">
-                                                    <label class="custom-file-label" for="customFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                                    <input type="file" accept=".png, .jpg, .jpeg" name="productIMG" class="custom-file file" id="insertCustomFile" required onchange="updateLabel(this, 'insert_form')">
+                                                    <label class="custom-file-label" for="insertCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
                                                 </div></td>
                                             </tr>
                                             <tr>
                                                 <th>이름</th>
-                                                <td><input type="text" class="form-control" placeholder="이름을 입력해주세요" required></td>
+                                                <td><input type="text" class="form-control name" name="productName" placeholder="이름을 입력해주세요" required></td>
                                             </tr>
                                             <tr>
                                                 <th>가격</th>
-                                                <td><input type="text" class="form-control" placeholder="상품가격을 입력해주세요" id="input_price" required></td>
+                                                <td><input type="text" class="form-control price" name="productPrice" placeholder="상품가격을 입력해주세요" id="input_price" required></td>
                                             </tr>
                                         </table>
                                         <div class="table_btn">
-                                            <button type="submit" class="btn change_btn">추가하기</button>
+                                            <button type="button" class="btn change_btn" id="insert_Btn">추가하기</button>
                                         </div>
                                     </form>
                                 </div>   
@@ -345,27 +316,29 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <form id="change_form" action="">
+                                    <form id="change_form" action="" method="post" enctype="multipart/form-data">
                                         <table class="change_sale">
+                                        	<input type="hidden" class="form-control" name="productNo" id="update_productNo">
+                                        	<input type="hidden" class="form-control" name="checkIMG" id="check_productIMG">
                                             <tr>
                                                 <th>이미지</th>
                                                 <td><div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile" required onchange="updateLabel(this, 'change_form')">
-                                                    <label class="custom-file-label" for="customFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                                    <input type="file" class="custom-file file" accept=".png, .jpg, .jpeg" name="productIMG" id="updateCustomFile" onchange="updateLabel(this, 'change_form')">
+                                                    <label class="custom-file-label" for="updateCustomFile" style="text-align: left;">첨부파일을 추가해주세요</label>
                                                 </div></td>
                                             </tr>
                                             <tr>
                                                 <th>이름</th>
-                                                <td><input type="text" class="form-control" placeholder="이름을 입력해주세요" required></td>
+                                                <td><input type="text" class="form-control name" name="productName" placeholder="이름을 입력해주세요" required id="update_name"></td>
                                             </tr>
                                             <tr>
                                                 <th>가격</th>
-                                                <td><input type="text" class="form-control" placeholder="상품가격을 입력해주세요" id="input_price" required></td>
+                                                <td><input type="text" class="form-control price" name="productPrice" placeholder="상품가격을 입력해주세요" id="update_price" required id="update_price"></td>
                                             </tr>
                                         </table>
                                         <div class="table_btn">
-                                            <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
-                                            <button type="submit" class="btn change_btn" id="changeBtn">수정하기</button>
+                                            <button type="submit" class="btn btn-danger" id="deleteBtn">삭제하기</button>
+                                            <button type="button" class="btn change_btn" id="changeBtn">수정하기</button>
                                         </div>
                                     </form>
                                 </div>   
@@ -376,48 +349,243 @@
 
 
                     <script>
+                    	
+	                    var productList;
+	    				var pageInfo;
+	    				var form;
+	    				
+	                    $(document).ready(function(){
+	                        ajaxSelect(1);
+	                 	});
+                    
+	                    $('#insert_Btn').click(function(event) {
+	                    	event.preventDefault(); // 기본 제출 동작 막기
+		                    form = document.getElementById('insert_form');
+		                    
+		                    if(check(form)) {
+		                        insertProduct(form)
+		                    }
+	                    });
+		                
+	                   $('#changeBtn').click(function(event) {
+	                        event.preventDefault(); // 기본 제출 동작 막기
+	                        form = document.getElementById('change_form');
+                       		var updateFormData = new FormData(form);
+                        	$.ajax({
+                                url:"<%=contextPath%>/updateProduct.re",
+                                data:updateFormData,
+                                processData : false,
+                                contentType : false,
+                                type:"post",
+                                success:function(response){
+                                	if (response === "success") {
+                     		            // 성공 메시지를 보여줍니다.
+	                     				ajaxSelect(pageInfo.currentPage)
+                     		            $('#info_Modal').modal('hide');
+                     		            alert("상품이 수정되었습니다.");
+                     		        } else {
+                     		            // 실패 메시지를 보여줍니다.
+                     		            alert("상품수정이 실패했습니다. 다시 시도해주세요.");
+                     		        }
+                                },error:function(){
+                                	console.log("상품조회 등록용 ajax통신 실패")
+                                }
+                            })
+	                    });
+	                    
+	                   $('#deleteBtn').click(function() {
+	                        var confirmation = confirm("정말로 삭제하시겠습니까?");
+	                        if (!confirmation) {
+	                            event.preventDefault(); // 폼 제출을 막음
+	                        } else {
+	                        	event.preventDefault(); // 기본 제출 동작 막기
+	 	                        productNo = document.getElementById('update_productNo').value;
+	                        	console.log(productNo);
+	                         	$.ajax({
+	                                 url:"<%=contextPath%>/deleteProduct.re",
+	                                 data:{ no : productNo },
+	                                 type:"post",
+	                                 success:function(response){
+	                                 	if (response === "success") {
+	                      		            // 성공 메시지를 보여줍니다.
+	 	                     				ajaxSelect(pageInfo.currentPage)
+	                      		            $('#info_Modal').modal('hide');
+	                      		            alert("상품이 삭제되었습니다.");
+	                      		        } else {
+	                      		            // 실패 메시지를 보여줍니다.
+	                      		            alert("상품삭제가 실패했습니다. 다시 시도해주세요.");
+	                      		        }
+	                                 },error:function(){
+	                                 	console.log("상품조회 등록용 ajax통신 실패")
+	                                 }
+	                             })
+	                        }
+	                    });
+	                    
+	                    function updateLabel(input, formId) {
+	                        // 파일이 선택되었을 때
+	                        if (input.files && input.files[0]) {
+	                            var fileName = input.files[0].name; // 파일명 가져오기
+	                            var label = document.querySelector('label[for="' + input.id + '"]'); // 해당 input과 연결된 레이블 가져오기
+	                            
+	                            // 파일 확장자 확인
+	                            var validExtensions = ['.png', '.jpg', '.jpeg'];
+	                            var fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+	                            
+	                            if (!validExtensions.includes(fileExtension)) {
+	                                alert("올바른 이미지 파일을 선택해주세요.");
+	                                input.value = ''; // 파일 선택 취소
+	                                label.textContent = "첨부파일을 추가해주세요"; // 레이블 초기화
+	                                return;
+	                            }
 
-                    function updateLabel(input, formId) {
-                            var form = document.getElementById(formId);
-                            var label = form.querySelector('.custom-file-label');
-                            var fileName = input.files[0].name;
-                            label.innerText = fileName;
+	                            label.textContent = fileName; // 레이블 텍스트 변경
+	                        }
+	                    }
+	                    
+	                    function check(form){
+	                    	
+	                    	var fileInput = form.querySelector('.file').value;
+                        	var nameInput = form.querySelector('.name').value;
+                            var priceInput = form.querySelector('.price').value;
+
+                            if (!fileInput.trim()) {
+                                alert("이미지를 선택해주세요.");
+                                return false;
+                            }
+
+                            if (!nameInput.trim()) {
+                                alert("이름을 입력해주세요.");
+                                return false;
+                            }
+
+                            if (!priceInput.trim()) {
+                                alert("가격을 입력해주세요.");
+                                return false;
+                            }
+
+	                        return true;
+	                    }
+
+                        
+                        function ajaxSelect(pageParam){
+        					
+        					$.ajax({
+                     			url:"<%=contextPath%>/selectProduct.re",
+                     			data:{
+        							pageNo:pageParam
+                     			},
+                     			type:"post",
+                     			async:false,
+                     			success:function(productMap){
+                     		        
+                     				pageInfo = productMap.pi;
+                     				productList = productMap.list;    
+                     				
+                     				$("ul").html(generatePageLinks(pageInfo, pageParam));
+                     				$("#saleSelectTable").html(selectSale(productList, pageInfo, pageParam));
+                     				
+                     			},error:function(){
+                     				console.log("상품조회 등록용 ajax통신 실패")
+                     			}
+                     		})
+        				}
+                        
+                        function generatePageLinks(pageInfo, pageParam) {
+        				    var pagehtml = '';
+        				    // 이전 페이지 링크 추가
+        				    if (pageInfo.currentPage == 1) {
+        				    	pagehtml += '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>';
+        				    } else {
+        				    	pagehtml += '<li class="page-item"><a class="page-link" href="#" onclick="ajaxSelect(' + (pageInfo.currentPage - 1) + ')">Previous</a></li>';
+        				    }
+
+        				    // 페이지 번호 링크 추가
+        				    for (var p = pageInfo.startPage; p <= pageInfo.endPage; p++) {
+        				        if (p == pageInfo.currentPage) {
+        				        	pagehtml += '<li class="page-item active"><a class="page-link" href="#">' + p + '</a></li>';
+        				        } else {
+        				        	pagehtml += '<li class="page-item"><a class="page-link" href="#" onclick="ajaxSelect(' + p + ')">' + p + '</a></li>';
+        				        }
+        				    }
+
+        				    // 다음 페이지 링크 추가
+        				    if (pageInfo.currentPage == pageInfo.maxPage) {
+        				    	pagehtml += '<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
+        				    } else {
+        				    	pagehtml += '<li class="page-item"><a class="page-link" href="#" onclick="ajaxSelect(' + (pageInfo.currentPage + 1) + ')">Next</a></li>';
+        				    }
+
+        				    return pagehtml;
+        				}
+                        
+                        function selectSale(productList, pageInfo, pageParam) {
+        					
+        					var html = '';
+        					for (var p = 0; p < pageInfo.boardLimit; p++) {
+        						if(productList[p] == null) {
+        							html += 
+        									'<tr style="height:115px">' +
+        						            '<th></th>' +
+        						            '<td></td>' +
+        						            '<td></td>' +
+        						            '<td></td>' +
+        						            '</tr>';
+        						}else {
+        							html += 
+        								'<tr onclick="openModal(' + p +')" data-toggle="modal" data-target="#info_Modal">' +
+        							    '<th>' + ((parseInt(pageParam)-1) * pageInfo.pagingLimit + (p+1)) + '</th>' +
+        							    '<td><img class="product_img" src="<%= contextPath %>' + productList[p].imageURL + '" alt=""></td>' +
+        							    '<td>' + productList[p].productName + '</td>' +
+        							    '<td>' + productList[p].price + '</td>' +
+        							    '</tr>';
+        						}
+        				    }
+                             
+                             return html;
+        				}
+                        
+                        function insertProduct(form) {
+
+                            var insertFormData = new FormData(form);
+         
+                            $.ajax({
+                                url:"<%=contextPath%>/insertProduct.re",
+                                data:insertFormData,
+                                processData : false,
+                                contentType : false,
+                                type:"post",
+                                success:function(result){
+                                	ajaxSelect(1);
+                                	$('#insert_Modal').modal('hide');
+                                	alert("상품이 추가되었습니다.");
+                                },error:function(){
+                                    console.log("상품추가 ajax통신 실패")
+                                }
+                            })
                         }
+                        
+                        
+                        function openModal(p) {
+        					var modalId = "info_Modal";
+        	
+        			        // 모달을 열기 위해 모달을 나타내는 요소를 가져옵니다.
+        			        var modal = document.getElementById(modalId);
+        			        
+        			        document.getElementById('update_productNo').value = productList[p].productNo; 
+        			        document.getElementById('update_name').value = productList[p].productName;
+        			        document.getElementById('update_price').value = productList[p].price;
+        			        document.getElementById('check_productIMG').value = productList[p].imageURL;
 
-                    $('#insert_form').submit(function(event) {
-                        event.preventDefault(); // 기본 제출 동작 막기
-                        alert("작성이 완료했습니다.");
-                        this.submit();
-                    });
-
-                    $('#change_form').submit(function(event) {
-                        event.preventDefault(); // 기본 제출 동작 막기
-                        alert("수정이 완료했습니다.");
-                        this.submit();
-                    });
-
-                    $('#deleteBtn').click(function() {
-                        var confirmation = confirm("정말로 삭제하시겠습니까?");
-                        if (!confirmation) {
-                            event.preventDefault(); // 폼 제출을 막음
-                        } else {
-                            alert("삭제 되었습니다.");
-                        }
-                    });
-
-
+        			        
+        			        $(modal).modal('show');
+        				}
                     </script>
 
                 </div>
                 <div class="repre_right_bottom">
                     <ul class="pagination my justify-content-center">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        
                     </ul>
                 </div>
             </div>

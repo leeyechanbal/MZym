@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mzym.board.service.BoardService;
 import com.mzym.board.vo.Attachment;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.BoardCategory;
 
 /**
  * Servlet implementation class FreeBoardDetailController

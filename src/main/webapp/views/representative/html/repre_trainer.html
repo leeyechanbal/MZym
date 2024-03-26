@@ -111,7 +111,7 @@
         }
 
         .modal-body{
-            min-height: 1000px;
+            min-height: 1050px;
         }
 
         .change_sale {
@@ -333,6 +333,12 @@
                                     <form id="insert_form" action="">
                                         <table class="change_sale">
                                             <tr>
+                                                <td><div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="customFile" required onchange="updateLabel(this, 'insert_form')">
+                                                <label class="custom-file-label" for="customFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                            </div></td>
+                                            </tr>
+                                            <tr>
                                                 <td><input type="text" class="form-control" placeholder="아이디" required id="input_id">
                                                     <button type="button" class="info_btn btn-sm">중복확인</button></td>
                                             </tr>
@@ -389,6 +395,12 @@
                                 <div class="modal-body">
                                     <form id="insert_form" action="">
                                         <table class="change_sale">
+                                            <tr>
+                                                <td><div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="customFile" required onchange="updateLabel(this, 'insert_form')">
+                                                <label class="custom-file-label" for="customFile" style="text-align: left;">첨부파일을 추가해주세요</label>
+                                            </div></td>
+                                            </tr>
                                             <tr>
                                                 <td><input type="text" class="form-control" placeholder="아이디" required id="input_id">
                                                     <button type="button" class="info_btn btn-sm">중복확인</button></td>

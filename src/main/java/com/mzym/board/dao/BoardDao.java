@@ -985,6 +985,7 @@ public class BoardDao {
 							  rset.getString("board_content"),
 							  rset.getString("user_no")
 							  );
+				b.setBoardType(rset.getInt("board_type"));
 			}
 			
 		} catch (SQLException e) {

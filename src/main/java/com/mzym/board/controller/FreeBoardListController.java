@@ -69,7 +69,6 @@ public class FreeBoardListController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		request.setAttribute("bc", bc);
-		request.setAttribute("type", type);
 		
 		request.getRequestDispatcher("/views/board/freeboard/freeBoardList.jsp").forward(request, response);
 		

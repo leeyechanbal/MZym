@@ -1,6 +1,7 @@
 package com.mzym.product.service;
 
-import static com.mzym.common.template.JDBCTemplate.close;
+import static com.mzym.common.template.JDBCTemplate.*;
+
 import static com.mzym.common.template.JDBCTemplate.getConnection;
 
 import java.io.FileInputStream;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
+
 
 import com.mzym.common.paging.PageInfo;
 import com.mzym.mypage.model.vo.Product;
@@ -56,6 +58,27 @@ private ProductDao pDao = new ProductDao();
 		close(conn);
 		return list;
 	}
+	public int increaseCount(int productNo) {
+		Connection conn = getConnection();
+		int result = pDao.increaseCount(conn, productNo);
+		
+		if(result>0) {
+			commit(conn);
+		} else { 
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+
+	public Product selectProduct(int productNo) {
+		Connection conn = getConnection();
+		Product p = pDao.selectProduct(conn,productNo);
+		close(conn);
+		return p;
+	}
+	
 	
 	
 	

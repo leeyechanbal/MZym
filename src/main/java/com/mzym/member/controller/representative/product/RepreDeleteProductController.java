@@ -1,4 +1,4 @@
-package com.mzym.board.controller;
+package com.mzym.member.controller.representative.product;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.board.service.BoardService;
-import com.mzym.board.vo.BoardCategory;
+import com.mzym.member.model.service.RepreService;
 
 /**
- * Servlet implementation class FreeBoardEnrollFormController
+ * Servlet implementation class RepreDeleteProductController
  */
-@WebServlet("/freeEnrollForm.bo")
-public class FreeBoardEnrollFormController extends HttpServlet {
+@WebServlet("/deleteProduct.re")
+public class RepreDeleteProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardEnrollFormController() {
+    public RepreDeleteProductController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,14 +28,15 @@ public class FreeBoardEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int type = Integer.parseInt(request.getParameter("type"));
-		System.out.println(type);
-		BoardCategory bc = new BoardService().selectBoardName(type);
-		request.setAttribute("bc", bc);
-		
-		request.getRequestDispatcher("/views/board/freeboard/freeBoardInsert.jsp").forward(request, response);
-		
+
+		int productNo = Integer.parseInt(request.getParameter("no"));
+		int result = new RepreService().deleteProduct(productNo);
+
+		if(result > 0) {
+			response.getWriter().write("success");
+		}else {
+			response.getWriter().write("failure");
+		}
 	}
 
 	/**

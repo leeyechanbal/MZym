@@ -1,26 +1,27 @@
-package com.mzym.board.controller;
+package com.mzym.product.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mzym.board.service.BoardService;
-import com.mzym.board.vo.BoardCategory;
+import com.mzym.mypage.model.vo.Product;
+import com.mzym.product.service.ProductService;
 
 /**
- * Servlet implementation class FreeBoardEnrollFormController
+ * Servlet implementation class ProductDetailController
  */
-@WebServlet("/freeEnrollForm.bo")
-public class FreeBoardEnrollFormController extends HttpServlet {
+@WebServlet("/product.detail")
+public class ProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardEnrollFormController() {
+    public ProductDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,13 +30,21 @@ public class FreeBoardEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int productNo = Integer.parseInt(request.getParameter("no"));
 		
-		int type = Integer.parseInt(request.getParameter("type"));
-		System.out.println(type);
-		BoardCategory bc = new BoardService().selectBoardName(type);
-		request.setAttribute("bc", bc);
+		ProductService pb = new ProductService();
 		
-		request.getRequestDispatcher("/views/board/freeboard/freeBoardInsert.jsp").forward(request, response);
+		int result = pb.increaseCount(productNo);
+		
+		if(result>0) {
+			
+			Product p = pb.selectProduct(productNo);
+			request.setAttribute("p", p);
+			request.getRequestDispatcher("/views/board/productboard/productBoardDetail.jsp").forward(request, response);
+		}
+		
+
+	
 		
 	}
 

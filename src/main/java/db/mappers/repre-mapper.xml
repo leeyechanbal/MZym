@@ -20,6 +20,20 @@ ORDER BY YEAR_MONTH DESC
 	WHERE STATUS = 'Y'
 </entry>
 
+<entry key="selectlistMember">
+	SELECT
+		COUNT(*) COUNT
+	FROM MZYM_MEMBER
+	WHERE STATUS = 'Y'
+</entry>
+
+<entry key="selectlistProduct">
+	SELECT
+		COUNT(*) COUNT
+	FROM PRODUCT
+	WHERE STATUS = 'Y'
+</entry>
+
 <entry key="selectlistVideo">
 	SELECT
 		COUNT(*) COUNT
@@ -112,6 +126,56 @@ UPDATE
 	   SET 
 	   	   STATUS = 'N'
 	 WHERE VIDEO_NO = ?
+</entry>
+
+<entry key="selectProduct">
+SELECT *
+FROM (
+    SELECT t.*, ROWNUM AS rnum
+    FROM (
+        SELECT *
+        FROM PRODUCT
+        WHERE STATUS = 'Y'
+        ORDER BY PRODUCT_NO DESC
+    ) t
+)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="insertProduct">
+	INSERT
+	  INTO PRODUCT
+	  (
+	    PRODUCT_NO
+	  , PRODUCT_NAME
+	  , IMAGE_URL
+	  , PRODUCT_PRICE
+	  )
+	  VALUES
+	  (
+	    SEQ_PRODUCTNO.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<entry key="updateProduct">
+UPDATE
+		  PRODUCT
+	   SET 
+	   	   PRODUCT_NAME = ?
+	     , PRODUCT_PRICE = ?
+	     , IMAGE_URL = ?
+	 WHERE PRODUCT_NO = ?
+</entry>
+
+<entry key="deleteProduct">
+UPDATE
+		  PRODUCT
+	   SET 
+	   	   STATUS = 'N'
+	 WHERE PRODUCT_NO = ?
 </entry>
 
 </properties>

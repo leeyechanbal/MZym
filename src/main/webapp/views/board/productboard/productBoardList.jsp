@@ -179,6 +179,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 		            <div class="board_list">
 						<% for(int i = 0; i < bestList.size(); i++) { %> 
 		                <div class="thumbnail">
+		                	<input type = hidden value ="<%=bestList.get(i).getProductNo() %>">
 		                    <img class="thumbnail_img" src="<%= contextPath + "/" + list.get(i).getUpfileUrl() %>">
 		                    <div class="thumbnail_title"><%=list.get(i).getProductName()%></div>
 		                    <div class="thumbnail_etc">
@@ -200,6 +201,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 	            <div class="board_list">
 	            <% for(int i = 0; i < list.size(); i++) { %>
 	                <div class="thumbnail">
+	                	<input type = hidden value ="<%=list.get(i).getProductNo() %>">
 	                    <img class="thumbnail_img" src="<%= contextPath + "/" + list.get(i).getUpfileUrl() %>">
 	                    <div class="thumbnail_title"><%=list.get(i).getProductName()%></div>
 	                    <div class="thumbnail_etc">
@@ -212,7 +214,13 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 	         	
 	            <br>
 				</div>
-				
+				 	<script>
+                    	$(function(){
+                    		$(".thumbnail").click(function(){
+                    			location.href = "<%=contextPath%>/product.detail?no=" + $(this).children().eq(0).val();
+                    		})
+                    	})
+                    </script>
 				
 				
 				
