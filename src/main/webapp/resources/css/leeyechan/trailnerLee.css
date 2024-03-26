@@ -6,8 +6,9 @@
 
         /* 맨 바깥요소 태두리 및 크기 지정 */
         #outTable{
-            border: 1px black solid;
+            border: 10px black solid;
             min-width: 1500px;
+            border-style: double;
         }
         /* 사이드바, 게시판 정렬 */
         body{

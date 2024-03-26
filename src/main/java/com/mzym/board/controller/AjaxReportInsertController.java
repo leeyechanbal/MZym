@@ -6,9 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mzym.board.service.BoardService;
 import com.mzym.board.vo.Report;
+import com.mzym.member.model.vo.Member;
 
 /**
  * Servlet implementation class AjaxReportInsertController
@@ -31,7 +33,11 @@ public class AjaxReportInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int boardNo = Integer.parseInt(request.getParameter("postId"));
-		int reportUser = Integer.parseInt(request.getParameter("reporterId"));
+		
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int reportUser = loginUser.getUserNo();
+		
 		int CategoryNo = Integer.parseInt(request.getParameter("reportReason"));
 		
 		Report r = new Report();

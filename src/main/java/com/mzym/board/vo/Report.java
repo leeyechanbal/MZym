@@ -13,6 +13,7 @@ public class Report {
 	private int reportUser; // 신고한 회원 번호
 	private String reportDate; // 신고한 날짜
 	private String status;
+	private String reportContent;
 	
 	private String userID; // 신고한 유저 아이디를 담을 변수
 	
@@ -21,10 +22,9 @@ public class Report {
 	
 	public Report() {}
 
-	
 
 	public Report(int reportNo, int boardNo, int commentNo, int categoryNo, int reportUser, String reportDate,
-			String status, String categoryName, String userID, Board board, Comment comment) {
+			String status, String reportContent, String userID, Board board, Comment comment) {
 		super();
 		this.reportNo = reportNo;
 		this.boardNo = boardNo;
@@ -33,13 +33,12 @@ public class Report {
 		this.reportUser = reportUser;
 		this.reportDate = reportDate;
 		this.status = status;
+		this.reportContent = reportContent;
 		this.userID = userID;
 		this.board = board;
 		this.comment = comment;
 	}
-	
-	
-	
+
 
 	/**
 	 * 신고된 게시글의 정보을 받아오는 생성자
@@ -50,10 +49,11 @@ public class Report {
 	 * @param userID 신고자의 아이디
 	 * @param board 신고 된 게시물의 정보
 	 */
-	public Report(int reportNo, int categoryNo, String reportDate, String userID, Board board) {
+	public Report(int reportNo, int categoryNo, String reportDate,String reportContent , String userID, Board board) {
 		super();
 		this.reportNo = reportNo;
 		this.categoryNo = categoryNo;
+		this.reportContent = reportContent;
 		this.reportDate = reportDate;
 		this.userID = userID;
 		this.board = board;
@@ -71,10 +71,11 @@ public class Report {
 	 * @param board 신고된 댓글의 게시글 정보
 	 * @param comment 신고된 댓글의 정보
 	 */
-	public Report(int reportNo, int categoryNo, String reportDate, String userID, Board board, Comment comment) {
+	public Report(int reportNo, int categoryNo, String reportDate, String reportContent, String userID, Board board, Comment comment) {
 		super();
 		this.reportNo = reportNo;
 		this.categoryNo = categoryNo;
+		this.reportContent = reportContent;
 		this.reportDate = reportDate;
 		this.userID = userID;
 		this.board = board;
@@ -162,16 +163,24 @@ public class Report {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
+	
+	public String getReportContent() {
+		return reportContent;
+	}
+
+
+	public void setReportContent(String reportContent) {
+		this.reportContent = reportContent;
+	}
 
 
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", boardNo=" + boardNo + ", commentNo=" + commentNo + ", categoryNo="
 				+ categoryNo + ", reportUser=" + reportUser + ", reportDate=" + reportDate + ", status=" + status
-				+ ", userID=" + userID + ", board=" + board + ", comment=" + comment
-				+ "]";
+				+ ", reportContent=" + reportContent + ", userID=" + userID + ", board=" + board + ", comment="
+				+ comment + "]";
 	}
-
 
 
 }

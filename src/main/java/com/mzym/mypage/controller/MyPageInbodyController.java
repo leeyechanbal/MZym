@@ -41,6 +41,7 @@ public class MyPageInbodyController extends HttpServlet {
 		String strA = RRN.substring(7,8);
 		int gNum = Integer.parseInt(strA);
 		
+		
 		String frontYear = null;
 		if(gNum == 1 || gNum == 2 || gNum == 5 || gNum == 6) {
 			frontYear = "19";

@@ -172,8 +172,48 @@
                             }
                         }
 
+                        
+
                     </script>
 
+
+                    <Script>
+                        $(function(){
+                            $("#boardcontent tr").click(function(){
+                                const boardNo = $(this).children(".table-number").text();
+                                /* console.log(boardNo); */
+                                $("#deletModal").find("#boardNum").val(boardNo);
+                                
+                                const changeName = $(this).next().find("#change").val();            
+                                /* console.log(changeName) */
+                                $("#deletModal").find("#fileName").val(changeName);
+
+                                $(this).css('border', '3px solid #1abc9cc7').css('border-radius', '10px');
+
+                                $(this).siblings().css('border', '0');
+                                // console.log($(this).siblings());
+                                // console.log($(this).siblings('.show'));
+
+                                $(this).siblings('.show').removeClass('show');
+                                
+                            })
+
+                            // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
+                            $(function(){
+                                $(document).keypress(function(e){
+                                     // e가 숫자인지 0~9까지 인지 정규식 확인
+                                    console.log($("#boardcontent tr")); 
+                                    console.log(e.key); 
+                                    console.log(Number(e.key) + 1); 
+                                    console.log($("#boardcontent tr").eq(Number(e.key) + 1));
+
+                                    $("#boardcontent tr").eq(Number(e.key) + 1).addClass('show');
+                                }) 
+                                
+                            })
+                        })
+
+                    </Script>
 
                         <!-- 샘플데이터 -->
                         <tr>

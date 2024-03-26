@@ -110,7 +110,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
       margin-top: 50px;
    }
   
- homePageBoardContent:hover {
+ .homePageBoardContent:hover {
     background-color: #1abc9c;
     cursor: pointer;
   }
@@ -149,8 +149,8 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
 					<div class="carousel-inner trainerImg">
 					    <% for(int i = 0; i < trList.size(); i++) { %>
 					        <div class="carousel-item <%= i == 0 ? "active" : "" %>">
-					            <img src="<%= contextPath %>/resources/img/common/트레이너 이미지 샘플.png" alt="트레이너 이미지1">
-					            <!--<img src="<%= contextPath + "/" + trList.get(i).getImageURL() %>" alt="트레이너 이미지">-->
+					            <!--<img src="<%= contextPath %>/resources/img/common/트레이너 이미지 샘플.png" alt="트레이너 이미지1">-->
+					            <img src="<%= contextPath + "/" + trList.get(i).getImageURL() %>" alt="트레이너 이미지">
 					            <div class="carousel-caption d-none d-md-block text-area">
 					                <h3><%= trList.get(i).getUserName() %> 트레이너</h3>
 					                <div>
@@ -215,7 +215,7 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
                 
                 <div class="boardArea">
                   <div style="text-align: center; margin-bottom: 50px;"><span><h3>질문게시판</h3></span></div>
-                  <table class="table">
+                  <table class="table" id="anwserBoard_list">
                     <thead>
                       <tr>
                       <th width="15%">글번호</th>
@@ -242,7 +242,13 @@ List<Board> List2 = (List<Board>)request.getAttribute("List2");
                 </div>
             
               </div>
-
+				<script>
+			            $(function(){
+			                $("#anwserBoard_list>tbody>tr").click(function(){
+			                	location.href = "<%=contextPath%>//*freedetail.bo*/?no=" + $(this).children().eq(0).text();
+			                })
+			            })
+			            </script>		
         </div>
       </section>
       <!--section end-->

@@ -15,6 +15,8 @@ public class Product {
 	private Date registDate;
 	private String imageURL;
 	private String status;
+	private int count;
+	private String upfileUrl;
 	
 	public Product() {}
 	
@@ -34,13 +36,31 @@ public class Product {
 
 
 
-	public Product(int productNo, String productName, String productContent, int price, Date registDate) {
+	public Product(int productNo, String productName, String productContent, int price, Date registDate,int count, String upfileUrl) {
 		super();
 		this.productNo = productNo;
 		this.productName = productName;
 		this.productContent = productContent;
 		this.price = price;
 		this.registDate = registDate;
+		this.upfileUrl = upfileUrl;
+		this.count =count;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getUpfileUrl() {
+		return upfileUrl;
+	}
+
+	public void setUpfileUrl(String upfileUrl) {
+		this.upfileUrl = upfileUrl;
 	}
 
 	public Product(String productName, String productContent, int price) {

@@ -75,14 +75,14 @@ public class ReportManagment extends HttpServlet {
 			
 			
 			if(listCount >= 0 && infoBoard != null && infoComment != null) {
-				// 게시글인 경우 반호나 대는 신고 리스트
+				// 게시글인 경우 반환 대는 신고 리스트
 				hash.replace("type", "board");
 				List<Report> listBoard = new BoardService().selectedBoard(infoBoard, hash);
 				
-				// 댓글인 경우 반호나 대는 신고 리스트
+				// 댓글인 경우 반환 대는 신고 리스트
 				hash.replace("type", "comment");
 				List<Report> listComment = new BoardService().selectedBoard(infoComment, hash);
-				
+	
 				
 				request.setAttribute("infoBoard", infoBoard);
 				request.setAttribute("listBoard", listBoard);
@@ -90,7 +90,7 @@ public class ReportManagment extends HttpServlet {
 				request.setAttribute("listComment", listComment);
 				request.setAttribute("bCategory", bCategory);
 				request.setAttribute("rCategory", rCategory);
-				request.setAttribute("categoryNum", categoryNum);
+				request.setAttribute("cate", categoryNum);
 				request.setAttribute("status", status);
 				
 				request.getRequestDispatcher("/views/trainer/Leeyechan/report.jsp").forward(request, response);

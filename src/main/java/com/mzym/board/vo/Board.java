@@ -1,6 +1,7 @@
 package com.mzym.board.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Board {
 	private int boardNo; // 글번호 
@@ -17,6 +18,9 @@ public class Board {
 	private String category; // 게시판 카테고리명을 담기 위한 변수
 	
 	private Attachment att; // 게시글의 첨부파일을 담기 위한 객체
+	private List<Attachment> atList;
+	
+	private String titleImgURL; // 대표이미지 경로 (후기게시판 목록페이지조회)
 	
 	public Board() {
 		super();
@@ -131,6 +135,22 @@ public class Board {
 		this.att = att;
 	}
 
+	public String getTitleImgURL() {
+		return titleImgURL;
+	}
+
+	public void setTitleImgURL(String titleImgURL) {
+		this.titleImgURL = titleImgURL;
+	}
+
+	public List<Attachment> getAtList() {
+		return atList;
+	}
+
+	public void setAtList(List<Attachment> atList) {
+		this.atList = atList;
+	}
+
 	public Board(int boardNo, int boardWriter, int boardType, String boardTitle, String boardContent, Date regist_Date,
 			Date modify_date, String status, int reviewRate, int count) {
 		super();
@@ -195,7 +215,13 @@ public class Board {
 		this.boardType = boardType;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Board [boardNo=" + boardNo + ", boardWriter=" + boardWriter + ", boardMember=" + boardMember
+				+ ", boardType=" + boardType + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+				+ ", regist_Date=" + regist_Date + ", modify_date=" + modify_date + ", status=" + status
+				+ ", reviewRate=" + reviewRate + ", count=" + count + ", category=" + category + ", att=" + att
+				+ ", titleImgURL=" + titleImgURL + "]";
+	}
 	
 }

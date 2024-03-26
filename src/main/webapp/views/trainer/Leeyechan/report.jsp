@@ -19,7 +19,7 @@
 	List<ReportCategory> rCategory = (List<ReportCategory>)request.getAttribute("rCategory");
 	// 페이지 단에서 리스트가 비어 있지 않는지 isEmpty 확인 그리고 로그아웃 구현, 로그 클릭시 selectedFuntion 가기
 	String status = (String)request.getAttribute("status");
-	int categoryNum = (int)request.getAttribute("categoryNum");
+	int categoryNum = (int)request.getAttribute("cate");
 	
 	String categoryName = null;
 	int numPT = 0;
@@ -31,19 +31,19 @@
 			categoryName = b.getCategoryName();
 		}
 		
-		if(b.getCategoryName().equals("PT및헬스장후기")){
+ 		if(b.getCategoryName().equals("PT및헬스장후기")){
 			numPT = b.getCategoryNo();
-		}
+		} 
 	}
 	
 %>
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 <meta charset="UTF-8">
 <title>신고</title>
 
-<%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
     <style>
 
         /* 신고 댓글 추가 스타일 */
@@ -76,7 +76,7 @@
                         </button>
                         <div class="dropdown-menu">
                         <% for(BoardCategory b : bCategory) {%>
-                          <a class="dropdown-item" href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&status=Y&cate=<%=b.getCategoryNo()%>"><%=b.getCategoryName()%></a>
+                          <a class="dropdown-item" href="<%=mzymPath%>/report.trainer?pageC=1&pageB=1&status=<%=status%>&cate=<%=b.getCategoryNo()%>"><%=b.getCategoryName()%></a>
                           <%} %>
                         </div>
                       </div>
@@ -107,7 +107,7 @@
         						Board b = r.getBoard();
         						Attachment a = b.getAtt();
         						
-        						if(b.getBoardType() != numPT) {
+        						if(categoryNum != numPT) {
         					%>
                             <!-- 게시글 : 첨부파일 -->
                                 <tr class="tr-title" data-toggle="collapse" data-target="#reBoard<%=i%>"> 
@@ -117,7 +117,7 @@
                                 </tr>
         
                                 <tr id="reBoard<%=i %>" class="collapse">
-                            <form action="" method="get">
+                          
                                     <td colspan="5">
                                         <div class="collapseitem">
                                             <fieldset>
@@ -133,12 +133,18 @@
                                                     </li>
                                                     <li>신고자: <%=r.getUserID() %></li>
                                                     <li>신고일: <%=r.getReportDate()%></li>
+                                                    <li>보고자: <%=loginUser.getUserId()%></li>
                                                 </ul>
                                             </fieldset>
+                                    <form action="" method="">
                                             <textarea cols="150" rows="5" readonly><%=b.getBoardContent()%></textarea>
                                             <legend><u>보고서</u></legend>
-                                            <textarea cols="150" rows="5" name="content"></textarea>
-                                            <input type="hidden" name="board" value="<%=b.getBoardNo()%>">
+                                            <%if(check){ %>
+                                            <textarea cols="150" rows="5" name="content" required></textarea>
+                                            <%} else { %>
+                                            	<textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            <%} %>
+                                            <input type="hidden" name="typeCheck" value="1">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                             <br><br>
                                             <div style="width: 100%; display: flex; justify-content: space-between;">
@@ -150,25 +156,27 @@
                                                 <div>첨부파일이 존재하지 않습니다.</div>
                                                 <%} %>
                                                 <div>
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm">철회</button>
-                                                    <% if (r.getCategoryNo() == 5) {%>
-                                                    	<button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
-                                                    <%} else { %>
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
+                                                
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                    <% if (r.getCategoryNo() != 5) {%>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                    <%}else{ %>
+                                                    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                            </form>
+                                    </form>
                                 </tr>
-							<%} else { %>
+							<%} else if(categoryNum == numPT) { %>
 
                             <!-- pt후기 : 사진 -->
-                            <form action="" method="get">
+                
                                 <tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
-                                    <td class="table-number"><%=r.getBoardNo() %></td>
-                                    <td class="table-title"><%=b.getBoardContent() %></td>
+                                    <td class="table-number"><%=r.getReportNo() %></td>
+                                    <td class="table-title"><%=b.getBoardTitle() %></td>
                                     <td><%=b.getBoardMember() %></td>
                                 </tr>
         
@@ -190,36 +198,48 @@
                                                     	<li>신고자: <%=r.getUserID() %></li>
                                                     	<li>신고일: <%=r.getReportDate()%></li>
                                                     </ul>
+                                                    <form action="" method="">
                                                     <textarea cols="75" rows="8" readonly><%=b.getBoardContent()%></textarea>
                                                     <legend><u>보고서</u></legend>
-                                                    <textarea cols="75" rows="8"  name="content"></textarea>
-                                                    <input type="hidden" name="board" value="<%=%>">
-                                                    <input type="hidden" name="report" value="<%=%>">
+                                                    <%if(check){ %>
+                                                        <textarea cols="75" rows="8" name="content" required></textarea>
+                                                        <%} else { %>
+                                                        <textarea cols="75" rows="8" name="content"><%=r.getReportContent()%></textarea>
+                                                        <%} %>
+                                                    <input type="hidden" name="typeCheck" value="1">
+                                                    <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                                 </fieldset>
                                                 <!-- 사진 미리보기 -->
                                                 <div id="demo" class="carousel slide" data-ride="carousel">
 
                                                     <!-- Indicators -->
-                                                    <ul class="carousel-indicators">
-															<!-- 파일레벨 -->                                                   
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="0" class="<%-- <%=(i == 0 )?"active":""%> --%>"></li>
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="1"></li>
-                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="2"></li>
+													
+													<% if(a != null){%>  
+                                                        <!-- 첨부파일이 없을 경우 로고 이미지 출력 -->
+													<ul class="carousel-indicators">                                             
+                                                      <li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
                                                     </ul>
                                                     
                                                     <!-- The slideshow -->
                                                     <div class="carousel-inner">
                                                       <div class="carousel-item active"><span class="badge badge-dark">1</span>
-                                                        <img src="" width="500px" height="500px">
-                                                      </div>
-                                                      <div class="carousel-item"><span class="badge badge-dark">2</span>
-                                                        <img src="" width="500px" height="500px">
-                                                      </div>
-                                                      <div class="carousel-item">
-                                                        <img src="" width="500px" height="500px">
+                                                        <img src="<%=mzymPath + a.getFilePath()+ "/" + a.getChangeName()%>" width="500px" height="500px">
                                                       </div>
                                                     </div>
-                                                    
+                                                    <%} else { %>
+                                                    <ul class="carousel-indicators">                                             
+                                                    	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
+                                                   	</ul>
+                                                   	<!-- 기본 로고 페이지 출력 -->
+                                                   	<div class="carousel-inner">
+                                                      <div class="carousel-item active"><span class="badge badge-dark">1</span>
+                                                        <img src="<%=mzymPath%>/resources/img/MZYM_logo_272x167.png" width="500px" height="500px">
+                                                      </div>
+                                                    </div>
+
+
+
+                                                    <%} %>
                                                     <!-- Left and right controls -->
                                                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
                                                       <span class="carousel-control-prev-icon" style="background-color: black;"></span>
@@ -231,12 +251,13 @@
                                                   <!-- 사진 영역 -->
                                         </div>
                                         <div style="text-align: -webkit-right; margin-top: 10px;">
-                                            <button type="submit" class="btn btn-outline-secondary btn-sm">철회</button>
-                                            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                            <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                         </div>
+                                    </form>
                                     </td>
                                 </tr>
-                            </form>
+                    
                             	<%} %> <!-- 사진과 게시글 나누는 if문 끝 -->
                             <%} %><!-- 게시글 for문 끝 -->
                             </table>
@@ -258,16 +279,16 @@
                         		Board b = r.getBoard();
                         		Comment c = r.getComment();
                         	%>
-                            <form action="" method="get">
-                                <tr class="tr-title" data-toggle="collapse" data-target="#reComment<%=i%>">
-                                    <td class="table-number"><%=r.getReportNo() %></td>
-                                    <td class="table-title"><%=b.getBoardTitle() %></td>
-                                    <td><%=c.getUserName()%></td>
-                                </tr>
-        
-                                <tr id="reComment<%=i%>" class="collapse">
-                                    <td colspan="5">
-                                        <div class="collapseitem">
+                            <tr class="tr-title" data-toggle="collapse" data-target="#reComment<%=i%>">
+                                <td class="table-number"><%=r.getReportNo() %></td>
+                                <td class="table-title"><%=b.getBoardTitle() %></td>
+                                <td><%=c.getUserName()%></td>
+                            </tr>
+                            
+                            <tr id="reComment<%=i%>" class="collapse">
+                                <td colspan="5">
+                                    <div class="collapseitem">
+                                <form action="" method="">
                                             <fieldset style="text-align: start;">
                                                 <legend><u>세부사항</u></legend>
                                                 <ul>
@@ -285,18 +306,22 @@
                                             </fieldset>
                                             <textarea cols="150" rows="5" readonly><%=c.getCommentContent()%></textarea>
                                             <legend><u>보고서</u></legend>
-                                            <textarea cols="150" rows="5" name="content"></textarea>
-                                            <input type="hidden" name="board" value="<%=b.getBoardNo()%>">
+                                            <%if(check){ %>
+                                            <textarea cols="150" rows="5" name="content" required></textarea>
+                                            <%} else { %>
+                                            <textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            <%} %>
+                                            <input type="hidden" name="typeCheck" value="0">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
                                             <br><br>
                                             <div style="text-align: -webkit-right;">
-                                                <button type="submit" class="btn btn-outline-secondary btn-sm">철회</button>
-                                                <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                             </div>
                                         </div>
                                     </td>
+                                </form>
                                 </tr>
-                            </form>
                             <%} %>
                             
                             </table>
@@ -388,17 +413,20 @@
                 $(function(){
                     $(".nav-item a").click(function(){
                         const type = $(this).text()
-                        console.log(type);
+                        //console.log(type);
 
                         if(type == '게시글'){
                             const $paging = $('.paging-board');
                             $paging.css('content-visibility', 'visible');
-                            console.log($paging.next())
+                            // console.log($paging.next())
                             $paging.next().css('content-visibility', 'hidden');
+
+
+
                         } else {
                             const $paging = $('.paging-commnet');
                             $paging.css('content-visibility', 'visible');
-                            console.log($paging.prev())
+                            // console.log($paging.prev())
                             $paging.prev().css('content-visibility', 'hidden');
                         }
 
@@ -406,11 +434,91 @@
 
                     $("#boardcontent tr").click(function(){
                         const boardNo = $(this).children(".table-number").text();
-                        const text = $(this).next().find(".report-content").val();
-                        // console.log(text); 
                         $("#deletModal").find(".board-data").val(boardNo);  
-                        $("#myModal").find(".board-data").val(boardNo);
-                        $("#myModal").find(".board-text").val(text);        
+                        
+                        $(this).css('border', '3px solid #1abc9cc7');
+
+                        $(this).siblings().css('border', '0');
+                        // console.log($(this).siblings());
+                        // console.log($(this).siblings('.show'));
+                       
+                        $(this).siblings('.show').removeClass('show');
+
+                    })
+
+                    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
+                    $(function(){
+                        $(document).keypress(function(e){
+                            // console.log($("#boardcontent tr")); 
+                            // console.log(e.key); 
+                            // console.log(Number(e.key) * 2); 
+                            // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
+                            const val = e.key;
+                            let $t = null;
+                            if(val != 0){
+                                $t = $("#boardcontent tr").eq(Number(val) * 2);   
+                            } else if (val == 0){
+                                $t = $("#boardcontent tr").eq(20);
+                            }
+
+                            $t.css('border', '3px solid #1abc9cc7');
+                                $t.addClass('show');
+
+                                $t.siblings().css('border', '0');
+                                $t.siblings('.show').removeClass('show');
+
+                        }) 
+                                
+                    })
+
+
+
+                    $(".type1").click(function(){
+                        const $form = $(this).parents('form');
+                        // console.log($form);
+                        const reportNo = $form.find('input[name=report]').val();
+                        // console.log(reportNo);
+                        const text = $form.find('textarea[name=content]').val();
+                        // console.log(text);
+                        const typeCheck = $form.find('input[name=typeCheck]').val();
+                        // console.log(typeCheck);
+
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=1';
+                        // console.log(str);
+                       location.href = str;
+                        // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
+                    })
+
+                    $(".type2").click(function(){
+                        const $form = $(this).parents('form');
+                        // console.log($form);
+                        const reportNo = $form.find('input[name=report]').val();
+                        // console.log(reportNo);
+                        const text = $form.find('textarea[name=content]').val();
+                        // console.log(text);
+                        const typeCheck = $form.find('input[name=typeCheck]').val();
+                        // console.log(typeCheck);
+
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
+                        // console.log(str);
+                       location.href = str;
+                    })
+                    
+
+                    $("[data-target='#myModal']").click(function(){
+                        // console.log(this);
+                        // console.log($(this).parents('.collapseitem'));
+
+                        const reportNo =  $(this).parents('.collapseitem').children('input[name=report]').val()
+                        // console.log(reportNo);
+
+                        const content =  $(this).parents('.collapseitem').children('textarea[name=content]').val() 
+                        // console.log(content);
+
+                        $("#myModal").find("input[name=reportNo]").val(reportNo);
+                        $("#myModal").find("input[name=text]").val(content);    
+
+
                     })
 
 
@@ -419,7 +527,6 @@
             
             
             <td class="section3 ">
-         
                 
 					<!-- 이동용 모달 -->
 					<div class="modal" id="myModal">
@@ -433,11 +540,11 @@
 					        </div>
 					  
 					        <!-- Modal body -->
-					    <form action="/moveBoard.trainer" method="post">
+					    <form action="<%=mzymPath%>/moveBoard.trainer" method="get">
 					        <div class="modal-body">
 					        <div class="in-line">
 					            <h5>현재 선택된 게시글</h5> 
-					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo">번</div>
+					            <div style="font-size: 15px;"><input type="text" name="reportNo">번</div>
 					            <div style="font-size: 20px;">현재 위치 : <%=categoryName%></div>
 					            <br>
 					            <div style="font-size: 20px; display: flex"> 이동 위치 선택
@@ -447,8 +554,9 @@
 					                     <%} %>
 					                </ul>
 					            </div>
-					            <input type="hidden" class="outmove" name="selectNo">
-                                <input type="hidden" class="board-text" name="text">
+					            <input type="hidden" name="selectNo">
+                                <input type="text" name="text">
+                                <input type="text" name="cate" value="<%=categoryNum%>">
 					        </div>
 					        </div>
 					
@@ -469,10 +577,8 @@
 					                // 제이쿼리에서 선택된 요소를 제외한고 골라준다.
 					                $(this).siblings().css('border', '0')
 					
-					                $(".outmove").val($(this).val());
+					                $("input[name=selectNo]").val($(this).val());
 					            })
-					
-					
 					           
 					        })
 					    </script>
@@ -498,8 +604,9 @@
 					        <!-- Modal body -->
 					        <form action="<%=mzymPath%>/reportDelete.trainer">
 					        <div class="in-line" style="text-align: center;">
-					            <h5>현재 선택된 게시글</h5> 
+					            <h5>현재 선택된 데이터 번호</h5> 
 					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo" value="0">번</div>
+					           	<input type="text" name="cate" value="<%=categoryNum%>">
 					            <div class="modal-body" style="text-align: center; font-size: 15px; ">
 					                게시물을 정말로 삭제 하시겠습니까?
 					            </div>
@@ -508,7 +615,7 @@
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
 					            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-					            <button type="button" class="btn btn-outline-danger btn-sm">확인</button>
+					            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
 					        </div>
                         </form>
 					      </div>

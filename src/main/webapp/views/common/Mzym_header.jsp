@@ -69,12 +69,15 @@
 							}
 						</script>
                     </div>
+                    
                     <div class="Search_section">
+                    <!-- 
                         <div class="Search_area">
                             <img src="<%=contextPath %>/resources/img/common/검색 아이콘.PNG" style="height: 20px; margin-right: 5px;">
                             <input type="search" placeholder="검색어를 입력하세요">
                             
                         </div>
+                         -->
                     </div>
                     <div class="SearchText_section">
                         
@@ -103,7 +106,7 @@
                       <li><a>공지사항</a></li>
                       <li><a href="<%= contextPath%>/freelist.bo?type=1">자유게시판</a></li>
                       <li><a href="<%= contextPath%>/freelist.bo?type=2">질문게시판</a></li>
-                      <li><a>헬스장후기</a></li>
+                      <li><a href="<%= contextPath%>/list.re">헬스장후기</a></li>
                       <li><a href="<%= contextPath%>/freelist.bo?type=4">운동모임</a></li>
                     </ul>
                   </div>
@@ -111,7 +114,7 @@
             </div> 
    
             <div class="menu_item">
-              <a href="" class="community">상품구매</a>
+              <a href="<%=contextPath %>/product.list" class="community">상품구매</a>
             </div>
             <div class="menu_item" onmouseover="showTable1();" onmouseout="hideTable1();">
               <a href="" class="community">헬스장 안내</a>

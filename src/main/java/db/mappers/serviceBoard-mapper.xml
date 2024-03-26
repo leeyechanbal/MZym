@@ -241,4 +241,24 @@ WHERE
 </entry>-->
 
 
+
+<!-- 김민정 고객센터 답변 등록 -->
+<entry key="updateRepeat">
+UPDATE MZYM_SERVICE
+   SET SERVICE_REPEAT = ?
+     , REPEAT_DATE = SYSDATE
+ WHERE SERVICE_NO = ?
+   AND STATUS = 'Y'
+</entry>
+
+
+<!-- 김민정 고객센터 게시글 삭제 -->
+<!-- 위의 deleteServiceBoard 와 중복 
+<entry key="deleteServiceBoardTR">
+UPDATE MZYM_SERVICE
+   SET STATUS = 'N'
+ WHERE SERVICE_NO = ?
+</entry>
+-->
+
 </properties>

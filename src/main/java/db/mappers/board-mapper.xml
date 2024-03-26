@@ -295,6 +295,7 @@ from(
             , mzym_member.USER_ID reportID <!-- 신고자 아이디 -->
             , REPORT_DATE <!-- 신고일 -->
             , CATEGORY_NO <!-- 신고 카테고리 번호 -->
+            , REPORT_CONTENT
             <!-- board -->
             , BOARD_NO <!-- 신고 카테고리 -->
             , BOARD_TYPE <!-- 게시글의 타입 -->
@@ -321,10 +322,10 @@ from(
             from mzym_board 
             join mzym_member on(BOARD_WRITER = USER_NO)
             left join Attachment on (att_no = BOARD_NO and ATT_CATEGORY != 'N')
-            and  board_type = ? <!-- 해당 카테고리의 숫자값 -->
                 ) board using (BOARD_NO)
         join mzym_member on (REPORT_USER = USER_NO)
         where report.status = ? <!-- N : 신고 완료, Y : 신고 대기 -->
+        and  board_type = ? <!-- 해당 카테고리의 숫자값 -->
         order by REPORT_NO DESC 
     )report
 )
@@ -347,6 +348,7 @@ from(
            , USER_ID <!-- 신고자 아이디 -->
            , REPORT_DATE 
 		   , CATEGORY_NO  <!-- 신고 카테고리 -->
+           , REPORT_CONTENT		   
            <!-- board -->
            , com.board_No
            , BOARD_TITLE
@@ -366,12 +368,12 @@ from(
                     , COMMENT_CONTENT
                 from board_comment
                 join mzym_board using (BOARD_NO)
-                where BOARD_TYPE = ?<!-- 게시물 타입 번호 -->
 			<!-- 신고 처리가 될때 게시물의 상태를 'N'으로 바꾸어야만 조회가 됨 -->
             ) com using (COMMENT_NO)
         
         join mzym_member on (REPORT_USER = USER_NO)
         where report.STATUS = ? <!-- 신고된 상태 N 처리완료 Y 신고대기 -->
+        and BOARD_TYPE = ?<!-- 게시물 타입 번호 -->
         order by REPORT_NO DESC 
     )n
 )
@@ -412,12 +414,12 @@ where board_no = (
      select board_no
      from report
      where report_no = ?
-     )
+)
 </entry>
 
 <!-- 
 	작성자 : 이예찬
-	게시물 이동 후 신고테이블에서 상태를 N으로 변경하는 쿼리
+	신고테이블에서 상태를 N으로 변경하는 쿼리
  -->
 <entry key="reportStatusN">
 update report
@@ -429,7 +431,7 @@ where report_no = ?
 
 <!-- 
 	작성자 : 이예찬
-	사게 요청된 신고 게시물의 상태를 K로 변경
+	삭제 요청된 신고 게시물의 상태를 K로 변경
  -->
 <entry key="deleteReport">
 update report
@@ -438,10 +440,35 @@ where report_no = ?
 </entry>
 
 
-<!--  -->
-<entry key=""></entry>
-<!--  -->
-<entry key=""></entry>
+<!-- 
+	작성자 : 이예찬
+	신고 철회 요청된 게시물의 상태를 변경하는 쿼리
+ -->
+<entry key="boardStatusY">
+update mzym_board
+set status = 'Y'
+where board_no = (
+     select board_no
+     from report
+     where report_no = ?
+     )
+</entry>
+
+<!-- 
+	작성자 : 이예찬
+	신고 철회 요청에 댓글의 상태를 변경하는 쿼리
+ -->
+<entry key="commentStatusY">
+update board_comment
+set status = 'Y'
+where COMMENT_NO = (
+     select COMMENT_NO
+     from report
+     where report_no = ?
+     )
+</entry>
+
+
 <!--  -->
 <entry key=""></entry>
 
@@ -745,6 +772,92 @@ SELECT
  WHERE CATEGORY_NO = ?
 </entry>
 
+<!--
+	작성자 : 황수림
+	후기게시판 게시글 insert문
+ -->
+<entry key="insertReviewBoard">
+	INSERT
+	INTO MZYM_BOARD
+	(
+		BOARD_NO
+	,	BOARD_WRITER
+	,	BOARD_TYPE
+	,	BOARD_TITLE
+	,	REVIEW_RATE
+	,	BOARD_CONTENT
+	)
+	VALUES
+	(
+		SEQ_BOARDNO.NEXTVAL
+	,	?
+	,	3
+	,	?
+	,	?	
+	,	?
+	)
+</entry>
+
+
+<!--
+	작성자 : 황수림
+	후기게시판 첨부파일 insert문
+ -->
+<entry key="insertReviewAttachment">
+	INSERT
+	INTO ATTACHMENT
+	(
+		FILE_NO
+	,	ATT_NO
+	,	ATT_CATEGORY
+	,	ORIGIN_NAME
+	,	CHANGE_NAME
+	,	FILE_PATH
+	,	FILE_LEVEL
+	)
+	VALUES
+	(
+		SEQ_ATTACHMENT.NEXTVAL
+	,	SEQ_BOARDNO.CURRVAL
+	,	'B'
+	,	?
+	,	?
+	,	?
+	,	?
+	)
+</entry>
+
+<!--
+	작성자 : 황수림
+	후기게시판 select문
+ -->
+<entry key="selectReviewList">
+	SELECT
+	        BOARD_NO
+	    ,   BOARD_TITLE
+	    ,   REVIEW_RATE
+	    ,   COUNT
+	    ,   FILE_PATH || CHANGE_NAME TITLEIMG_URL
+	FROM    MZYM_BOARD B
+	JOIN    ATTACHMENT ON (ATT_NO = BOARD_NO)
+	WHERE BOARD_TYPE = 3
+	AND B.STATUS = 'Y'
+	AND FILE_LEVEL = 1
+	ORDER
+	    BY BOARD_NO DESC
+</entry>
+
+<!-- 
+작성자 : 황수림
+페이징 처리 위한 후기게시판 갯수 가져오는 쿼리
+ -->
+<entry key="selectReviewListCount">
+	SELECT	COUNT(*) COUNT
+	FROM	MZYM_BOARD
+	WHERE	BOARD_TYPE = 3
+	AND		STATUS = 'Y'
+</entry>
+
 <!-- ===========================황수림================================= -->
 
 <!--
@@ -873,6 +986,7 @@ SELECT
 </entry>
 
 
-<!--  -->
-<entry key=""></entry>
+
+
+
 </properties>

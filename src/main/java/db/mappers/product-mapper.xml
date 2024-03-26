@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="productListCount">
+SELECT COUNT(*) COUNT
+        FROM PRODUCT p 
+</entry>
+
+<entry key="productSelectList">
+SELECT *
+	FROM (
+    SELECT ROWNUM RNUM, A.*
+    FROM (
+        SELECT 
+            p.PRODUCT_NO,
+			p.PRODUCT_NAME,
+			p.PRODUCT_CONTENT,
+			p.PRODUCT_PRICE,
+			p.REGIST_DATE,
+			p.COUNT,
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL
+    
+        FROM PRODUCT p
+        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
+        ORDER BY p.PRODUCT_NO DESC
+    	) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+
+</entry>
+
+<entry key="bestProduct">
+<![CDATA[
+	SELECT *
+	FROM (
+    SELECT ROWNUM RNUM, A.*
+    FROM (
+        SELECT 
+            p.PRODUCT_NO,
+			p.PRODUCT_NAME,
+			p.PRODUCT_CONTENT,
+			p.PRODUCT_PRICE,
+			p.REGIST_DATE,
+			p.COUNT,
+            at.FILE_PATH || at.CHANGE_NAME UPFILEURL
+        FROM PRODUCT p
+        LEFT JOIN ATTACHMENT at ON p.PRODUCT_NO = AT.ATT_NO 
+        ORDER BY p.count DESC
+    	) A
+	 WHERE ROWNUM <= 4
+    )
+	WHERE RNUM >= 1
+]]>
+</entry>
+
+
+</properties>
