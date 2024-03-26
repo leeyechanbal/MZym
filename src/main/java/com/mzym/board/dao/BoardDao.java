@@ -985,6 +985,7 @@ public class BoardDao {
 							  rset.getString("board_content"),
 							  rset.getString("user_no")
 							  );
+				b.setBoardType(rset.getInt("board_type"));
 			}
 			
 		} catch (SQLException e) {
@@ -1363,6 +1364,9 @@ public class BoardDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -1410,6 +1414,36 @@ public class BoardDao {
 				close(pstmt);
 			}
 			return listCount;
+	}
+	
+	public List<Attachment> selectAttachmentReview(Connection conn, int BoardNo){
+		
+		List<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFreeAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, BoardNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setFileNO(rset.getInt("file_no"));
+				at.setChangeName(rset.getString("change_name"));
+				at.setFilePath(rset.getString("file_path"));
+				
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 /*	
 	=================================  황수림 a yellow forest ==================================

@@ -182,6 +182,16 @@ public class Board {
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 	}
+	
+
+	public Board(int boardNo, String boardMember, int boardType, String boardTitle, String boardContent) {
+		super();
+		this.boardNo = boardNo;
+		this.boardMember = boardMember;
+		this.boardType = boardType;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+	}
 
 	/**
 	 * db의 신고 테이블에서 게시판 과 첨부파일을 받아오는 생성자
@@ -221,7 +231,7 @@ public class Board {
 				+ ", boardType=" + boardType + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", regist_Date=" + regist_Date + ", modify_date=" + modify_date + ", status=" + status
 				+ ", reviewRate=" + reviewRate + ", count=" + count + ", category=" + category + ", att=" + att
-				+ ", titleImgURL=" + titleImgURL + "]";
+				+ ", atList=" + atList + ", titleImgURL=" + titleImgURL + "]";
 	}
-	
+
 }

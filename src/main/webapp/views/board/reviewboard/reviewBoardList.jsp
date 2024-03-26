@@ -7,11 +7,9 @@
 <%
 	List<Board> list = (List<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	System.out.println(pi);
 %>
     
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 <meta charset="UTF-8">
@@ -170,9 +168,16 @@
                     </div>
                 </div>
                 <% } %>
-
-
             </div>
+            
+            <script>
+                	$(function(){
+                		$(".thumbnail").click(function(){
+                			location.href = "<%=contextPath%>/detail.re?no=" + $(this).children().eq(0).val();
+                		})
+                	})
+                </script>
+            
             <br><br>
 
             <div class="search">

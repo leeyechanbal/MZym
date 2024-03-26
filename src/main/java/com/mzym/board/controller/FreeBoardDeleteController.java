@@ -1,6 +1,7 @@
 package com.mzym.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mzym.board.service.BoardService;
 import com.mzym.board.vo.Board;
+import com.mzym.board.vo.BoardCategory;
 
 /**
  * Servlet implementation class FreeBoardDeleteController
@@ -28,8 +30,9 @@ public class FreeBoardDeleteController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+			
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	    
 	    Board b = new Board();
 	    b.setBoardNo(boardNo); // 수정: 파라미터로 전달된 boardNo를 설정
