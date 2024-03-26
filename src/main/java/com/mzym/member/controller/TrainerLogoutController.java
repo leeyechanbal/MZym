@@ -31,7 +31,7 @@ public class TrainerLogoutController extends HttpServlet {
 		
 		request.getSession().invalidate();
 		
-		response.sendRedirect(request.getContextPath() + "/loginform.me");
+		response.sendRedirect(request.getContextPath() + "/login.me?status=T");
 	}
 
 	/**

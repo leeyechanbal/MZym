@@ -65,78 +65,45 @@ $(function(){
 
     })
 
-    $("#boardcontent tr").click(function(){
-        const boardNo = $(this).children(".table-number").text();
-        $("#deletModal").find(".board-data").val(boardNo);  
+    // $("#boardcontent tr").click(function(){
+    //     const boardNo = $(this).children(".table-number").text();
+    //     $("#deletModal").find(".board-data").val(boardNo);  
         
-        $(this).css('border', '3px solid #1abc9cc7');
+    //     $(this).css('border', '3px solid #1abc9cc7');
 
-        $(this).siblings().css('border', '0');
-        // console.log($(this).siblings());
-        // console.log($(this).siblings('.show'));
+    //     $(this).siblings().css('border', '0');
+    //     // console.log($(this).siblings());
+    //     // console.log($(this).siblings('.show'));
        
-        $(this).siblings('.show').removeClass('show');
+    //     $(this).siblings('.show').removeClass('show');
 
-    })
+    // })
 
     // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
-    $(function(){
-        $(document).keypress(function(e){
-            // console.log($("#boardcontent tr")); 
-            // console.log(e.key); 
-            // console.log(Number(e.key) * 2); 
-            // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
-            const val = e.key;
-            let $t = null;
-            if(val != 0){
-                $t = $("#boardcontent tr").eq(Number(val) * 2);   
-            } else if (val == 0){
-                $t = $("#boardcontent tr").eq(20);
-            }
+    // $(function(){
+    //     $(document).keypress(function(e){
+    //         // console.log($("#boardcontent tr")); 
+    //         // console.log(e.key); 
+    //         // console.log(Number(e.key) * 2); 
+    //         // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
+    //         const val = e.key;
+    //         let $t = null;
+    //         if(val != 0){
+    //             $t = $("#boardcontent tr").eq(Number(val) * 2);   
+    //         } else if (val == 0){
+    //             $t = $("#boardcontent tr").eq(20);
+    //         }
 
-            $t.css('border', '3px solid #1abc9cc7');
-                $t.addClass('show');
+    //         $t.css('border', '3px solid #1abc9cc7');
+    //             $t.addClass('show');
 
-                $t.siblings().css('border', '0');
-                $t.siblings('.show').removeClass('show');
+    //             $t.siblings().css('border', '0');
+    //             $t.siblings('.show').removeClass('show');
 
-        }) 
+    //     }) 
                 
-    })
+    // })
 
-
-
-    $(".type1").click(function(){
-        const $form = $(this).parents('form');
-        // console.log($form);
-        const reportNo = $form.find('input[name=report]').val();
-        // console.log(reportNo);
-        const text = $form.find('textarea[name=content]').val();
-        // console.log(text);
-        const typeCheck = $form.find('input[name=typeCheck]').val();
-        // console.log(typeCheck);
-
-        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=1';
-        // console.log(str);
-       location.href = str;
-        // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
-    })
-
-    $(".type2").click(function(){
-        const $form = $(this).parents('form');
-        // console.log($form);
-        const reportNo = $form.find('input[name=report]').val();
-        // console.log(reportNo);
-        const text = $form.find('textarea[name=content]').val();
-        // console.log(text);
-        const typeCheck = $form.find('input[name=typeCheck]').val();
-        // console.log(typeCheck);
-
-        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
-        // console.log(str);
-       location.href = str;
-    })
-    
 
     $("[data-target='#myModal']").click(function(){
         // console.log(this);
