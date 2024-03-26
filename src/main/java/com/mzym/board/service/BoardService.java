@@ -610,6 +610,15 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+	
+	public List<Notice> selectNoticelist(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		List<Notice> list  = dao.selectNoticelist(conn, pi);
+		close(conn);
+		
+		return list;
+	}
 		
 		
 	/*	
@@ -671,6 +680,16 @@ public class BoardService {
 		int listCount = dao.selectReviewListCount(conn);
 		close(conn);
 		return listCount;
+		
+	}
+	
+	
+	public Notice selectNoticeList(int boardNo) {
+		Connection conn = getConnection();
+		
+		Notice n = dao.selectNoticeList(conn, boardNo);
+		close(conn);
+		return n;
 		
 	}
 	

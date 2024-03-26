@@ -864,6 +864,46 @@ SELECT
 	AND		STATUS = 'Y'
 </entry>
 
+<entry key="selectNoticelist">
+SELECT *
+	    FROM (
+	            SELECT ROWNUM RNUM, A.*
+	                FROM (
+	                        SELECT
+                            NOTICE_NO
+                            , USER_NAME
+                            , NOTICE_TITLE
+                            , NOTICE_CONTENT
+                            , TO_CHAR(N.REGIST_DATE, 'YY/MM/DD') REGIST_DATE
+	                        FROM
+	                            MZYM_NOTICE N
+	                        JOIN
+	                            MZYM_MEMBER ON (NOTICE_WRITER = USER_NO)
+	                        WHERE
+	                            N.STATUS = 'Y'
+	                        ORDER
+	                            BY NOTICE_NO DESC
+	                    ) A
+	        )
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 
+작성자 : 황수림
+공지사항 셀렉문
+ -->
+<entry key="selectNoticeList">
+	SELECT
+			NOTICE_NO
+		,	NOTICE_TITLE
+		,	NOTICE_CONTENT
+		,	NOTICE_WRITER
+	FROM	MZYM_NOTICE
+	JOIN 	MZYM_MEMBER ON (NOTICE_WRITER = USER_NO)
+	WHERE	NOTICE_NO = ?
+	AND		MZYM_NOTICE.STATUS = 'Y'
+</entry>
+
 
 <!-- ===========================황수림================================= -->
 
