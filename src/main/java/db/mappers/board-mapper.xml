@@ -453,7 +453,6 @@ where board_no = (
      where report_no = ?
      )
 </entry>
-
 <!-- 
 	작성자 : 이예찬
 	신고 철회 요청에 댓글의 상태를 변경하는 쿼리
@@ -467,8 +466,6 @@ where COMMENT_NO = (
      where report_no = ?
      )
 </entry>
-
-
 <!--  -->
 <entry key=""></entry>
 
