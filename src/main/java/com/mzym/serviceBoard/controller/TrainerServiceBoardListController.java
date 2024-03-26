@@ -32,6 +32,7 @@ public class TrainerServiceBoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		int listCount;    // 게시글 총 갯수
 		int currentPage; // 현재 페이지
@@ -43,7 +44,13 @@ public class TrainerServiceBoardListController extends HttpServlet {
 		int endPage;     // 끝수
 		
 		listCount = new ServiceBoardService().selectListCount();
-		currentPage = Integer.parseInt(request.getParameter("page"));
+		
+		try {
+		    currentPage = Integer.parseInt(request.getParameter("page"));
+		} catch (NumberFormatException e) {
+		    
+		    currentPage = 1;
+		}
 		pageLimit = 5;
 		boardLimit = 10;
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
