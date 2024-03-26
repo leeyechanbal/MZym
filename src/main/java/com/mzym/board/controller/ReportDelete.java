@@ -35,7 +35,7 @@ public class ReportDelete extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String a = request.getParameter("reportNo");
-		String cate = request.getParameter("nowCate");
+		String cate = request.getParameter("cate");
 		
 		HttpSession session = request.getSession();
 		if(a != null) {
