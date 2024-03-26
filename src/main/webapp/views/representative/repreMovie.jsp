@@ -444,7 +444,7 @@
                  				$("#saleSelectTable").html(selectSale(vidoeList, pageInfo, pageParam));
                  				
                  			},error:function(){
-                 				console.log("회원조회 등록용 ajax통신 실패")
+                 				console.log("영상조회 등록용 ajax통신 실패")
                  			}
                  		})
     				}
