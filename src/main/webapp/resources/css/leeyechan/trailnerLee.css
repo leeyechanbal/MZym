@@ -25,6 +25,9 @@
             display: flex;
             justify-content: center;
         }
+        .section2{
+            height: 700px;
+        }
         /* 버튼 쪽 가로길이 */
         .section3{
             width: 120px;

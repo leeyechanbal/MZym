@@ -17,7 +17,7 @@
 	<table id="outTable">
 	
 	<thead>
-          <td class="section1" id="back" onclick="history.back();"><img src="<%=mzymPath %>/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
+          <td class="section1" id="back" onclick="history.back();"><img style="cursor: pointer;" src="<%=mzymPath %>/resources/img/icon/back-igon-32x24.png" alt="뒤로가기"></td>
           <td class="section2" id="logo"><a href="<%=mzymPath%>/login.trainer"><img src="<%=mzymPath %>/resources/img/icon/logo-sm-170x100.png"></a></td>
           <td class="section3"></td>
      </thead>

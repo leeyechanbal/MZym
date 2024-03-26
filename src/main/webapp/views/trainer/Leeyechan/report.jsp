@@ -138,9 +138,10 @@
                  				            <form action="" method="">
                                             <textarea cols="150" rows="5" readonly><%=b.getBoardContent()%></textarea>
                                             <legend><u>보고서</u></legend>
-                                            <%if(check){ %>
+                                            <%if(check){ %> <!-- 상태가 Y일 경우 -->
                                             <textarea cols="150" rows="5" name="content" required></textarea>
                                             <%} else { %>
+                                                <!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
                                             	<textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
                                             <%} %>
                                             <input type="hidden" name="typeCheck" value="1">
@@ -155,7 +156,7 @@
                                                 <div>첨부파일이 존재하지 않습니다.</div>
                                                 <%} %>
                                                 <div>
-                                                
+                                                	<!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <% if (r.getCategoryNo() != 5) {%>
                                                     <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
@@ -178,6 +179,11 @@
                             		Board b = r.getBoard();
                             		List<Attachment> atList = b.getAtList(); 
                             	%>
+                            													<!-- 
+                            														첫번재는 무조건 실행
+                            														두번쨰 부터 첫번쨰 와 두번쨰 비교 (같으면 skip 다르면 excise)
+                            														총 4번을 실행 => 5번쟤와는 다른 글번호 => 실행 5번쟤 6번째 와 비교
+                            													 -->
                             	<% if((i == 0 ) ? true : (listBoard.get(i-1).getBoardNo() != listBoard.get(i).getBoardNo())) {%>
                           		 	<tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
                                     	<td class="table-number"><%=r.getReportNo() %></td>
@@ -212,6 +218,7 @@
                                                     <%if(check){ %>
                                                         <textarea cols="75" rows="8" name="content" required></textarea>
                                                         <%} else { %>
+                                                        <!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
                                                         <textarea cols="75" rows="8" name="content"><%=r.getReportContent()%></textarea>
                                                         <%} %>
                                                     <input type="hidden" name="typeCheck" value="1"> <!-- 게시물인지 댓글인지 -->
@@ -221,7 +228,7 @@
                                                 
                                                 <div id="demo" class="carousel slide" data-ride="carousel">
                                                
-													
+													<!-- 하나의 글에 정말 여러개의 att가 담기는지 확인 -->
 													<% if(!atList .isEmpty()){%>  
                                                     <!-- 사진이 있는 경우 -->
                                                     <!-- Indicators -->
@@ -233,9 +240,11 @@
 	                                                    
                                                     <!-- The slideshow -->
                                                     <div class="carousel-inner">
-                                                    <%for (int j = 0; j< atList.size(); j++ ){ %>
-                                                      <div class="carousel-item <%=atList.get(j).getFileLevel() == 1 ? "active": ""%>"><span class="badge badge-dark"><%=atList.get(j).getFileLevel()%></span>
-                                                        <img src="<%=mzymPath + atList.get(j).getFilePath()+ "/" + atList.get(j).getChangeName()%>" width="500px" height="500px">
+                                                    <%for (int j = 0; j< atList.size(); j++ ){ 
+                                                    	Attachment at = atList.get(j);
+                                                    %>
+                                                      <div class="carousel-item <%=at.getFileLevel() == 1 ? "active": ""%>"><span class="badge badge-dark"><%=at.getFileLevel()%></span>
+                                                        <img src="<%=mzymPath + at.getFilePath()+ "/" + at.getChangeName()%>" width="500px" height="500px">
                                                       </div>
                                                       <%} %>
                                                     </div>
@@ -254,7 +263,8 @@
                                                       </div>
                                                     </div>
 
-                                                    <%} %> <!-- 사진이 없는 경우 -->
+                                                    <%} %> 
+                                                    <!-- 사진이 없는 경우 -->
                                                     
                                                     <!-- Left and right controls -->
                                                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -267,6 +277,7 @@
                                             </div> <!-- collapsePicture 끝 -->
 
                                                 <div style="text-align: -webkit-right; margin-top: 10px;">
+                                                <!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
                                                 </div>
@@ -352,8 +363,7 @@
             <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
          
             <td class="section2" id="paging" >
-				<!-- 게시판 페이징 -->
-                <ul class="pagination paging-board" >
+	
                 <% 
                 	int bCurrent = infoBoard.getCurrentPage();
                 	int bMaxPage = infoBoard.getMaxPage();
@@ -361,6 +371,15 @@
 	            	int cMaxPage = infoComment.getMaxPage();
                 %>
                 
+                
+				<!-- 
+					후기에서 많은 양에 결과를 조회 했는데 출력을 안하다 보니 페이징 과 매칭이 안됨
+					
+					pt후기 일때와 아닐떄를 나누어서 페이징 처리해야됨
+			 	-->
+				<!-- 게시판 페이징 -->
+				<% if(categoryNum != numPT) { // 카테고리 게시판이 pt후기가 아닐 경우 %>
+                <ul class="pagination paging-board" >
                     <% if (bCurrent == 1) {%>
 	                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
 					<% } else {%>
@@ -389,6 +408,54 @@
 	                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
                     <%} %>
                 </ul>
+				<% } else { // 게시글 페이지가 PT후기일 경우%>
+				
+   				<ul class="pagination paging-board" >
+                    <% if (bCurrent == 1) {%>
+	                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+					<% } else {%>
+	                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/report.trainer?pageB=" + (bCurrent- 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status%>>이전</a></li>
+					<%} %>
+					
+					
+					
+					<!-- 페이징바 숫자 부분 -->
+					<% for (int i= infoBoard.getStartPage(); i <= infoBoard.getEndPage(); i++){ %>
+						
+						<%if((bCurrent <= bMaxPage)) {%>					
+							<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
+							<% if(bCurrent == i){ %>
+		                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
+		                    <%} else if (i <= infoBoard.getMaxPage()) { %>
+		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + i + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>"><%=i%></a></li>
+		                    <%}else { %>
+		                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
+		                    <%} %>
+	                    <%} %>
+					<%} %>
+					
+					
+					<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
+					<% if(bCurrent >= bMaxPage) {%>						
+	                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+                   	<%} else { %> 
+	                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
+                    <%} %>
+                </ul>	
+   					
+
+   				<%}  // pt 후기일 경우 페이징 처리 %>
+   				
+
+
+
+
+
+
+
+
+
+
 
    				
         		<!-- 댓글 페이징 -->
