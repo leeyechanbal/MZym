@@ -35,6 +35,8 @@ public class ReportDelete extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String a = request.getParameter("reportNo");
+		String cate = request.getParameter("cate");
+		
 		HttpSession session = request.getSession();
 		if(a != null) {
 			int reportNo = Integer.parseInt(a);
@@ -43,7 +45,7 @@ public class ReportDelete extends HttpServlet {
 			
 			if(result > 0) {
 				session.setAttribute("alert", "삭제 되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate=1&status=N");
+				response.sendRedirect(request.getContextPath() + "/report.trainer?pageC=1&pageB=1&cate="+ cate +"&status=N");
 			}
 			
 		}

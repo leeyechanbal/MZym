@@ -13,10 +13,28 @@ public class Product {
 	private String productContent;
 	private int price;
 	private Date registDate;
+	private String imageURL;
+	private String status;
 	private int count;
 	private String upfileUrl;
 	
 	public Product() {}
+	
+	
+
+	public Product(int productNo, String productName, String productContent, int price, Date registDate,
+			String imageURL, String status) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productContent = productContent;
+		this.price = price;
+		this.registDate = registDate;
+		this.imageURL = imageURL;
+		this.status = status;
+	}
+
+
 
 	public Product(int productNo, String productName, String productContent, int price, Date registDate,int count, String upfileUrl) {
 		super();
@@ -50,6 +68,24 @@ public class Product {
 		this.productName = productName;
 		this.productContent = productContent;
 		this.price = price;
+	}
+
+	
+	
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public int getProductNo() {

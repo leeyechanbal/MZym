@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/trainer/Leeyechan/trainerFilter.jsp" %>
+<%@ page import="com.mzym.member.model.vo.Member" %>
+<%
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	String trainerID = loginUser.getUserId();
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +26,7 @@
 		
         <tbody>
             <td class="section1" id="menu">
-                <div id="adi">관리자<br>xxx</div>
+                <div id="adi">관리자<br><%=trainerID%></div>
                 <div class="board-out">
                     <div id="board"><a href="<%=mzymPath%>/listNotice.trainer?page=1">공지사항</a></div>
 

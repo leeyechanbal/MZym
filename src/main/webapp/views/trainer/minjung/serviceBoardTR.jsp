@@ -86,8 +86,7 @@
                         </tr>
 
 					<%for(int i=0; i<list.size();i++){ %>
-                    <form action="<%=contextPath %>/updateServiceBoard.trainer?no=<%=list.get(i).getServiceNo() %>" method="post">
-                    	<!-- <input type="hidden" name="serviceTr" value="<%= loginUser.getUserNo() %>"> -->
+                    <form action="<%=contextPath %>/updateServiceBoard.trainer?no=<%=list.get(i).getServiceNo() %>" method="post" id="serviceList">
                         <tr class="tr-title" data-toggle="collapse" data-target="#context<%=i%>">
                             <td class="table-number" name=""><%=list.get(i).getServiceNo() %></td>
                             <td name=""><%=list.get(i).getCategoryNo() %></td>
@@ -111,19 +110,54 @@
                                 <%} %>
                                 <hr>
                                 <div class="repeat border rounded mx-auto">
-                                    <div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
-                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>"></div>
                                  	<%
                                  		int serviceTr = 0;
                                  		serviceTr = Integer.parseInt(String.valueOf(list.get(i).getServiceTr()));
                                     
                                     if(loginUser.getUserNo() == serviceTr){ %>
+                                    <div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
+                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>"></div>
                                     <button  type="submit" class="btn btn-outline-success btn-sm">답변</button>
+                                	<%}else { %>
+                                	<div><b>관리자<br><%=list.get(i).getServiceTr() %></b></div>
+                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>" readonly></div>
                                 	<%} %>
                                 </div>
                             </td>
                         </tr>
                     </form>
+                    
+                      <script>
+							  	$(document).ready(function(){
+							  		
+							  		$(".tr-title").on("click", function(){
+							  			var serviceNo = $(this).closest("tr").find(".table-number").text();
+							  			$("#deletebtn").data("serviceNo",serviceNo);
+							  		});
+							  		
+							  		$("#deletebtn").on("click",function(){
+							  			
+							  			var serviceNo = $(this).data("serviceNo");
+							  			
+							  			$.ajax({
+							  				url:"<%=contextPath%>/deleteServiceBoard.trainer",
+							  				data:{no:serviceNo},
+							  				type:"get",
+							  				success:function(result){
+							  					console.log(result);
+							  					alert("게시글 삭제 완료되었습니다.");
+							  				},
+							  				error:function(){
+							  					console.log("문의글 삭제 ajax 통신 실패");
+							  				}
+							  			})
+							  		})
+							  	})	
+					  </script>
+                    
+                    
+                    
+                    
                     <%} %>
 
                     </table>
@@ -168,7 +202,7 @@
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="border: 3px solid #1abc9cc7;">
   
         <!-- Modal Header -->
         <div class="modal-header">
@@ -185,14 +219,14 @@
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">확인</button>
+            <button type="button" class="btn btn-outline-danger btn-sm deletebtn" data-dismiss="modal">확인</button>
         </div>
   
       </div>
     </div>
   </div>
   
-  
+
 
   
   

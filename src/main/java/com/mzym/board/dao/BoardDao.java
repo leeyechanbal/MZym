@@ -556,9 +556,12 @@ public class BoardDao {
 		try {
 			// 신고 게시판 불러오기
 			if(hash.get("type").equals("board")) {
+				
+				int categoryNum = (int)hash.get("categoryNum");
+				
 				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
 				pst.setString(1,(String)hash.get("status"));
-				pst.setInt(2,(int)hash.get("categoryNum"));
+				pst.setInt(2,categoryNum);
 				pst.setInt(3, info.getStartBoard());
 				pst.setInt(4, info.getEndBoard());
 				
@@ -566,6 +569,8 @@ public class BoardDao {
 				
 				
 				while(rset.next()) {
+					if (categoryNum != 3) {
+					// 카테고리가 pt후기 아닌 경우
 					list.add(new Report(
 								rset.getInt("REPORT_NO")
 								, rset.getInt("CATEGORY_NO")
@@ -586,6 +591,35 @@ public class BoardDao {
 												)
 										)
 							));
+					
+					} else {
+						// 카테고리가 pt 후기인 경우
+						list.add(new Report(
+								rset.getInt("REPORT_NO")
+								, rset.getInt("CATEGORY_NO")
+								, rset.getString("REPORT_DATE")
+								, rset.getString("REPORT_CONTENT")
+								, rset.getString("reportID")
+								, new Board(
+										rset.getInt("BOARD_NO")
+										, rset.getInt("BOARD_TYPE")
+										, rset.getString("boardID")
+										, rset.getString("BOARD_TITLE")
+										, rset.getString("board_Content")
+										, new Attachment(
+												rset.getString("ORIGIN_NAME")
+												, rset.getNString("CHANGE_NAME")
+												, rset.getNString("FILE_PATH")
+												, rset.getInt("FILE_LEVEL")
+												)
+										)
+							));
+					}
+					
+					
+					
+					
+					
 				}
 				
 			} else {

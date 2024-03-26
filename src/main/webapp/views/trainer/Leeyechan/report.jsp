@@ -19,7 +19,7 @@
 	List<ReportCategory> rCategory = (List<ReportCategory>)request.getAttribute("rCategory");
 	// 페이지 단에서 리스트가 비어 있지 않는지 isEmpty 확인 그리고 로그아웃 구현, 로그 클릭시 selectedFuntion 가기
 	String status = (String)request.getAttribute("status");
-	int categoryNum = (int)request.getAttribute("categoryNum");
+	int categoryNum = (int)request.getAttribute("cate");
 	
 	String categoryName = null;
 	int numPT = 0;
@@ -133,6 +133,7 @@
                                                     </li>
                                                     <li>신고자: <%=r.getUserID() %></li>
                                                     <li>신고일: <%=r.getReportDate()%></li>
+                                                    <li>보고자: <%=loginUser.getUserId()%></li>
                                                 </ul>
                                             </fieldset>
                                     <form action="" method="">
@@ -141,7 +142,7 @@
                                             <%if(check){ %>
                                             <textarea cols="150" rows="5" name="content" required></textarea>
                                             <%} else { %>
-                                            <textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            	<textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
                                             <%} %>
                                             <input type="hidden" name="typeCheck" value="1">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
@@ -155,12 +156,14 @@
                                                 <div>첨부파일이 존재하지 않습니다.</div>
                                                 <%} %>
                                                 <div>
+                                                
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <% if (r.getCategoryNo() != 5) {%>
                                                     <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <%}else{ %>
                                                     <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -224,13 +227,6 @@
                                                       </div>
                                                     </div>
                                                     <%} else { %>
-                                                    <!-- 
-                                                        파일레벨 
-                                                        Report r = listBoard.get(i);
-                                                        Board b = r.getBoard();
-                                                        Attachment a = b.getAtt(); 
-                                                    --> 
-                                                        
                                                     <ul class="carousel-indicators">                                             
                                                     	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
                                                    	</ul>
@@ -292,7 +288,7 @@
                             <tr id="reComment<%=i%>" class="collapse">
                                 <td colspan="5">
                                     <div class="collapseitem">
-                                <form action="" method="get">
+                                <form action="" method="">
                                             <fieldset style="text-align: start;">
                                                 <legend><u>세부사항</u></legend>
                                                 <ul>
@@ -440,7 +436,7 @@
                         const boardNo = $(this).children(".table-number").text();
                         $("#deletModal").find(".board-data").val(boardNo);  
                         
-                        $(this).css('border', '3px solid #1abc9cc7').css('border-radius', '10px');
+                        $(this).css('border', '3px solid #1abc9cc7');
 
                         $(this).siblings().css('border', '0');
                         // console.log($(this).siblings());
@@ -449,6 +445,32 @@
                         $(this).siblings('.show').removeClass('show');
 
                     })
+
+                    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
+                    $(function(){
+                        $(document).keypress(function(e){
+                            // console.log($("#boardcontent tr")); 
+                            // console.log(e.key); 
+                            // console.log(Number(e.key) * 2); 
+                            // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
+                            const val = e.key;
+                            let $t = null;
+                            if(val != 0){
+                                $t = $("#boardcontent tr").eq(Number(val) * 2);   
+                            } else if (val == 0){
+                                $t = $("#boardcontent tr").eq(20);
+                            }
+
+                            $t.css('border', '3px solid #1abc9cc7');
+                                $t.addClass('show');
+
+                                $t.siblings().css('border', '0');
+                                $t.siblings('.show').removeClass('show');
+
+                        }) 
+                                
+                    })
+
 
 
                     $(".type1").click(function(){
@@ -461,7 +483,7 @@
                         const typeCheck = $form.find('input[name=typeCheck]').val();
                         // console.log(typeCheck);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=1';
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=1';
                         // console.log(str);
                        location.href = str;
                         // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
@@ -477,7 +499,7 @@
                         const typeCheck = $form.find('input[name=typeCheck]').val();
                         // console.log(typeCheck);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck + '&type=2';
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
                         // console.log(str);
                        location.href = str;
                     })
@@ -532,8 +554,9 @@
 					                     <%} %>
 					                </ul>
 					            </div>
-					            <input type="text" name="selectNo">
+					            <input type="hidden" name="selectNo">
                                 <input type="text" name="text">
+                                <input type="text" name="cate" value="<%=categoryNum%>">
 					        </div>
 					        </div>
 					
@@ -583,6 +606,7 @@
 					        <div class="in-line" style="text-align: center;">
 					            <h5>현재 선택된 데이터 번호</h5> 
 					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo" value="0">번</div>
+					           	<input type="text" name="cate" value="<%=categoryNum%>">
 					            <div class="modal-body" style="text-align: center; font-size: 15px; ">
 					                게시물을 정말로 삭제 하시겠습니까?
 					            </div>

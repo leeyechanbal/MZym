@@ -15,7 +15,6 @@
 %>
 <%
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-System.out.println(loginUser);
 %>
 
 <!DOCTYPE html>
@@ -84,7 +83,7 @@ System.out.println(loginUser);
                 <div id="center">
                     <div id="info" style="text-align: -webkit-center;">
                         <img src="<%=mzymPath%>/resources/img/icon/trainer_icon_100x100.png" alt="adminWho">
-                        <p class="font"><%=currentDate%><br>안녕하세요. 관리자님</p>
+                        <p class="font"><%=currentDate%><br>안녕하세요. <%=loginUser.getUserId()%> 관리자님</p>
                     </div>
 
                     <a id="boradManagment" href="<%=mzymPath%>/listNotice.trainer?page=1">
@@ -99,7 +98,7 @@ System.out.println(loginUser);
                 </div>
 
                 <div id="foot">
-                    <a id="logOut" href="">
+                    <a id="logOut" href="<%=mzymPath%>/logout.trainer">
                         <img src="<%=mzymPath%>/resources/img/icon/logout-icon-50x50.png" alt="logout">
                         <div class="font">로그 아웃</div>
                     </a>

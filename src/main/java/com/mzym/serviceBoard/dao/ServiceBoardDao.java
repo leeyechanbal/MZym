@@ -414,6 +414,28 @@ public class ServiceBoardDao {
 	}
 	
 	
+	/**
+	 * @author 김민정
+	 */
+	public int deleteServiceBoardTR(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteServiceBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+		
+	}
 	
 	
 	
