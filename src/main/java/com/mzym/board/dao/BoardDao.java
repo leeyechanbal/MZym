@@ -1459,6 +1459,73 @@ public class BoardDao {
 		}
 		return list;
 	}
+	
+	public List<Notice> selectNoticelist(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Notice> list = new ArrayList<>();
+		String sql = prop.getProperty("selectNoticelist");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				list.add(new Notice(
+						rset.getInt("NOTICE_NO")
+						, rset.getString("USER_NAME")
+						, rset.getString("NOTICE_TITLE")
+						, rset.getString("NOTICE_CONTENT")
+						, rset.getString("REGIST_DATE")));
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public Notice selectNoticeList(Connection conn, int boardNo) {
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNoticeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new Notice(rset.getInt("notice_No"),
+							  rset.getString("notice_Title"),
+							  rset.getString("notice_Content"),
+							  rset.getInt("notice_Writer")
+							  );
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return n;
+	}
 /*	
 	=================================  황수림 a yellow forest ==================================
 */

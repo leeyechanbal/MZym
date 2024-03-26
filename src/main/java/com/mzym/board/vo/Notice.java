@@ -107,6 +107,33 @@ public class Notice {
 		this.att = att;
 	}
 
+	/**
+	 * @author 황수림
+	 * 공지사항 리스트 반환 
+	 * */
+	public Notice(int noticeNo, String writerName, String title, String content, String registDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.writerName = writerName;
+		this.title = title;
+		this.content = content;
+		this.registDate = registDate;
+	}
+	
+	
+	/**
+	 * @author 황수림
+	 * 공지사항 셀렉용
+	 * */
+
+	public Notice(int noticeNo, String title, String content, int writer) {
+		super();
+		this.noticeNo = noticeNo;
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+	}
+
 
 	public Attachment getAtt() {
 		return att;
