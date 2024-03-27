@@ -232,7 +232,7 @@
                                 </div>
 
                                 <div class="login_input_pwd">
-                                    <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="userPwd">
+                                    <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" name="userPwd" id="passwordInput">
                                 	<input type="hidden" name="status" value="A">
                                 </div>     
                             </form>
@@ -265,6 +265,13 @@
                 <script>
 				    document.getElementById("submitButton").addEventListener("click", function() {
 				        document.getElementById("loginForm").submit();
+				    });
+				    
+				    document.getElementById('passwordInput').addEventListener('keypress', function(event) {
+				        if (event.keyCode === 13) {
+				            event.preventDefault();
+				            document.getElementById('loginForm').submit();
+				        }
 				    });
 				</script>
             </div>

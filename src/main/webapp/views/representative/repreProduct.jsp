@@ -488,6 +488,8 @@
                      		        
                      				pageInfo = productMap.pi;
                      				productList = productMap.list;    
+                     				resetFile('updateCustomFile','updateLabel');
+                     				resetFile('insertCustomFile','insertLable');
                      				
                      				$("ul").html(generatePageLinks(pageInfo, pageParam));
                      				$("#saleSelectTable").html(selectSale(productList, pageInfo, pageParam));

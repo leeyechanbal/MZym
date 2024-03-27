@@ -272,7 +272,6 @@
                                     <th style="width: 11%;">생년월일</th>
                                     <th style="width: 11%;">이메일</th>
                                     <th style="width: 11%;">전화번호</th>
-                                    <th style="width: 11%;">경력</th>
                                 </tr>
                             </thead>
                             <tbody id="saleSelectTable">
@@ -444,6 +443,7 @@
 		                    }
 		                    if(check(form)) {
 		                    	signupTrainer(form)
+		                    	resetFile('insertCustomFile','insertLable')
 		                    }
 	                    });
     
@@ -462,6 +462,7 @@
 	                                	if (response === "success") {
 	                     		            // 성공 메시지를 보여줍니다.
 		                     				ajaxSelect(pageInfo.currentPage)
+		                     				resetFile('updateCustomFile','updateLabel')
 	                     		            $('#info_Modal').modal('hide');
 	                     		            alert("트레이너가 수정되었습니다.");
 	                     		        } else {
@@ -490,6 +491,7 @@
 	                                 	if (response === "success") {
 	                      		            // 성공 메시지를 보여줍니다.
 	 	                     				ajaxSelect(pageInfo.currentPage)
+	 	                     				resetFile('updateCustomFile','updateLabel')
 	                      		            $('#info_Modal').modal('hide');
 	                      		            alert("트레이너가 삭제되었습니다.");
 	                      		        } else {
@@ -676,7 +678,6 @@
         						            '<td></td>' +
         						            '<td></td>' +
         						            '<td></td>' +
-        						            '<td></td>' +
         						            '</tr>';
         						}else {
         							var jumin = trainerList[p].RRN 
@@ -691,7 +692,6 @@
         							    '<td>' + jumin + '</td>' +
         							    '<td>' + trainerList[p].email + '</td>' +
         							    '<td>' + trainerList[p].phone + '</td>' +
-        							    '<td>' + trainerList[p].trCareer + '</td>' +
         							    '</tr>';
         						}
         				    }
