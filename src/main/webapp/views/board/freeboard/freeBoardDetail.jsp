@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글조회</title>
 
 	<style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -136,7 +136,7 @@
                     <td><h3><%= b.getBoardTitle() %></h3></td>
                 </tr>
                 <tr>
-                    <td><div><%= b.getBoardContent() %></div></td>
+                    <td><div style="min-height : 300px"><%= b.getBoardContent() %></div></td>
                 </tr>
                 <tr>
                     <td>

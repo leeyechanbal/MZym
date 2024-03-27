@@ -142,7 +142,7 @@
                 </tr>
                 <tr>
                     <th width="100">작성자</th>
-                    <td width="400"><%= b.getBoardWriter() %></td>
+                    <td width="400"><%= b.getBoardMember() %></td>
                 </tr>
                 <tr>
                     <th>내용</th>
