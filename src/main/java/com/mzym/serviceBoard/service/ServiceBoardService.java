@@ -102,8 +102,7 @@ public class ServiceBoardService {
 			rollback(conn);
 		}
 		close(conn);
-		System.out.println("글수정시"+result1);
-		System.out.println("첨부파일 수정시"+result2);
+	
 		return result1 * result2;
 	}
 
