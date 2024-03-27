@@ -177,7 +177,7 @@ border rounded>span {
 	text-align: left;
 	min-height: 200px;
 }
-.my.pagination > .active > a, 
+ .my.pagination > .active > a, 
  .my.pagination > .active > span, 
  .my.pagination > .active > a:hover, 
  .my.pagination > .active > span:hover, 
@@ -187,8 +187,8 @@ border rounded>span {
      border-color: #1abc9c;
  }
  
- .page-item a.page-link {
- color: #1abc9c;
+.page-item a.page-link {
+	color: #1abc9c;
 }
 </style>
 </head>
@@ -455,7 +455,7 @@ border rounded>span {
 
 				<br>
 				<!--  페이징바 영역 -->
-				<ul class="pagination justify-content-center">
+				<ul class="pagination my justify-content-center">
 					<%if(pi.getCurrentPage()==1){ %>
 					<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 					<%}else{ %>

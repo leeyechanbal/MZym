@@ -455,7 +455,7 @@ border rounded>span {
 
 				<br>
 				<!--  페이징바 영역 -->
-				<ul class="pagination justify-content-center">
+				<ul class="pagination my justify-content-center">
 					<%if(pi.getCurrentPage()==1){ %>
 					<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 					<%}else{ %>
