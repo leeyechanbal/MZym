@@ -24,9 +24,7 @@
         .section2 > div{
             display: flex;
             justify-content: center;
-        }
-        .section2{
-            height: 700px;
+            min-height: 700px;
         }
         /* 버튼 쪽 가로길이 */
         .section3{

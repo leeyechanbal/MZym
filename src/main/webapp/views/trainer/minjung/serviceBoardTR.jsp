@@ -118,7 +118,7 @@
 	                                   
 	                        			
                                 	<%}else { %>
-	                                	<div><b><%=trainerID %><br></b></div>
+	                                	<div><b>관리자<%=s.getServiceTr() %><br></b></div>
 	                                    <div style="width: 80%;"><input type="control" class="form-control" required name="repeat" value="<%=list.get(i).getServiceRepeat() %>" readonly></div>
                                 	<%} %>
                                 	<%}else{ %>

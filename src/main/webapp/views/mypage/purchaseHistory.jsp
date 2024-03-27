@@ -115,9 +115,9 @@ margin-top: 60px;
                     <% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
                     
 	                    <% if(p == pi.getCurrentPage()) { %>
-	                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>     
+	                    <li class="page-item active"><a class="page-link" style="background-color: #1abc9c; border: 2px solid #1abc9c;" href="#"><%= p %></a></li>     
 	                    <% }else{ %>
-	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/purchase.me?page=<%= p %>"><%= p %></a></li>
+	                    <li class="page-item" ><a class="page-link" href="<%=contextPath%>/purchase.me?page=<%= p %>"><%= p %></a></li>
                         <% } %>  
                         
                    <% } %>
