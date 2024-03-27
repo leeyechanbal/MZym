@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 등록</title>
 
 <script src="../../../resources/js/summernote/summernote-lite.js"></script>
 <script src="../../../resources/js/summernote/summernote-ko-KR.js"></script>

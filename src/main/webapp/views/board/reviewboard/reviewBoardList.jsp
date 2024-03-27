@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PT 헬스장 후기</title>
 
 <style>
         .wrap, .wrap * {box-sizing: border-box;}
@@ -110,12 +110,6 @@
             text-align: center;
         }
 
-        .search {
-            position: relative;
-            width: 300px;
-            margin: 0 auto;
-        }
-
         input {
             width: 100%;
             border: 1px solid #bbb;
@@ -124,13 +118,6 @@
             font-size: 14px;
         }
 
-        .searchimg {
-            position : absolute;
-            width: 17px;
-            top: 10px;
-            right: 12px;
-            margin: 0;
-        }
 
     </style>
 </head>
@@ -145,7 +132,6 @@
         <div class="board_content">
             <h2>PT 헬스장 후기</h2>
             <hr>
-            <br><br>
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
             <% if(loginUser != null) { %>
@@ -178,12 +164,7 @@
                 	})
                 </script>
             
-            <br><br>
-
-            <div class="search">
-                <input type="text" placeholder="검색어를 입력하세요">
-                <img class="searchimg" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-            </div>
+            <br>
             <br>
 
             <!--  페이징바 영역 -->

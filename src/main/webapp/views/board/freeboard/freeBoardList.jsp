@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title><%= bc.getCategoryName()%></title>
 
  	<style>
    
@@ -37,21 +37,6 @@
         .board_content table>tbody>tr{
  		cursor:pointer
  		}
-
-       .sea {
-			position: relative;
-			width: 300px;
-			float: left;
-			margin-bottom: 30px;
-		}
-		.sea img {
-             position : absolute;
-             width: 18px;
-             top: 14px;
-             right: 12px;
-              margin: 0;
-        }
-		
 		
 		input {
              width: 100%;
@@ -110,11 +95,6 @@
 			<% if(loginUser != null) { %>
             <div class="sea">
 					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
-					<div class="sea">
-               		<input type="search" placeholder="검색어를 입력하세요" name="keyword" id="keyword">
-                	<img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-            		</div>
-					
 					</form>
 			</div>
 	
