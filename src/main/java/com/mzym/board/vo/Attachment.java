@@ -168,9 +168,10 @@ public class Attachment {
 
 	@Override
 	public String toString() {
-		return "Attachment [fileNO=" + fileNO + ", attNo=" + attNo + ", attCategory=" + attCategory + ", originName="
-				+ originName + ", changeName=" + changeName + ", filePath=" + filePath + ", uploadeDate=" + uploadeDate
-				+ ", fileLevel=" + fileLevel + ", status=" + status + "]";
+		return "Attachment [originName=" + originName + ", changeName=" + changeName + ", filePath=" + filePath + "]\n";
 	}
+
+
+
 	
 }
