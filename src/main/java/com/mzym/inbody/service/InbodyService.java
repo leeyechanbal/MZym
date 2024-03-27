@@ -20,7 +20,7 @@ public class InbodyService {
 	}
 	
 	
-	// 회원 인바디 정보 수정.
+	// 회원 인바디 정보 수정
 	public int updateInbody(Inbody ib, String userPhone) {
 		Connection conn = getConnection();
 		int result = iDao.updateInbody(conn, ib, userPhone);

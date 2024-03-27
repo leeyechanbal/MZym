@@ -350,7 +350,7 @@ SELECT
 </entry>
 
 
-<!-- 김민정 회원 인바디 수정. -->
+<!-- 김민정 회원 인바디 수정 -->
 <entry key="updateInbody">
 UPDATE INBODY
    SET BODY_HEIGHT = ?
@@ -368,10 +368,6 @@ UPDATE INBODY
 <entry key="insertInbody">
 INSERT 
 INTO INBODY
-(
-  USER_NO
-, 
-)
 VALUES 
 ((SELECT USER_NO
     FROM MZYM_MEMBER
@@ -381,10 +377,13 @@ VALUES
   , ?
   , ?
   , ?
+  , SYSDATE
+  , 'Y'
 ) 
 </entry>
 
-<!-- 김민정 회원 인바디 삭제 -->
+<!-- 김민정 회원 인바디 등록 -->
+
 <entry key="deleteInbody">
 UPDATE INBODY
    SET STATUS = 'N'
@@ -392,7 +391,8 @@ UPDATE INBODY
                     FROM MZYM_MEMBER
                    WHERE PHONE = ?)
 </entry>
-<!-- 작성자 엄희강 트레이너 정보를 불러오는 쿼리문 -->
+
+<!-- 작성자 엄희강 트레이너 정보를 불러오는 쿼리 -->
 <entry key="selectTrList">
  SELECT
     USER_NO,
