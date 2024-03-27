@@ -697,6 +697,7 @@ where COMMENT_NO = (
 	,	COMMENT_WRITER
 	,	BOARD_NO
 	,	COMMENT_CONTENT
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -704,6 +705,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 
@@ -719,6 +721,7 @@ where COMMENT_NO = (
 	,	BOARD_NO
 	,	CATEGORY_NO
 	,	REPORT_USER
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -726,6 +729,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 
