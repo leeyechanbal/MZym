@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>식단관리</title>
 <style>
 
     /*마이페이지 style*/
