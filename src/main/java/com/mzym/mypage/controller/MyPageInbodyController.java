@@ -66,20 +66,33 @@ public class MyPageInbodyController extends HttpServlet {
 		
 		int userNo = loginUser.getUserNo();
 		
+		/*--------------------- inbody 조회 -----------------*/
+		
 		Inbody body = new MyPageService().selectInbody(userNo);
 		
-		double height = body.getBodyHeight();
-		height /= 100;
-		double weight = body.getBodyWeight();
-		
-		double bmi = weight/(height*height);
-		
-		bmi = (int)(bmi*100)/100.0;
-		
+		double height = 0;
+		if(body != null) {
+			
+			height = body.getBodyHeight();
+			height /= 100;
+			double weight = body.getBodyWeight();
+			
+			double bmi = weight/(height*height);
+			
+			bmi = (int)(bmi*100)/100.0;
+			
+			request.setAttribute("body", body);
+			request.setAttribute("bmi", bmi);
+			
+		}else {
+			body = null;
+			double bmi = 0;
+			
+			request.setAttribute("body", body);
+			request.setAttribute("bmi", bmi);
+		}
 		request.setAttribute("age", age);
 		request.setAttribute("gender", gender);
-		request.setAttribute("body", body);
-		request.setAttribute("bmi", bmi);
 	
 		request.getRequestDispatcher("/views/mypage/inbodyInfo.jsp").forward(request, response);
 		

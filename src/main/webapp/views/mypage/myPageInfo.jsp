@@ -71,7 +71,7 @@ margin-left: 230px;
 }
 
 #btn_resign{
-    margin-left: 650px;
+    margin-left: 800px;
     background: #1ABC9C;
     color: white;
     border: #1ABC9C;
@@ -190,13 +190,20 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>헬스장 이용권</th>
-                                    <td><input type="text" name="health" readonly value="<%=health%> 까지"></td>
-                                	
+                                    <% if(health == "") { %>
+                                    <td><input type="text" name="health" readonly value="-"></td>
+                                    <% } else {%>
+                                    <td><input type="text" name="health" readonly value="<%=health%>까지"></td>
+                                	<% } %>
                                 </tr>
                               
 	                                <tr id="info">
 	                                    <th>PT 이용권</th>
+	                                    <% if(PT == 0 && ptNum == 0) { %>
+	                                     <td><input type="text" name="PT" readonly value="-"></td>
+	                                    <% } else { %>
 	                                    <td><input type="text" name="PT" readonly value="<%=ptNum%> / <%=PT%> 회"></td>
+	                                	<% } %>
 	                                </tr> 
                                               
                              </table>
