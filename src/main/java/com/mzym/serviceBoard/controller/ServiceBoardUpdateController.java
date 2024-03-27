@@ -39,7 +39,7 @@ public class ServiceBoardUpdateController extends HttpServlet {
 			
 			int maxSize = 10*1024*1024;
 			
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/"); 
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/servicefile/"); 
 			
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8", new RenameFile());
 			
@@ -55,7 +55,7 @@ public class ServiceBoardUpdateController extends HttpServlet {
 			Attachment at = null;
 			
 			if(multiRequest.getOriginalFileName("upfile")!=null) {
-				
+				System.out.println("새 첨부파일 등록시 처리 성공");
 				at = new Attachment();
 				at.setOriginName(multiRequest.getOriginalFileName("upfile"));
 				at.setChangeName(multiRequest.getFilesystemName("upfile"));
@@ -63,15 +63,15 @@ public class ServiceBoardUpdateController extends HttpServlet {
 				
 				if(multiRequest.getParameter("originFileNo") !=null) {
 					
-				at.setFileNO((Integer.parseInt(multiRequest.getParameter("originFileNo"))));
+					at.setFileNO((Integer.parseInt(multiRequest.getParameter("originFileNo"))));
 				}else {	
 				
-				at.setAttNo(serviceNo);
+					at.setAttNo(serviceNo);
 				}
 				
 			}
 			int result = new ServiceBoardService().updateServiceBoard(sb, at);
-			
+			System.out.println(result);
 			if (result > 0) {
 				request.getSession().setAttribute("alertMsg", "글 수정이 완료되었습니다.");
 				response.sendRedirect(request.getContextPath() + "/list.service");

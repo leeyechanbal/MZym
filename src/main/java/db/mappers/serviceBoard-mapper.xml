@@ -30,8 +30,8 @@ FROM (
         JOIN SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
         JOIN MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO
         LEFT JOIN MZYM_MEMBER mm2 ON sb.service_tr = mm2.USER_NO
-        LEFT JOIN ATTACHMENT at ON sb.SERVICE_NO = at.ATT_NO
-        WHERE sb.STATUS = 'Y' 
+        LEFT JOIN ATTACHMENT at ON AT.ATT_CATEGORY = 'S' AND sb.SERVICE_NO = at.ATT_NO
+        WHERE sb.STATUS = 'Y'
         ORDER BY sb.SERVICE_NO DESC
     ) A
 )
@@ -88,7 +88,7 @@ WHERE RNUM BETWEEN ? AND ?
 		(
 		 SEQ_ATTACHMENT.nextval
         , SEQ_SERVICENO.currval
-        , 'B' 
+        , 'S' 
         , ?
         , ? 
         , ? 
@@ -144,7 +144,7 @@ WHERE RNUM BETWEEN ? AND ?
 		(
 		SEQ_ATTACHMENT.nextval,
 		?,
-		'B',
+		'S',
 		?,
 	   	?,
 	   	?,
@@ -181,8 +181,8 @@ FROM (
         JOIN SERVICE_CATEGORY sc ON sb.CATEGORY_NO = sc.CATEGORY_NO
         JOIN MZYM_MEMBER mm ON sb.SERVICE_USER = mm.USER_NO
         LEFT JOIN MZYM_MEMBER mm2 ON sb.service_tr = mm2.USER_NO
-        LEFT JOIN ATTACHMENT at ON sb.SERVICE_NO = at.ATT_NO
-        WHERE sb.STATUS = 'Y' 
+        LEFT JOIN ATTACHMENT at ON AT.ATT_CATEGORY = 'S' AND sb.SERVICE_NO = at.ATT_NO
+        WHERE sb.STATUS = 'Y'
         AND (sb.SERVICE_TITLE LIKE '%' || upper(?) || '%'
 
              OR sb.SERVICE_CONTENT LIKE '%' ||upper(?) || '%')
