@@ -368,6 +368,10 @@ UPDATE INBODY
 <entry key="insertInbody">
 INSERT 
 INTO INBODY
+(
+  USER_NO
+, 
+)
 VALUES 
 ((SELECT USER_NO
     FROM MZYM_MEMBER
@@ -377,8 +381,6 @@ VALUES
   , ?
   , ?
   , ?
-  , SYSDATE
-  , 'Y'
 ) 
 </entry>
 
