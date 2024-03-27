@@ -203,7 +203,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 	                    <div class="thumbnail_title"><%=list.get(i).getProductName()%></div>
 	                    <div class="thumbnail_etc">
 	                        <div class="price"><%=list.get(i).getPrice() %>원</div>
-	                        <div class="product_detail"><%=list.get(i).getProductContent()  %></div>
+	                       
 	                    </div>
 	                </div>
 	                <%} %>
