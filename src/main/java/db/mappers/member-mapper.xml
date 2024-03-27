@@ -364,7 +364,7 @@ UPDATE INBODY
 </entry>
 
 
-<!-- 김민정 회원 인바디 등록 -->
+<!-- 김민정 회원 인바디 등록 o -->
 <entry key="insertInbody">
 INSERT 
 INTO INBODY
