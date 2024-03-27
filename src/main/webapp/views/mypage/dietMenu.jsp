@@ -122,9 +122,7 @@
 
                 <div class="food_date">   
                     <h3>
-                        <button type="button" class="fas fa-angle-left" id="icon" onclick="before();"></button>
                         <span id="today"></span>
-                        <button type="button" class="fas fa-angle-right" id="icon" onclick="after();"></button>
                     </h3>
                 </div>
                 
@@ -135,37 +133,6 @@
 			        day = ('0' + date.getDate()).slice(-2);
 			        document.getElementById("today").innerHTML = year + "년 " + month + "월 " + day + "일";
                 	
-	                function before(){
-	
-	                	let b = new Date();
-	                	let sel_day = -1;
-	                	b.setDate(b.getDate() + sel_day );
-	
-	
-	                	let year    = b.getFullYear();
-	                	let month   = ('0' + (b.getMonth() +  1 )).slice(-2);
-	                	let day     = ('0' + b.getDate()).slice(-2);
-	                	dt = year+"년 "+month+"월 "+day+"일";
-	                	
-	                	 document.getElementById("today").innerText = dt;
-	                }
-	                
-	                
-	                function after(){
-	                	 
-	
-	                	let a = new Date();
-	                	let sel_day = +1; 
-	                	a.setDate(a.getDate() + sel_day );
-	
-	
-	                	let year    = a.getFullYear();
-	                	let month   = ('0' + (a.getMonth() +  1 )).slice(-2);
-	                	let day     = ('0' + a.getDate()).slice(-2);
-	                	dt = year+"년 "+month+"월 "+day+"일";
-	                	
-	                	document.getElementById("today").innerText = dt;
-                }
                 </script>
                
                 <div class="food_list">
