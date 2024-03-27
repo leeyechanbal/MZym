@@ -342,6 +342,9 @@ public class BoardService {
 			if((int)hash.get("type") == 1) { // 신고철회
 				//게시물 상태 = Y변경
 				outcome = dao.boardStatusY(conn, hash);
+			// 구성모 status변경
+			}else {
+				outcome = dao.boardStatusN(conn, hash);
 			}
 		} else {
 			// 댓글인 경우
@@ -349,6 +352,9 @@ public class BoardService {
 				//댓글 상태 = Y변경
 				outcome = dao.commentStatusY(conn, hash);
 				System.out.println("이거 되?");
+			// 구성모 status변경
+			}else {
+				outcome = dao.commentStatusN(conn, hash);
 			}
 		}
 		

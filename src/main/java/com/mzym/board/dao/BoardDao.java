@@ -1748,18 +1748,41 @@ public class BoardDao {
 		return 0;
 	}
 
+	public int boardStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("boardStatusN"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
+	public int commentStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("commentStatusN"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
 
 }// class END

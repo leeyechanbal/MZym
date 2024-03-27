@@ -312,7 +312,7 @@
                                             </tr>
                                             <tr>
                                                 <th>구매날짜</th>
-                                                <td><input type="text" class="form-control date" placeholder="xx-xx-xx(-포함하여 입력해주세요)" id="input_date" name="insert_date"></td>
+                                                <td><input type="text" class="form-control date" placeholder="xxxx-xx-xx(-포함하여 입력해주세요)" id="input_date" name="insert_date"></td>
                                             </tr>
                                         </table>
                                         <div class="table_btn">
