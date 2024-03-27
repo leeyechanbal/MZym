@@ -45,7 +45,7 @@ public class MyPageDeleteMemberController extends HttpServlet {
 			
 		}else {
 			session.setAttribute("alertMsg", "회원탈퇴 실패");
-			response.sendRedirect(request.getContextPath() + "/myPage.me");
+			request.getRequestDispatcher("/views/mypage/deleteMember.jsp").forward(request, response);
 			
 		}
 	}

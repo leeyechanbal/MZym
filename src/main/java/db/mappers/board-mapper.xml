@@ -496,7 +496,7 @@ where COMMENT_NO = (
 	                        SELECT
 	                            BOARD_NO
 	                            , BOARD_TITLE
-	                            , USER_NAME
+	                            , USER_ID
 	                            , COUNT
 	                            , REGIST_DATE
 	                        FROM
@@ -588,7 +588,7 @@ where COMMENT_NO = (
 			BOARD_NO
 		,	BOARD_TITLE
 		,	BOARD_CONTENT
-		,	USER_NO
+		,	USER_ID
 		, 	BOARD_TYPE
 	FROM	MZYM_BOARD
 	JOIN 	MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
@@ -697,6 +697,7 @@ where COMMENT_NO = (
 	,	COMMENT_WRITER
 	,	BOARD_NO
 	,	COMMENT_CONTENT
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -704,6 +705,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 
@@ -719,6 +721,7 @@ where COMMENT_NO = (
 	,	BOARD_NO
 	,	CATEGORY_NO
 	,	REPORT_USER
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -726,6 +729,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 

@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인바디</title>
 <style>
 
 /*마이페이지 style*/
@@ -66,7 +66,11 @@
 	            <br>
 	
 	            <div class="inbody_list">
+	            <% if(body == null) { %>
+	            	<p>신장<span class="list_etc" name="height"></span></p>
+	            <% }else { %>
 	                <p>신장<span class="list_etc" name="height"><%=body.getBodyHeight()%> cm</span></p>
+	             <% } %>
 	                <p>나이<span class="list_etc" name="age"><%=age%></span></p>
 	                <p>성별<span class="list_etc" name="gender"><%=gender%></span></p>
 	            </div>
@@ -75,9 +79,15 @@
 	            <hr>
 	            <br>
 	            <div class="inbody_list">
+	            <% if(body == null && bmi == 0) { %>
+	            	<p>체중(kg)<span class="list_etc2" name="weight">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(kg)</span></p>
+	                <p>체지방량(kg)<span class="list_etc2" name="fat">(kg)</span></p>
+	                <p>BMI(kg/m2)<span class="list_etc3" name="bmi"></span></p>
+	            <% } else { %>
 	                <p>체중(kg)<span class="list_etc2" name="weight">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=body.getBodyWeight()%>(kg)</span></p>
 	                <p>체지방량(kg)<span class="list_etc2" name="fat"><%=body.getBodyFat()%>(kg)</span></p>
-	                <p>BMI(kg/m2)<span class="list_etc3" name="bmi"><%=bmi %></span></p>
+	                <p>BMI(kg/m2)<span class="list_etc3" name="bmi"><%=bmi%></span></p>
+	            <% } %>
 	            </div>
 	            
 	         </form>

@@ -4,13 +4,12 @@
 <%@ page import="com.mzym.mypage.model.vo.Food" %>
 <%
 	List<Food> list = (List<Food>)request.getAttribute("list");
-	Food o = (Food)request.getAttribute("o");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>식단관리</title>
 <style>
 
     /*마이페이지 style*/
@@ -36,6 +35,7 @@
     height: 50%;
     padding: 40px;
     border-radius: 10px;
+    min-width: 325px;
     }
 
     .food1>diV{margin-bottom:10%;}
@@ -392,7 +392,7 @@
 	                                <td><input type="text" class="form-control" name="menu" placeholder="메뉴명"></td>
 	                            </tr>
 	                            <tr>
-	                                <td><input type="text" class="form-control" name="kcal" placeholder="칼로리"></td>
+	                                <td><input type="text" class="form-control" name="kcal" placeholder="칼로리(숫자만입력하세요)"></td>
 	             
 	                            </tr>
 	                            <tr>

@@ -67,6 +67,11 @@
             border: 1px solid #1abc9c;
             color: #000;    
         }
+        
+        .btn4{
+            border: 1px solid #eee;
+            color: #000;
+        }
 
         #img_content{
             width:500px;
@@ -137,7 +142,7 @@
                 </tr>
                 <tr>
                     <th width="100">작성자</th>
-                    <td width="400"><%= b.getBoardWriter() %></td>
+                    <td width="400"><%= b.getBoardMember() %></td>
                 </tr>
                 <tr>
                     <th>내용</th>
@@ -149,7 +154,10 @@
                         <!-- 현재 로그인한 사용자가 해당 게시글 작성자일 경우 보여지는 버튼 요소 -->
                         <% if(loginUser != null && Integer.toString(loginUser.getUserNo()).equals(b.getBoardMember())) { %>
                         <button type="button" class="btn3 btn-outline-danger btn-sm">삭제</button>
-                        <% } %>
+                        <% }else if(loginUser != null){%>
+		                <!-- 현재 로그인한 사용자가 해당 게시글 작성자가 아닐 경우 보여지는 버튼 요소 -->
+		                <button type="button" class="btn4 btn-outline-danger btn-sm" id="report_board">신고</button>
+		                <% } %>
                     </td>
                 </tr>
             </table>
@@ -187,6 +195,83 @@
 		        }
 		    });
 		</script>
+		
+		<!-- 글신고 모달 -->
+     <div class="modal" id="reportBoardModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+    
+            <!-- 모달 헤더 -->
+            <div class="modal-header">
+            <h5 class="modal-title">글 신고</h5>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <!-- 모달 본문 -->
+            <div class="modal-body">
+            <p>이 글을 신고하시겠습니까?</p>
+            <div class="form-group">
+                <label for="reportReason">신고 사유 선택:</label>
+                <select class="form-control" id="reportReason">
+                    <option value="1">도배/스팸</option>
+                    <option value="2">욕설/차별/혐오</option>
+                    <option value="3">음란물</option>
+                    <option value="4">홍보의심</option	>
+                    <option value="5">기타</option>
+                </select>
+            </div>
+            </div>    
+
+            <!-- 모달 하단 -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="confirmReport">신고</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+            </div>
+    
+        </div>
+        </div>
+    </div>
+    
+    <!-- 스크립트 -->
+    <script>
+        // 페이지가 로드될 때부터 modal이 숨겨져 있도록 설정
+        $(document).ready(function(){
+        $("#reportBoardModal").modal('hide');
+        });
+    
+        // 신고 버튼 클릭 시 모달 띄우기
+        $("#report_board").click(function(){
+        	$("#reportBoardModal").modal('show');
+        });
+    
+        // 신고 확인 버튼 클릭 시 처리
+        $("#confirmReport").click(function(){
+	    var reportReason = $("#reportReason").val(); // 신고 사유
+	    var postId = <%=b.getBoardNo() %>;
+	
+	    // AJAX를 사용하여 서버에 데이터 전송
+	    $.ajax({
+	        url: "<%=contextPath%>/report.bo",
+	        type: "POST",
+	        data: {
+	            postId: postId,
+	            reportReason: reportReason
+	        },
+	        success: function(response) {
+	            // 서버로부터 응답을 받았을 때 처리
+	            alert("글이 신고되었습니다.");
+	            // 모달 닫기
+	            $("#reportBoardModal").modal('hide');
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버 통신에 오류가 발생했을 때 처리
+	            alert("신고 처리 중 오류가 발생했습니다.");
+	            console.error(xhr, status, error);
+	        }
+	    });
+	});
+
+    </script>
     
     <%@ include file="/views/common/Mzym_footer.jsp" %>
 
