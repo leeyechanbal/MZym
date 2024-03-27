@@ -59,28 +59,13 @@
     .kcal{
         display: flex;
         flex-direction: column;
-        margin-left: 40%;
+        margin-left: 50%;
         margin-top: 25%;
     }
 
     .kcal input[type=text]{margin: 10px; width: 35%; margin-right: 150px;}
     .kcal th{font-size: large;}
 
-    .goal{
-        background: #e0e0e0;
-        width: 200px;
-        height: 25%;
-        border-radius: 10px;
-        margin-top: 4%;
-        margin-left: 15%;
-    }
-    .goal p{
-        margin-top: 10%;
-        font-size: large;
-        font-weight: bold;
-        text-align: center;
-        color: #1ABC9C;
-    }
 
     /*모달 style*/
     #btn1{

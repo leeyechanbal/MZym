@@ -20,7 +20,7 @@
 
 .mypage_content{
     margin: auto;
-    width: 80%;
+    width: 75%;
 }
 
 .mypage_info{
@@ -30,7 +30,7 @@
  margin-bottom: 50px; /* Fix the duplicate margin property */
  margin-right: 50px;
  min-height: 200px;
- padding: 40px;
+ padding: 4%;
  border-radius: 10px;
 }
 
@@ -66,12 +66,15 @@ margin-left: 230px;
     border-color: rgb(224, 224, 224);
 }
 
+.etc_button{
+	margin-left: 71%;
+}
+
 .btn:hover{
     background: rgba(224, 224, 224, 0.842);
 }
 
 #btn_resign{
-    margin-left: 800px;
     background: #1ABC9C;
     color: white;
     border: #1ABC9C;

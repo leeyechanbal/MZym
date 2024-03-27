@@ -16,11 +16,11 @@
     width: 15%;
 }
 
-.user_data a{
-    width: 140px;
-    height: 40px;
-    margin-top: 45px;
-    margin-left: 20%;
+.user_data a {
+    width: 70%;
+    height: 40%;
+    margin-top: 20%;
+    margin-left: 15%;
 }
 
 .user_data:hover a {

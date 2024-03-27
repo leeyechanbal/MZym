@@ -17,12 +17,11 @@
         /* Section 관련 스타일 */
         .board_content{
             border:1px solid 1abc9c;
-            width:80%;
+            width:90%;
             margin:auto;
             margin-top:50px; 
             margin-bottom:50px;
             min-height:500px;
-            padding:50px;
             border-radius:10px;
         }
 
@@ -138,7 +137,7 @@
             </div>
             
             <br>
-            <h4>영상</h4>
+            <h4>전체영상</h4>
             <hr>
             <br>
 
