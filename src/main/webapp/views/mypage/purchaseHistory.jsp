@@ -68,7 +68,7 @@ margin-top: 60px;
         
         <%@ include file="/views/common/mypage_sidemenu.jsp"%>
           
-        <h4>구매내역</h4>
+        <h4>구매내역<i class="far fa-credit-card"></i></h4>
         <div class="payment_content">
                 <table class="table">
                     <thead>
