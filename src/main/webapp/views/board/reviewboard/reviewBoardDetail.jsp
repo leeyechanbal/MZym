@@ -6,8 +6,6 @@
 <%
     Board b = (Board)request.getAttribute("b"); // 게시글번호, 제목, 내용, 작성자
 	List<Attachment> list = (List<Attachment>)request.getAttribute("list");
-    
-    System.out.println(b);
 %>
 <!DOCTYPE html>
 <html>
