@@ -296,6 +296,7 @@ from(
             , REPORT_DATE <!-- 신고일 -->
             , CATEGORY_NO <!-- 신고 카테고리 번호 -->
             , REPORT_CONTENT
+            , REPORTER <!-- 보고서 작성자 -->
             <!-- board -->
             , BOARD_NO <!-- 신고 카테고리 -->
             , BOARD_TYPE <!-- 게시글의 타입 -->
@@ -348,7 +349,8 @@ from(
            , USER_ID <!-- 신고자 아이디 -->
            , REPORT_DATE 
 		   , CATEGORY_NO  <!-- 신고 카테고리 -->
-           , REPORT_CONTENT		   
+           , REPORT_CONTENT
+           , REPORTER <!-- 보고서 작성자 -->   
            <!-- board -->
            , com.board_No
            , BOARD_TITLE
@@ -425,6 +427,7 @@ where board_no = (
 update report
 set status = 'N'
 , REPORT_CONTENT = ?
+, REPORTER = ? <!-- 보고서를 작성한 트레이너 아이디 -->
 where report_no = ?
 
 </entry>
@@ -447,6 +450,7 @@ where report_no = ?
 <entry key="boardStatusY">
 update mzym_board
 set status = 'Y'
+, REPORTER = ?
 where board_no = (
      select board_no
      from report

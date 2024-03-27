@@ -132,7 +132,11 @@
                                                     </li>
                                                     <li>신고자: <%=r.getUserID() %></li>
                                                     <li>신고일: <%=r.getReportDate()%></li>
-                                                    <li>보고자: <%=loginUser.getUserId()%></li>
+                                                    <%if (check){ %>
+                                                    	<li>보고자: <%=loginUser.getUserId()%></li>
+                                                    <%} else { %>
+                                                    	<li>보고자: <%=r.getReporter()%></li>
+                                                    <%} %>
                                                 </ul>
                                             </fieldset>
                  				            <form action="" method="">
@@ -142,10 +146,15 @@
                                             <textarea cols="150" rows="5" name="content" required></textarea>
                                             <%} else { %>
                                                 <!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
+                                                <%if(loginUser.getUserId().equals(r.getReporter())){ %>
                                             	<textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            	<%}else { %>
+                                            	<textarea cols="150" rows="5" name="content" readonly><%=r.getReportContent()%></textarea>
+                                            	<%} %>
                                             <%} %>
                                             <input type="hidden" name="typeCheck" value="1">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                            <input type="hidden" name="reporter" value="<%=loginUser.getUserId()%>">
                                             <br><br>
                                             <div style="width: 100%; display: flex; justify-content: space-between;">
                                             <% String originName = a.getOriginName();
@@ -157,10 +166,15 @@
                                                 <%} %>
                                                 <div>
                                                 	<!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
-                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <% if (r.getCategoryNo() != 5) {%>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                        <% if(check){ %>
+                                                            <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                            <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                        <%} else { %>
+                                                            <button type="button" class="btn btn-outline-danger btn-sm warning type2">수정</button>
+                                                        <%} %>
                                                     <%}else{ %>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
                                                     
@@ -214,6 +228,11 @@
                                                     	</li>
                                                     	<li>신고자: <%=r.getUserID() %></li>
                                                     	<li>신고일: <%=r.getReportDate()%></li>
+                                                    	<%if (check){ %>
+	                                                    	<li>보고자: <%=loginUser.getUserId()%></li>
+	                                                    <%} else { %>
+	                                                    	<li>보고자: <%=r.getReporter()%></li>
+	                                                    <%} %>
                                                     </ul>
                                                     
                                                     
@@ -227,6 +246,7 @@
                                                         <%} %>
                                                     <input type="hidden" name="typeCheck" value="1"> <!-- 게시물인지 댓글인지 -->
                                                     <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                                    <input type="hidden" name="reporter" value="<%=loginUser.getUserId()%>">
                                                	</fieldset>
                                                 
                                                 
@@ -266,8 +286,12 @@
 
                                                 <div style="text-align: -webkit-right; margin-top: 10px;">
                                                 <!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
+                                                <% if(check){ %>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
+                                                <%} else { %>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm warning type2">수정</button>
+                                                <%} %>
                                                 </div>
                                             </td>
                                         </form>
@@ -319,6 +343,11 @@
                                                     	</li>
                                                     <li>신고자: <%=r.getUserID()%></li>
                                                     <li>신고일: <%=r.getReportDate()%></li>
+                                                    <%if (check){ %>
+                                                    	<li>보고자: <%=loginUser.getUserId()%></li>
+                                                    <%} else { %>
+                                                    	<li>보고자: <%=r.getReporter()%></li>
+                                                    <%} %>
                                                 </ul>
                                             </fieldset>
                                             <textarea cols="150" rows="5" readonly><%=c.getCommentContent()%></textarea>
@@ -330,10 +359,15 @@
                                             <%} %>
                                             <input type="hidden" name="typeCheck" value="0">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                            <input type="hidden" name="reporter" value="<%=loginUser.getUserId()%>">
                                             <br><br>
                                             <div style="text-align: -webkit-right;">
-                                                <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
+                                                <% if(check){ %>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                <%} else { %>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm warning type2">수정</button>
+                                                <%} %>
                                             </div>
                                         </form>
                                         </div>
@@ -369,85 +403,38 @@
 			 	-->
 				<!-- 게시판 페이징 -->
 				<% if(categoryNum != numPT) { // 카테고리 게시판이 pt후기가 아닐 경우 %>
-                <ul class="pagination paging-board" >
-                    <% if (bCurrent == 1) {%>
-	                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-					<% } else {%>
-	                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/report.trainer?pageB=" + (bCurrent- 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status%>>이전</a></li>
-					<%} %>
 					
-					<!-- 페이징바 숫자 부분 -->
-					<% for (int i= infoBoard.getStartPage(); i <= infoBoard.getEndPage(); i++){ %>
+	                <ul class="pagination paging-board" >
+	                    <% if (bCurrent == 1) {%>
+		                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+						<% } else {%>
+		                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/report.trainer?pageB=" + (bCurrent- 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status%>>이전</a></li>
+						<%} %>
 						
-						<%if((bCurrent <= bMaxPage)) {%>					
-							<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
-							<% if(bCurrent == i){ %>
-		                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
-		                    <%} else if (i <= infoBoard.getMaxPage()) { %>
-		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + i + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>"><%=i%></a></li>
-		                    <%}else { %>
-		                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
+						<!-- 페이징바 숫자 부분 -->
+						<% for (int i= infoBoard.getStartPage(); i <= infoBoard.getEndPage(); i++){ %>
+							
+							<%if((bCurrent <= bMaxPage)) {%>					
+								<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
+								<% if(bCurrent == i){ %>
+			                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
+			                    <%} else if (i <= infoBoard.getMaxPage()) { %>
+			                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + i + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>"><%=i%></a></li>
+			                    <%}else { %>
+			                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
+			                    <%} %>
 		                    <%} %>
-	                    <%} %>
-					<%} %>
-					
-					<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
-					<% if(bCurrent >= bMaxPage) {%>						
-	                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-                   	<%} else { %> 
-	                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
-                    <%} %>
-                </ul>
-				<% } else { // 게시글 페이지가 PT후기일 경우%>
-				
-   				<ul class="pagination paging-board" >
-                    <% if (bCurrent == 1) {%>
-	                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-					<% } else {%>
-	                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/report.trainer?pageB=" + (bCurrent- 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status%>>이전</a></li>
-					<%} %>
-					
-					
-					
-					<!-- 페이징바 숫자 부분 -->
-					<% for (int i= infoBoard.getStartPage(); i <= infoBoard.getEndPage(); i++){ %>
+						<%} %>
 						
-						<%if((bCurrent <= bMaxPage)) {%>					
-							<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
-							<% if(bCurrent == i){ %>
-		                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
-		                    <%} else if (i <= infoBoard.getMaxPage()) { %>
-		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + i + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>"><%=i%></a></li>
-		                    <%}else { %>
-		                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
-		                    <%} %>
+						<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
+						<% if(bCurrent >= bMaxPage) {%>						
+		                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+	                   	<%} else { %> 
+		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
 	                    <%} %>
-					<%} %>
-					
-					
-					<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
-					<% if(bCurrent >= bMaxPage) {%>						
-	                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-                   	<%} else { %> 
-	                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
-                    <%} %>
-                </ul>	
-   					
+	                </ul>
+                	<%} %>
 
-   				<%}  // pt 후기일 경우 페이징 처리 %>
-   				
-
-
-
-
-
-
-
-
-
-
-
-   				
         		<!-- 댓글 페이징 -->
                 <ul class="pagination paging-commnet" style="content-visibility:hidden" >
                     <% if (cCurrent == 1) {%>
@@ -526,6 +513,7 @@
                             // console.log(e.key); 
                             // console.log(Number(e.key) * 2); 
                             // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
+                            console.log();
                             const val = e.key;
                             let $t = null;
                             if(val != 0){
@@ -555,9 +543,11 @@
                         // console.log(text);
                         const typeCheck = $form.find('input[name=typeCheck]').val();
                         // console.log(typeCheck);
+                        const reporter = $form.find('input[name=reporter]').val();
+                        // console.log(reporter);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=1';
-                        // console.log(str);
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&reporter='+ reporter + '&type=1';
+                        console.log(str);
                        location.href = str;
                         // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
                     })
@@ -568,11 +558,13 @@
                         const reportNo = $form.find('input[name=report]').val();
                         // console.log(reportNo);
                         const text = $form.find('textarea[name=content]').val();
-                        console.log(text);
+                        // console.log(text);
                         const typeCheck = $form.find('input[name=typeCheck]').val();
-                        console.log(typeCheck);
+                        // console.log(typeCheck);
+                        const reporter = $form.find('input[name=reporter]').val();
+                        // console.log(reporter);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&reporter='+ reporter + '&type=2';
                         console.log(str);
                        location.href = str;
                     })

@@ -164,7 +164,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
-        <div class="modal-body" style=font-size: 15px; ">
+        <div class="modal-body" style="font-size: 15px; ">
                 <ul>
                     <li>
                         <label >이름</label> <br>

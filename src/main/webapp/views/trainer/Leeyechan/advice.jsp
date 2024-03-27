@@ -63,7 +63,7 @@ tfoot {
 <body>
 
 	<td class="section2">
-		<div>
+		<div style="min-height: 50px;">
 			<h3>상담완료</h3>
 			<h3>상담대기</h3>
 		</div>

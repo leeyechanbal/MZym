@@ -322,7 +322,7 @@ public class BoardService {
 	public int reportRequest(HashMap<String, Object> hash) {
 		/*
 		 	신고 철회 type 1 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 게시불 상태 = Y변경(화면에 다시 보이게)
-		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서)
+		 	신고 확인 type 2 => 신고 테이블의 상태 완료로 변경(신고번호, 보고서) => 신고 유지
 		 	check = 1 => 게시물 쿼리
 		 	check = 2 => 댓글 쿼리
 		 	
@@ -334,8 +334,8 @@ public class BoardService {
 		int result = dao.reportStatusN(conn, hash);
 		int outcome = 1;
 		
-		System.out.println((int)hash.get("check"));
-		System.out.println(result);
+//		System.out.println((int)hash.get("check"));
+//		System.out.println(result);
 		
 		if((int)hash.get("check") == 1) {
 			
@@ -351,7 +351,7 @@ public class BoardService {
 			if((int)hash.get("type") == 1) { // 신고철회
 				//댓글 상태 = Y변경
 				outcome = dao.commentStatusY(conn, hash);
-				System.out.println("이거 되?");
+//				System.out.println("이거 되?");
 			// 구성모 status변경
 			}else {
 				outcome = dao.commentStatusN(conn, hash);
