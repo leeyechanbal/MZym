@@ -392,7 +392,7 @@ public class ServiceBoardDao {
 	/**
 	 * @author 김민정
 	 */
-	public int updateRepeat(Connection conn, int serviceNo, String repeat) {
+	public int updateRepeat(Connection conn, int serviceNo, String repeat, int confimeTR) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateRepeat");
@@ -400,7 +400,8 @@ public class ServiceBoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, repeat);
-			pstmt.setInt(2, serviceNo);
+			pstmt.setInt(2, confimeTR);
+			pstmt.setInt(3, serviceNo);
 			
 			result = pstmt.executeUpdate();
 			

@@ -97,9 +97,10 @@ Product p = (Product)request.getAttribute("p");
             margin: 15% auto;
             padding: 20px;
             border: 1px solid #1abc9c;
-            width: 300px;
+            width: 30%;
             height: 200px;
             text-align: center;
+            max-width: 30%;
         }
 
         #closeButton{
@@ -109,7 +110,7 @@ Product p = (Product)request.getAttribute("p");
             background-color: #1abc9c;
             color: white;
         }
-
+		
 
 </style>
 </head>
@@ -161,7 +162,7 @@ Product p = (Product)request.getAttribute("p");
 
             <!-- Modal HTML -->
             <div id="myModal" class="modal">
-                <div class="modal-content">
+                <div class="modal-content maincontent">
                     <p>상품이 구매되었습니다.</p>
                     <p>감사합니다.</p>
                     <button id="closeButton" onclick="closeModal()">닫기</button>

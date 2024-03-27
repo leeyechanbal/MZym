@@ -144,9 +144,9 @@ public class ServiceBoardService {
 	/**
 	 * @author 김민정
 	 */
-	public int updateRepeat(int serviceNo, String repeat) {
+	public int updateRepeat(int serviceNo, String repeat, int confimeTR) {
 		Connection conn = getConnection();
-		int result = sDao.updateRepeat(conn, serviceNo, repeat);
+		int result = sDao.updateRepeat(conn, serviceNo, repeat, confimeTR);
 		
 		if(result > 0) {
 			commit(conn);
