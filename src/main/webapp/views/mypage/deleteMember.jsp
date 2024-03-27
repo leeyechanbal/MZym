@@ -15,7 +15,7 @@
     margin-top: 50px;
     margin: bottom 50px; 
     height: 350px;
-    padding: 50px;
+    padding: 4%;
     border-radius: 10px;
 }
 

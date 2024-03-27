@@ -13,14 +13,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 <style>
 /*마이페이지 style*/
 
 
 .mypage_content{
     margin: auto;
-    width: 80%;
+    width: 75%;
 }
 
 .mypage_info{
@@ -30,7 +30,7 @@
  margin-bottom: 50px; /* Fix the duplicate margin property */
  margin-right: 50px;
  min-height: 200px;
- padding: 40px;
+ padding: 4%;
  border-radius: 10px;
 }
 
@@ -66,12 +66,15 @@ margin-left: 230px;
     border-color: rgb(224, 224, 224);
 }
 
+.etc_button{
+	margin-left: 71%;
+}
+
 .btn:hover{
     background: rgba(224, 224, 224, 0.842);
 }
 
 #btn_resign{
-    margin-left: 650px;
     background: #1ABC9C;
     color: white;
     border: #1ABC9C;
@@ -190,13 +193,20 @@ margin-left: 230px;
                                 </tr>
                                 <tr id="info">
                                     <th>헬스장 이용권</th>
-                                    <td><input type="text" name="health" readonly value="<%=health%> 까지"></td>
-                                	
+                                    <% if(health == "") { %>
+                                    <td><input type="text" name="health" readonly value="-"></td>
+                                    <% } else {%>
+                                    <td><input type="text" name="health" readonly value="<%=health%>까지"></td>
+                                	<% } %>
                                 </tr>
                               
 	                                <tr id="info">
 	                                    <th>PT 이용권</th>
+	                                    <% if(PT == 0 && ptNum == 0) { %>
+	                                     <td><input type="text" name="PT" readonly value="-"></td>
+	                                    <% } else { %>
 	                                    <td><input type="text" name="PT" readonly value="<%=ptNum%> / <%=PT%> 회"></td>
+	                                	<% } %>
 	                                </tr> 
                                               
                              </table>
@@ -262,7 +272,7 @@ margin-left: 230px;
             
                     <!-- Modal body -->
                     <div class="modal-body">
-                   		 <form action="<%= contextPath%>/updatePwd.me" method="post">
+                   		 <form id="myForm" action="<%= contextPath%>/updatePwd.me" method="post" onsubmit="return submitForm()">
 	                        <table align="center">
 	                            <tr>
 	                                <td><input type="password" class="form-control" name="userPwd" placeholder="현재 비밀번호"></td>
@@ -271,7 +281,7 @@ margin-left: 230px;
 	                                <td><input type="password" class="form-control" name=newPwd placeholder="변경할 비밀번호"></td>
 	                            </tr>
 	                            <tr>
-	                                <td><input type="password" class="form-control" placeholder="변경할 비밀번호 재입력"></td>
+	                                <td><input type="password" class="form-control" name="confirmPwd" placeholder="변경할 비밀번호 재입력"></td>
 	                            </tr>
 	                            <tr>
 	                                <td colspan="2" style="text-align: center; padding-top: 10px;">
@@ -281,6 +291,34 @@ margin-left: 230px;
 	                            </tr>
 	                        </table>
                          </form>
+                         
+                         <script>
+                         function submitForm() {
+
+                        	var newPwd = document.getElementsByName("newPwd")[0].value;
+       
+                        	var confirmPwd = document.getElementsByName("confirmPwd")[0].value;
+
+                   	        console.log("변경할 비밀번호:", newPwd);
+                   	        console.log("변경할 비밀번호 재입력:", confirmPwd);
+                   	        
+                   	        var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+                            if (!passwordRegex.test(newPwd)) {
+                                alert("비밀번호는 영문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
+                                return;
+                            }
+                            
+                            if (newPwd != confirmPwd) {
+                                alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+                                return false;
+                            }
+
+                        	document.getElementById("myForm").submit();
+                        }
+                        </script>
+                         
+                        
+                         
                     </div>
                 </div>
                 </div>

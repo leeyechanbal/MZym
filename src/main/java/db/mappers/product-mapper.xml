@@ -70,7 +70,9 @@ SELECT
       	 WHERE p.PRODUCT_NO  = ?
       	 AND P.STATUS='Y'
 </entry>
+<entry key="insertPayment">
 
+</entry>
 
 
 

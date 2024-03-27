@@ -453,6 +453,21 @@ where board_no = (
      where report_no = ?
      )
 </entry>
+
+<!-- 
+	작성자 : 구성모
+	신고 확인 요청된 게시물의 상태를 변경하는 쿼리
+ -->
+<entry key="boardStatusN">
+update mzym_board
+set status = 'N'
+where board_no = (
+     select board_no
+     from report
+     where report_no = ?
+     )
+</entry>
+
 <!-- 
 	작성자 : 이예찬
 	신고 철회 요청에 댓글의 상태를 변경하는 쿼리
@@ -460,6 +475,20 @@ where board_no = (
 <entry key="commentStatusY">
 update board_comment
 set status = 'Y'
+where COMMENT_NO = (
+     select COMMENT_NO
+     from report
+     where report_no = ?
+     )
+</entry>
+
+<!-- 
+	작성자 : 구성모
+	신고 확인 요청에 댓글의 상태를 변경하는 쿼리
+ -->
+<entry key="commentStatusN">
+update board_comment
+set status = 'N'
 where COMMENT_NO = (
      select COMMENT_NO
      from report
@@ -496,7 +525,7 @@ where COMMENT_NO = (
 	                        SELECT
 	                            BOARD_NO
 	                            , BOARD_TITLE
-	                            , USER_NAME
+	                            , USER_ID
 	                            , COUNT
 	                            , REGIST_DATE
 	                        FROM
@@ -588,7 +617,7 @@ where COMMENT_NO = (
 			BOARD_NO
 		,	BOARD_TITLE
 		,	BOARD_CONTENT
-		,	USER_NO
+		,	USER_ID
 		, 	BOARD_TYPE
 	FROM	MZYM_BOARD
 	JOIN 	MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
@@ -697,6 +726,7 @@ where COMMENT_NO = (
 	,	COMMENT_WRITER
 	,	BOARD_NO
 	,	COMMENT_CONTENT
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -704,6 +734,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 
@@ -719,6 +750,7 @@ where COMMENT_NO = (
 	,	BOARD_NO
 	,	CATEGORY_NO
 	,	REPORT_USER
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -726,6 +758,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 

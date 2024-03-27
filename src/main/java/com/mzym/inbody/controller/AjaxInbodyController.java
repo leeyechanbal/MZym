@@ -37,11 +37,13 @@ public class AjaxInbodyController extends HttpServlet {
 		Inbody ib = new InbodyService().selectInbody(userPhone);
 		response.setContentType("application/json; charset=utf-8");
 		
-		if(ib != null) {
-				new Gson().toJson(ib, response.getWriter());
-		}else {
-			response.getWriter().println("회원의 정보가 존재하지 않습니다.");
-		}
+		
+		new Gson().toJson(ib, response.getWriter());
+		
+		/*
+		 * if(ib != null) { new Gson().toJson(ib, response.getWriter()); }else {
+		 * response.getWriter().println("회원의 정보가 존재하지 않습니다."); }
+		 */
 		
 	}
 

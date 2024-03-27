@@ -4,13 +4,12 @@
 <%@ page import="com.mzym.mypage.model.vo.Food" %>
 <%
 	List<Food> list = (List<Food>)request.getAttribute("list");
-	Food o = (Food)request.getAttribute("o");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>식단관리</title>
 <style>
 
     /*마이페이지 style*/
@@ -36,6 +35,7 @@
     height: 50%;
     padding: 40px;
     border-radius: 10px;
+    min-width: 325px;
     }
 
     .food1>diV{margin-bottom:10%;}
@@ -59,28 +59,13 @@
     .kcal{
         display: flex;
         flex-direction: column;
-        margin-left: 40%;
+        margin-left: 50%;
         margin-top: 25%;
     }
 
     .kcal input[type=text]{margin: 10px; width: 35%; margin-right: 150px;}
     .kcal th{font-size: large;}
 
-    .goal{
-        background: #e0e0e0;
-        width: 200px;
-        height: 25%;
-        border-radius: 10px;
-        margin-top: 4%;
-        margin-left: 15%;
-    }
-    .goal p{
-        margin-top: 10%;
-        font-size: large;
-        font-weight: bold;
-        text-align: center;
-        color: #1ABC9C;
-    }
 
     /*모달 style*/
     #btn1{
@@ -122,9 +107,7 @@
 
                 <div class="food_date">   
                     <h3>
-                        <button type="button" class="fas fa-angle-left" id="icon" onclick="before();"></button>
                         <span id="today"></span>
-                        <button type="button" class="fas fa-angle-right" id="icon" onclick="after();"></button>
                     </h3>
                 </div>
                 
@@ -135,37 +118,6 @@
 			        day = ('0' + date.getDate()).slice(-2);
 			        document.getElementById("today").innerHTML = year + "년 " + month + "월 " + day + "일";
                 	
-	                function before(){
-	
-	                	let b = new Date();
-	                	let sel_day = -1;
-	                	b.setDate(b.getDate() + sel_day );
-	
-	
-	                	let year    = b.getFullYear();
-	                	let month   = ('0' + (b.getMonth() +  1 )).slice(-2);
-	                	let day     = ('0' + b.getDate()).slice(-2);
-	                	dt = year+"년 "+month+"월 "+day+"일";
-	                	
-	                	 document.getElementById("today").innerText = dt;
-	                }
-	                
-	                
-	                function after(){
-	                	 
-	
-	                	let a = new Date();
-	                	let sel_day = +1; 
-	                	a.setDate(a.getDate() + sel_day );
-	
-	
-	                	let year    = a.getFullYear();
-	                	let month   = ('0' + (a.getMonth() +  1 )).slice(-2);
-	                	let day     = ('0' + a.getDate()).slice(-2);
-	                	dt = year+"년 "+month+"월 "+day+"일";
-	                	
-	                	document.getElementById("today").innerText = dt;
-                }
                 </script>
                
                 <div class="food_list">
@@ -392,7 +344,7 @@
 	                                <td><input type="text" class="form-control" name="menu" placeholder="메뉴명"></td>
 	                            </tr>
 	                            <tr>
-	                                <td><input type="text" class="form-control" name="kcal" placeholder="칼로리"></td>
+	                                <td><input type="text" class="form-control" name="kcal" placeholder="칼로리(숫자만입력하세요)"></td>
 	             
 	                            </tr>
 	                            <tr>

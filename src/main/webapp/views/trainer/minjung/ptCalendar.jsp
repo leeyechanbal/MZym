@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PT일정</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PT일정등록</title>
@@ -177,13 +177,13 @@
                                         <label>시작일</label>
                                     </td>
                                     <td>
-                                        <input type="text" required name="startDate" placeholder="ex)01/01/2024">
+                                        <input id="insertStart" type="text" required name="startDate" placeholder="ex)01/01/2024">
                                     </td>
                                     <td >
                                         <label style="width: 70px;">종료일</label>
                                     </td>
                                     <td>
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="endDate" placeholder="ex)12/31/2024">
+                                        <input id="insertEnd" type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="endDate" placeholder="ex)12/31/2024">
                                     </td>
                                 </tr>
     
@@ -202,7 +202,7 @@
                                     </td>
                                     <td colspan="3">
                                     	<input type="hidden" name="trNo" value="">
-                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="writer" value="<%=loginUser.getUserName()%>">
+                                        <input type="text" style="margin-bottom: 15px; margin-top: 15px;" required name="writer" value="<%=loginUser.getUserName()%>" readonly>
                                         
                                     </td>
                                 </tr>
@@ -228,7 +228,7 @@
                             </table>
                             
                             <div class="modal-footer">
-                                <button type="submit" id="insert_btn"class="btn btn-danger" data-dismiss="modal">추가</button>
+                                <button type="submit" id="insert_btn"class="btn btn-danger"">추가</button>
                             </div>
     
                     </div>
@@ -330,7 +330,7 @@
         
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="submit" id= "update_btn"class="btn btn-outline-success" data-dismiss="modal" onclick="calendarUpdate();">수정</button>
+                                    <button type="button" id= "update_btn"class="btn btn-outline-success" onclick="calendarUpdate();">수정</button>
                                     <button type="submit" id= "delete_btn"class="btn btn-outline-danger" data-dismiss="modal" onclick="calendarDelete();">삭제</button>
                                 </div>
                         
@@ -355,11 +355,22 @@
         </div>
 
 <script>
+
 	$(function(){
 		ptCalendar();
 	})
      
 	// 캘린더 일정 조회 함수
+	
+	function formatDate(dateString) {
+    // 주어진 날짜를 "."을 기준으로 분할하여 배열로 만듭니다.
+	    let parts = dateString.split('. ');
+	    
+	    // 분할된 부분을 원하는 형식으로 조합합니다.
+	    let formattedDate = parts[1] + '/' + parts[2] + '/' + parts[0];
+	    
+	    return formattedDate;
+	}
         
 	function ptCalendar(){
         $.ajax({
@@ -455,61 +466,94 @@
         	}
         })
  	}	
+	
  
 
             // PT일정등록 모달창 추가 버튼 클릭시 실행될 이벤트
             $("#insert_btn").on("click", function(){ 
-            	$.ajax({
-            		url:"<%=contextPath%>/insert.cal",
-            		data:{
-            			ptUserName:$("input[name='ptUserName']").val(),
-            			calColor:$("input[name='calColor']").val(),
-            			startDate:$("input[name='startDate']").val(),
-            			endDate:$("input[name='endDate']").val(),
-            			userPhone:$("input[name='userPhone']").val(),
-            			writer:"<%=loginUser.getUserName()%>",
-            			trNo:"<%=loginUser.getUserNo()%>",
-            			title:$("input[name='title']").val(),
-            			content:$("textarea[name='content']").val()
-            		},
-            		type:"post",
-            		success:function(result){
-            			console.log("pt일정등록 성공");
-            			alert("일정 추가 완료되었습니다.");
-            		},
-            		error:function(){
-            			console.log("pt일정등록 ajax 통신실패");
-            			alert("일정 추가가 실패하였습니다.");
-            		}
-            	})
+            	
+            	if(validateDate("insertStart") && validateDate("insertEnd")){
+            		$.ajax({
+                		url:"<%=contextPath%>/insert.cal",
+                		data:{
+                			ptUserName:$("input[name='ptUserName']").val(),
+                			calColor:$("input[name='calColor']").val(),
+                			startDate:$("input[name='startDate']").val(),
+                			endDate:$("input[name='endDate']").val(),
+                			userPhone:$("input[name='userPhone']").val(),
+                			writer:"<%=loginUser.getUserName()%>",
+                			trNo:"<%=loginUser.getUserNo()%>",
+                			title:$("input[name='title']").val(),
+                			content:$("textarea[name='content']").val()
+                		},
+                		type:"post",
+                		success:function(result){
+                			console.log("pt일정등록 성공");
+                			alert("일정 추가 완료되었습니다.");
+                			location.href="<%=contextPath%>/calendarForm.cal";
+                		},
+                		error:function(){
+                			console.log("pt일정등록 ajax 통신실패");
+                			alert("일정 추가가 실패하였습니다.");
+                		}
+                	})
+            	}else {
+            		alert("올바른 MM/DD/YYYY 형식으로 날짜를 입력하세요.");
+        	    	event.preventDefault();
+
+            	}
             })
 
+            
+            function validateDate(inputId) {
+	    // 입력된 날짜 값을 가져옵니다.
+	    var inputDate = document.getElementById(inputId).value;
+
+	    // 정규 표현식을 사용하여 유효성을 검사합니다.
+	    var dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d{2}$/;
+
+	    // 정규 표현식과 매치되는지 확인합니다.
+	    if (dateRegex.test(inputDate)) {
+	        return true;
+	    } else {
+	    	
+	        return false;
+	    }
+	}
+            
 
             // 수정버튼 클릭시 실행될 함수
             function calendarUpdate(){
-            	
-            	$.ajax({
-            		url:"<%=contextPath%>/update.cal",
-            		data:{
-            			calNo:$("#myModal3 input[id='calNo']").val(), // 166
-            			calUserName:$("#calUserName").val(),
-            			calColor:$("#calColor").val(),
-            			startDate:$("#startDate").val(),
-            			endDate:$("#endDate").val(),
-            			calPhone:$("#calPhone").val(),
-            			title:$("#title").val(),
-            			contnet:$("#content").val(),
-            			trNo:"<%=loginUser.getUserNo()%>"  // 15
-            		},
-            		type:"post",
-            		success:function(result){
-            			console.log(result);
-            			alert("일정을 수정하였습니다.");
-            		},
-            		error:function(){
-            			console.log("일정수정 ajax 통신 실패");
-            		}
-            	})
+            
+            	if(validateDate("startDate") && validateDate("endDate")){
+	            	$.ajax({
+	            		url:"<%=contextPath%>/update.cal",
+	            		data:{
+	            			calNo:$("#myModal3 input[id='calNo']").val(), // 166
+	            			calUserName:$("#calUserName").val(),
+	            			calColor:$("#calColor").val(),
+	            			startDate:$("#startDate").val(),
+	            			endDate:$("#endDate").val(),
+	            			calPhone:$("#calPhone").val(),
+	            			title:$("#title").val(),
+	            			contnet:$("#content").val(),
+	            			trNo:"<%=loginUser.getUserNo()%>"  
+	            		},
+	            		type:"post",
+	            		success:function(result){
+	            			console.log(result);
+	            			alert("일정을 수정하였습니다.");
+	            			location.href="<%=contextPath%>/calendarForm.cal";
+	            		},
+	            		error:function(){
+	            			console.log("일정수정 ajax 통신 실패");
+	            		}
+	            	})
+            	}else {
+            		alert("올바른 MM/DD/YYYY 형식으로 날짜를 입력하세요.");
+        	    	event.preventDefault();
+
+            	}
             	
             }
             
@@ -529,6 +573,7 @@
 		            		error:function(){
 		            			console.log("일정삭제 ajax 통신 실패");
 		            			alert("일정 삭제에 실패하였습니다.");
+		            			location.href="<%=contextPath%>/calendarForm.cal";
 		            		}
 		            	})
 	            }

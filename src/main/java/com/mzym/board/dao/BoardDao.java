@@ -974,7 +974,7 @@ public class BoardDao {
 			while(rset.next()) {
 				list.add(new Board(rset.getInt("board_no"),
 									rset.getString("board_title"),
-									rset.getString("user_name"),
+									rset.getString("user_id"),
 									rset.getInt("count"),
 									rset.getDate("regist_date")
 									));
@@ -1032,7 +1032,7 @@ public class BoardDao {
 				b = new Board(rset.getInt("board_no"),
 							  rset.getString("board_title"),
 							  rset.getString("board_content"),
-							  rset.getString("user_no")
+							  rset.getString("user_id")
 							  );
 				b.setBoardType(rset.getInt("board_type"));
 			}
@@ -1771,18 +1771,41 @@ public class BoardDao {
 		return 0;
 	}
 
+	public int boardStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("boardStatusN"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
+	public int commentStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("commentStatusN"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
 
 }// class END

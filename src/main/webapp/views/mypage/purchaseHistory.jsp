@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>구매내역</title>
 <style>
  /*마이페이지 style*/
 
@@ -68,7 +68,7 @@ margin-top: 60px;
         
         <%@ include file="/views/common/mypage_sidemenu.jsp"%>
           
-        <h4>구매내역</h4>
+        <h4>구매내역<i class="far fa-credit-card"></i></h4>
         <div class="payment_content">
                 <table class="table">
                     <thead>

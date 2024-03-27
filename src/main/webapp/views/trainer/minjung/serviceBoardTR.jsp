@@ -107,7 +107,7 @@
                                  -->
                                 <% if(list.get(i).getServiceRepeat() != null){ %>
                                  	<%
-                                 	if(loginUser.getUserNo() == Integer.parseInt(s.getServiceTr())) {
+                                 	if(loginUser.getUserId().equals(s.getServiceTr())) {
                                  	%>
 	                                    <div><b><%=trainerID %><br><!-- <%=list.get(i).getServiceTr()%> --></b></div>
 	                                    <div style="width: 80%; display: flex;">

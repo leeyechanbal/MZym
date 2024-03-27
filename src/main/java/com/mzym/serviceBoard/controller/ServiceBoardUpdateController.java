@@ -59,10 +59,10 @@ public class ServiceBoardUpdateController extends HttpServlet {
 				at = new Attachment();
 				at.setOriginName(multiRequest.getOriginalFileName("upfile"));
 				at.setChangeName(multiRequest.getFilesystemName("upfile"));
-				at.setFilePath("/resources/serviceUpfile/");
+				at.setFilePath("/resources/serviceUpfile/servicefile/");
 				
 				if(multiRequest.getParameter("originFileNo") !=null) {
-					System.out.println(multiRequest.getParameter("originFileNo"));
+					
 				at.setFileNO((Integer.parseInt(multiRequest.getParameter("originFileNo"))));
 				}else {	
 				
