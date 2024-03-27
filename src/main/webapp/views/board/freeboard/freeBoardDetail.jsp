@@ -88,11 +88,15 @@
         
         .btnlist{
         	border: 1px solid #eee;
-            color: #000;
+            color: #000;	
         }
 
         .modal-content{
             border: 1px solid #1abc9c;
+        }
+        
+        .table_wrap{
+		word-wrap: break-word;
         }
 
     </style>
@@ -115,7 +119,8 @@
             <hr>
             
             <input type="hidden" id="loginUserNo" value="<%= loginUser != null ? loginUser.getUserNo() : 0 %>">
-
+			
+		<div class = table_wrap>
             <table class="table">
             	<thead>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자일 경우 보여지는 버튼 요소 -->
@@ -131,7 +136,7 @@
                     <td><h3><%= b.getBoardTitle() %></h3></td>
                 </tr>
                 <tr>
-                    <td><div style="min-height:200px; white-space:pre"><%= b.getBoardContent() %></div></td>
+                    <td><div><%= b.getBoardContent() %></div></td>
                 </tr>
                 <tr>
                     <td>
@@ -145,6 +150,7 @@
                     </td>
                 </tr>
             </table>
+          </div>
 
             <br><br>
 
