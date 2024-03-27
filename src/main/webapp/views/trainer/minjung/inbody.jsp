@@ -9,11 +9,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인바디 페이지</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>인바디 페이지</title>
-    
 
    <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 
@@ -141,7 +139,6 @@
                     <div style="display: flex; align-items: end;">
                         <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#insertModal" style="margin-right:6px">등록</button>
                         <button type="submit" class="btn btn-outline-warning btn-sm" data-dismiss="modal" style="margin-right:6px">수정</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
                     </div>
                 </div>
               </form>
@@ -211,28 +208,6 @@
 
 
 
-<!-- 삭제용 모달 -->
-<div class="modal" id="deletModal" >
-    <div class="modal-dialog">
-      <div class="modal-content" style="border: 3px solid #1abc9cc7;">
-        <!-- Modal Header -->
-        <div class="modal-header" >
-          <h4 class="modal-title">게시물 삭제</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center; font-size: 15px; ">
-            게시물을 정말로 삭제 하시겠습니까?
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button class="btn btn-outline-danger btn-sm" id="deletebtn" data-dismiss="modal">삭제</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
    <script>
    
@@ -245,13 +220,22 @@
             success:function(ib){
                console.log(ib);
                
-               $("#userInbody input[name='userName']").val(ib.userName).prop("readonly",true);
-               $("#userInbody input[name='height']").val(ib.bodyHeight);
-               $("#userInbody input[name='weight']").val(ib.bodyWeight);
-               $("#userInbody input[name='metabolism']").val(ib.badyMetabolism);
-               $("#userInbody input[name='fat']").val(ib.bodyFat);
-               //$("#inbody input[name='registDate']").val(ib.registDate);
-
+               if(ib != null){
+	               $("#userInbody input[name='userName']").val(ib.userName).prop("readonly",true);
+	               $("#userInbody input[name='height']").val(ib.bodyHeight);
+	               $("#userInbody input[name='weight']").val(ib.bodyWeight);
+	               $("#userInbody input[name='metabolism']").val(ib.badyMetabolism);
+	               $("#userInbody input[name='fat']").val(ib.bodyFat);
+	               //$("#inbody input[name='registDate']").val(ib.registDate);
+               }else{
+            	   $("#userInbody input[name='userName']").val("-");
+            	   $("#userInbody input[name='height']").val(0);
+	               $("#userInbody input[name='weight']").val(0);
+	               $("#userInbody input[name='metabolism']").val(0);
+	               $("#userInbody input[name='fat']").val(0);
+            	   
+               }
+               
                
             },
             error:function(){
@@ -287,26 +271,7 @@
          })
       })
       
-         
-      // 회원 인바디 정보 삭제
-      $(document).ready(function() {
-      $("#deletebtn").on("click", function(){
-         $.ajax({
-            url:"<%=contextPath %>/deleteInbody.trainar",
-            data:{userPhone:$("#userInbodySelect input[name='userPhone']").val()},
-            type:"get",
-            success:function(result){
-               console.log(result);
-               alert("성공적으로 삭제되었습니다.");
-            },
-            error:function(){
-               console.log("회원인바디정보삭제 ajax통신실패");
-               alert("게시글 삭제에 실패하였습니다.");
-            }
-         })
-      })
-     })  
-      
+
       
       
       

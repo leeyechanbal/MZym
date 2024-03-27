@@ -34,6 +34,8 @@ public class InbodyUpdateController extends HttpServlet {
 
 		request.setCharacterEncoding("utf-8");
 		
+		System.out.println("업데이트 인바디 실행");
+		
 		String userPhone = request.getParameter("userPhone");
 		int height = Integer.parseInt(request.getParameter("height"));
 		int weight = Integer.parseInt(request.getParameter("weight"));
