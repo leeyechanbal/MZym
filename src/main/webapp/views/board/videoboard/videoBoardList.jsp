@@ -98,10 +98,32 @@
         }
 
         .board_list{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: flex-start; 
+	    }
+	
+	    .video {
+	        width: calc(33.33% - 30px); 
+	        margin-right: 30px;
+	        box-sizing: border-box; 
+	    }
+	
+	    .video:last-child {
+	        margin-right: 0;
+	    }
+	
+	    @media screen and (max-width: 992px) {
+	        .video {
+	            width: calc(50% - 30px);
+	        }
+	    }
+	
+	    @media screen and (max-width: 600px) {
+	        .video {
+	            width: calc(100% - 30px);
+	        }
+	    }
 
     </style>
 </head>
