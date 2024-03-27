@@ -439,7 +439,7 @@
 	                	$("#myModal3 input[id='calNo']").val(id);
 	                	$("#myModal3 textarea[id='content']").val(event.extendedProps.description);
 	
-	                	// 모달창 띄우기
+	                	// 일정내용모달창 띄우기
 	                	$("#myModal3").modal("show");
                 	//}
                 }
