@@ -36,8 +36,8 @@ public class MyPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 HttpSession session = request.getSession();
 		 Member loginUser = (Member)session.getAttribute("loginUser");
-		 
-		 String RRN = loginUser.getRRN();
+		  
+''
 		 String strB = RRN.substring(0,6);
 		 String strG = RRN.substring(7,8);
 		 

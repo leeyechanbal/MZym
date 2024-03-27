@@ -8,9 +8,7 @@ import static com.mzym.common.template.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import com.mzym.board.vo.Attachment;
 import com.mzym.common.paging.PageInfo;
@@ -89,7 +87,7 @@ public class ServiceBoardService {
 		int result2 = 1;
 		
 		if(at != null) {
-			if(at.getFileNO() !=0) {
+			if(at.getFileNO() != 0) {
 				result2 = sDao.updateAtt(conn, at);
 				
 			}else {
