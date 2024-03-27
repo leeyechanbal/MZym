@@ -298,7 +298,7 @@
                                 <tr id="theader" style="background-color: rgb(224, 224, 224);">
                                     <th class="table-number">번호</th>
                                     <th class="table-title">제목</th>
-                                    <th>작성자</th>
+                                    <th style="width: 100px;">글 번호</th>
                                 </tr>
         
         
@@ -310,7 +310,7 @@
                             <tr class="tr-title" data-toggle="collapse" data-target="#reComment<%=i%>">
                                 <td class="table-number"><%=r.getReportNo() %></td>
                                 <td class="table-title"><%=b.getBoardTitle() %></td>
-                                <td><%=c.getUserName()%></td>
+                                <td><%=b.getBoardNo()%></td>
                             </tr>
                             
                             <tr id="reComment<%=i%>" class="collapse">
@@ -320,7 +320,7 @@
                                             <fieldset style="text-align: start;">
                                                 <legend><u>세부사항</u></legend>
                                                 <ul>
-                                                    <li>댓글 번호 : <%=c.getCommentNo() %></li>
+                                                    
                                                     <li>카테고리: 
 	                                                    <%for(ReportCategory rc : rCategory) {
 	 		                                                 if(rc.getCategoryNo() == r.getCategoryNo()){
