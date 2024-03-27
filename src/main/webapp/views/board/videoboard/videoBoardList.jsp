@@ -126,7 +126,7 @@
             <div class="board_list">
 				<% for(Video v : listBegin) { %>
 		                <div class="video">
-		                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" title="운동할 시간이 없다는 사람에게 보여주세요... 제발" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+		                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 		                    <div class="video_title"><%=v.getVideoTitle() %></div>
 		                    <div class="video_etc">
 		                    </div>
@@ -144,7 +144,7 @@
             <div class="board_list">
             	<% for(Video v : list) { %>
                 <div class="video">
-                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" title="운동할 시간이 없다는 사람에게 보여주세요... 제발" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <div class="video_title"><%=v.getVideoTitle() %></div>
                     <div class="video_etc">
                     </div>
