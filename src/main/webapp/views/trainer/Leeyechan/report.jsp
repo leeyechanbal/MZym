@@ -174,24 +174,29 @@
                            		<%} %>
                             <%} else { %>
                             <!-- PT후기(3) 게시판일 경우 -->
+                            <%int count = 0; %>
+                            
                             	<%for (int i = 0 ; i < listBoard.size(); i++ ){ 
                             		Report r = listBoard.get(i);
-                            		Board b = r.getBoard();
-                            		List<Attachment> atList = b.getAtList(); 
+                            		Board b = listBoard.get(i).getBoard();
+                            		List<Attachment> atList = listBoard.get(i).getBoard().getAtList();
+                            		boolean che = (i == 0 ) ? true : (listBoard.get(i-1).getReportNo() != listBoard.get(i).getReportNo());
+                            		
+                            		if(count >= 10){
+                            			break;
+                            		}
+                            		
+                            		
                             	%>
-                            													<!-- 
-                            														첫번재는 무조건 실행
-                            														두번쨰 부터 첫번쨰 와 두번쨰 비교 (같으면 skip 다르면 excise)
-                            														총 4번을 실행 => 5번쟤와는 다른 글번호 => 실행 5번쟤 6번째 와 비교
-                            													 -->
-                            	<% if((i == 0 ) ? true : (listBoard.get(i-1).getBoardNo() != listBoard.get(i).getBoardNo())) {%>
-                          		 	<tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
+                            												
+                            	<% if(che) {%>
+                          		 	<tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=count%>"> 
                                     	<td class="table-number"><%=r.getReportNo() %></td>
                                     	<td class="table-title"><%=b.getBoardTitle() %></td>
                                     	<td><%=b.getBoardMember() %></td>
                                 	</tr>
                                 	
-                                	<tr id="rePicture<%=i%>" class="collapse">
+                                	<tr id="rePicture<%=count%>" class="collapse">
                                 	
                                     <td colspan="5">
                                         <form action="" method="">
@@ -211,7 +216,6 @@
                                                     	<li>신고일: <%=r.getReportDate()%></li>
                                                     </ul>
                                                     
-                                        
                                                     
                                                     <textarea cols="75" rows="8" readonly><%=b.getBoardContent()%></textarea>
                                                     <legend><u>보고서</u></legend>
@@ -226,16 +230,15 @@
                                                	</fieldset>
                                                 
                                                 
-                                                <div id="demo" class="carousel slide" data-ride="carousel">
+                                                <div id="demo<%=count%>" class="carousel slide" data-ride="carousel" style="width: 50%; align-content: center; margin-left: 15px;">
                                                
-													<!-- 하나의 글에 정말 여러개의 att가 담기는지 확인 -->
-													<% if(!atList .isEmpty()){%>  
+													
                                                     <!-- 사진이 있는 경우 -->
                                                     <!-- Indicators -->
 													<ul class="carousel-indicators">                                             
                                                        <%for (int j = 0; j< atList.size(); j++ ){ %>
-                                                      	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="<%=atList.get(j).getFileLevel() == 1 ? "active": ""%>"></li>
-                                                   	<%} %>
+                                                      	<li data-target="#demo<%=count%>" data-slide-to="<%=j%>" class="<%=(j == 0 )?"active":""%>" style="background-color: black;"></li>
+                                                   		<%} %>
                                                     </ul>
 	                                                    
                                                     <!-- The slideshow -->
@@ -243,34 +246,19 @@
                                                     <%for (int j = 0; j< atList.size(); j++ ){ 
                                                     	Attachment at = atList.get(j);
                                                     %>
-                                                      <div class="carousel-item <%=at.getFileLevel() == 1 ? "active": ""%>"><span class="badge badge-dark"><%=at.getFileLevel()%></span>
-                                                        <img src="<%=mzymPath + at.getFilePath()+ "/" + at.getChangeName()%>" width="500px" height="500px">
+                                                      <div class="carousel-item <%=(j == 0)?"active":""%>"><span class="badge badge-dark"><%=at.getFileLevel()%></span>
+                                                        <img src="<%=mzymPath + at.getFilePath()+ at.getChangeName()%>" width="500px" height="500px">
                                                       </div>
                                                       <%} %>
                                                     </div>
                                                     <!-- 사진이 있는 경우 -->
-                                                     <%} else { %>
-                                                   	<!-- 사진이 없는 경우 => 기본 로고 출력 -->
-                                                   	<!-- Indicators -->
-                                                    <ul class="carousel-indicators">                                             
-                                                    	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
-                                                   	</ul>
-                                                   	
-                                                   	<!-- The slideshow -->
-                                                   	<div class="carousel-inner">
-                                                      <div class="carousel-item active">
-                                                        <img src="<%=mzymPath%>/resources/img/MZYM_logo_272x167.png" width="500px" height="500px">
-                                                      </div>
-                                                    </div>
-
-                                                    <%} %> 
-                                                    <!-- 사진이 없는 경우 -->
+                                                  
                                                     
                                                     <!-- Left and right controls -->
-                                                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                                    <a class="carousel-control-prev" href="#demo<%=count%>" data-slide="prev">
                                                       <span class="carousel-control-prev-icon" style="background-color: black;"></span>
                                                     </a>
-                                                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                                                    <a class="carousel-control-next" href="#demo<%=count%>" data-slide="next">
                                                       <span class="carousel-control-next-icon" style="background-color: black;"></span>
                                                     </a>
                                                 </div> <!-- demo 끝 -->
@@ -284,7 +272,8 @@
                                             </td>
                                         </form>
                                 </tr>
-                                	<%} %> <!-- 게시물 번호 비교 if문 끝 -->
+                                <%count++; %>
+                                	<%} %> <!-- 게시물 번호 비교 후 생성 if문 끝 -->
                             	<%} %> <!-- 사진 for문 끝 -->
                            	<%} %> <!-- pt후기 게시글 체크 else문 끝 -->
 
@@ -350,6 +339,7 @@
                                         </div>
                                     </td>
                                 </tr>
+
                             <%} %>
                             </table>
                         </div>

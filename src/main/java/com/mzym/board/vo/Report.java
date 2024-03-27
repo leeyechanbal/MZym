@@ -177,8 +177,9 @@ public class Report {
 
 	@Override
 	public String toString() {
-		return "Report [reportNo=" + reportNo + ", board=" + board + "]\n";
+		return "Report [reportNo=" + reportNo +", comment=" + comment + ", board=" + board + "]\n";
 	}
+
 
 
 

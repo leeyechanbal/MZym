@@ -304,11 +304,11 @@
         .nav-link{
             color: #1abc9cc7;
         }
-        #demo{
+        /* .demo{
             width: 50%;
             align-content: center;
             margin-left: 15px;
-        }
+        } */
         .in-line{
             display: flex;
             flex-direction: column;
