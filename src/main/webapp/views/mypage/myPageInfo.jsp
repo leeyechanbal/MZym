@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 <style>
 /*마이페이지 style*/
 
@@ -269,7 +269,7 @@ margin-left: 230px;
             
                     <!-- Modal body -->
                     <div class="modal-body">
-                   		 <form action="<%= contextPath%>/updatePwd.me" method="post">
+                   		 <form id="myForm" action="<%= contextPath%>/updatePwd.me" method="post" onsubmit="return submitForm()">
 	                        <table align="center">
 	                            <tr>
 	                                <td><input type="password" class="form-control" name="userPwd" placeholder="현재 비밀번호"></td>
@@ -278,7 +278,7 @@ margin-left: 230px;
 	                                <td><input type="password" class="form-control" name=newPwd placeholder="변경할 비밀번호"></td>
 	                            </tr>
 	                            <tr>
-	                                <td><input type="password" class="form-control" placeholder="변경할 비밀번호 재입력"></td>
+	                                <td><input type="password" class="form-control" name="confirmPwd" placeholder="변경할 비밀번호 재입력"></td>
 	                            </tr>
 	                            <tr>
 	                                <td colspan="2" style="text-align: center; padding-top: 10px;">
@@ -288,6 +288,34 @@ margin-left: 230px;
 	                            </tr>
 	                        </table>
                          </form>
+                         
+                         <script>
+                         function submitForm() {
+
+                        	var newPwd = document.getElementsByName("newPwd")[0].value;
+       
+                        	var confirmPwd = document.getElementsByName("confirmPwd")[0].value;
+
+                   	        console.log("변경할 비밀번호:", newPwd);
+                   	        console.log("변경할 비밀번호 재입력:", confirmPwd);
+                   	        
+                   	        var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+                            if (!passwordRegex.test(newPwd)) {
+                                alert("비밀번호는 영문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
+                                return;
+                            }
+                            
+                            if (newPwd != confirmPwd) {
+                                alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+                                return false;
+                            }
+
+                        	document.getElementById("myForm").submit();
+                        }
+                        </script>
+                         
+                        
+                         
                     </div>
                 </div>
                 </div>

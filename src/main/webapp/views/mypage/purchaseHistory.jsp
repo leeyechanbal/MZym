@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>구매내역</title>
 <style>
  /*마이페이지 style*/
 
