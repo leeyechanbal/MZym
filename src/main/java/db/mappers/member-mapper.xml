@@ -350,7 +350,7 @@ SELECT
 </entry>
 
 
-<!-- 김민정 회원 인바디 수정 -->
+<!-- 김민정 회원 인바디 수정. -->
 <entry key="updateInbody">
 UPDATE INBODY
    SET BODY_HEIGHT = ?

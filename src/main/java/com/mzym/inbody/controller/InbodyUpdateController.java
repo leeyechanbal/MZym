@@ -55,7 +55,7 @@ public class InbodyUpdateController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/indobyForm.trainar");
 			
 		}else {
-			// 에러페이지
+			// 에러페이지.
 		}
 		
 	}
