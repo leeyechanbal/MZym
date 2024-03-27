@@ -43,7 +43,7 @@ public class ServiceBoardInsertController extends HttpServlet {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 *1024;
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/servicefile/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new RenameFile());
 			
 			ServiceBoard sb = new ServiceBoard();
@@ -58,7 +58,7 @@ public class ServiceBoardInsertController extends HttpServlet {
 			String origin = multiRequest.getOriginalFileName("upfile");
 			
 			if(origin != null) {
-				at = new Attachment(origin, multiRequest.getFilesystemName("upfile"), "/resources/serviceUpfile/");
+				at = new Attachment(origin, multiRequest.getFilesystemName("upfile"), "/resources/serviceUpfile/servicefile/");
 			}			
 			
 			int result = new ServiceBoardService().insertServiceBoard(sb,at);

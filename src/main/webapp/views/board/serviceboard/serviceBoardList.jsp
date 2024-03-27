@@ -333,11 +333,11 @@ border rounded>span {
 										<%if(sb.getServiceTr()!=null){ %>
 									<div class="repeat border mx-auto">
 										<div>
-											<b>관리자 <%=sb.getServiceTr() %>
+											<b>관리자 <%=sb.getServiceTr()%>
 											</b>
 										</div>
-										<textarea class="answer"><%=sb.getServiceRepeat() %>
-										</textarea>
+										<div class="answer"><%=sb.getServiceRepeat() %>
+										</div>
 
 									</div>
 									<%} %>

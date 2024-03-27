@@ -552,8 +552,9 @@ public class BoardDao {
 		PreparedStatement pst = null;
 		ResultSet rset = null;
 		List<Report> list = new ArrayList<>();
-		List<Attachment> atList = new ArrayList<>();
-		
+		List<Attachment> atList  = new ArrayList<>();
+		int count = 0;
+
 		try {
 			// 신고 게시판 불러오기
 			if(hash.get("type").equals("board")) {
@@ -570,6 +571,7 @@ public class BoardDao {
 				
 				
 				while(rset.next()) {
+					
 					if (categoryNum != 3) {
 					// 카테고리가 pt후기 아닌 경우
 					list.add(new Report(
@@ -593,8 +595,13 @@ public class BoardDao {
 										)
 							));
 					
+					System.out.println("------------------------- pt 아닌 경우 ----------------------------");
+					System.out.println(list);
+					System.out.println();
+					
 					} else {
 						// 카테고리가 pt 후기인 경우
+						
 						// while 문
 						list.add(new Report(
 								rset.getInt("REPORT_NO")
@@ -611,11 +618,13 @@ public class BoardDao {
 										, atList
 										)
 								));
-						int count = 0;
-						
+						boolean ch = (count == 0 ) ? true : (list.get(count-1).getReportNo() ==  list.get(count).getReportNo());
+						System.out.println("count" + count);
+						count++;
+				
+						System.out.println("결과값  " + ch);
 						// 반복 x , 반복은 rset.next()가 할꺼임
-						if( (count == 0 ) ? true : (list.get(count-1).getBoardNo() == list.get(count).getBoardNo())) {
-							
+						if(ch) {							
 							atList.add(
 									new Attachment(
 										rset.getString("ORIGIN_NAME")
@@ -626,13 +635,17 @@ public class BoardDao {
 									);
 						} else {
 							count = 0;
+							atList = new ArrayList<Attachment>();
 						}
-						count++;
-//						System.out.println(atList);
+	
+						
+						System.out.println("------------------------- pt 후기 -----------------------------");
+						
+						System.out.println(list);
+						System.out.println();
 						
 					} // if문 
 					
-//					System.out.println(list);
 				} // while문
 				
 			} else {
@@ -677,7 +690,7 @@ public class BoardDao {
 		
 		return list;
 	}
-	
+		
 	
 	/**
 	 * @author 이예찬

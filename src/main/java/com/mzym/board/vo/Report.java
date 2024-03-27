@@ -71,7 +71,8 @@ public class Report {
 	 * @param board 신고된 댓글의 게시글 정보
 	 * @param comment 신고된 댓글의 정보
 	 */
-	public Report(int reportNo, int categoryNo, String reportDate, String reportContent, String userID, Board board, Comment comment) {
+	public Report(int reportNo, int categoryNo, String reportDate, String reportContent,
+			String userID, Board board, Comment comment) {
 		super();
 		this.reportNo = reportNo;
 		this.categoryNo = categoryNo;
@@ -176,11 +177,10 @@ public class Report {
 
 	@Override
 	public String toString() {
-		return "Report [reportNo=" + reportNo + ", boardNo=" + boardNo + ", commentNo=" + commentNo + ", categoryNo="
-				+ categoryNo + ", reportUser=" + reportUser + ", reportDate=" + reportDate + ", status=" + status
-				+ ", reportContent=" + reportContent + ", userID=" + userID + ", board=" + board + ", comment="
-				+ comment + "]";
+		return "Report [reportNo=" + reportNo + ", board=" + board + "]\n";
 	}
+
+
 
 
 }

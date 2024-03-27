@@ -141,7 +141,7 @@
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td colspan="3"><div style="min-height:200px;"><%=b.getBoardContent() %></div></td>
+                    <td colspan="3"><%=b.getBoardContent() %></div></td>
                 </tr>
                 <tr>
                     <td colspan="4" align="center">
