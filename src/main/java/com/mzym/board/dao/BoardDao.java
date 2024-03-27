@@ -951,7 +951,7 @@ public class BoardDao {
 			while(rset.next()) {
 				list.add(new Board(rset.getInt("board_no"),
 									rset.getString("board_title"),
-									rset.getString("user_name"),
+									rset.getString("user_id"),
 									rset.getInt("count"),
 									rset.getDate("regist_date")
 									));
@@ -1009,7 +1009,7 @@ public class BoardDao {
 				b = new Board(rset.getInt("board_no"),
 							  rset.getString("board_title"),
 							  rset.getString("board_content"),
-							  rset.getString("user_no")
+							  rset.getString("user_id")
 							  );
 				b.setBoardType(rset.getInt("board_type"));
 			}

@@ -6,6 +6,8 @@
 <%
     Board b = (Board)request.getAttribute("b"); // 게시글번호, 제목, 내용, 작성자
 	List<Attachment> list = (List<Attachment>)request.getAttribute("list");
+    
+    System.out.println(b);
 %>
 <!DOCTYPE html>
 <html>
@@ -142,7 +144,7 @@
                 </tr>
                 <tr>
                     <th width="100">작성자</th>
-                    <td width="400"><%= b.getBoardWriter() %></td>
+                    <td width="400"><%= b.getBoardMember() %></td>
                 </tr>
                 <tr>
                     <th>내용</th>

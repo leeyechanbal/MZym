@@ -136,7 +136,7 @@
                     <td><h3><%= b.getBoardTitle() %></h3></td>
                 </tr>
                 <tr>
-                    <td><div><%= b.getBoardContent() %></div></td>
+                    <td><div style="min-height : 300px"><%= b.getBoardContent() %></div></td>
                 </tr>
                 <tr>
                     <td>
