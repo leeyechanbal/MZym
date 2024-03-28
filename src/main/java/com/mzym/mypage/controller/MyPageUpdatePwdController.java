@@ -43,7 +43,7 @@ public class MyPageUpdatePwdController extends HttpServlet {
 	    Member updateMem = new MyPageService().updatePwdMember(userId, userPwd, newPwd);
 	    
 	    if(updateMem == null) {
-	    	session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
+	    	session.setAttribute("alertMsg", "현재 비밀번호가 틀렸습니다.");
 	    }else {
 
     	  session.setAttribute("loginUser", updateMem);
