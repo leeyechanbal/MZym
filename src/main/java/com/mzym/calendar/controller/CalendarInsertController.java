@@ -59,7 +59,6 @@ public class CalendarInsertController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(result>0) {
-			session.setAttribute("alert", "일정 등록에 성공하였습니다.");
 			new Gson().toJson(result, response.getWriter());
 		}else {
 			//에러페이지

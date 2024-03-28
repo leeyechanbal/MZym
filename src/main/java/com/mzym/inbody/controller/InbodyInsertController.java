@@ -31,7 +31,6 @@ public class InbodyInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("인바디 인설트 실행");
 		String insertName = request.getParameter("insertName");
 		String insertPhone = request.getParameter("insertPhone");
 		int insertHeight = Integer.parseInt(request.getParameter("insertHeight"));
@@ -49,9 +48,15 @@ public class InbodyInsertController extends HttpServlet {
 		
 		int result = new InbodyService().insertInbody(ib,insertName, insertPhone);
 		response.setContentType("application/json; charset=utf-8");
-
-		new Gson().toJson(result, response.getWriter());
-
+		
+		Inbody userIb = new InbodyService().selectInbody(insertPhone);
+		
+		if( userIb.getUserName().equals(insertName)) {
+			
+			new Gson().toJson(result, response.getWriter());
+		}else {
+			request.getSession().setAttribute("alertMsg", "회원정보가 일치하지 않습니다.");
+		}
 		
 	}
 

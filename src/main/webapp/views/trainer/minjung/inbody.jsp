@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.model.vo.Member" %>
+<%@ page import="com.mzym.mypage.model.vo.Inbody" %>
 <%
    String contextPath = request.getContextPath();
    String alertMsg = (String)session.getAttribute("alertMsg");
+   Inbody ib = (Inbody)request.getAttribute("ib");
 %>    
 <!DOCTYPE html>
 <html>
@@ -104,6 +106,7 @@
                     <h4></h4>&nbsp;<input type="text" name="userPhone" style="width: 400px; text-align:left;" placeholder="회원의 전화번호를 입력해 주세요.">
                     <button type="button" id="searchbtn">검색</button>
                 </div>
+                <br>
                 <div class="inbody" id="userInbody">
                     <table>
                        <tr>
@@ -142,58 +145,57 @@
                 </div>
               </form>
             </td>
-       
 
 
-	<!-- 등록용 모달 -->
-	<div class="modal" id="insertModal" >
-	    <div class="modal-dialog">
-	      <div class="modal-content" id="insertContent" style="border: 3px solid #1abc9cc7;">
-	        <!-- Modal Header -->
-	        <div class="modal-header" >
-	          <h4 class="modal-title">인바디 등록</h4>
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        </div>
-	        <!-- Modal body -->
-	        <div class="modal-body" style="font-size: 15px; ">
-	                <ul>
-	                    <li>
-	                        <label >이름</label> <br>
-	                        <input type="text" name="insertName" style="width: 325px; margin-bottom: 15px;" required> 
-	                    </li>
-	                    <li>
-	                        <label>전화번호</label> <br>
-	                        <input type="text" name="insertPhone" style="width: 325px; margin-bottom: 15px;" required placeholder=" ex) 010-xxxx-xxxx(-포함)">
-	                    </li>
-	                    <li>
-	                        <label>신장</label> <br>
-	                        <input type="text" name="insertHeight" style="width: 325px; margin-bottom: 15px;" required> cm
-	
-	                    </li>
-	                    <li>
-	                        <label>체중</label> <br>
-	                        <input type="text" name="insertWeight" style="width: 325px; margin-bottom: 15px;" required> kg
-	
-	                    </li>
-	                    <li>
-	                        <label>기초대사량</label> <br>
-	                        <input type="text" name="insertMetabolism" style="width: 325px; margin-bottom: 15px;" required> kcal
-	
-	                    </li>
-	                    <li>
-	                        <label>체지방량</label> <br>
-	                        <input type="text" name="insertFat" style="width: 325px; margin-bottom: 15px;" required> bmi
-	
-	                    </li>
-	                </ul>
-	                    <!-- Modal footer -->
-	                    <div class="modal-footer">
-	                        <button type="button" id="insertbtn"class="btn btn-outline-success btn-sm"data-dismiss="modal">등록</button>
-	                    </div>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
+<!-- 등록용 모달 -->
+<div class="modal" id="insertModal" >
+    <div class="modal-dialog">
+      <div class="modal-content" id="insertContent" style="border: 3px solid #1abc9cc7;">
+        <!-- Modal Header -->
+        <div class="modal-header" >
+          <h4 class="modal-title">인바디 등록</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body" style="font-size: 15px; ">
+                <ul>
+                    <li>
+                        <label >이름</label> <br>
+                        <input type="text" name="insertName" style="width: 325px; margin-bottom: 15px;" required> 
+                    </li>
+                    <li>
+                        <label>전화번호</label> <br>
+                        <input type="text" name="insertPhone" style="width: 325px; margin-bottom: 15px;" required placeholder=" ex) 010-xxxx-xxxx(-포함)">
+                    </li>
+                    <li>
+                        <label>신장</label> <br>
+                        <input type="text" name="insertHeight" style="width: 325px; margin-bottom: 15px;" required> cm
+
+                    </li>
+                    <li>
+                        <label>체중</label> <br>
+                        <input type="text" name="insertWeight" style="width: 325px; margin-bottom: 15px;" required> kg
+
+                    </li>
+                    <li>
+                        <label>기초대사량</label> <br>
+                        <input type="text" name="insertMetabolism" style="width: 325px; margin-bottom: 15px;" required> kcal
+
+                    </li>
+                    <li>
+                        <label>체지방량</label> <br>
+                        <input type="text" name="insertFat" style="width: 325px; margin-bottom: 15px;" required> bmi
+
+                    </li>
+                </ul>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" id="insertbtn"class="btn btn-outline-success btn-sm"data-dismiss="modal">등록</button>
+                    </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -240,6 +242,7 @@
       
       // 회원 인바디 등록
       $("#insertbtn").on("click", function(){
+    	  
          $.ajax({
             url:"<%=contextPath%>/insertInbody.trainar",
             data:{
@@ -254,6 +257,8 @@
             success:function(result){
                console.log(result);               
                alert("성공적으로 등록 되었습니다.");
+               
+               location.href="<%=contextPath%>/indobyForm.trainar";
             },
             error:function(){
                console.log("인바디 등록 ajax통신 실패");

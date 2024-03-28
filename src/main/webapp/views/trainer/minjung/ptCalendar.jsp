@@ -58,7 +58,7 @@
                 </div>
            
             <div class="main_logo" >
-                <a href=""><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
+                <a href="<%=contextPath%>/login.trainer"><img src="<%=contextPath %>/resources/img/common/MZYM_logo_272x167.png" style="width: 170px;"></a>
               </div>
 
             <div class="main_item">
@@ -489,6 +489,7 @@
                 		type:"post",
                 		success:function(result){
                 			console.log("pt일정등록 성공");
+                			
                 			alert("일정 추가 완료되었습니다.");
                 			location.href="<%=contextPath%>/calendarForm.cal";
                 		},
@@ -568,12 +569,13 @@
 		            		type:"get",
 		            		success:function(result){
 		            			console.log(result);
-		            				alert("일정을 삭제하였습니다.");
+		            			
+		            			alert("일정을 삭제하였습니다.");
+		            			location.href="<%=contextPath%>/calendarForm.cal";
 		            		},
 		            		error:function(){
 		            			console.log("일정삭제 ajax 통신 실패");
 		            			alert("일정 삭제에 실패하였습니다.");
-		            			location.href="<%=contextPath%>/calendarForm.cal";
 		            		}
 		            	})
 	            }
