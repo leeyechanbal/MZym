@@ -296,7 +296,7 @@ margin-left: 230px;
                          function submitForm() {
 
                         	var newPwd = document.getElementsByName("newPwd")[0].value;
-       
+                        	var userPwd = document.getElementsByName("userPwd")[0].value;
                         	var confirmPwd = document.getElementsByName("confirmPwd")[0].value;
 
                    	        console.log("변경할 비밀번호:", newPwd);
