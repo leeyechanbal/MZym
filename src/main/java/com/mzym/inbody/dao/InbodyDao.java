@@ -96,7 +96,7 @@ public class InbodyDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, ib.getUserName());
+			pstmt.setString(1, insertName);
 			pstmt.setString(2, insertPhone);
 			pstmt.setInt(3, ib.getBodyHeight());
 			pstmt.setInt(4, ib.getBodyWeight());

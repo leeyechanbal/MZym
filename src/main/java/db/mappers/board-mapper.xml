@@ -296,6 +296,7 @@ from(
             , REPORT_DATE <!-- 신고일 -->
             , CATEGORY_NO <!-- 신고 카테고리 번호 -->
             , REPORT_CONTENT
+            , REPORTER <!-- 보고서 작성자 -->
             <!-- board -->
             , BOARD_NO <!-- 신고 카테고리 -->
             , BOARD_TYPE <!-- 게시글의 타입 -->
@@ -348,7 +349,8 @@ from(
            , USER_ID <!-- 신고자 아이디 -->
            , REPORT_DATE 
 		   , CATEGORY_NO  <!-- 신고 카테고리 -->
-           , REPORT_CONTENT		   
+           , REPORT_CONTENT
+           , REPORTER <!-- 보고서 작성자 -->   
            <!-- board -->
            , com.board_No
            , BOARD_TITLE
@@ -425,6 +427,7 @@ where board_no = (
 update report
 set status = 'N'
 , REPORT_CONTENT = ?
+, REPORTER = ? <!-- 보고서를 작성한 트레이너 아이디 -->
 where report_no = ?
 
 </entry>
@@ -453,6 +456,21 @@ where board_no = (
      where report_no = ?
      )
 </entry>
+
+<!-- 
+	작성자 : 구성모
+	신고 확인 요청된 게시물의 상태를 변경하는 쿼리
+ -->
+<entry key="boardStatusN">
+update mzym_board
+set status = 'N'
+where board_no = (
+     select board_no
+     from report
+     where report_no = ?
+     )
+</entry>
+
 <!-- 
 	작성자 : 이예찬
 	신고 철회 요청에 댓글의 상태를 변경하는 쿼리
@@ -460,6 +478,20 @@ where board_no = (
 <entry key="commentStatusY">
 update board_comment
 set status = 'Y'
+where COMMENT_NO = (
+     select COMMENT_NO
+     from report
+     where report_no = ?
+     )
+</entry>
+
+<!-- 
+	작성자 : 구성모
+	신고 확인 요청에 댓글의 상태를 변경하는 쿼리
+ -->
+<entry key="commentStatusN">
+update board_comment
+set status = 'N'
 where COMMENT_NO = (
      select COMMENT_NO
      from report

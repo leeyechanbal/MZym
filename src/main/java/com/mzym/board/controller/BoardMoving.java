@@ -50,12 +50,14 @@ public class BoardMoving extends HttpServlet {
 			int selectNo = Integer.parseInt(b);
 			
 			String text = request.getParameter("text"); // 보고서의 내용
+			String reporter = request.getParameter("reporter"); // 보고서 작성자
 
 			HashMap<String, Object> hash = new HashMap<>();
 			
 			hash.put("reportNo", reportNo);
 			hash.put("selectNo", selectNo);
 			hash.put("text", text);
+			hash.put("reporter", reporter);
 			
 			int result = new BoardService().boardMoving(hash);
 		

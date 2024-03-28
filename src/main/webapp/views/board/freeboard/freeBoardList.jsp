@@ -89,7 +89,6 @@
             <h2><%= bc.getCategoryName()%></h2>
             
             <hr>
-            <br><br>
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 			<% if(loginUser != null) { %>

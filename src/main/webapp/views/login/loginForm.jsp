@@ -233,7 +233,7 @@
                     <div class="login_title">
 
                         <div class="login_title_left">
-                            <button style="border: none;"><img src="<%=contextPath %>/resources/img/btn/backward-arrow_50x50.png"></button>
+                            <a href="<%=contextPath %>"  type="button" style="border: none;"><img src="<%=contextPath %>/resources/img/btn/backward-arrow_50x50.png"></a>
                         </div>
 
                         <div class="login_title_center">

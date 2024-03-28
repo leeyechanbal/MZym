@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.model.vo.Member" %>
+<%@ page import="com.mzym.mypage.model.vo.Inbody" %>
 <%
    String contextPath = request.getContextPath();
    String alertMsg = (String)session.getAttribute("alertMsg");
+   Inbody ib = (Inbody)request.getAttribute("ib");
 %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인바디</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>인바디 페이지</title>
-    
 
    <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 
@@ -101,7 +101,7 @@
 
             <td class="section2" >
             <br>
-                <div class="calory" id="userInbodySelect">
+                <div class="calory" id="userInbodySelect" style="min-height: 80px;">
                 <form action="<%=contextPath%>/updateInbody.trainar" method="post">
                     <h4></h4>&nbsp;<input type="text" name="userPhone" style="width: 400px; text-align:left;" placeholder="회원의 전화번호를 입력해 주세요.">
                     <button type="button" id="searchbtn">검색</button>
@@ -141,20 +141,10 @@
                     <div style="display: flex; align-items: end;">
                         <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#insertModal" style="margin-right:6px">등록</button>
                         <button type="submit" class="btn btn-outline-warning btn-sm" data-dismiss="modal" style="margin-right:6px">수정</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletModal" >삭제</button>
                     </div>
                 </div>
               </form>
             </td>
-        
-            <td class="section3"></td>
-        <!-- tfoot : 페이징 바 및 작성 과 삭제 버튼 영역 -->
-        <tfoot>
-            <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
-            <td class="section2"></td>
-            <td class="section3 "></td>
-        </tfoot>
-        <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
 
 
 <!-- 등록용 모달 -->
@@ -167,7 +157,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
-        <div class="modal-body" style=font-size: 15px; ">
+        <div class="modal-body" style="font-size: 15px; ">
                 <ul>
                     <li>
                         <label >이름</label> <br>
@@ -211,28 +201,6 @@
 
 
 
-<!-- 삭제용 모달 -->
-<div class="modal" id="deletModal" >
-    <div class="modal-dialog">
-      <div class="modal-content" style="border: 3px solid #1abc9cc7;">
-        <!-- Modal Header -->
-        <div class="modal-header" >
-          <h4 class="modal-title">게시물 삭제</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center; font-size: 15px; ">
-            게시물을 정말로 삭제 하시겠습니까?
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button class="btn btn-outline-danger btn-sm" id="deletebtn" data-dismiss="modal">삭제</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
    <script>
    
@@ -245,13 +213,22 @@
             success:function(ib){
                console.log(ib);
                
-               $("#userInbody input[name='userName']").val(ib.userName).prop("readonly",true);
-               $("#userInbody input[name='height']").val(ib.bodyHeight);
-               $("#userInbody input[name='weight']").val(ib.bodyWeight);
-               $("#userInbody input[name='metabolism']").val(ib.badyMetabolism);
-               $("#userInbody input[name='fat']").val(ib.bodyFat);
-               //$("#inbody input[name='registDate']").val(ib.registDate);
-
+               if(ib != null){
+	               $("#userInbody input[name='userName']").val(ib.userName).prop("readonly",true);
+	               $("#userInbody input[name='height']").val(ib.bodyHeight);
+	               $("#userInbody input[name='weight']").val(ib.bodyWeight);
+	               $("#userInbody input[name='metabolism']").val(ib.badyMetabolism);
+	               $("#userInbody input[name='fat']").val(ib.bodyFat);
+	               //$("#inbody input[name='registDate']").val(ib.registDate);
+               }else{
+            	   $("#userInbody input[name='userName']").val("-");
+            	   $("#userInbody input[name='height']").val(0);
+	               $("#userInbody input[name='weight']").val(0);
+	               $("#userInbody input[name='metabolism']").val(0);
+	               $("#userInbody input[name='fat']").val(0);
+            	   
+               }
+               
                
             },
             error:function(){
@@ -265,6 +242,7 @@
       
       // 회원 인바디 등록
       $("#insertbtn").on("click", function(){
+    	  
          $.ajax({
             url:"<%=contextPath%>/insertInbody.trainar",
             data:{
@@ -279,6 +257,8 @@
             success:function(result){
                console.log(result);               
                alert("성공적으로 등록 되었습니다.");
+               
+               location.href="<%=contextPath%>/indobyForm.trainar";
             },
             error:function(){
                console.log("인바디 등록 ajax통신 실패");
@@ -287,26 +267,7 @@
          })
       })
       
-         
-      // 회원 인바디 정보 삭제
-      $(document).ready(function() {
-      $("#deletebtn").on("click", function(){
-         $.ajax({
-            url:"<%=contextPath %>/deleteInbody.trainar",
-            data:{userPhone:$("#userInbodySelect input[name='userPhone']").val()},
-            type:"get",
-            success:function(result){
-               console.log(result);
-               alert("성공적으로 삭제되었습니다.");
-            },
-            error:function(){
-               console.log("회원인바디정보삭제 ajax통신실패");
-               alert("게시글 삭제에 실패하였습니다.");
-            }
-         })
-      })
-     })  
-      
+
       
       
       

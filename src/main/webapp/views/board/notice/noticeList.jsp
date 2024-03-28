@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
 
  	<style>
    
@@ -35,21 +35,6 @@
         .board_content table>tbody>tr{
  		cursor:pointer
  		}
-
-       .sea {
-			position: relative;
-			width: 300px;
-			float: left;
-			margin-bottom: 30px;
-		}
-		.sea img {
-             position : absolute;
-             width: 18px;
-             top: 14px;
-             right: 12px;
-              margin: 0;
-        }
-		
 		
 		input {
              width: 100%;
@@ -102,17 +87,11 @@
             <h2>공지사항</h2>
             
             <hr>
-            <br><br>
 
             <!-- 현재 로그인된 상태일 경우 보여지는 요소 -->
 			<% if(loginUser != null) { %>
             <div class="sea">
 					<form action="<%=contextPath %>/search.me" method="get" onsubmit="return enterForm();">
-					<div class="sea">
-               		<input type="search" placeholder="검색어를 입력하세요" name="keyword" id="keyword">
-                	<img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-            		</div>
-					
 					</form>
 			</div>
             <% } %>

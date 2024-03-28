@@ -364,7 +364,7 @@ UPDATE INBODY
 </entry>
 
 
-<!-- 김민정 회원 인바디 등록 -->
+<!-- 김민정 회원 인바디 등록 o -->
 <entry key="insertInbody">
 INSERT 
 INTO INBODY
@@ -382,7 +382,8 @@ VALUES
 ) 
 </entry>
 
-<!-- 김민정 회원 인바디 삭제 -->
+<!-- 김민정 회원 인바디 등록 -->
+
 <entry key="deleteInbody">
 UPDATE INBODY
    SET STATUS = 'N'
@@ -390,7 +391,8 @@ UPDATE INBODY
                     FROM MZYM_MEMBER
                    WHERE PHONE = ?)
 </entry>
-<!-- 작성자 엄희강 트레이너 정보를 불러오는 쿼리문 -->
+
+<!-- 작성자 엄희강 트레이너 정보를 불러오는 쿼리 -->
 <entry key="selectTrList">
  SELECT
     USER_NO,

@@ -35,11 +35,10 @@ public class InbodyService {
 		
 	}
 	
-	// 회원 인바디 등록
+	// 회원 인바디 등록 ddd
 	public int insertInbody(Inbody ib,String insertName, String insertPhone) {
 		Connection conn = getConnection();
 		int result = iDao.insertInbody(conn, ib, insertName, insertPhone);
-		
 		if(result > 0) {
 			commit(conn);
 		}else {
@@ -47,6 +46,8 @@ public class InbodyService {
 		}
 		close(conn);
 		return result;
+		
+		
 		
 		
 	}

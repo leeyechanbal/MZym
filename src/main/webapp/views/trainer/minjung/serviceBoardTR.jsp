@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>고객 센터 페이지</title>
+    <title>고객센터</title>
 
 	
    <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
@@ -85,17 +85,20 @@
                         </tr>
 
                         <tr id="context<%=i%>" class="collapse">
-                    <form action="<%=contextPath %>/updateServiceBoard.trainer" method="get" id="serviceList">
+                  		  <form action="<%=contextPath %>/updateServiceBoard.trainer" method="get" id="serviceList">
                             <td colspan="5">
-                                <p style="min-height:150px; text-align: left; white-space: pre;" class="border rounded">
-                                    <%=list.get(i).getServiceContent() %>
-                                <hr>
                                 <input type="hidden" name="no" value="<%=s.getServiceNo() %>">
                                 <input type="hidden" name="confimeTR" value="<%=loginUser.getUserNo()%>">
+                                <div style="min-height:150px; text-align: left; white-space: pre;" class="border rounded">
+                                    <%=list.get(i).getServiceContent() %>
+                                </div>
+                                <hr>
                                 <%if(list.get(i).getUpfileUrl() != null && list.get(i).getFileStatus().equals("Y")){ %>
 	                                <div style="max-width:100%; height: auto; text-align: left;">
 	                                	<a download="orginName" href="<%=contextPath + list.get(i).getUpfileUrl() %>" class="btn btn-outline-success">download</a>
+	                                	<%= s.getUpfileUrl() %>
 	                                </div>
+	                                
                                 <%}else{ %>
                                 	등록된 첨부파일이 없습니다.
                                 <%} %>
@@ -107,7 +110,7 @@
                                  -->
                                 <% if(list.get(i).getServiceRepeat() != null){ %>
                                  	<%
-                                 	if(loginUser.getUserNo() == Integer.parseInt(s.getServiceTr())) {
+                                 	if(loginUser.getUserId().equals(s.getServiceTr())) {
                                  	%>
 	                                    <div><b><%=trainerID %><br><!-- <%=list.get(i).getServiceTr()%> --></b></div>
 	                                    <div style="width: 80%; display: flex;">
@@ -184,19 +187,23 @@
         </div>
   
         <!-- Modal body -->
+        <div class="in-line" style="text-align: center;">
+        <div style="font-size: 15px; padding-top: 10px;"><input class="board-data" type="text" name="no">번</div>
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         
         </div>
-        <input type="hidden" name="no">
-  
+        <div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
+        </div>
+        <br>
+        
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
             <button type="button" class="btn btn-outline-danger btn-sm deletebtn">확인</button>
         </div>
         </form>
-  
+        
       </div>
     </div>
   </div>

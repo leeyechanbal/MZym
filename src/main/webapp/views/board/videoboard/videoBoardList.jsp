@@ -17,12 +17,11 @@
         /* Section 관련 스타일 */
         .board_content{
             border:1px solid 1abc9c;
-            width:80%;
+            width:90%;
             margin:auto;
             margin-top:50px; 
             margin-bottom:50px;
             min-height:500px;
-            padding:50px;
             border-radius:10px;
         }
 
@@ -99,10 +98,32 @@
         }
 
         .board_list{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: flex-start; 
+	    }
+	
+	    .video {
+	        width: calc(33.33% - 30px); 
+	        margin-right: 30px;
+	        box-sizing: border-box; 
+	    }
+	
+	    .video:last-child {
+	        margin-right: 0;
+	    }
+	
+	    @media screen and (max-width: 992px) {
+	        .video {
+	            width: calc(50% - 30px);
+	        }
+	    }
+	
+	    @media screen and (max-width: 600px) {
+	        .video {
+	            width: calc(100% - 30px);
+	        }
+	    }
 
     </style>
 </head>
@@ -127,7 +148,7 @@
             <div class="board_list">
 				<% for(Video v : listBegin) { %>
 		                <div class="video">
-		                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" title="운동할 시간이 없다는 사람에게 보여주세요... 제발" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+		                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 		                    <div class="video_title"><%=v.getVideoTitle() %></div>
 		                    <div class="video_etc">
 		                    </div>
@@ -138,14 +159,14 @@
             </div>
             
             <br>
-            <h4>영상</h4>
+            <h4>전체영상</h4>
             <hr>
             <br>
 
             <div class="board_list">
             	<% for(Video v : list) { %>
                 <div class="video">
-                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" title="운동할 시간이 없다는 사람에게 보여주세요... 제발" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="300px" height="200px" src="<%=v.getLink()%>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <div class="video_title"><%=v.getVideoTitle() %></div>
                     <div class="video_etc">
                     </div>

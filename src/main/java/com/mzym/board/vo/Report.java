@@ -14,6 +14,8 @@ public class Report {
 	private String reportDate; // 신고한 날짜
 	private String status;
 	private String reportContent;
+	private String reporter; // 신고 게시물의 보고서를 작성한 트레이너
+	
 	
 	private String userID; // 신고한 유저 아이디를 담을 변수
 	
@@ -21,7 +23,6 @@ public class Report {
 	private Comment comment; // 댓글 정보를 담을 객체
 	
 	public Report() {}
-
 
 	public Report(int reportNo, int boardNo, int commentNo, int categoryNo, int reportUser, String reportDate,
 			String status, String reportContent, String userID, Board board, Comment comment) {
@@ -49,7 +50,7 @@ public class Report {
 	 * @param userID 신고자의 아이디
 	 * @param board 신고 된 게시물의 정보
 	 */
-	public Report(int reportNo, int categoryNo, String reportDate,String reportContent , String userID, Board board) {
+	public Report(int reportNo, int categoryNo, String reportDate, String reportContent , String userID, String reporter,Board board) {
 		super();
 		this.reportNo = reportNo;
 		this.categoryNo = categoryNo;
@@ -57,6 +58,7 @@ public class Report {
 		this.reportDate = reportDate;
 		this.userID = userID;
 		this.board = board;
+		this.reporter = reporter;
 	}
 
 
@@ -72,13 +74,14 @@ public class Report {
 	 * @param comment 신고된 댓글의 정보
 	 */
 	public Report(int reportNo, int categoryNo, String reportDate, String reportContent,
-			String userID, Board board, Comment comment) {
+			String userID, String reporter, Board board, Comment comment) {
 		super();
 		this.reportNo = reportNo;
 		this.categoryNo = categoryNo;
 		this.reportContent = reportContent;
 		this.reportDate = reportDate;
 		this.userID = userID;
+		this.reporter = reporter;
 		this.board = board;
 		this.comment = comment;
 	}
@@ -173,12 +176,22 @@ public class Report {
 	public void setReportContent(String reportContent) {
 		this.reportContent = reportContent;
 	}
+	
+	public String getReporter() {
+		return reporter;
+	}
+
+
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Report [reportNo=" + reportNo + ", board=" + board + "]\n";
+		return "Report [reportNo=" + reportNo +", comment=" + comment + ", board=" + board + "]\n";
 	}
+
 
 
 

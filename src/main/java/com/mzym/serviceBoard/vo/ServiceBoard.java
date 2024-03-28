@@ -10,7 +10,7 @@ public class ServiceBoard {
 	private String serviceContent;
 	private String registDate;
 	private String editDate;
-	private String serviceTr; // 답변 트레이너 이름
+	private String serviceTr; // 답변 트레이너 회원번호
 	private String serviceRepeat; // 답변 내용
 	private String repeatDate;
 	private String status;
@@ -19,6 +19,7 @@ public class ServiceBoard {
 	private int fileNo; // 파일 번호 
 	private String fileStatus; //파일 상태 
 	
+	private String serviceTrName;
 	
 	public ServiceBoard() {
 		
@@ -198,6 +199,16 @@ public class ServiceBoard {
 
 
 	
+
+
+	public String getServiceTrName() {
+		return serviceTrName;
+	}
+
+
+	public void setServiceTrName(String serviceTrName) {
+		this.serviceTrName = serviceTrName;
+	}
 
 
 	public ServiceBoard(int serviceNo, String serviceUser, String categoryNo, String serviceTitle,

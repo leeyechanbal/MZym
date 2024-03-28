@@ -451,10 +451,10 @@ public class BoardDao {
 		try {
 			if(ad.getStatus().equals("N")) {
 				pst = conn.prepareStatement(prop.getProperty("adviceComplete"));
-				System.out.println(ad.getTrainerId());
+//				System.out.println(ad.getTrainerId());
 				
 				pst.setString(1, ad.getTrainerId());
-				System.out.println(ad.getRepeat());
+//				System.out.println(ad.getRepeat());
 				
 				pst.setString(2, ad.getRepeat());
 				pst.setInt(3, ad.getAdviceNo());
@@ -480,6 +480,7 @@ public class BoardDao {
 	}
 	
 	/**
+	 * 상담을지 지워질때 상태를 K로 바꾸는 매서드
 	 * @author 이예찬
 	 * @param conn
 	 * @param adviceNo
@@ -564,12 +565,15 @@ public class BoardDao {
 				pst = conn.prepareStatement(prop.getProperty("selectBoardReport"));
 				pst.setString(1,(String)hash.get("status"));
 				pst.setInt(2,categoryNum);
-				pst.setInt(3, info.getStartBoard());
-				pst.setInt(4, info.getEndBoard());
-				
+				if (categoryNum != 3) {
+					pst.setInt(3, info.getStartBoard());
+					pst.setInt(4, info.getEndBoard());
+				}else {
+					pst.setInt(3, 1);
+					pst.setInt(4, 100);
+				}			
 				rset = pst.executeQuery();
-				
-				
+
 				while(rset.next()) {
 					
 					if (categoryNum != 3) {
@@ -580,6 +584,7 @@ public class BoardDao {
 								, rset.getString("REPORT_DATE")
 								, rset.getString("REPORT_CONTENT")
 								, rset.getString("reportID")
+								, rset.getString("REPORTER")
 								, new Board(
 										rset.getInt("BOARD_NO")
 										, rset.getInt("BOARD_TYPE")
@@ -588,27 +593,33 @@ public class BoardDao {
 										, rset.getString("board_Content")
 										, new Attachment(
 												rset.getString("ORIGIN_NAME")
-												, rset.getNString("CHANGE_NAME")
-												, rset.getNString("FILE_PATH")
+												, rset.getString("CHANGE_NAME")
+												, rset.getString("FILE_PATH")
 												, rset.getInt("FILE_LEVEL")
 												)
 										)
 							));
 					
-					System.out.println("------------------------- pt 아닌 경우 ----------------------------");
-					System.out.println(list);
-					System.out.println();
+//					System.out.println("------------------------- 게시글 경우 end ----------------------------");
+//					System.out.println(list);
+//					System.out.println();
 					
 					} else {
 						// 카테고리가 pt 후기인 경우
-						
 						// while 문
+						
+//						System.out.println();
+//						System.out.println("count    " + count);
+						
+						
+		
 						list.add(new Report(
 								rset.getInt("REPORT_NO")
 								, rset.getInt("CATEGORY_NO")
 								, rset.getString("REPORT_DATE")
 								, rset.getString("REPORT_CONTENT")
 								, rset.getString("reportID")
+								, rset.getString("REPORTER")
 								, new Board(
 										rset.getInt("BOARD_NO")
 										, rset.getInt("BOARD_TYPE")
@@ -618,31 +629,41 @@ public class BoardDao {
 										, atList
 										)
 								));
-						boolean ch = (count == 0 ) ? true : (list.get(count-1).getReportNo() ==  list.get(count).getReportNo());
-						System.out.println("count" + count);
-						count++;
-				
-						System.out.println("결과값  " + ch);
-						// 반복 x , 반복은 rset.next()가 할꺼임
-						if(ch) {							
+					
+							
+						
+						boolean ch = (count < 2 ) ? true : (list.get(count-1).getReportNo() ==  list.get(count).getReportNo());
+//						System.out.println("결과값  " + ch);
+						
+						
+						if(ch) {
 							atList.add(
 									new Attachment(
 										rset.getString("ORIGIN_NAME")
-										, rset.getNString("CHANGE_NAME")
-										, rset.getNString("FILE_PATH")
+										, rset.getString("CHANGE_NAME")
+										, rset.getString("FILE_PATH")
 										, rset.getInt("FILE_LEVEL")
 										)
 									);
 						} else {
-							count = 0;
 							atList = new ArrayList<Attachment>();
+							
+							list.get(count).getBoard().setAtList(atList);
+							
+							atList.add(new Attachment(
+											rset.getString("ORIGIN_NAME")
+											, rset.getString("CHANGE_NAME")
+											, rset.getString("FILE_PATH")
+											, rset.getInt("FILE_LEVEL")
+									));
 						}
-	
-						
-						System.out.println("------------------------- pt 후기 -----------------------------");
-						
-						System.out.println(list);
-						System.out.println();
+							
+					
+
+//						System.out.println(list);
+//						System.out.println("------------------------- pt 후기 end -----------------------------");
+//						System.out.println();
+						count++;
 						
 					} // if문 
 					
@@ -665,6 +686,7 @@ public class BoardDao {
 								, rset.getString("REPORT_DATE")
 								, rset.getString("REPORT_CONTENT")
 								, rset.getString("USER_ID")
+								, rset.getString("REPORTER")
 								, new Board(
 										rset.getInt("board_No")
 										, rset.getString("BOARD_TITLE")
@@ -677,6 +699,9 @@ public class BoardDao {
 										)
 							));
 				}
+//				System.out.println(list);
+//				System.out.println("------------------------- 댓글 end -----------------------------");
+//				System.out.println();
 				
 			}
 			
@@ -687,7 +712,7 @@ public class BoardDao {
 			close(rset);
 			close(pst);
 		}
-		
+//		System.out.println(list);
 		return list;
 	}
 		
@@ -798,7 +823,8 @@ public class BoardDao {
 		try {
 			pst = conn.prepareStatement(prop.getProperty("reportStatusN"));
 			pst.setString(1, (String)hash.get("text"));
-			pst.setInt(2, (int)hash.get("reportNo"));
+			pst.setString(2, (String)hash.get("reporter"));
+			pst.setInt(3, (int)hash.get("reportNo"));
 			result = pst.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -1748,18 +1774,41 @@ public class BoardDao {
 		return 0;
 	}
 
+	public int boardStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("boardStatusN"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
+	public int commentStatusN(Connection conn, HashMap<String, Object> hash) {
+		PreparedStatement pst = null;
+		int result = 0; 
+		
+		try {
+			pst = conn.prepareStatement(prop.getProperty("commentStatusN"));
+			pst.setInt(1, (int)hash.get("reportNo"));
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		
+		return result;
+	}
+	
 
 }// class END

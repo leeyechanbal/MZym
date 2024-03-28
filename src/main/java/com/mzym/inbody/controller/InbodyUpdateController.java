@@ -33,7 +33,7 @@ public class InbodyUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		
+			
 		String userPhone = request.getParameter("userPhone");
 		int height = Integer.parseInt(request.getParameter("height"));
 		int weight = Integer.parseInt(request.getParameter("weight"));
@@ -55,7 +55,7 @@ public class InbodyUpdateController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/indobyForm.trainar");
 			
 		}else {
-			// 에러페이지
+			// 에러페이지.ddd
 		}
 		
 	}

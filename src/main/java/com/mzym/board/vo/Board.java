@@ -150,6 +150,15 @@ public class Board {
 	public void setAtList(List<Attachment> atList) {
 		this.atList = atList;
 	}
+	public void setAtList(Attachment at) {
+		this.atList.add(new Attachment(
+					at.getOriginName()
+					, at.getChangeName()
+					, at.getFilePath()
+					, at.getFileLevel()
+				));
+	}
+	
 
 	public Board(int boardNo, int boardWriter, int boardType, String boardTitle, String boardContent, Date regist_Date,
 			Date modify_date, String status, int reviewRate, int count) {

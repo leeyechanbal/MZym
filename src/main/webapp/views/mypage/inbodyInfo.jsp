@@ -61,7 +61,7 @@
 
         <div class="inbody_content">
        		 <form action="<%=contextPath%>/inbody.me" method="post">
-	            <h4>나의 인바디</h4>
+	            <h4>나의 인바디 <i class="fas fa-dumbbell"></i></h4>
 	            <hr>
 	            <br>
 	

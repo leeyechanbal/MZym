@@ -132,7 +132,11 @@
                                                     </li>
                                                     <li>신고자: <%=r.getUserID() %></li>
                                                     <li>신고일: <%=r.getReportDate()%></li>
-                                                    <li>보고자: <%=loginUser.getUserId()%></li>
+                                                    <%if (check){ %>
+                                                    	<li>보고자: <%=loginUser.getUserId()%></li>
+                                                    <%} else { %>
+                                                    	<li>보고자: <%=r.getReporter()%></li>
+                                                    <%} %>
                                                 </ul>
                                             </fieldset>
                  				            <form action="" method="">
@@ -142,10 +146,15 @@
                                             <textarea cols="150" rows="5" name="content" required></textarea>
                                             <%} else { %>
                                                 <!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
+                                                <%if(loginUser.getUserId().equals(r.getReporter())){ %>
                                             	<textarea cols="150" rows="5" name="content"><%=r.getReportContent()%></textarea>
+                                            	<%}else { %>
+                                            	<textarea cols="150" rows="5" name="content" readonly><%=r.getReportContent()%></textarea>
+                                            	<%} %>
                                             <%} %>
                                             <input type="hidden" name="typeCheck" value="1">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                            <input type="hidden" name="reporter" value="<%=loginUser.getUserId()%>">
                                             <br><br>
                                             <div style="width: 100%; display: flex; justify-content: space-between;">
                                             <% String originName = a.getOriginName();
@@ -157,11 +166,18 @@
                                                 <%} %>
                                                 <div>
                                                 	<!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
-                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                     <% if (r.getCategoryNo() != 5) {%>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                        <% if(check){ %>
+                                                            <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                            <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                        <%} else { %>
+                                                            <%if(loginUser.getUserId().equals(r.getReporter())){ %>
+                                                            <button type="button" class="btn btn-outline-warning btn-sm type2">수정</button>
+                                                            <%} %>
+                                                        <%} %>
                                                     <%}else{ %>
-                                                    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
+                                                        <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
                                                     
                                                 </div>
@@ -174,24 +190,29 @@
                            		<%} %>
                             <%} else { %>
                             <!-- PT후기(3) 게시판일 경우 -->
+                            <%int count = 0; %>
+                            
                             	<%for (int i = 0 ; i < listBoard.size(); i++ ){ 
                             		Report r = listBoard.get(i);
-                            		Board b = r.getBoard();
-                            		List<Attachment> atList = b.getAtList(); 
+                            		Board b = listBoard.get(i).getBoard();
+                            		List<Attachment> atList = listBoard.get(i).getBoard().getAtList();
+                            		boolean che = (i == 0 ) ? true : (listBoard.get(i-1).getReportNo() != listBoard.get(i).getReportNo());
+                            		
+                            		if(count >= 10){
+                            			break;
+                            		}
+                            		
+                            		
                             	%>
-                            													<!-- 
-                            														첫번재는 무조건 실행
-                            														두번쨰 부터 첫번쨰 와 두번쨰 비교 (같으면 skip 다르면 excise)
-                            														총 4번을 실행 => 5번쟤와는 다른 글번호 => 실행 5번쟤 6번째 와 비교
-                            													 -->
-                            	<% if((i == 0 ) ? true : (listBoard.get(i-1).getBoardNo() != listBoard.get(i).getBoardNo())) {%>
-                          		 	<tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=i%>"> 
+                            												
+                            	<% if(che) {%>
+                          		 	<tr class="tr-title" data-toggle="collapse" data-target="#rePicture<%=count%>"> 
                                     	<td class="table-number"><%=r.getReportNo() %></td>
                                     	<td class="table-title"><%=b.getBoardTitle() %></td>
                                     	<td><%=b.getBoardMember() %></td>
                                 	</tr>
                                 	
-                                	<tr id="rePicture<%=i%>" class="collapse">
+                                	<tr id="rePicture<%=count%>" class="collapse">
                                 	
                                     <td colspan="5">
                                         <form action="" method="">
@@ -209,9 +230,13 @@
                                                     	</li>
                                                     	<li>신고자: <%=r.getUserID() %></li>
                                                     	<li>신고일: <%=r.getReportDate()%></li>
+                                                    	<%if (check){ %>
+	                                                    	<li>보고자: <%=loginUser.getUserId()%></li>
+	                                                    <%} else { %>
+	                                                    	<li>보고자: <%=r.getReporter()%></li>
+	                                                    <%} %>
                                                     </ul>
                                                     
-                                        
                                                     
                                                     <textarea cols="75" rows="8" readonly><%=b.getBoardContent()%></textarea>
                                                     <legend><u>보고서</u></legend>
@@ -223,54 +248,40 @@
                                                         <%} %>
                                                     <input type="hidden" name="typeCheck" value="1"> <!-- 게시물인지 댓글인지 -->
                                                     <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                                    <input type="hidden" name="reporter" value="<%=loginUser.getUserId()%>">
                                                	</fieldset>
                                                 
                                                 
-                                                <div id="demo" class="carousel slide" data-ride="carousel">
+                                                <div id="demo<%=count%>" class="carousel slide" data-ride="carousel" style="width: 50%; align-content: center; margin-left: 15px;">
                                                
-													<!-- 하나의 글에 정말 여러개의 att가 담기는지 확인 -->
-													<% if(!atList .isEmpty()){%>  
+													
                                                     <!-- 사진이 있는 경우 -->
                                                     <!-- Indicators -->
 													<ul class="carousel-indicators">                                             
                                                        <%for (int j = 0; j< atList.size(); j++ ){ %>
-                                                      	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="<%=atList.get(j).getFileLevel() == 1 ? "active": ""%>"></li>
-                                                   	<%} %>
+                                                      	<li data-target="#demo<%=count%>" data-slide-to="<%=j%>" class="<%=(j == 0 )?"active":""%>" style="background-color: black;"></li>
+                                                   		<%} %>
                                                     </ul>
 	                                                    
                                                     <!-- The slideshow -->
                                                     <div class="carousel-inner">
                                                     <%for (int j = 0; j< atList.size(); j++ ){ 
                                                     	Attachment at = atList.get(j);
+                                                    	
                                                     %>
-                                                      <div class="carousel-item <%=at.getFileLevel() == 1 ? "active": ""%>"><span class="badge badge-dark"><%=at.getFileLevel()%></span>
-                                                        <img src="<%=mzymPath + at.getFilePath()+ "/" + at.getChangeName()%>" width="500px" height="500px">
+                                                      <div class="carousel-item <%=(j == 0)?"active":""%>"><span class="badge badge-dark"><%=at.getFileLevel()%></span>
+                                                        <img src="<%=mzymPath + at.getFilePath()+ at.getChangeName()%>" width="500px" height="500px">
                                                       </div>
                                                       <%} %>
                                                     </div>
                                                     <!-- 사진이 있는 경우 -->
-                                                     <%} else { %>
-                                                   	<!-- 사진이 없는 경우 => 기본 로고 출력 -->
-                                                   	<!-- Indicators -->
-                                                    <ul class="carousel-indicators">                                             
-                                                    	<li style="background-color: black;" data-target="#demo" data-slide-to="0" class="active"></li>
-                                                   	</ul>
-                                                   	
-                                                   	<!-- The slideshow -->
-                                                   	<div class="carousel-inner">
-                                                      <div class="carousel-item active">
-                                                        <img src="<%=mzymPath%>/resources/img/MZYM_logo_272x167.png" width="500px" height="500px">
-                                                      </div>
-                                                    </div>
-
-                                                    <%} %> 
-                                                    <!-- 사진이 없는 경우 -->
+                                                  
                                                     
                                                     <!-- Left and right controls -->
-                                                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                                    <a class="carousel-control-prev" href="#demo<%=count%>" data-slide="prev">
                                                       <span class="carousel-control-prev-icon" style="background-color: black;"></span>
                                                     </a>
-                                                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                                                    <a class="carousel-control-next" href="#demo<%=count%>" data-slide="next">
                                                       <span class="carousel-control-next-icon" style="background-color: black;"></span>
                                                     </a>
                                                 </div> <!-- demo 끝 -->
@@ -278,13 +289,20 @@
 
                                                 <div style="text-align: -webkit-right; margin-top: 10px;">
                                                 <!-- 보고자를 테이블에 넣어서 조회 온 뒤에 화면에서 같은 경우와 아닐 경우 출력을 변경 -->
+                                                <% if(check){ %>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
+                                                <%} else { %>
+                                                    <%if(loginUser.getUserId().equals(r.getReporter())){ %>
+                                                        <button type="button" class="btn btn-outline-warning btn-sm type2">수정</button>
+                                                    <%} %>
+                                                <%} %>
                                                 </div>
                                             </td>
                                         </form>
                                 </tr>
-                                	<%} %> <!-- 게시물 번호 비교 if문 끝 -->
+                                <%count++; %>
+                                	<%} %> <!-- 게시물 번호 비교 후 생성 if문 끝 -->
                             	<%} %> <!-- 사진 for문 끝 -->
                            	<%} %> <!-- pt후기 게시글 체크 else문 끝 -->
 
@@ -330,6 +348,11 @@
                                                     	</li>
                                                     <li>신고자: <%=r.getUserID()%></li>
                                                     <li>신고일: <%=r.getReportDate()%></li>
+                                                    <%if (check){ %>
+                                                    	<li>보고자: <%=loginUser.getUserId()%></li>
+                                                    <%} else { %>
+                                                    	<li>보고자: <%=r.getReporter()%></li>
+                                                    <%} %>
                                                 </ul>
                                             </fieldset>
                                             <textarea cols="150" rows="5" readonly><%=c.getCommentContent()%></textarea>
@@ -341,10 +364,17 @@
                                             <%} %>
                                             <input type="hidden" name="typeCheck" value="0">
                                             <input type="hidden" name="report" value="<%=r.getReportNo()%>">
+                                            <input type="hidden" name="reporter" value="<%=loginUser.getUserId()%>">
                                             <br><br>
                                             <div style="text-align: -webkit-right;">
-                                                <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>
+                                                <% if(check){ %>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                <%} else { %>
+                                                    <%if(loginUser.getUserId().equals(r.getReporter())){ %>
+                                                        <button type="button" class="btn btn-outline-warning btn-sm type2">수정</button>
+                                                    <%} %>
+                                                <%} %>
                                             </div>
                                         </form>
                                         </div>
@@ -379,85 +409,38 @@
 			 	-->
 				<!-- 게시판 페이징 -->
 				<% if(categoryNum != numPT) { // 카테고리 게시판이 pt후기가 아닐 경우 %>
-                <ul class="pagination paging-board" >
-                    <% if (bCurrent == 1) {%>
-	                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-					<% } else {%>
-	                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/report.trainer?pageB=" + (bCurrent- 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status%>>이전</a></li>
-					<%} %>
 					
-					<!-- 페이징바 숫자 부분 -->
-					<% for (int i= infoBoard.getStartPage(); i <= infoBoard.getEndPage(); i++){ %>
+	                <ul class="pagination paging-board" >
+	                    <% if (bCurrent == 1) {%>
+		                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+						<% } else {%>
+		                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/report.trainer?pageB=" + (bCurrent- 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status%>>이전</a></li>
+						<%} %>
 						
-						<%if((bCurrent <= bMaxPage)) {%>					
-							<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
-							<% if(bCurrent == i){ %>
-		                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
-		                    <%} else if (i <= infoBoard.getMaxPage()) { %>
-		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + i + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>"><%=i%></a></li>
-		                    <%}else { %>
-		                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
+						<!-- 페이징바 숫자 부분 -->
+						<% for (int i= infoBoard.getStartPage(); i <= infoBoard.getEndPage(); i++){ %>
+							
+							<%if((bCurrent <= bMaxPage)) {%>					
+								<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
+								<% if(bCurrent == i){ %>
+			                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
+			                    <%} else if (i <= infoBoard.getMaxPage()) { %>
+			                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + i + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>"><%=i%></a></li>
+			                    <%}else { %>
+			                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
+			                    <%} %>
 		                    <%} %>
-	                    <%} %>
-					<%} %>
-					
-					<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
-					<% if(bCurrent >= bMaxPage) {%>						
-	                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-                   	<%} else { %> 
-	                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
-                    <%} %>
-                </ul>
-				<% } else { // 게시글 페이지가 PT후기일 경우%>
-				
-   				<ul class="pagination paging-board" >
-                    <% if (bCurrent == 1) {%>
-	                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-					<% } else {%>
-	                    <li class="page-item"><a class="page-link" href=<%=mzymPath + "/report.trainer?pageB=" + (bCurrent- 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status%>>이전</a></li>
-					<%} %>
-					
-					
-					
-					<!-- 페이징바 숫자 부분 -->
-					<% for (int i= infoBoard.getStartPage(); i <= infoBoard.getEndPage(); i++){ %>
+						<%} %>
 						
-						<%if((bCurrent <= bMaxPage)) {%>					
-							<!-- 사용자의 요청 페이지와 반복문의 숫자가 같은 경우 active 속성 -->
-							<% if(bCurrent == i){ %>
-		                    <li class="page-item active"><a class="page-link" href="#"><%=i%></a></li>
-		                    <%} else if (i <= infoBoard.getMaxPage()) { %>
-		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + i + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>"><%=i%></a></li>
-		                    <%}else { %>
-		                    <li class="page-item disabled"><a class="page-link" href="#"><%=i%></a></li>
-		                    <%} %>
+						<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
+						<% if(bCurrent >= bMaxPage) {%>						
+		                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+	                   	<%} else { %> 
+		                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
 	                    <%} %>
-					<%} %>
-					
-					
-					<!-- 현재의 페이징바가 총 페이징 바의 수 보다 클 경우 다음으로 안 넘어가도록  -->
-					<% if(bCurrent >= bMaxPage) {%>						
-	                    <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-                   	<%} else { %> 
-	                    <li class="page-item"><a class="page-link" href="<%=mzymPath + "/report.trainer?pageB=" + (bCurrent+ 1) + "&pageC="+ cCurrent + "&cate=" + categoryNum + "&status=" + status %>">다음</a></li>
-                    <%} %>
-                </ul>	
-   					
+	                </ul>
+                	<%} %>
 
-   				<%}  // pt 후기일 경우 페이징 처리 %>
-   				
-
-
-
-
-
-
-
-
-
-
-
-   				
         		<!-- 댓글 페이징 -->
                 <ul class="pagination paging-commnet" style="content-visibility:hidden" >
                     <% if (cCurrent == 1) {%>
@@ -529,32 +512,34 @@
 
                     })
 
-                    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
-                    $(function(){
-                        $(document).keypress(function(e){
-                            // console.log($("#boardcontent tr")); 
-                            // console.log(e.key); 
-                            // console.log(Number(e.key) * 2); 
-                            // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
+                    const te = document.querySelectorAll("textarea");
+
+                    $(document).keydown(function(e){
                             const val = e.key;
-                            let $t = null;
-                            if(val != 0){
-                                $t = $("#boardcontent tr").eq(Number(val) * 2);   
-                            } else if (val == 0){
-                                $t = $("#boardcontent tr").eq(20);
+                            let check = true;
+
+                            for (let i =0; i < te.length; i++){
+                                if((te[i] === document.activeElement)){
+                                    check = false;
+                                }
                             }
 
-                            $t.css('border', '3px solid #1abc9cc7');
-                                $t.addClass('show');
+                            if(check){
+                                let $t = null;
+                                if(val != 0){
+                                    $t = $("#boardcontent tr").eq(Number(val) * 2);   
+                                } else if (val == 0){
+                                    $t = $("#boardcontent tr").eq(20);
+                                }
 
-                                $t.siblings().css('border', '0');
-                                $t.siblings('.show').removeClass('show');
+                                $t.css('border', '3px solid #1abc9cc7');
+                                    $t.addClass('show');
 
-                        }) 
-                                
-                    })
+                                    $t.siblings().css('border', '0');
+                                    $t.siblings('.show').removeClass('show');
 
-
+                            }
+                    }) 
 
                     $(".type1").click(function(){
                         const $form = $(this).parents('form');
@@ -565,9 +550,11 @@
                         // console.log(text);
                         const typeCheck = $form.find('input[name=typeCheck]').val();
                         // console.log(typeCheck);
+                        const reporter = $form.find('input[name=reporter]').val();
+                        // console.log(reporter);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=1';
-                        // console.log(str);
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&reporter='+ reporter + '&type=1';
+                        console.log(str);
                        location.href = str;
                         // 화면이 안 넘어 갈떄는 sumbit이 두번 요청 되고 있는지 확인 button이 submit타입이라서 두번 요청 될 수 있음
                     })
@@ -578,28 +565,35 @@
                         const reportNo = $form.find('input[name=report]').val();
                         // console.log(reportNo);
                         const text = $form.find('textarea[name=content]').val();
-                        console.log(text);
+                        // console.log(text);
                         const typeCheck = $form.find('input[name=typeCheck]').val();
-                        console.log(typeCheck);
+                        // console.log(typeCheck);
+                        const reporter = $form.find('input[name=reporter]').val();
+                        // console.log(reporter);
 
-                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&type=2';
+                        const str = '<%=mzymPath%>/reportRequest.trainer?reportNo=' + reportNo + '&text='+ text +'&typeCheck=' + typeCheck +'&cate=' + <%=categoryNum%> + '&reporter='+ reporter + '&type=2';
                         console.log(str);
                        location.href = str;
                     })
                     
-
+                    // 이동 모달 데이터 받기
                     $("[data-target='#myModal']").click(function(){
                         // console.log(this);
-                        // console.log($(this).parents('.collapseitem'));
+                        // console.log($(this).parents('form'));
 
-                        const reportNo =  $(this).parents('.collapseitem').children('input[name=report]').val()
+                        const reportNo =  $(this).parents('form').children('input[name=report]').val()
                         // console.log(reportNo);
 
-                        const content =  $(this).parents('.collapseitem').children('textarea[name=content]').val() 
+                        const content =  $(this).parents('form').children('textarea[name=content]').val()
                         // console.log(content);
 
+                        const reporter = $(this).parents('form').children('input[name=reporter]').val()
+                        // console.log(reporter);
+
+
                         $("#myModal").find("input[name=reportNo]").val(reportNo);
-                        $("#myModal").find("input[name=text]").val(content);    
+                        $("#myModal").find("input[name=text]").val(content);   
+                        $("#myModal").find("input[name=reporter]").val(reporter);  
 
 
                     })
@@ -615,7 +609,7 @@
 					<div class="modal" id="myModal">
 					    <div class="modal-dialog modal-lg">
 					      <div class="modal-content">
-					        <div class="outline">
+					        <div class="out-line">
 					        <!-- Modal Header -->
 					        <div class="modal-header">
 					          <h3 class="modal-title">게시물 이동</h3>
@@ -623,12 +617,14 @@
 					        </div>
 					  
 					        <!-- Modal body -->
-					    <form action="<%=mzymPath%>/moveBoard.trainer" method="get">
+					    <form action="<%=mzymPath%>/moveBoard.trainer" method="post">
 					        <div class="modal-body">
 					        <div class="in-line">
 					            <h5>현재 선택된 게시글</h5> 
-					            <div style="font-size: 15px;"><input type="text" name="reportNo">번</div>
-					            <div style="font-size: 20px;">현재 위치 : <%=categoryName%></div>
+					            <div style="font-size: 15px;"><input style="text-align: center; border: 0;" type="text" name="reportNo">번</div>
+                                <div style="font-size: 15px;"><input style="text-align: center; border: 0;" type="text" name="reporter">관리자</div>
+					            <br>
+                                <div style="font-size: 20px;">현재 위치 : <u style="text-decoration-color: #1abc9cc7;"><%=categoryName%></u></div>
 					            <br>
 					            <div style="font-size: 20px; display: flex"> 이동 위치 선택
 					                <ul class="moving-category" style="font-size: 15px;">
@@ -637,7 +633,8 @@
 					                     <%} %>
 					                </ul>
 					            </div>
-					            <input type="hidden" name="selectNo">
+					            <input type="text" name="selectNo">
+                                <!-- 타입이 hidden일 경우에는 requerd가 먹히지 않는다. -->
                                 <input type="text" name="text">
                                 <input type="text" name="cate" value="<%=categoryNum%>">
 					        </div>
@@ -645,7 +642,8 @@
 					
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
-					            <button type="submit" class="btn btn-outline-success btn-sm">이동</button>
+					            <button type="submit" class="btn btn-outline-success btn-sm" onclick="return modalCheck();">이동</button>
+                                <!-- submit보다 속성 이벤트가 먼저 작동된다. -->
 					            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
 					        </div>
 					    </div>
@@ -664,6 +662,16 @@
 					            })
 					           
 					        })
+
+                            function modalCheck(){
+                                console.log($('input[name=selectNo]').val());
+                                console.log(document.getElementsByName('selectNo').value);
+                                console.log(document.getElementsByName('selectNo').value == null);
+
+
+                                return false;
+                            }
+
 					    </script>
 					  
 					      </div>
@@ -689,11 +697,11 @@
 					        <div class="in-line" style="text-align: center;">
 					            <h5>현재 선택된 데이터 번호</h5> 
 					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo" value="0">번</div>
-					           	<input type="text" name="cate" value="<%=categoryNum%>">
+					           	<input type="hidden" name="cate" value="<%=categoryNum%>">
 					            <div class="modal-body" style="text-align: center; font-size: 15px; ">
 					                게시물을 정말로 삭제 하시겠습니까?
 					            </div>
-					            
+					            <div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
 					        </div>
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
