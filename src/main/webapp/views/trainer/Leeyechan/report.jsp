@@ -705,7 +705,7 @@
 					        </div>
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
-					            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="cclos();">취소</button>
+					            <button type="button" class="btn btn-outline-secondary btn-sm">취소</button>
 					            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
 					        </div>
                         </form>
