@@ -633,10 +633,10 @@
 					                     <%} %>
 					                </ul>
 					            </div>
-					            <input type="text" name="selectNo">
+					            <input type="hidden" name="selectNo">
                                 <!-- 타입이 hidden일 경우에는 requerd가 먹히지 않는다. -->
-                                <input type="text" name="text">
-                                <input type="text" name="cate" value="<%=categoryNum%>">
+                                <h5>보고서 내용 </h5> <input type="text" name="text" style="border: 0;" required>
+                                <input type="hidden" name="cate" value="<%=categoryNum%>">
 					        </div>
 					        </div>
 					
@@ -705,7 +705,7 @@
 					        </div>
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
-					            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
+					            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="cclos();">취소</button>
 					            <button type="submit" class="btn btn-outline-danger btn-sm">확인</button>
 					        </div>
                         </form>
