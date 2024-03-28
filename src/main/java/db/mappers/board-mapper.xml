@@ -729,7 +729,7 @@ where COMMENT_NO = (
 	,	COMMENT_WRITER
 	,	BOARD_NO
 	,	COMMENT_CONTENT
-	,	REPORT_DATE
+	,	COMMENT_DATE
 	)
 	VALUES
 	(
@@ -777,6 +777,7 @@ where COMMENT_NO = (
 	,	COMMENT_NO
 	,	REPORT_USER
 	,	CATEGORY_NO
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -784,6 +785,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 
@@ -978,6 +980,7 @@ SELECT *
 	SELECT	COUNT(*) COUNT
 	  FROM	MZYM_VIDEO
 	 WHERE	STATUS = 'Y'
+	 AND VIDEO_LEVEL = 1
 </entry>
 
 <!--

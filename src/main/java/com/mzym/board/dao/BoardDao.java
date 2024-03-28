@@ -1297,7 +1297,7 @@ public class BoardDao {
 			pstmt.setInt(1, r.getCommentNo());
 			pstmt.setInt(2, r.getReportUser());
 			pstmt.setInt(3, r.getCategoryNo());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
