@@ -99,7 +99,7 @@
 
             <td class="section2" >
             <br>
-                <div class="calory" id="userInbodySelect">
+                <div class="calory" id="userInbodySelect" style="min-height: 80px;">
                 <form action="<%=contextPath%>/updateInbody.trainar" method="post">
                     <h4></h4>&nbsp;<input type="text" name="userPhone" style="width: 400px; text-align:left;" placeholder="회원의 전화번호를 입력해 주세요.">
                     <button type="button" id="searchbtn">검색</button>

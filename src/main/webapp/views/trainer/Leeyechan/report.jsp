@@ -597,7 +597,7 @@
 					<div class="modal" id="myModal">
 					    <div class="modal-dialog modal-lg">
 					      <div class="modal-content">
-					        <div class="outline">
+					        <div class="out-line">
 					        <!-- Modal Header -->
 					        <div class="modal-header">
 					          <h3 class="modal-title">게시물 이동</h3>
