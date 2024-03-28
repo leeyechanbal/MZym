@@ -280,7 +280,6 @@ INSERT
 	SELECT
 		*
 	FROM PRODUCT
-   WHERE STATUS='Y'
 </entry>
 
 <!-- 구성모 매출추가 -->

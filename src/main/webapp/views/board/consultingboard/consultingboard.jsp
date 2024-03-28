@@ -134,7 +134,7 @@
                         </tr>
                         <tr>
                             <th><h4>희망상담일</h4></th>
-                            <td><input type="text" class="form-control" placeholder="xxxx-xx-xx(-포함하여 입력해주세요)" required id="input_date" name="adviceDate"></td>
+                            <td><input type="date" class="form-control" placeholder="xxxx-xx-xx(-포함하여 입력해주세요)" required id="input_date" name="adviceDate"></td>
                         </tr>
                         <tr>
                             <th><h4>상담내용</h4></th>

@@ -1029,45 +1029,47 @@ SELECT *
 <!-- 작성자 엄희강 자유게시판 최신 10개 조회하는 쿼리문(홈페이지에 보여질) -->
 <entry key="latestpostFreeBoard">
 <![CDATA[
-  SELECT
-       BOARD_NO
-       , BOARD_TITLE
-       , USER_NAME
-       , COUNT
-       , REGIST_DATE
-   FROM
-       MZYM_BOARD B
-   JOIN
-       MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
-   WHERE 1=1
-   AND BOARD_TYPE = 1
-   AND
-       B.STATUS = 'Y'
-   AND ROWNUM  < 10    
-   ORDER
-       BY BOARD_NO DESC
+  SELECT *
+FROM (
+    SELECT
+        BOARD_NO,
+        BOARD_TITLE,
+        USER_NAME,
+        COUNT,
+        REGIST_DATE
+    FROM
+        MZYM_BOARD B
+    JOIN
+        MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+    WHERE 1=1
+    AND BOARD_TYPE = 1
+    AND B.STATUS = 'Y'
+    ORDER BY BOARD_NO DESC
+)
+WHERE ROWNUM <= 10
 ]]>
 </entry>
 
 <entry key="latestpostFreeBoard2">
 <![CDATA[
-  SELECT
-       BOARD_NO
-       , BOARD_TITLE
-       , USER_NAME
-       , COUNT
-       , REGIST_DATE
-   FROM
-       MZYM_BOARD B
-   JOIN
-       MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
-   WHERE 1=1
-   AND BOARD_TYPE = 2
-   AND
-       B.STATUS = 'Y'
-   AND ROWNUM  < 10    
-   ORDER
-       BY BOARD_NO DESC
+  SELECT *
+FROM (
+    SELECT
+        BOARD_NO,
+        BOARD_TITLE,
+        USER_NAME,
+        COUNT,
+        REGIST_DATE
+    FROM
+        MZYM_BOARD B
+    JOIN
+        MZYM_MEMBER ON (BOARD_WRITER = USER_NO)
+    WHERE 1=1
+    AND BOARD_TYPE = 2
+    AND B.STATUS = 'Y'
+    ORDER BY BOARD_NO DESC
+)
+WHERE ROWNUM <= 10
 ]]>
 </entry>
 
