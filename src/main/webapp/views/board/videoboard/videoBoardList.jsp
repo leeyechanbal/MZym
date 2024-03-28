@@ -141,7 +141,7 @@
 		
         <div class="board_content">
 
-            <h4>초보 추천 영상</h4>
+            <h4>추천 영상</h4>
             <hr>
             <br>
 
