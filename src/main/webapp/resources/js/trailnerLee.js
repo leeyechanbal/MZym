@@ -79,32 +79,6 @@ $(function(){
 
     })
 
-    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
-    $(function(){
-        $(document).keypress(function(e){
-            // console.log($("#boardcontent tr")); 
-            // console.log(e.key); 
-            // console.log(Number(e.key) * 2); 
-            // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
-            const val = e.key;
-            let $t = null;
-            if(val != 0){
-                $t = $("#boardcontent tr").eq(Number(val) * 2);   
-            } else if (val == 0){
-                $t = $("#boardcontent tr").eq(20);
-            }
-
-            $t.css('border', '3px solid #1abc9cc7');
-                $t.addClass('show');
-
-                $t.siblings().css('border', '0');
-                $t.siblings('.show').removeClass('show');
-
-        }) 
-                
-    })
-
-
     $("[data-target='#myModal']").click(function(){
         // console.log(this);
         // console.log($(this).parents('.collapseitem'));
@@ -137,3 +111,4 @@ $(function(){
     })
    
 })
+

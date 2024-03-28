@@ -164,6 +164,7 @@
 	<Script>
 		$(function(){
 	        $("#boardcontent tr").click(function(){
+
 	            const boardNo = $(this).children(".table-number").text();
 	            /* console.log(boardNo); */
 	            $("#deletModal").find("#boardNum").val(boardNo);
@@ -183,24 +184,38 @@
 	        })
 
             // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
-            $(document).keypress(function(e){
+            const te = document.querySelectorAll("textarea");
+
+            $(document).keydown(function(e){
                     // console.log($("#boardcontent tr")); 
                     // console.log(e.key); 
                     // console.log(Number(e.key) * 2); 
                     // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
                     const val = e.key;
-                    let $t = null;
-                    if(val != 0){
-                        $t = $("#boardcontent tr").eq(Number(val) * 2);   
-                    } else if (val == 0){
-                        $t = $("#boardcontent tr").eq(20);
+                    let check = true;
+                    // console.log("키보드 값" + val);
+
+                    for (let i =0; i < te.length; i++){
+                        if((te[i] === document.activeElement)){
+                            check = false;
+                        }
                     }
 
-                    $t.css('border', '3px solid #1abc9cc7');
-                        $t.addClass('show');
+                    if(check){
+                        let $t = null;
+                        if(val != 0){
+                            $t = $("#boardcontent tr").eq(Number(val) * 2);   
+                        } else if (val == 0){
+                            $t = $("#boardcontent tr").eq(20);
+                        }
 
-                        $t.siblings().css('border', '0');
-                        $t.siblings('.show').removeClass('show');
+                        $t.css('border', '3px solid #1abc9cc7');
+                            $t.addClass('show');
+
+                            $t.siblings().css('border', '0');
+                            $t.siblings('.show').removeClass('show');
+
+                    }
             }) 
 
 	    })
@@ -219,10 +234,11 @@
     <form action="<%=mzymPath%>/deletedNotice.traniner" method="post">
         <div class="in-line" style="text-align: center;">
             <h5>현재 선택된 게시글</h5> 
-            <div style="font-size: 15px;"><input type="text" class="board-data" value="152" id="boardNum" name="boardNum">번</div>
+            <div style="font-size: 15px;"><input type="text" class="board-data" id="boardNum" name="boardNum">번</div>
             <div class="modal-body" style="text-align: center; font-size: 15px; ">
                 게시물을 정말로 삭제 하시겠습니까?
             </div>
+            <div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
         </div>
         <!-- <input type="hidden" id="boardNum" name="boardNum"> -->
         <input type="hidden" id="fileName" name="fileName">

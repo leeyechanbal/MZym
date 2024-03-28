@@ -506,33 +506,34 @@
 
                     })
 
-                    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
-                    $(function(){
-                        $(document).keypress(function(e){
-                            // console.log($("#boardcontent tr")); 
-                            // console.log(e.key); 
-                            // console.log(Number(e.key) * 2); 
-                            // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
-                            console.log();
+                    const te = document.querySelectorAll("textarea");
+
+                    $(document).keydown(function(e){
                             const val = e.key;
-                            let $t = null;
-                            if(val != 0){
-                                $t = $("#boardcontent tr").eq(Number(val) * 2);   
-                            } else if (val == 0){
-                                $t = $("#boardcontent tr").eq(20);
+                            let check = true;
+
+                            for (let i =0; i < te.length; i++){
+                                if((te[i] === document.activeElement)){
+                                    check = false;
+                                }
                             }
 
-                            $t.css('border', '3px solid #1abc9cc7');
-                                $t.addClass('show');
+                            if(check){
+                                let $t = null;
+                                if(val != 0){
+                                    $t = $("#boardcontent tr").eq(Number(val) * 2);   
+                                } else if (val == 0){
+                                    $t = $("#boardcontent tr").eq(20);
+                                }
 
-                                $t.siblings().css('border', '0');
-                                $t.siblings('.show').removeClass('show');
+                                $t.css('border', '3px solid #1abc9cc7');
+                                    $t.addClass('show');
 
-                        }) 
-                                
-                    })
+                                    $t.siblings().css('border', '0');
+                                    $t.siblings('.show').removeClass('show');
 
-
+                            }
+                    }) 
 
                     $(".type1").click(function(){
                         const $form = $(this).parents('form');
@@ -671,11 +672,11 @@
 					        <div class="in-line" style="text-align: center;">
 					            <h5>현재 선택된 데이터 번호</h5> 
 					            <div style="font-size: 15px;"><input type="text" class="board-data" name="reportNo" value="0">번</div>
-					           	<input type="text" name="cate" value="<%=categoryNum%>">
+					           	<input type="hidden" name="cate" value="<%=categoryNum%>">
 					            <div class="modal-body" style="text-align: center; font-size: 15px; ">
 					                게시물을 정말로 삭제 하시겠습니까?
 					            </div>
-					            
+					            <div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
 					        </div>
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
