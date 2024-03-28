@@ -94,6 +94,10 @@
         .modal-content{
             border: 1px solid #1abc9c;
         }
+        
+        .table_wrap{
+		word-wrap: break-word;
+        }
 
     </style>
 
@@ -113,14 +117,14 @@
         <div class="board_content">
             <h2>게시글조회</h2>
             <hr>
-
+		<div class = "table_wrap">
             <table class="table">
             	<thead>
                 <tr>
                     <td><h3><%= n.getTitle() %></h3></td>
                 </tr>
                 <tr>
-                    <td><div style="min-height:200px; white-space:pre"><%= n.getContent() %></div></td>
+                    <td><div style="min-height : 300px"><%= n.getContent() %></div></td>
                 </tr>
                 <tr>
                     <td>
@@ -134,6 +138,7 @@
                     </td>
                 </tr>
             </table>
+            </div>
 
             <br><br>
 

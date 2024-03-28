@@ -98,7 +98,9 @@
             <hr>
             <br><br>
 
-            
+            <%System.out.println( Integer.toString(loginUser.getUserNo()));
+            System.out.println( b.getBoardMember());
+            %>
             <div id="img_content" class="carousel slide" data-ride="carousel">
 
                 <!-- Indicators -->
@@ -152,7 +154,7 @@
                     <td colspan="4" align="center">
                         <button type="button" class="btn1 btn-outline-secondary btn-sm">목록</button>
                         <!-- 현재 로그인한 사용자가 해당 게시글 작성자일 경우 보여지는 버튼 요소 -->
-                        <% if(loginUser != null && Integer.toString(loginUser.getUserNo()).equals(b.getBoardMember())) { %>
+                        <% if(loginUser != null && loginUser.getUserId().equals(b.getBoardMember())) { %>
                         <button type="button" class="btn3 btn-outline-danger btn-sm">삭제</button>
                         <% }else if(loginUser != null){%>
 		                <!-- 현재 로그인한 사용자가 해당 게시글 작성자가 아닐 경우 보여지는 버튼 요소 -->

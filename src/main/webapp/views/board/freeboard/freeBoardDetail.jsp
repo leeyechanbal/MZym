@@ -120,11 +120,11 @@
             
             <input type="hidden" id="loginUserNo" value="<%= loginUser != null ? loginUser.getUserNo() : 0 %>">
 			
-		<div class = table_wrap>
+		<div class = "table_wrap">
             <table class="table">
             	<thead>
                 <!-- 현재 로그인한 사용자가 해당 게시글 작성자일 경우 보여지는 버튼 요소 -->
-                <% if(loginUser != null && Integer.toString(loginUser.getUserNo()).equals(b.getBoardMember())) { %>
+                <% if(loginUser != null && loginUser.getUserId().equals(b.getBoardMember())) { %>
                 <button type="button" class="btn2 btn-outline-danger btn-sm">삭제</button>
                 <a href="<%= contextPath %>/freeUpdateForm.bo?no=<%= b.getBoardNo() %>" class="btn3 btn-outline-secondary btn-sm">수정</a>
                 <% }else if(loginUser != null){%>
