@@ -98,9 +98,6 @@
             <hr>
             <br><br>
 
-            <%System.out.println( Integer.toString(loginUser.getUserNo()));
-            System.out.println( b.getBoardMember());
-            %>
             <div id="img_content" class="carousel slide" data-ride="carousel">
 
                 <!-- Indicators -->
