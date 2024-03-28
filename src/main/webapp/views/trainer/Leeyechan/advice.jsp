@@ -286,25 +286,37 @@ tfoot {
 
 			})
 
-			$(document).keypress(function(e){
-                    // console.log($("#boardcontent tr")); 
-                    // console.log(e.key); 
-                    // console.log(Number(e.key) * 2); 
-                    // console.log($("#boardcontent tr").eq(Number(e.key) * 2));
-                    const val = e.key;
-                    let $t = null;
-                    if(val != 0){
-                        $t = $("#boardcontent tr").eq(Number(val) * 2);   
-                    } else if (val == 0){
-                        $t = $("#boardcontent tr").eq(20);
-                    }
+			 // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
+			 const te = document.querySelectorAll("textarea");
 
-                    $t.css('border', '3px solid #1abc9cc7');
-                        $t.addClass('show');
+			$(document).keydown(function(e){
+					const val = e.key;
+					let check = true;
 
-                        $t.siblings().css('border', '0');
-                        $t.siblings('.show').removeClass('show');
-            }) 
+					for (let i =0; i < te.length; i++){
+						if((te[i] === document.activeElement)){
+							check = false;
+						}
+					}
+
+					if(check){
+						let $t = null;
+						if(val != 0){
+							$t = $("#boardcontent tr").eq(Number(val) * 2);   
+						} else if (val == 0){
+							$t = $("#boardcontent tr").eq(20);
+						}
+
+						$t.css('border', '3px solid #1abc9cc7');
+							$t.addClass('show');
+
+							$t.siblings().css('border', '0');
+							$t.siblings('.show').removeClass('show');
+
+					}
+			}) 
+
+
 
 	    })
     </Script>
@@ -324,7 +336,7 @@ tfoot {
 	</table>
 	<!-- 삭제용 모달 -->
 	<div class="modal" id="deletModal">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
@@ -332,12 +344,15 @@ tfoot {
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<!-- Modal body -->
+				<form action="<%=mzymPath %>/deleteAdvice.trainer" method="post">
+				<div class="in-line" style="text-align: center;">
+				<div style="font-size: 15px; padding-top: 10px;"><input style="text-align: center;" type="text" id="adviceNo" name="adviceNo">번</div>
 				<div class="modal-body" style="text-align: center; font-size: 15px;">
-					게시물을 정말로 삭제 하시겠습니까?</div>
+					게시물을 정말로 삭제 하시겠습니까?
+				</div>
 				<div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
+				</div>
 				<br>
-				<form action="<%=mzymPath %>/deleteAdvice.trainer" method="get">
-				<input type="hidden" id="adviceNo" name="adviceNo">
 				<!-- Modal footer -->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
