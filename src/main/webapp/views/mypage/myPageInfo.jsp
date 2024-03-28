@@ -307,7 +307,6 @@ margin-left: 230px;
                                 alert("비밀번호는 영문자, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
                                 return false;
                             }
-                            
                             if (newPwd != confirmPwd) {
                                 alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
                                 return false;
