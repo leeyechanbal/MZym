@@ -25,7 +25,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 	    margin: auto;
 	    margin-top: 50px;
 	    min-height: 1200px;
-	    padding: 50px;
+	    
 	    border-radius: 10px;
 		}
 		
@@ -222,7 +222,7 @@ List<Product> bestList = (List<Product>)request.getAttribute("bestList");
 				
 				
 	            <!--  페이징바 영역 -->
-				<ul class="pagination justify-content-center">
+				<ul class="pagination my justify-content-center">
 					<%if(pi.getCurrentPage()==1){ %>
 					<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 					<%}else{ %>
