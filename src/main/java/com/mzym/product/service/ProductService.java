@@ -14,6 +14,7 @@ import java.util.Properties;
 
 
 import com.mzym.common.paging.PageInfo;
+import com.mzym.mypage.model.vo.Payment;
 import com.mzym.mypage.model.vo.Product;
 import com.mzym.product.dao.ProductDao;
 
@@ -78,6 +79,8 @@ private ProductDao pDao = new ProductDao();
 		close(conn);
 		return p;
 	}
+	
+	
 	
 	
 	
