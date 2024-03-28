@@ -43,72 +43,72 @@ function imaging(index){
 
 // report
 
-$(function(){
-    $(".nav-item a").click(function(){
-        const type = $(this).text()
-        //console.log(type);
+// $(function(){
+//     $(".nav-item a").click(function(){
+//         const type = $(this).text()
+//         //console.log(type);
 
-        if(type == '게시글'){
-            const $paging = $('.paging-board');
-            $paging.css('content-visibility', 'visible');
-            // console.log($paging.next())
-            $paging.next().css('content-visibility', 'hidden');
+//         if(type == '게시글'){
+//             const $paging = $('.paging-board');
+//             $paging.css('content-visibility', 'visible');
+//             // console.log($paging.next())
+//             $paging.next().css('content-visibility', 'hidden');
 
 
 
-        } else {
-            const $paging = $('.paging-commnet');
-            $paging.css('content-visibility', 'visible');
-            // console.log($paging.prev())
-            $paging.prev().css('content-visibility', 'hidden');
-        }
+//         } else {
+//             const $paging = $('.paging-commnet');
+//             $paging.css('content-visibility', 'visible');
+//             // console.log($paging.prev())
+//             $paging.prev().css('content-visibility', 'hidden');
+//         }
 
-    })
+//     })
 
-    $("#boardcontent tr").click(function(){
-        const boardNo = $(this).children(".table-number").text();
-        $("#deletModal").find(".board-data").val(boardNo);  
+//     $("#boardcontent tr").click(function(){
+//         const boardNo = $(this).children(".table-number").text();
+//         $("#deletModal").find(".board-data").val(boardNo);  
         
-        $(this).css('border', '3px solid #1abc9cc7');
+//         $(this).css('border', '3px solid #1abc9cc7');
 
-        $(this).siblings().css('border', '0');
-        // console.log($(this).siblings());
-        // console.log($(this).siblings('.show'));
+//         $(this).siblings().css('border', '0');
+//         // console.log($(this).siblings());
+//         // console.log($(this).siblings('.show'));
        
-        $(this).siblings('.show').removeClass('show');
+//         $(this).siblings('.show').removeClass('show');
 
-    })
+//     })
 
-    $("[data-target='#myModal']").click(function(){
-        // console.log(this);
-        // console.log($(this).parents('.collapseitem'));
+//     $("[data-target='#myModal']").click(function(){
+//         // console.log(this);
+//         // console.log($(this).parents('.collapseitem'));
 
-        const reportNo =  $(this).parents('.collapseitem').children('input[name=report]').val()
-        // console.log(reportNo);
+//         const reportNo =  $(this).parents('.collapseitem').children('input[name=report]').val()
+//         // console.log(reportNo);
 
-        const content =  $(this).parents('.collapseitem').children('textarea[name=content]').val() 
-        // console.log(content);
+//         const content =  $(this).parents('.collapseitem').children('textarea[name=content]').val() 
+//         // console.log(content);
 
-        $("#myModal").find("input[name=reportNo]").val(reportNo);
-        $("#myModal").find("input[name=text]").val(content);    
-
-
-    })
+//         $("#myModal").find("input[name=reportNo]").val(reportNo);
+//         $("#myModal").find("input[name=text]").val(content);    
 
 
-})
-
-// 이동용 모달 
-$(function(){
-    $(".moving-category>li").click(function(e){
-        
-        $(this).css('border', '1px solid #1abc9cc7').css('border-radius', '10px');
+//     })
+    
+//     // 이동용 모달 
+//     $(function(){
+//         $(".moving-category>li").click(function(e){
+            
+//             $(this).css('border', '1px solid #1abc9cc7').css('border-radius', '10px');
+           
+//             // 제이쿼리에서 선택된 요소를 제외한고 골라준다.
+//             $(this).siblings().css('border', '0')
+    
+//             $("input[name=selectNo]").val($(this).val());
+//         })
        
-        // 제이쿼리에서 선택된 요소를 제외한고 골라준다.
-        $(this).siblings().css('border', '0')
+//     })
 
-        $("input[name=selectNo]").val($(this).val());
-    })
-   
-})
+// })
+
 

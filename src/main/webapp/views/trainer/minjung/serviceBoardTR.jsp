@@ -185,19 +185,20 @@
   
         <!-- Modal body -->
         <div class="in-line" style="text-align: center;">
-        <div style="font-size: 15px; padding-top: 10px;"><input style="text-align: center;" type="text" name="no">번</div>
+        <div style="font-size: 15px; padding-top: 10px;"><input class="board-data" type="text" name="no">번</div>
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
         </div>
         <div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
         </div>
+        <br>
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
             <button type="button" class="btn btn-outline-danger btn-sm deletebtn">확인</button>
         </div>
         </form>
-  
+        
       </div>
     </div>
   </div>

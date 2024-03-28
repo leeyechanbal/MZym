@@ -876,7 +876,6 @@ public class BoardDao {
 		try {
 			pst = conn.prepareStatement(prop.getProperty("boardStatusY"));
 			pst.setInt(1, (int)hash.get("reportNo"));
-			pst.setString(2, (String)hash.get("reporter"));
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			
@@ -902,7 +901,6 @@ public class BoardDao {
 		try {
 			pst = conn.prepareStatement(prop.getProperty("commentStatusY"));
 			pst.setInt(1, (int)hash.get("reportNo"));
-			pst.setString(2, (String)hash.get("reporter"));
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			
@@ -1783,7 +1781,6 @@ public class BoardDao {
 		try {
 			pst = conn.prepareStatement(prop.getProperty("boardStatusN"));
 			pst.setInt(1, (int)hash.get("reportNo"));
-			pst.setString(2, (String)hash.get("reporter"));
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			
@@ -1802,7 +1799,6 @@ public class BoardDao {
 		try {
 			pst = conn.prepareStatement(prop.getProperty("commentStatusN"));
 			pst.setInt(1, (int)hash.get("reportNo"));
-			pst.setString(2, (String)hash.get("reporter"));
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			

@@ -262,18 +262,18 @@
                 <div class="modal-header-create">
                 <br>
                 <h3 class="modal-title text-center" id="creat-modal-header">공지사항</h3>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" style="margin-right: 10px;" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <br>
                 <form action="<%=mzymPath%>/insertNotice.trainer" method="post" enctype="multipart/form-data">
 	                <!-- Modal body -->
-	                <div class="modal-body-create">
-	                    <div class="hair-careate"><input name='title' type="text" placeholder="제목 입력"></div>
+	                <div class="modal-body-create" style="border: inset;">
+	                    <div class="hair-careate" style="width: 95%;"><input style="border: 0; width: 100%; margin-top: 10px;" name='title' type="text" placeholder="제목 입력"></div>
 	                    <hr>
-	                    <div class="bottom-create"><textarea name="content" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
+	                    <div class="bottom-create"><textarea style="border: 0;" name="content" cols="30"  rows="20" placeholder="글입력" style="resize: none;"></textarea></div>
 	                <!-- 큰모달창 일 경우 cols="55" -->
 	                    <hr>
-	                    <div class="formOut">
+	                    <div class="formOut" style="margin-bottom: 10px;">
 	                        <input name="file" type="file">
 	                    </div>
 	                </div>

@@ -346,7 +346,7 @@ tfoot {
 				<!-- Modal body -->
 				<form action="<%=mzymPath %>/deleteAdvice.trainer" method="post">
 				<div class="in-line" style="text-align: center;">
-				<div style="font-size: 15px; padding-top: 10px;"><input style="text-align: center;" type="text" id="adviceNo" name="adviceNo">번</div>
+				<div style="font-size: 15px; padding-top: 10px;"><input class="board-data" type="text" id="adviceNo" name="adviceNo">번</div>
 				<div class="modal-body" style="text-align: center; font-size: 15px;">
 					게시물을 정말로 삭제 하시겠습니까?
 				</div>

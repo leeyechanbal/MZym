@@ -450,7 +450,6 @@ where report_no = ?
 <entry key="boardStatusY">
 update mzym_board
 set status = 'Y'
-, REPORTER = ?
 where board_no = (
      select board_no
      from report

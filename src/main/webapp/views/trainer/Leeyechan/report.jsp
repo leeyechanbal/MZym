@@ -171,11 +171,13 @@
                                                             <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                             <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                         <%} else { %>
-                                                            <button type="button" class="btn btn-outline-danger btn-sm warning type2">수정</button>
+                                                            <%if(loginUser.getUserId().equals(r.getReporter())){ %>
+                                                            <button type="button" class="btn btn-outline-warning btn-sm type2">수정</button>
+                                                            <%} %>
                                                         <%} %>
                                                     <%}else{ %>
-                                                    <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
-                                                    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
+                                                        <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
+                                                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal">이동</button>
                                                     <%} %>
                                                     
                                                 </div>
@@ -265,6 +267,7 @@
                                                     <div class="carousel-inner">
                                                     <%for (int j = 0; j< atList.size(); j++ ){ 
                                                     	Attachment at = atList.get(j);
+                                                    	
                                                     %>
                                                       <div class="carousel-item <%=(j == 0)?"active":""%>"><span class="badge badge-dark"><%=at.getFileLevel()%></span>
                                                         <img src="<%=mzymPath + at.getFilePath()+ at.getChangeName()%>" width="500px" height="500px">
@@ -290,7 +293,9 @@
                                                     <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                 <%} else { %>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm warning type2">수정</button>
+                                                    <%if(loginUser.getUserId().equals(r.getReporter())){ %>
+                                                        <button type="button" class="btn btn-outline-warning btn-sm type2">수정</button>
+                                                    <%} %>
                                                 <%} %>
                                                 </div>
                                             </td>
@@ -366,14 +371,15 @@
                                                     <button type="button" class="btn btn-outline-danger btn-sm type2">확인</button>                                                   	
                                                     <button type="button" class="btn btn-outline-secondary btn-sm type1">철회</button>
                                                 <%} else { %>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm warning type2">수정</button>
+                                                    <%if(loginUser.getUserId().equals(r.getReporter())){ %>
+                                                        <button type="button" class="btn btn-outline-warning btn-sm type2">수정</button>
+                                                    <%} %>
                                                 <%} %>
                                             </div>
                                         </form>
                                         </div>
                                     </td>
                                 </tr>
-
                             <%} %>
                             </table>
                         </div>
@@ -570,19 +576,24 @@
                        location.href = str;
                     })
                     
-
+                    // 이동 모달 데이터 받기
                     $("[data-target='#myModal']").click(function(){
                         // console.log(this);
-                        // console.log($(this).parents('.collapseitem'));
+                        // console.log($(this).parents('form'));
 
-                        const reportNo =  $(this).parents('.collapseitem').children('input[name=report]').val()
+                        const reportNo =  $(this).parents('form').children('input[name=report]').val()
                         // console.log(reportNo);
 
-                        const content =  $(this).parents('.collapseitem').children('textarea[name=content]').val() 
+                        const content =  $(this).parents('form').children('textarea[name=content]').val()
                         // console.log(content);
 
+                        const reporter = $(this).parents('form').children('input[name=reporter]').val()
+                        // console.log(reporter);
+
+
                         $("#myModal").find("input[name=reportNo]").val(reportNo);
-                        $("#myModal").find("input[name=text]").val(content);    
+                        $("#myModal").find("input[name=text]").val(content);   
+                        $("#myModal").find("input[name=reporter]").val(reporter);  
 
 
                     })
@@ -606,12 +617,14 @@
 					        </div>
 					  
 					        <!-- Modal body -->
-					    <form action="<%=mzymPath%>/moveBoard.trainer" method="get">
+					    <form action="<%=mzymPath%>/moveBoard.trainer" method="post">
 					        <div class="modal-body">
 					        <div class="in-line">
 					            <h5>현재 선택된 게시글</h5> 
-					            <div style="font-size: 15px;"><input type="text" name="reportNo">번</div>
-					            <div style="font-size: 20px;">현재 위치 : <%=categoryName%></div>
+					            <div style="font-size: 15px;"><input style="text-align: center; border: 0;" type="text" name="reportNo">번</div>
+                                <div style="font-size: 15px;"><input style="text-align: center; border: 0;" type="text" name="reporter">관리자</div>
+					            <br>
+                                <div style="font-size: 20px;">현재 위치 : <u style="text-decoration-color: #1abc9cc7;"><%=categoryName%></u></div>
 					            <br>
 					            <div style="font-size: 20px; display: flex"> 이동 위치 선택
 					                <ul class="moving-category" style="font-size: 15px;">
@@ -620,7 +633,8 @@
 					                     <%} %>
 					                </ul>
 					            </div>
-					            <input type="hidden" name="selectNo">
+					            <input type="text" name="selectNo">
+                                <!-- 타입이 hidden일 경우에는 requerd가 먹히지 않는다. -->
                                 <input type="text" name="text">
                                 <input type="text" name="cate" value="<%=categoryNum%>">
 					        </div>
@@ -628,7 +642,8 @@
 					
 					        <!-- Modal footer -->
 					        <div class="modal-footer">
-					            <button type="submit" class="btn btn-outline-success btn-sm">이동</button>
+					            <button type="submit" class="btn btn-outline-success btn-sm" onclick="return modalCheck();">이동</button>
+                                <!-- submit보다 속성 이벤트가 먼저 작동된다. -->
 					            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
 					        </div>
 					    </div>
@@ -647,6 +662,16 @@
 					            })
 					           
 					        })
+
+                            function modalCheck(){
+                                console.log($('input[name=selectNo]').val());
+                                console.log(document.getElementsByName('selectNo').value);
+                                console.log(document.getElementsByName('selectNo').value == null);
+
+
+                                return false;
+                            }
+
 					    </script>
 					  
 					      </div>

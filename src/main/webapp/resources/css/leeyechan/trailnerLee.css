@@ -333,3 +333,13 @@
         tbody> .section2 {
             height: 500px;
         }
+        .modal-input{
+            text-align: center;
+            border: 0px;
+        }
+
+        .modal-input:focus-visible,
+        .board-data:focus-visible {
+            outline-color: red;
+        }
+
