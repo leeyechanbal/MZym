@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>고객 센터 페이지</title>
+    <title>고객센터</title>
 
 	
    <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
@@ -85,17 +85,20 @@
                         </tr>
 
                         <tr id="context<%=i%>" class="collapse">
-                    <form action="<%=contextPath %>/updateServiceBoard.trainer" method="get" id="serviceList">
+                  		  <form action="<%=contextPath %>/updateServiceBoard.trainer" method="get" id="serviceList">
                             <td colspan="5">
-                                <p style="min-height:150px; text-align: left; white-space: pre;" class="border rounded">
-                                    <%=list.get(i).getServiceContent() %>
-                                <hr>
                                 <input type="hidden" name="no" value="<%=s.getServiceNo() %>">
                                 <input type="hidden" name="confimeTR" value="<%=loginUser.getUserNo()%>">
+                                <div style="min-height:150px; text-align: left; white-space: pre;" class="border rounded">
+                                    <%=list.get(i).getServiceContent() %>
+                                </div>
+                                <hr>
                                 <%if(list.get(i).getUpfileUrl() != null && list.get(i).getFileStatus().equals("Y")){ %>
 	                                <div style="max-width:100%; height: auto; text-align: left;">
 	                                	<a download="orginName" href="<%=contextPath + list.get(i).getUpfileUrl() %>" class="btn btn-outline-success">download</a>
+	                                	<%= s.getUpfileUrl() %>
 	                                </div>
+	                                
                                 <%}else{ %>
                                 	등록된 첨부파일이 없습니다.
                                 <%} %>
@@ -173,7 +176,7 @@
 
 <!-- 삭제용 모달 -->
 <div class="modal" id="deletModal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content" style="border: 3px solid #1abc9cc7;">
   
         <!-- Modal Header -->
@@ -188,10 +191,12 @@
         <div style="font-size: 15px; padding-top: 10px;"><input class="board-data" type="text" name="no">번</div>
         <div class="modal-body" style="text-align: center; font-size: 15px; ">
             게시물을 정말로 삭제 하시겠습니까?
+        
         </div>
         <div style="font-weight: bold; color: red; text-align: center;">삭제 후에는 데이터를 복구 할 수 없습니다.</div>
         </div>
         <br>
+        
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">취소</button>
@@ -214,7 +219,7 @@
                 })
 
 
-                $(".deletebtn").on("click",(function(){
+                 $(".deletebtn").on("click",(function(){
 
                     $.ajax({
                         url:"<%=contextPath%>/deleteServiceBoard.trainer",
@@ -231,37 +236,8 @@
                         }
                     })
                     
-                }))   
-                 
+                 }))         
 
-                const te = document.querySelectorAll("input");
-
-                $(document).keydown(function(e){
-                        const val = e.key;
-                        let check = true;
-
-                        for (let i =0; i < te.length; i++){
-                            if((te[i] === document.activeElement)){
-                                check = false;
-                            }
-                        }
-
-                        if(check){
-                            let $t = null;
-                            if(val != 0){
-                                $t = $("#boardcontent tr").eq(Number(val) * 2);   
-                            } else if (val == 0){
-                                $t = $("#boardcontent tr").eq(20);
-                            }
-
-                            $t.css('border', '3px solid #1abc9cc7');
-                                $t.addClass('show');
-
-                                $t.siblings().css('border', '0');
-                                $t.siblings('.show').removeClass('show');
-
-                        }
-                }) 
             })
 		 </script>
 

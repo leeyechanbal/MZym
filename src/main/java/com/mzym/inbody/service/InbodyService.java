@@ -39,8 +39,6 @@ public class InbodyService {
 	public int insertInbody(Inbody ib,String insertName, String insertPhone) {
 		Connection conn = getConnection();
 		int result = iDao.insertInbody(conn, ib, insertName, insertPhone);
-		
-		System.out.println(insertName);
 		if(result > 0) {
 			commit(conn);
 		}else {

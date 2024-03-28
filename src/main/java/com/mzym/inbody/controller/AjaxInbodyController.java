@@ -37,6 +37,7 @@ public class AjaxInbodyController extends HttpServlet {
 		Inbody ib = new InbodyService().selectInbody(userPhone);
 		response.setContentType("application/json; charset=utf-8");
 		
+		request.setAttribute("ib", ib);
 		
 		new Gson().toJson(ib, response.getWriter());
 		

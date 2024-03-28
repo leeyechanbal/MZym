@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mzym.member.model.vo.Member" %>
+<%@ page import="com.mzym.mypage.model.vo.Inbody" %>
 <%
    String contextPath = request.getContextPath();
    String alertMsg = (String)session.getAttribute("alertMsg");
+   Inbody ib = (Inbody)request.getAttribute("ib");
 %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>인바디 페이지</title>
+<title>인바디</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -143,15 +145,6 @@
                 </div>
               </form>
             </td>
-        
-            <td class="section3"></td>
-        <!-- tfoot : 페이징 바 및 작성 과 삭제 버튼 영역 -->
-        <tfoot>
-            <td class="section1" style="background-color: rgb(224, 224, 224);"></td>
-            <td class="section2"></td>
-            <td class="section3 "></td>
-        </tfoot>
-        <!-- tfoot :  페이징 바 및 작성 과 삭제 버튼 영역 -->
 
 
 <!-- 등록용 모달 -->
@@ -249,6 +242,7 @@
       
       // 회원 인바디 등록
       $("#insertbtn").on("click", function(){
+    	  
          $.ajax({
             url:"<%=contextPath%>/insertInbody.trainar",
             data:{
@@ -263,6 +257,8 @@
             success:function(result){
                console.log(result);               
                alert("성공적으로 등록 되었습니다.");
+               
+               location.href="<%=contextPath%>/indobyForm.trainar";
             },
             error:function(){
                console.log("인바디 등록 ajax통신 실패");
