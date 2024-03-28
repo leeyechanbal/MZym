@@ -87,10 +87,10 @@ public class ServiceBoardService {
 		int result2 = 1;
 		
 		if(at != null) {
-			if(at.getFileNO() != 0) {
+			if(at.getFileNO() != 0) { // 기존O , 새O  => update
 				result2 = sDao.updateAtt(conn, at);
 				
-			}else {
+			}else { // 기존 x, 새o => insert 
 				result2 = sDao.insertNewAtt(conn, at);
 				result2 = sDao.deleteOldAtt(conn, at);
 				
@@ -102,6 +102,7 @@ public class ServiceBoardService {
 			rollback(conn);
 		}
 		close(conn);
+	
 		return result1 * result2;
 	}
 

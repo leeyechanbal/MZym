@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="insertPayment">
+INSERT INTO PAYMENT 
+(
+    PAYMENT_NO,
+    PRODUCT_NO,
+    PAYMENT_USER,
+    PAYMENT_PRICE, 
+    PAYMENT_DATE,
+    STATUS, 
+    PAYMENT_NAME
+)
+VALUES
+(
+    SEQ_PAYMENTNO.NEXTVAL, 
+    ?,
+    ?, 
+    ?,
+    SYSDATE, 
+    'W', 
+    null
+)
+</entry>
+
+</properties>

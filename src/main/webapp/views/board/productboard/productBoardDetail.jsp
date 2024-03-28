@@ -6,12 +6,12 @@
 <%
 
 Product p = (Product)request.getAttribute("p");
-
+String insertProduct = request.getContextPath()+"/insert.product";
 %>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 구매 상세</title>
 <style>
 	.center{display:flex; justify-content: center; align-items: center;}
 
@@ -128,32 +128,47 @@ Product p = (Product)request.getAttribute("p");
             <br><br>
             
             <div class="product-container">
+            				 
+			            	 
+			            	 
                 <div class="product-image">
                     <img src="<%=contextPath + "/" + p.getUpfileUrl() %>" alt="상품 이미지" style="width: 350px; height: 300px; margin: 20px;">
                 	
                 </div>
                 <div class="product-details">
+                	 <input type="hidden" name="price" value="<%=p.getPrice() %>">
+	            	 <input type="hidden" name="proNo" value="<%=p.getProductNo() %>">
+                	<div>
+                	
                     <h6><%=p.getProductName() %></h6>
-                    <p class="price" style="color: #1abc9c; margin-right: 50px;"><%=p.getPrice() %>원</p>
+                    </div>
+                    <p class="price" style="color: #1abc9c; margin-right: 50px;" ><%=p.getPrice() %>원</p>
                     <p><%=p.getProductContent() %></p>
                     <div id="quantity-container">
-                        <button onclick="adjustQuantity(-1)">-</button>
+                        <button onclick="adjustQuantity(-1)" class="btn btn-outline-success">-</button>
                         <input type="text" id="quantity" value="1" oninput="calculateTotalPrice()">
-                        <button onclick="adjustQuantity(1)">+</button>
+                        <button onclick="adjustQuantity(1)" class="btn btn-outline-success">+</button>
                     </div>
                     <br>
                     <p>총 상품 금액</p>
                     <hr style="width: 650px;">
                     <div class="total-and-button">
-                        <p class="total_price"><%=p.getPrice() %>원</p>
+                    	<div>
+                    	
+                        <span class="total_price"><%=p.getPrice() %></span>
+                        	 
+                        </div>
                         <%if(loginUser !=null){%>
-                        <button id="sellButton" type="button" style="margin-right: 50px;">구매하기</button>
+                        <button id="sellButton" type="button" onclick="paymentCall(<%=p.getProductNo()%>, <%=p.getPrice()%>);" style="margin-right: 50px;">구매하기</button>
                     	<%}else{ %>
                     		<p>로그인후 구매가 가능합니다.</p>
                     	<%} %>
+                    
                     </div>
                 </div>
             </div>
+         
+            
             
             <hr style="width: 100%;">
             <div class="product-detail">
@@ -172,6 +187,43 @@ Product p = (Product)request.getAttribute("p");
 		</section>
         <!-- Section end -->
     	<script>
+    	
+    	function paymentCall(productNo,price) {
+    		var totalElement = document.querySelector('.total_price');
+    		var totalPriceText = totalElement.textContent; 
+    		var totalPrice = parseInt(totalPriceText);
+    		console.log(totalPrice);
+    		var totalQuantity = parseInt(document.getElementById('quantity').value);
+    		console.log(totalQuantity);
+    		var totalPrice = 0;
+
+    		if (totalQuantity > 0) {
+    		    totalPrice = price * totalQuantity;
+    		} else {
+    		    totalPrice = price;
+    		}
+    		console.log(totalPrice);
+    	    
+    	    if (confirm('정말 구매하시겠습니까?')) {
+    	        $.ajax({
+    	            url: "<%= insertProduct %>",
+    	            type: "get",
+    	            data: {
+    	                "productNo": productNo,
+    	                "totalPrice": totalPrice 
+    	            },
+    	            success: function(response) {
+    	                location.reload();
+    	            },
+    	            error: function() {
+    	                alert("구매에 실패했습니다.");
+    	            }
+    	        });
+    	    }
+    	}
+    	
+    	
+    	
         function openModal() {
           var modal = document.getElementById('myModal');
           modal.style.display = 'block';

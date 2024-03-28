@@ -220,7 +220,7 @@ public class ServiceBoardDao {
 		} finally { 
 			close(pstmt);
 		}
-		
+		System.out.println(result);
 		return result;
 	}
 

@@ -305,7 +305,7 @@
                 <div class="login_footer" style="font-size: larger;">
                     아직 MZym회원이 아니시라면, 지금 가입해 이용해 보세요!
                     <br><br>
-                    <button class="btn">회원가입</button>
+                    <a href="<%=contextPath %>/signupForm.me" type="button" class="btn">회원가입</a>
                 </div>
                 <!-- 로그인 풋터 끝-->
             </div>

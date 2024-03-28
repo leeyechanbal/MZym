@@ -134,10 +134,15 @@ border rounded>span {
 	width: 120px;
     margin: 20px;
 }
+.fileimgarea img{
+	margin-bottom: 20px;
+}
+
 .fileimgareaButton{
  display: flex;
  margin-right: 20px;
  justify-content: space-between;
+ padding: 20px
 }
 .fileimgareaButton input{
       width: 50%;
@@ -317,7 +322,7 @@ border rounded>span {
 										
 										<div class="fileimgareaButton">
 											<input type="file" value="파일추가" name="upfile">
-											<a onclick="deleteImg(<%= sb.getFileNo()%>);" class="btn btn-outline-secondary btn-sm">파일삭제</a>
+											<a onclick="deleteImg(<%= sb.getFileNo()%>);" class="btn btn-outline-secondary btn-sm" style="margin-top: 30px;">파일삭제</a>
 										</div>
 										
 										<% }else{ %>

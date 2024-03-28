@@ -39,7 +39,7 @@ public class ServiceBoardUpdateController extends HttpServlet {
 			
 			int maxSize = 10*1024*1024;
 			
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/"); 
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/serviceUpfile/servicefile/"); 
 			
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8", new RenameFile());
 			
@@ -63,10 +63,10 @@ public class ServiceBoardUpdateController extends HttpServlet {
 				
 				if(multiRequest.getParameter("originFileNo") !=null) {
 					
-				at.setFileNO((Integer.parseInt(multiRequest.getParameter("originFileNo"))));
+					at.setFileNO((Integer.parseInt(multiRequest.getParameter("originFileNo"))));
 				}else {	
 				
-				at.setAttNo(serviceNo);
+					at.setAttNo(serviceNo);
 				}
 				
 			}
