@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>고객 센터 페이지</title>
+    <title>고객센터</title>
 
 	
    <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
@@ -85,17 +85,20 @@
                         </tr>
 
                         <tr id="context<%=i%>" class="collapse">
-                    <form action="<%=contextPath %>/updateServiceBoard.trainer" method="get" id="serviceList">
+                  		  <form action="<%=contextPath %>/updateServiceBoard.trainer" method="get" id="serviceList">
                             <td colspan="5">
-                                <p style="min-height:150px; text-align: left; white-space: pre;" class="border rounded">
-                                    <%=list.get(i).getServiceContent() %>
-                                <hr>
                                 <input type="hidden" name="no" value="<%=s.getServiceNo() %>">
                                 <input type="hidden" name="confimeTR" value="<%=loginUser.getUserNo()%>">
+                                <div style="min-height:150px; text-align: left; white-space: pre;" class="border rounded">
+                                    <%=list.get(i).getServiceContent() %>
+                                </div>
+                                <hr>
                                 <%if(list.get(i).getUpfileUrl() != null && list.get(i).getFileStatus().equals("Y")){ %>
 	                                <div style="max-width:100%; height: auto; text-align: left;">
 	                                	<a download="orginName" href="<%=contextPath + list.get(i).getUpfileUrl() %>" class="btn btn-outline-success">download</a>
+	                                	<%= s.getUpfileUrl() %>
 	                                </div>
+	                                
                                 <%}else{ %>
                                 	등록된 첨부파일이 없습니다.
                                 <%} %>

@@ -221,7 +221,7 @@
                                         <label>내용</label>
                                     </td>
                                     <td colspan="3">
-                                        <textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8" required name="content" placeholder="내용을 입력해주세요.">
+                                        <textarea  style="margin-bottom: 15px; margin-top: 15px;" cols="70" rows="8" required name="content" placeholder="내용을 입력해주세요." onfocus="this.style.textAlign='left';" >
                                         </textarea></td>
                                 </tr>
     
