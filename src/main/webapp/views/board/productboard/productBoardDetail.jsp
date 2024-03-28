@@ -155,7 +155,8 @@ String insertProduct = request.getContextPath()+"/insert.product";
                     <div class="total-and-button">
                     	<div>
                     	
-                        <span class="total_price"><%=p.getPrice() %></span>
+                        <span 
+                        class="total_price"><%=p.getPrice() %></span>
                         	 
                         </div>
                         <%if(loginUser !=null){%>
@@ -213,7 +214,7 @@ String insertProduct = request.getContextPath()+"/insert.product";
     	                "totalPrice": totalPrice 
     	            },
     	            success: function(response) {
-    	                location.reload();
+    	              
     	            },
     	            error: function() {
     	                alert("구매에 실패했습니다.");

@@ -194,6 +194,7 @@
 		COUNT(*) COUNT
 	FROM PAYMENT
 	WHERE TO_CHAR(PAYMENT_DATE, 'YYYY-MM') = ?
+	AND STATUS IN ('S', 'W')
 </entry>
 
 <!-- 매출조회 - 구성모 -->

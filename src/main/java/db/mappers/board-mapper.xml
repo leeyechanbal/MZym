@@ -203,7 +203,7 @@ from(
             , PHONE_NO
             , CATEGORY_NAME
             , ADVICE_DATE
-            , user_id
+            , NVL(user_id, ADVICE_USER) user_id
             , ADVICE_CONTENT
             , ADVICE_REPEAT
             , TO_CHAR(REGIST_DATE, 'YY"년"MM"월"DD"일"') REGIST_DATE
@@ -211,7 +211,7 @@ from(
             , a.status
         from mzym_advice a
         join service_category USING (CATEGORY_NO)
-        join mzym_member on (user_no = advice_tr)
+        left join mzym_member on (user_no = advice_tr)
         where a.status = ? 
         order by ADVICE_NO DESC 
     )n
@@ -729,7 +729,7 @@ where COMMENT_NO = (
 	,	COMMENT_WRITER
 	,	BOARD_NO
 	,	COMMENT_CONTENT
-	,	REPORT_DATE
+	,	COMMENT_DATE
 	)
 	VALUES
 	(
@@ -777,6 +777,7 @@ where COMMENT_NO = (
 	,	COMMENT_NO
 	,	REPORT_USER
 	,	CATEGORY_NO
+	,	REPORT_DATE
 	)
 	VALUES
 	(
@@ -784,6 +785,7 @@ where COMMENT_NO = (
 	,	?
 	,	?
 	,	?
+	,	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	)
 </entry>
 
