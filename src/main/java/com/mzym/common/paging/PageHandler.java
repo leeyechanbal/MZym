@@ -48,7 +48,7 @@ public class PageHandler {
 //			System.out.println("startBoard = " + startBoard);
 			// 가져올 개사물의 끝 값
 			int endBoard = startBoard + boardLimit - 1 ;
-			System.out.println("endBoard = "+ endBoard);
+//			System.out.println("endBoard = "+ endBoard);
 			info = new PageInfo(listCount, currentPage, pagingLimit, boardLimit, maxPage, startPage, endPage, startBoard, endBoard);
 		}
 

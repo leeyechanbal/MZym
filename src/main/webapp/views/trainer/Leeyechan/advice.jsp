@@ -208,7 +208,7 @@ tfoot {
 								<input type="hidden" name="adviceNo" value="<%=ad.getAdviceNo()%>">
 								<input type="hidden" name="status" value="<%=ad.getStatus()%>">
 								<!-- 트레이너 아이디 출력 -->
-								<input type="hidden" name="trainerId" value="tr04">
+								<input type="hidden" name="trainerId" value="<%=loginUser.getUserId()%>">
 								</fieldset> 
 								<div class="buttonLo">
 								<button type="submit" class="btn btn-outline-success btn-sm">작성</button>

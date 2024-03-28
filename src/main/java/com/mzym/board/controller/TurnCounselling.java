@@ -41,6 +41,8 @@ public class TurnCounselling extends HttpServlet {
 			String repeat = request.getParameter("repeat");
 			String trainerID = request.getParameter("trainerId");
 			
+			System.out.println();
+			
 			Advice ad = new Advice(adviceNo, trainerID, repeat, status);
 			
 			int result = new BoardService().adviceTuring(ad);

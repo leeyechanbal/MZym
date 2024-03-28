@@ -664,12 +664,12 @@
 					        })
 
                             function modalCheck(){
-                                console.log($('input[name=selectNo]').val());
-                                console.log(document.getElementsByName('selectNo').value);
-                                console.log(document.getElementsByName('selectNo').value == null);
-
-
-                                return false;
+                            
+                                if(document.getElementsByName('selectNo')[0].value == ''){
+                                    alert("게시판을 선택 해 주세요.");
+                                    return false;
+                                }
+                                return ture;
                             }
 
 					    </script>

@@ -403,10 +403,17 @@ public class BoardDao {
 		ResultSet rset = null;
 		PreparedStatement pst = null;
 		List<Advice> list = new ArrayList<>();
+		String str = null;
+//		if(check.equals("Y")) {
+//			str = " DESC";
+//		}else {
+//			str = " ASC";
+//		}
 		
 		try {
 			pst = conn.prepareStatement(prop.getProperty("selectAdvice"));
 			pst.setString(1, check);
+//			pst.setNString(2, str);
 			pst.setInt(2, info.getStartBoard());
 			pst.setInt(3, info.getEndBoard());
 			rset = pst.executeQuery();
@@ -451,11 +458,9 @@ public class BoardDao {
 		try {
 			if(ad.getStatus().equals("N")) {
 				pst = conn.prepareStatement(prop.getProperty("adviceComplete"));
-//				System.out.println(ad.getTrainerId());
+				
 				
 				pst.setString(1, ad.getTrainerId());
-//				System.out.println(ad.getRepeat());
-				
 				pst.setString(2, ad.getRepeat());
 				pst.setInt(3, ad.getAdviceNo());
 				

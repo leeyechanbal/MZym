@@ -13,7 +13,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>Insert title here</title>
 
 <%@ include file="/views/trainer/Leeyechan/trainerHeader.jsp" %>
 <style>
