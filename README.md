@@ -44,7 +44,7 @@
 ###  ② [  ]
 ###  ③ [  ]
 ###  ④ [ 첨부파일 ]
- 첨부 파일에서 받은 Object타입의 객체를 instanceof을 이용해서 객체를 확인
+ 첨부 파일에서 받은 Object타입의 객체를 instanceof을 이용해서 객체를 확인  
  필요한 데이터를 동적으로 생성해서 문자열로 Qurey를 작성해서 DB에 전달
 ```
 	public int insertAttachment(Connection conn, Object obj) {
@@ -104,8 +104,8 @@
 
 ```
 ###  ⑤ [ 신고 게시판 불러 오기 ]
-DB로 부터 받아온 정보의 pt후기 사진일 경우 list<Attachment>에 2번 데이터를 저장한 후 
-이전의 신고 번호 다음 리스트의 신고 번호를 을 비교해서 새로운 List<>을 생성해 받아와
+DB로 부터 받아온 정보의 pt후기 사진일 경우 list<Attachment>에 2번 데이터를 저장한 후   
+이전의 신고 번호 다음 리스트의 신고 번호를 을 비교해서 새로운 List<>을 생성해 받아와  
 font단에 전달
 ```
 while(rset.next()) {
