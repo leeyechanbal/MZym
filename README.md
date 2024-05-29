@@ -39,12 +39,106 @@
 ***
 
 ## :whale2: 화면 구현
-### 목차
-- [1. 공지사항](#공지사항)
 
-
-###  ① #공지사항
+###  ① [ 공지사항 ]
 ###  ② [  ]
 ###  ③ [  ]
-###  ④ [  ]
-###  ⑤ [  ]
+###  ④ [ 첨부파일 ]
+ 첨부 파일에서 받은 Object타입의 객체를 instanceof을 이용해서 객체를 확인
+ 필요한 데이터를 동적으로 생성해서 문자열로 Qurey를 작성해서 DB에 전달
+```
+	public int insertAttachment(Connection conn, Object obj) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		String type = null;
+		String seq = null;
+		Attachment att = null;
+		
+		
+		if (obj instanceof Notice) {
+			type = "N";
+			seq = "SEQ_NOTICENO.currval";
+			att = ((Notice) obj).getAtt();
+		} else if(obj instanceof Board){
+			type = "B";
+			seq = "SEQ_BOARDNO.currval";
+			att = ((Board) obj).getAtt();
+		} else if(obj instanceof Advice) {
+			type = "A";
+			seq = "SEQ_ADVICENO.currval";
+			att = ((Advice) obj).getAtt();
+		}
+		
+    String sql = "insert into attachment ("
+            + "FILE_NO, ATT_NO, ATT_CATEGORY, ORIGIN_NAME, "
+            + "CHANGE_NAME, FILE_PATH, UPLORD_DATE, FILE_LEVEL, STATUS"
+            + ") values ("
+            + "SEQ_ATTACHMENT.nextval, " + seq + ", ?, ?, ?, ?, sysdate, ?, DEFAULT)";
+		
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, type);
+			pst.setString(2, att.getOriginName());
+			pst.setString(3, att.getChangeName());
+			pst.setString(4, att.getFilePath());
+			
+			
+	        if (att.getFileLevel() != null) {
+	            pst.setInt(5, att.getFileLevel());
+	        } else {
+	            pst.setNull(5, java.sql.Types.NULL);
+	            //자바에서 null값을 쿼리문에 전달하는 방법
+	        }
+			
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		return result;
+	}
+
+```
+###  ⑤ [ 신고 게시판 불러 오기 ]
+DB로 부터 받아온 정보의 pt후기 사진일 경우 list<Attachment>에 2번 데이터를 저장한 후 
+이전의 신고 번호 다음 리스트의 신고 번호를 을 비교해서 새로운 List<>을 생성해 받아와
+font단에 전달
+```
+while(rset.next()) {
+  ...
+
+  boolean ch = (count < 2 ) ? true : (list.get(count-1).getReportNo() ==  list.get(count).getReportNo());
+  
+  if(ch) {
+    atList.add(
+        new Attachment(
+          rset.getString("ORIGIN_NAME")
+          , rset.getString("CHANGE_NAME")
+          , rset.getString("FILE_PATH")
+          , rset.getInt("FILE_LEVEL") )
+        );
+  } else {
+    atList = new ArrayList<Attachment>();
+    
+    list.get(count).getBoard().setAtList(atList);
+    
+    atList.add(new Attachment(
+            rset.getString("ORIGIN_NAME")
+            , rset.getString("CHANGE_NAME")
+            , rset.getString("FILE_PATH")
+            , rset.getInt("FILE_LEVEL") )
+        );
+  }
+  ...
+
+```
+***
+
+## [ retrospect ]
+1. API를 찿아보고 적용 했으면 더욱 빠른 개발이 가능 했을 것 같다.
+2. 
+
