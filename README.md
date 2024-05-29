@@ -53,9 +53,9 @@
  - 키보드로 숫자 입력시 입력 받은 값을 이용해서 해당 위치의 공지사항 정보가 보이도록 구현
  - input, textarea에서 숫자 입력에도 작동되는 것을 방지
  <img src=""  width="80%"/>
+ 
 ```
 	<script>
-	    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
 	    const te = document.querySelectorAll("textarea");
 	    $(document).keydown(function(e){
 		    const val = e.key;
