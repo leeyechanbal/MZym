@@ -1,4 +1,4 @@
-![MZYM_logo_272x167](https://github.com/dandi0624/MZym/assets/153481807/70f69c7a-d839-49b1-a20d-323affe01490)
+
 ---
 
 ## :muscle: 프로젝트 기획의도
