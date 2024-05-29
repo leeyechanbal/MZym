@@ -44,16 +44,42 @@
  - 공지사항 등록, 삭제, 수정
  - 수정시 첨부파일을 새로 등록하면 새로운 첨부파일이 등록 되도록 구현
 <img src=""  width="80%"/>
-
-###  ② [ 상담 예약 ]
- - 상담 요청에 대해 보고서를 작성 하도록 구현
- - 보고서를 작성한 트레이너만 보고서를 수정 할 수 있도록 구현
-<img src=""  width="80%"/>
    
 ###  ③ [ 신고 ]
  - 신고된 각 종류 게시글과 댓글의 데이터를 조회 해서 한번에 보여주도록 구현
 <img src=""  width="80%"/>
 
+###  ② [ 단축키 ]
+ - 키보드로 숫자 입력시 입력 받은 값을 이용해서 해당 위치의 공지사항 정보가 보이도록 구현
+ - input, textarea에서 숫자 입력에도 작동되는 것을 방지
+ <img src=""  width="80%"/>
+```
+	<script>
+	    // 키보드 값을 입력 받을떄 해당 위치의 collapse 등장
+	    const te = document.querySelectorAll("textarea");
+	    $(document).keydown(function(e){
+		    const val = e.key;
+		    let check = true;
+		    for (let i =0; i < te.length; i++){
+			if((te[i] === document.activeElement)){
+			    check = false; }
+		    }
+		    if(check){
+			let $t = null;
+			if(val != 0){
+			    $t = $("#boardcontent tr").eq(Number(val) * 2);   
+			} else if (val == 0){
+			    $t = $("#boardcontent tr").eq(20);
+			}
+			$t.css('border', '3px solid #1abc9cc7');
+			    $t.addClass('show');
+			    $t.siblings().css('border', '0');
+			    $t.siblings('.show').removeClass('show'); }
+	    }) 
+	    })
+	</script>
+
+```
 
 ###  ④ [ 첨부파일 ]
  첨부 파일에서 받은 Object타입의 객체를 instanceof을 이용해서 객체를 확인  
