@@ -1,5 +1,5 @@
 
----
+***
 
 ## :muscle: 프로젝트 기획의도
 > - 헬스장 사용 회원들이 꾸준히 다닐 수 있도록 플랫폼 제공
@@ -34,7 +34,7 @@
   <img src="https://img.shields.io/badge/apachetomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black">
 </div>
 
-</br>
+***
 
 ## :date: 화면 구현
 ### [  ]
