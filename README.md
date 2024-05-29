@@ -1,3 +1,4 @@
+<img src="https://github.com/leeyechanbal/errorCodeUnit/assets/153481748/79da3641-fdf5-4164-a656-575b861e0cc8"  width="500" height="200"/>
 
 ***
 
@@ -22,16 +23,16 @@
 
 ## :four_leaf_clover: [ Stack ]
 <div>
-  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
-  <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-  <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white"> <br><br>
-  <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
-  <img src="https://img.shields.io/badge/eclipseide-2C2255?style=for-the-badge&logo=eclipseide&logoColor=white">
-  <img src="https://img.shields.io/badge/java11-007396?style=for-the-badge&logo=java&logoColor=white">
-  <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=visualstudiocode&logoColor=white"> <br><br>
-  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-  <img src="https://img.shields.io/badge/apachetomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black">
+  <img src="https://img.shields.io/badge/html5-E34F26?logo=html5&logoColor=white" height="30px">
+  <img src="https://img.shields.io/badge/css3-1572B6?logo=css3&logoColor=white" height="30px">
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?logo=javascript&logoColor=black" height="30px">
+  <img src="https://img.shields.io/badge/jquery-0769AD?logo=jquery&logoColor=white" height="30px"> <br><br>
+  <img src="https://img.shields.io/badge/visualstudiocode-007ACC?logo=visualstudiocode&logoColor=white" height="30px">
+  <img src="https://img.shields.io/badge/eclipseide-2C2255?logo=eclipseide&logoColor=white" height="30px">
+  <img src="https://img.shields.io/badge/java11-007396?logo=java&logoColor=white" height="30px">
+  <img src="https://img.shields.io/badge/oracle-F80000?logo=visualstudiocode&logoColor=white" height="30px"> <br><br>
+  <img src="https://img.shields.io/badge/github-181717?logo=github&logoColor=white" height="30px">
+  <img src="https://img.shields.io/badge/apachetomcat-F8DC75?logo=apachetomcat&logoColor=black" height="30px">
 </div>
 
 ***
