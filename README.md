@@ -54,7 +54,7 @@
  - 키보드로 숫자 입력시 입력 받은 값을 이용해서 해당 위치의 공지사항 정보가 보이도록 구현
  - input, textarea에서 숫자 입력에도 작동되는 것을 방지
  <img src="https://github.com/leeyechanbal/elJstlProject/assets/153481748/8b1422dd-293e-4133-9e7c-8fab265d8230"  width="80%"/>
- 
+ <br>
 ```
 	<script>
 	    const te = document.querySelectorAll("textarea");
@@ -81,6 +81,7 @@
 	</script>
 
 ```
+<br>
 
 ###  ④ [ 첨부파일 ]
  첨부 파일에서 받은 Object타입의 객체를 instanceof을 이용해서 객체를 확인  
