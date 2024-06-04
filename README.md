@@ -55,6 +55,7 @@
  - input, textarea에서 숫자 입력에도 작동되는 것을 방지
  <img src="https://github.com/leeyechanbal/elJstlProject/assets/153481748/8b1422dd-293e-4133-9e7c-8fab265d8230"  width="80%"/>
  <br>
+ 
 ```
 	<script>
 	    const te = document.querySelectorAll("textarea");
@@ -81,6 +82,7 @@
 	</script>
 
 ```
+
 <br>
 
 ###  ④ [ 첨부파일 ]
