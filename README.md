@@ -1,5 +1,5 @@
 #  [ Project ] MZym
-![mzym_logo](https://github.com/leeyechanbal/MZym/assets/153481748/650fecd3-8730-4ef6-872d-4e1984a01f4b)
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/650fecd3-8730-4ef6-872d-4e1984a01f4b" height="250px" width="500px" >
 
 ***
 
@@ -43,17 +43,17 @@
 ###  ① [ 공지사항 ]
  - 공지사항 등록, 삭제, 수정
  - 수정시 첨부파일을 새로 등록하면 새로운 첨부파일이 등록 되도록 구현
-<img src="https://github.com/leeyechanbal/elJstlProject/assets/153481748/567ea6be-ba9a-4a21-924f-ff14dfce028e"  width="80%"/>
-<img src="https://github.com/leeyechanbal/elJstlProject/assets/153481748/f841ca07-d6fa-4ec2-8437-be399c9070af"  width="80%"/>
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/3f04302d-4226-4879-a21c-7e40db64307d"  width="80%"/>
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/e5135167-e5c4-497f-a37a-a736f8333faa"  width="80%"/>
 
 ###  ③ [ 신고 ]
  - 신고된 각 종류 게시글과 댓글의 데이터를 조회 해서 한번에 보여주도록 구현
-<img src="https://github.com/leeyechanbal/elJstlProject/assets/153481748/3f1a8460-66af-4483-ab9f-c3ea83b8de1a"  width="80%"/>
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/3f283bb4-7c68-4f9e-9236-17773f242c73"  width="80%"/>
 
 ###  ② [ 단축키 ]
  - 키보드로 숫자 입력시 입력 받은 값을 이용해서 해당 위치의 공지사항 정보가 보이도록 구현
  - input, textarea에서 숫자 입력에도 작동되는 것을 방지
- <img src="https://github.com/leeyechanbal/elJstlProject/assets/153481748/8b1422dd-293e-4133-9e7c-8fab265d8230"  width="80%"/>
+ <img src="https://github.com/leeyechanbal/MZym/assets/153481748/331521ba-4ed5-41a2-af58-389b1ec420d1"  width="80%"/>
  <br>
  
 ```
