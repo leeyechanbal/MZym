@@ -9,7 +9,7 @@
 > - 온라인 상담 및 회원권 결제 서비스 제공 
 
 
-## :date: [ Develope Date ]
+## :date: [ Develop Date ]
 > <p>$\large{2024.02.15\ ~ \ 2024.03.28}$</p>
 
 
