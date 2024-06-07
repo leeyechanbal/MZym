@@ -55,7 +55,7 @@
 <img src="https://github.com/leeyechanbal/MZym/assets/153481748/3f04302d-4226-4879-a21c-7e40db64307d"  width="80%"/>
 
 #### { 수정 }
-<img src="https://github.com/le글 ]
+<img src="https://github.com/le />
 
 
 #### { 삭제 }
