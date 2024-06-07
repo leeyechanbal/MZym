@@ -106,7 +106,9 @@
 			    $t.siblings().css('border', '0');
 			    $t.siblings('.show').removeClass('show'); }
 	    }) 
-	    })달
+	    })
+
+
 ```
 while(rset.next()) {
   ...
