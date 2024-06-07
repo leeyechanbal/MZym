@@ -57,6 +57,125 @@
 #### { 수정 }
 <img src="https://github.com/le글 ]
 
+
+#### { 삭제 }
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/2810b4ef-eff0-4fff-803b-a3afd4430195"  width="80%"/>
+
+### ② [ 상담예약 ]
+- 상담신청이 들어온 글은 상담 대기쪽 테이블에서 조회 됩니다.
+- 전화 상담이 완료되면 보고서를 통해 상담내용을 작성하고 작성 버튼 클릭 시 상담 완료 테이블로 이동 됩니다.
+- 작성이 완료된 보고서는 작성한 관리자만 수정이 가능합니다.
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/d346c19b-f9fa-4acb-853e-586baad7a307"  width="80%"/>
+
+### ③ [ 신고 ]
+ - 신고 처리된 각 게시글을 종류를 선택해서 조회가 가능합니다.
+ - 보고서를 작성시 후 확인시 신고 완료쪽 페이지로 이동 합니다.
+ - 철회 버튼 클릭시 신고된 게시글은 철회 됩니다.
+ - PT후기글인 경우 부트스트랩의 Carousel을 통해 신고된 사진 확인이 가능합니다.
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/a0e04949-7314-46a0-98e0-86466897427a"  width="80%"/>
+
+### ④ [ 단축키 ]
+ - 키보드로 숫자 입력시 입력 받은 값을 이용해서 해당 위치의 공지사항 상세정보가 보여집니다.
+ - input, textarea에서 숫자 입력에도 작동되는 것을 방지하기 위해
+   페이지 내에 textarea와 input 요소를 찾아 조건문에 false가 들어가도록 구현 했습니다.
+ - keydown을 통해서 
+ - keydown을 통해서 해당하는 위치의 다음요소에 있는 상세 정보를 보여주기 위해서 show라는 클래스를 [ 부트스트랩에서 사용되는 클래스 ]
+   삭제 및 추가 함으로 작동하게 구현 했습니다.
+ <br/>
+ <img src="https://github.com/leeyechanbal/MZym/assets/153481748/331521ba-4ed5-41a2-af58-389b1ec420d1"  width="80%"/>
+
+```
+	<script>
+	    const te = document.querySelectorAll("textarea");
+	    $(document).keydown(function(e){
+		    const val = e.key;
+		    let check = true;
+		    for (let i =0; i < te.length; i++){
+			if((te[i] === document.activeElement)){
+			    check = false; }
+		    }
+		    if(check){
+			let $t = null;
+			if(val != 0){
+			    $t = $("#boardcontent tr").eq(Number(val) * 2);   
+			} else if (val == 0){
+			    $t = $("#boardcontent tr").eq(20);
+			}
+			$t.css('border', '3px solid #1abc9cc7');
+			    $t.addClass('show');
+			    $t.siblings().css('border', '0');
+			    $t.siblings('.show').removeClass('show'); }
+	    }) 
+	    })
+	</script>
+```
+
+### ① - 수정 [ 첨부파일 ]
+ 첨부 파일에서 받은 Object타입의 객체를 instanceof을 이용해서 객체를 확인  
+ 필요한 데이터를 동적으로 생성해서 문자열로 Qurey를 작성해서 DB에 전달
+```
+	public int insertAttachment(Connection conn, Object obj) {
+		PreparedStatement pst = null;
+		int result = 0;
+		
+		String type = null;
+		String seq = null;
+		Attachment att = null;
+		
+		
+		if (obj instanceof Notice) {
+			type = "N";
+			seq = "SEQ_NOTICENO.currval";
+			att = ((Notice) obj).getAtt();
+		} else if(obj instanceof Board){
+			type = "B";
+			seq = "SEQ_BOARDNO.currval";
+			att = ((Board) obj).getAtt();
+		} else if(obj instanceof Advice) {
+			type = "A";
+			seq = "SEQ_ADVICENO.currval";
+			att = ((Advice) obj).getAtt();
+		}
+		
+    String sql = "insert into attachment ("
+            + "FILE_NO, ATT_NO, ATT_CATEGORY, ORIGIN_NAME, "
+            + "CHANGE_NAME, FILE_PATH, UPLORD_DATE, FILE_LEVEL, STATUS"
+            + ") values ("
+            + "SEQ_ATTACHMENT.nextval, " + seq + ", ?, ?, ?, ?, sysdate, ?, DEFAULT)";
+		
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, type);
+			pst.setString(2, att.getOriginName());
+			pst.setString(3, att.getChangeName());
+			pst.setString(4, att.getFilePath());
+			
+			
+	        if (att.getFileLevel() != null) {
+	            pst.setInt(5, att.getFileLevel());
+	        } else {
+	            pst.setNull(5, java.sql.Types.NULL);
+	            //자바에서 null값을 쿼리문에 전달하는 방법
+	        }
+			
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pst);
+		}
+		return result;
+	}
+```
+
+### ③-조회 [ 신고 게시판 불러 오기 ]
+DB로 부터 받아온 정보의 pt후기 사진일 경우 list<Attachment>에 2번 데이터를 저장한 후   
+이전의 신고 번호 다음 리스트의 신고 번호를 을 비교해서 새로운 List<>을 생성해 받아와  
+font단에 전달
+
+
 while(rset.next()) {
   ...
 
