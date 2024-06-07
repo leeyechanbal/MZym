@@ -175,7 +175,7 @@ DB로 부터 받아온 정보의 pt후기 사진일 경우 list<Attachment>에 2
 이전의 신고 번호 다음 리스트의 신고 번호를 을 비교해서 새로운 List<>을 생성해 받아와  
 font단에 전달
 
-
+```
 while(rset.next()) {
   ...
 
@@ -204,6 +204,8 @@ while(rset.next()) {
   ...
 
 ```
+
+
 ***
 
 ## [ retrospect ]
