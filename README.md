@@ -1,5 +1,5 @@
 #  [ Project ] MZym
-<img src="https://github.com/leeyechanbal/MZym/assets/153481748/650fecd3-8730-4ef6-872d-4e1984a01f4b" height="250px" width="500px" >
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/650fecd3-8730-4ef6-872d-4e1984a01f4b" height="200px" width="400px" >
 
 ***
 
