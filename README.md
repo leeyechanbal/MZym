@@ -62,7 +62,7 @@
  필요한 데이터를 String 변수를 활용하여 동적으로 쿼리를 작성하여 DB에 전달 및 데이터를 저장 하고 있습니다.
 
  
-```
+	
 	public int insertAttachment(Connection conn, Object obj) {
 		PreparedStatement pst = null;
 		int result = 0;
@@ -86,11 +86,11 @@
 			att = ((Advice) obj).getAtt();
 		}
 		
-    String sql = "insert into attachment ("
-            + "FILE_NO, ATT_NO, ATT_CATEGORY, ORIGIN_NAME, "
-            + "CHANGE_NAME, FILE_PATH, UPLORD_DATE, FILE_LEVEL, STATUS"
-            + ") values ("
-            + "SEQ_ATTACHMENT.nextval, " + seq + ", ?, ?, ?, ?, sysdate, ?, DEFAULT)";
+	String sql = "insert into attachment ("
+	    + "FILE_NO, ATT_NO, ATT_CATEGORY, ORIGIN_NAME, "
+	    + "CHANGE_NAME, FILE_PATH, UPLORD_DATE, FILE_LEVEL, STATUS"
+	    + ") values ("
+	    + "SEQ_ATTACHMENT.nextval, " + seq + ", ?, ?, ?, ?, sysdate, ?, DEFAULT)";
 		
 		try {
 			pst = conn.prepareStatement(sql);
@@ -100,12 +100,11 @@
 			pst.setString(4, att.getFilePath());
 			
 			
-	        if (att.getFileLevel() != null) {
-	            pst.setInt(5, att.getFileLevel());
-	        } else {
-	            pst.setNull(5, java.sql.Types.NULL);
-	            //자바에서 null값을 쿼리문에 전달하는 방법
-	        }
+		if (att.getFileLevel() != null) {
+		    pst.setInt(5, att.getFileLevel());
+		} else {
+		    pst.setNull(5, java.sql.Types.NULL);
+		}
 			
 			
 			result = pst.executeUpdate();
@@ -117,7 +116,7 @@
 		}
 		return result;
 	}
-```
+
 
 
 #### { 삭제 }
@@ -143,35 +142,35 @@
    true이면 기존 첨부파일의 List<Attachment> 객체에 데이터를 저장 시키고 false이면 새로운 List<Attachment>로
    생성하여 신고 게시글의 정보를 화면으로 전달시켰습니다.   
 
-```
-while(rset.next()) {
-  ...
 
-  boolean ch = (count < 2 ) ? true : (list.get(count-1).getReportNo() ==  list.get(count).getReportNo());
-  
-  if(ch) {
-    atList.add(
-        new Attachment(
-          rset.getString("ORIGIN_NAME")
-          , rset.getString("CHANGE_NAME")
-          , rset.getString("FILE_PATH")
-          , rset.getInt("FILE_LEVEL") )
-        );
-  } else {
-    atList = new ArrayList<Attachment>();
-    
-    list.get(count).getBoard().setAtList(atList);
-    
-    atList.add(new Attachment(
-            rset.getString("ORIGIN_NAME")
-            , rset.getString("CHANGE_NAME")
-            , rset.getString("FILE_PATH")
-            , rset.getInt("FILE_LEVEL") )
-        );
-  }
-  ...
+'''
 
-```
+	while(resultSet.next()) {
+ 		...
+	  boolean ch = (count < 2 ) ? true : (list.get(count-1).getReportNo() ==  list.get(count).getReportNo());
+	  
+	  if(ch) {
+	    atList.add(
+		new Attachment(
+		  rset.getString("ORIGIN_NAME")
+		  , rset.getString("CHANGE_NAME")
+		  , rset.getString("FILE_PATH")
+		  , rset.getInt("FILE_LEVEL") )
+		);
+	  }else{
+	    atList = new ArrayList<Attachment>();
+	    
+	    list.get(count).getBoard().setAtList(atList);
+	    
+	    atList.add(new Attachment(
+		    rset.getString("ORIGIN_NAME")
+		    , rset.getString("CHANGE_NAME")
+		    , rset.getString("FILE_PATH")
+		    , rset.getInt("FILE_LEVEL") )
+		);
+	  }
+		...
+'''
 
 
 ### ④ [ 단축키 ]
@@ -180,10 +179,10 @@ while(rset.next()) {
    페이지 내에 textarea와 input 요소를 찾아 조건문에 false가 들어가도록 구현 했습니다.
  - keydown을 통해서 해당하는 위치의 다음요소에 있는 상세 정보를 보여주기 위해서 show라는 클래스를 [ 부트스트랩에서 사용되는 클래스 ]
    삭제 및 추가 함으로 작동하게 구현 했습니다.
- <br/>
+
  <img src="https://github.com/leeyechanbal/MZym/assets/153481748/331521ba-4ed5-41a2-af58-389b1ec420d1"  width="80%"/>
 
-```
+
 	<script>
 	    const te = document.querySelectorAll("textarea");
 	    $(document).keydown(function(e){
@@ -207,7 +206,8 @@ while(rset.next()) {
 	    }) 
 	    })
 	</script>
-```
+
+
 
 ***
 
