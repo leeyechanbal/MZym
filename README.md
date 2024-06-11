@@ -180,32 +180,37 @@
  - keydown을 통해서 해당하는 위치의 다음요소에 있는 상세 정보를 보여주기 위해서 show라는 클래스를 [ 부트스트랩에서 사용되는 클래스 ]
    삭제 및 추가 함으로 작동하게 구현 했습니다.
 
- <img src="https://github.com/leeyechanbal/MZym/assets/153481748/331521ba-4ed5-41a2-af58-389b1ec420d1"  width="80%"/>
+<img src="https://github.com/leeyechanbal/MZym/assets/153481748/331521ba-4ed5-41a2-af58-389b1ec420d1"  width="80%"/>
+<br><br>
 
 
-	<script>
 	    const te = document.querySelectorAll("textarea");
+     
 	    $(document).keydown(function(e){
 		    const val = e.key;
 		    let check = true;
+	
 		    for (let i =0; i < te.length; i++){
 			if((te[i] === document.activeElement)){
 			    check = false; }
 		    }
+	
 		    if(check){
 			let $t = null;
+	
 			if(val != 0){
 			    $t = $("#boardcontent tr").eq(Number(val) * 2);   
-			} else if (val == 0){
+			}else if (val == 0){
 			    $t = $("#boardcontent tr").eq(20);
 			}
+	
 			$t.css('border', '3px solid #1abc9cc7');
 			    $t.addClass('show');
 			    $t.siblings().css('border', '0');
-			    $t.siblings('.show').removeClass('show'); }
+			    $t.siblings('.show').removeClass('show');
+		    }
 	    }) 
-	    })
-	</script>
+
 
 
 
